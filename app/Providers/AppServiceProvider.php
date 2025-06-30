@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected array $policies = [
         'App\Models\User' => 'App\Policies\UserPolicy',
+        '\App\Models\User' => '\App\Policies\AdminPolicy',
     ];
 
 }

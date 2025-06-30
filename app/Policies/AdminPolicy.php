@@ -10,41 +10,33 @@ class AdminPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $authUser): bool
     {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, User $model): bool
-    {
-        return false;
+        return $authUser->role->role_name === 'super_admin';
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $authUser): bool
     {
-        return false;
+        return $authUser->role->role_name === 'super_admin';
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, User $model): bool
+    public function update(User $authUser): bool
     {
-        return false;
+        return $authUser->role->role_name === 'super_admin';
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, User $model): bool
+    public function delete(User $authUser): bool
     {
-        return false;
+        return $authUser->role->role_name === 'super_admin';
     }
 
     /**
