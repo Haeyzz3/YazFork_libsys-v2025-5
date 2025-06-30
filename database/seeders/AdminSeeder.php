@@ -45,6 +45,15 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('admin123'),
         ])->assignRole($admin_role);
 
+        // Ordinary User (Patron)
+        User::create([
+            'first_name' => 'Patron',
+            'last_name' => 'Student',
+            'username' => '@patron',
+            'email' => 'patron@email.com',
+            'password' => bcrypt('patron123'),
+        ]);
+
         // Permissions
 
         Permission::create([

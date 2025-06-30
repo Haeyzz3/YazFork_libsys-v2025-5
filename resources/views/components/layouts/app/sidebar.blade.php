@@ -12,8 +12,9 @@
             </a>
 
 {{--            test only --}}
-            role:
-            {{ auth()->user()->role->role_name }}
+            @if(auth()->user()->role)
+                role: auth()->user()->role->role_name
+            @endif
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Admin Platform')" class="grid">
