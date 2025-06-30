@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Role extends Model
 {
+    public $table = 'roles';
+
+    public $fillable = [
+        'role_name',
+    ];
+
     public function users() : HasMany
     {
         return $this->hasMany(User::class);

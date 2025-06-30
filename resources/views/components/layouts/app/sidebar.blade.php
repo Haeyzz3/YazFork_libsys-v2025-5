@@ -11,8 +11,10 @@
                 <x-app-logo />
             </a>
 
+            role:
+            {{ auth()->user()->role->role_name }}
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Super Admin Platform')" class="grid">
+                <flux:navlist.group :heading="__('Admin Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
