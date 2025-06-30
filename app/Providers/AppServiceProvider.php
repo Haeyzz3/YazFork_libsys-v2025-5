@@ -31,5 +31,11 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-admins', function ($user) {
             return $user->hasPermission('manage_admins');
         });
+
     }
+
+    protected array $policies = [
+        'App\Models\User' => 'App\Policies\UserPolicy',
+    ];
+
 }
