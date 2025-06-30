@@ -63,18 +63,6 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function assignRole($role)
-    {
-        if ($role instanceof \App\Models\Role) {
-            $this->role_id = $role->id;
-        } else {
-            $this->role_id = $role; // assume it's the role ID
-        }
-        $this->save();
-
-        return $this;
-    }
-
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
@@ -83,5 +71,10 @@ class User extends Authenticatable
     public function patronDetails() : hasOne
     {
         return $this->hasOne(PatronDetail::class);
+    }
+
+    public function hasPermission($permission)
+    {
+        return $this->role && $this->role->permissions->contains('permission_name', $permission);
     }
 }

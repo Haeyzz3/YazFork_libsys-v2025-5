@@ -27,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-admin-content', fn($user) =>
             $user->role?->role_name === 'admin'
         );
+
+        Gate::define('manage-admins', function ($user) {
+            return $user->hasPermission('circulate');
+        });
     }
 }
