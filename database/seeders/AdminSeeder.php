@@ -48,9 +48,14 @@ class AdminSeeder extends Seeder
         // Permissions
 
         Permission::create([
-            'permission_name' => 'manage_users',
-            'permission_description' => 'Manage user accounts and permissions',
+            'permission_name' => 'manage_admins',
+            'permission_description' => 'Manage admin accounts and permissions',
         ])->roles()->attach(1); // only the super admin can manage users
+
+        Permission::create([
+            'permission_name' => 'manage_patrons',
+            'permission_description' => 'Manage patron accounts and permissions',
+        ])->roles()->attach([1,2]); // only the super admin can manage users
 
         Permission::create([
             'permission_name' => 'manage_books',

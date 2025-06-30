@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         );
 
         Gate::define('manage-admins', function ($user) {
-            return $user->hasPermission('circulate');
+            return $user->hasPermission('manage_admins');
         });
     }
 }
