@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -11,7 +12,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');;
-    Route::view('admins', 'manage-admins')->name('manage_admins');;
+    Route::get('admins', [AdminController::class, 'index'])->name('manage_admins');
 });
 
 Route::middleware(['auth'])->group(function () {
