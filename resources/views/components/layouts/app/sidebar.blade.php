@@ -13,7 +13,7 @@
 
 {{--            test only --}}
             @if(auth()->user()->role)
-                role: auth()->user()->role->role_name
+                role: {{ auth()->user()->role->role_name }}
             @endif
 
             <flux:navlist variant="outline">
