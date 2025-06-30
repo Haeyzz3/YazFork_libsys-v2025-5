@@ -18,22 +18,33 @@ class AdminSeeder extends Seeder
         // Default Roles
 
         Role::create([
+            'id' => 1,
             'role_name' => 'super_admin',
         ]);
 
         Role::create([
+            'id' => 2,
             'role_name' => 'admin',
         ]);
 
-        // Default Admin
+        // Default Admins
+
+        User::create([
+            'first_name' => 'Super',
+            'last_name' => 'Admin',
+            'username' => '@superadmin',
+            'email' => 's.admin@email.com',
+            'password' => bcrypt('admin123'),
+            'role_id' => 1,
+        ]);
 
         User::create([
             'first_name' => 'Admin',
-            'last_name' => 'Admin',
-            'username' => 'Admin Ko',
+            'last_name' => 'Only',
+            'username' => '@admin',
             'email' => 'admin@email.com',
             'password' => bcrypt('admin123'),
-            'role_id' => 1,
+            'role_id' => 2,
         ]);
 
         // Permissions
