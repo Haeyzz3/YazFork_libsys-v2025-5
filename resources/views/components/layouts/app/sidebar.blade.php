@@ -42,7 +42,7 @@
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
                 <flux:profile
-                    :name="auth()->user()->first_name"
+                    :name="auth()->user()->first_name . ' ' . auth()->user()->last_name"
                     :initials="auth()->user()->initials()"
                     icon:trailing="chevrons-up-down"
                 />
