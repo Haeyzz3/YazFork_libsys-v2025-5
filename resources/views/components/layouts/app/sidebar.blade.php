@@ -11,9 +11,8 @@
                 <x-app-logo />
             </a>
 
-{{--            test only --}}
             @if(auth()->user()->role)
-                role: {{ auth()->user()->role->role_name }}
+                Role: {{ Str::title(str_replace('_', ' ', auth()->user()->role->role_name)) }}
             @endif
 
             <flux:navlist variant="outline">
