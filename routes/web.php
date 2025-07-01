@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatronController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -11,9 +12,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');;
+    Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('admins', [AdminController::class, 'index'])->name('manage_admins')
         ->middleware('permission:manage_admins');
+    Route::get('patrons', [PatronController::class, 'index'])->name('manage_patrons');
 });
 
 Route::middleware(['auth'])->group(function () {
