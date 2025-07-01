@@ -54,6 +54,7 @@ class AdminSeeder extends Seeder
             'last_name' => 'Admin',
             'username' => '@superadmin',
             'email' => 's.admin@email.com',
+            'role_id' => $super->id,
             'password' => bcrypt('admin123'),
         ]);
 
@@ -62,6 +63,7 @@ class AdminSeeder extends Seeder
             'last_name' => 'Only',
             'username' => '@admin',
             'email' => 'admin@email.com',
+            'role_id' => $admin->id,
             'password' => bcrypt('admin123'),
         ]);
 
