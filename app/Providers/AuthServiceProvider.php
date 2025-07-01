@@ -24,4 +24,8 @@ class AuthServiceProvider extends ServiceProvider
             $user->hasPermission('manage_patrons')
         );
     }
+
+    protected array $policies = [
+        \App\Models\User::class => \App\Policies\UserPolicy::class,
+    ];
 }

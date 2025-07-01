@@ -34,9 +34,11 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, User $model): bool
+    public function update(User $authUser, User $targetUser): bool
     {
-        return false;
+        // e.g. only admins can update others
+        return $authUser->hasPermission('manage-admins') &&
+            $authUser->hasPermission('manage-patrons');
     }
 
     /**
