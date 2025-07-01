@@ -20,6 +20,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('manage-admins', static fn($user) =>
+        $user->hasPermission('manage_admins')
+        );
+
+        Gate::define('manage-patrons', static fn($user) =>
+            $user->hasPermission('manage_patrons')
+        );
+
         Gate::define('view-section-manage-patrons', static fn($user) =>
             $user->hasPermission('manage_patrons')
         );

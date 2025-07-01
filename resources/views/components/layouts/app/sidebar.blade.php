@@ -19,8 +19,12 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Admin Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="user" :href="route('manage_admins')" :current="request()->routeIs('manage_admins')" wire:navigate>{{ __('Manage Admins') }}</flux:navlist.item>
-                    <flux:navlist.item icon="user" :href="route('manage_patrons')" :current="request()->routeIs('manage_patrons')" wire:navigate>{{ __('Manage Patrons') }}</flux:navlist.item>
+                    @can('manage-admins')
+                        <flux:navlist.item icon="crown" :href="route('manage_admins')" :current="request()->routeIs('manage_admins')" wire:navigate>{{ __('Manage Admins') }}</flux:navlist.item>
+                    @endcan
+                    @can('manage-patrons')
+                        <flux:navlist.item icon="shield-user" :href="route('manage_patrons')" :current="request()->routeIs('manage_patrons')" wire:navigate>{{ __('Manage Patrons') }}</flux:navlist.item>
+                    @endcan
                 </flux:navlist.group>
             </flux:navlist>
 
