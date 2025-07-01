@@ -80,13 +80,23 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    /** Check if a user has a given role */
+    public function hasRole(string $roleName): bool
+    {
+        return $this->role && $this->role->role_name === $roleName;
+    }
+
     public function patronDetails() : hasOne
     {
         return $this->hasOne(PatronDetail::class);
     }
 
-    public function hasPermission($permission)
+    /** Check if user’s role has a given permission */
+    public function hasPermission(string $permissionName): bool
     {
-        return $this->role && $this->role->permissions->contains('permission_name', $permission);
+        return $this->role
+            && $this->role->permissions
+                ->pluck('permission_name')
+                ->contains($permissionName);
     }
 }
