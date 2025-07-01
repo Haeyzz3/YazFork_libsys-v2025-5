@@ -15,19 +15,39 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Default Roles
 
-        $super_admin_role = Role::create([
-            'id' => 1,
-            'role_name' => 'super_admin',
-        ]);
+        // 1) Create roles
+        $admin = Role::firstOrCreate(['role_name' => 'admin']);
+        $super = Role::firstOrCreate(['role_name' => 'super_admin']);
 
-        $admin_role = Role::create([
-            'id' => 2,
-            'role_name' => 'admin',
-        ]);
+        // 2) Create permissions
+        $perms = [
+            'manage_admins'    => 'Manage admin accounts and permissions',
+            'manage_patrons'   => 'Manage patron accounts and permissions',
+            'manage_books'     => 'Manage book catalog',
+            'circulate'        => 'Handle borrowing and returns',
+        ];
+        foreach ($perms as $name => $desc) {
+            Permission::firstOrCreate([
+                'permission_name'        => $name,
+                'permission_description' => $desc,
+            ]);
+        }
 
-        // Default Admins
+        // 3) Attach permissions to roles
+
+        $admin->permissions()->sync(
+            Permission::whereIn('permission_name', [
+                'manage_patrons',
+                'manage_books',
+                'circulate',
+            ])->pluck('id')
+        );
+
+        // Super admin gets everything:
+        $super->permissions()->sync(Permission::pluck('id'));
+
+        // Default Users
 
         User::create([
             'first_name' => 'Super',
@@ -35,7 +55,7 @@ class AdminSeeder extends Seeder
             'username' => '@superadmin',
             'email' => 's.admin@email.com',
             'password' => bcrypt('admin123'),
-        ])->assignRole($super_admin_role);
+        ]);
 
         User::create([
             'first_name' => 'Admin',
@@ -43,9 +63,8 @@ class AdminSeeder extends Seeder
             'username' => '@admin',
             'email' => 'admin@email.com',
             'password' => bcrypt('admin123'),
-        ])->assignRole($admin_role);
+        ]);
 
-        // Ordinary User (Patron)
         User::create([
             'first_name' => 'Patron',
             'last_name' => 'Student',
@@ -53,28 +72,6 @@ class AdminSeeder extends Seeder
             'email' => 'patron@email.com',
             'password' => bcrypt('patron123'),
         ]);
-
-        // Permissions
-
-        Permission::create([
-            'permission_name' => 'manage_admins',
-            'permission_description' => 'Manage admin accounts and permissions',
-        ])->roles()->attach(1); // only the super admin can manage users
-
-        Permission::create([
-            'permission_name' => 'manage_patrons',
-            'permission_description' => 'Manage patron accounts and permissions',
-        ])->roles()->attach([1,2]); // only the super admin can manage users
-
-        Permission::create([
-            'permission_name' => 'manage_books',
-            'permission_description' => 'Manage book catalog',
-        ])->roles()->attach([1,2]);
-
-        Permission::create([
-            'permission_name' => 'circulate',
-            'permission_description' => 'Handle borrowing and returns',
-        ])->roles()->attach([1,2]);
 
     }
 }

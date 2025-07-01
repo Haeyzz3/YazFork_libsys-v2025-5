@@ -63,18 +63,6 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function assignRole($role)
-    {
-        if ($role instanceof \App\Models\Role) {
-            $this->role_id = $role->id;
-        } else {
-            $this->role_id = $role; // assume it's the role ID
-        }
-        $this->save();
-
-        return $this;
-    }
-
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
