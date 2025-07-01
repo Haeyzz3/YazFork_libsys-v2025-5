@@ -20,23 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('view-super-admin-content', fn($user) =>
-            $user->role?->role_name === 'super_admin'
-        );
-
-        Gate::define('view-admin-content', fn($user) =>
-            $user->role?->role_name === 'admin'
-        );
-
-        Gate::define('manage-admins', function ($user) {
-            return $user->hasPermission('manage_admins');
-        });
 
     }
 
     protected array $policies = [
-        'App\Models\User' => 'App\Policies\UserPolicy',
-        '\App\Models\User' => '\App\Policies\AdminPolicy',
+
     ];
 
 }

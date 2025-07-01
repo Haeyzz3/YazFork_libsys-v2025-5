@@ -12,7 +12,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');;
-    Route::get('admins', [AdminController::class, 'index'])->name('manage_admins');
+    Route::get('admins', [AdminController::class, 'index'])->name('manage_admins')
+        ->middleware('permission:manage_admins');
 });
 
 Route::middleware(['auth'])->group(function () {

@@ -9,10 +9,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $admins = User::whereHas('role', function($query) {
-            $query->whereIn('role_name', ['admin', 'super_admin']);
-        })->get();
-
-        return view('manage-admins', compact('admins'));
+        return view('manage-admins');
     }
 }
