@@ -68,6 +68,24 @@ class AdminSeeder extends Seeder
         ]);
 
         User::create([
+            'first_name' => 'Juan',
+            'last_name' => 'Dela Cruz',
+            'username' => '@juan',
+            'email' => 'juan@email.com',
+            'role_id' => $admin->id,
+            'password' => bcrypt('admin123'),
+        ]);
+
+        User::create([
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'username' => '@john',
+            'email' => 'john@email.com',
+            'role_id' => $admin->id,
+            'password' => bcrypt('admin123'),
+        ]);
+
+        User::create([
             'first_name' => 'Patron',
             'last_name' => 'Student',
             'username' => '@patron',

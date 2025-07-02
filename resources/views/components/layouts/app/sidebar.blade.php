@@ -12,12 +12,15 @@
             </a>
 
             @if(auth()->user()->role)
-                Role: {{ Str::title(str_replace('_', ' ', auth()->user()->role->role_name)) }}
+                <div class="my-8">
+                    Role: {{ Str::title(str_replace('_', ' ', auth()->user()->role->role_name)) }}
+                </div>
             @endif
 
+            <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Admin Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                <flux:navlist.group :heading="__('User Management')" class="grid">
                     @can('manage-admins')
                         <flux:navlist.item icon="crown" :href="route('manage_admins')" :current="request()->routeIs('manage_admins')" wire:navigate>{{ __('Manage Admins') }}</flux:navlist.item>
                     @endcan
