@@ -14,7 +14,7 @@
           }
           ```
         -->
-        <form action="{{ route('admin.store') }}" method="POST">
+        <form action="{{ route('admins.store') }}" method="POST">
             @csrf
             <div class="space-y-12">
 

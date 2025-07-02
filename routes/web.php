@@ -12,8 +12,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(function () {
-    Route::get('admins', [AdminController::class, 'index'])->name('admins');
+    Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
+    Route::post('admins', [AdminController::class, 'store'])->name('admins.store');
 });
 
 Route::view('dashboard', 'dashboard')->name('dashboard');
