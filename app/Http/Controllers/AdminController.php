@@ -70,8 +70,13 @@ class AdminController extends Controller
         }
     }
 
-    public function edit()
+    public function edit(User $admin)
     {
-        return view('admins.edit');
+        return view('admins.edit', ['admin' => $admin]);
+    }
+
+    public function update(Request $request, User $admin)
+    {
+        dd($request);
     }
 }

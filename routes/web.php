@@ -15,6 +15,8 @@ Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(funct
     Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
     Route::post('admins', [AdminController::class, 'store'])->name('admins.store');
+    Route::get('admins/{admin}/edit', [AdminController::class, 'edit'])->name('admins.edit');
+    Route::put('admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
 });
 
 Route::view('dashboard', 'dashboard')->name('dashboard');
