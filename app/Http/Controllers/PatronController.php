@@ -9,7 +9,14 @@ class PatronController extends Controller
 {
     public function index()
     {
-        return view('patrons.index');
+        $users = User::with('patronDetails')->get();
+
+        // Filter users that have patron details
+        $patrons = $users->filter(function ($user) {
+            return $user->patronDetails !== null;
+        });
+
+        return view('patrons.index', ['patrons' => $patrons]);
     }
 
     public function edit()
