@@ -27,10 +27,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-patrons', static fn($user) =>
             $user->hasPermission('manage_patrons')
         );
-
-        Gate::define('view-section-manage-patrons', static fn($user) =>
-            $user->hasPermission('manage_patrons')
-        );
     }
 
     protected array $policies = [

@@ -25,7 +25,7 @@
                         <flux:navlist.item icon="crown" :href="route('admins.index')" :current="request()->routeIs(['admins', 'admins.*'])" wire:navigate>{{ __('Manage Admins') }}</flux:navlist.item>
                     @endcan
                     @can('manage-patrons')
-                        <flux:navlist.item icon="shield-user" :href="route('manage_patrons')" :current="request()->routeIs('manage_patrons')" wire:navigate>{{ __('Manage Patrons') }}</flux:navlist.item>
+                        <flux:navlist.item icon="shield-user" :href="route('patrons.index')" :current="request()->routeIs(['patrons', 'patrons.*'])" wire:navigate>{{ __('Manage Patrons') }}</flux:navlist.item>
                     @endcan
                 </flux:navlist.group>
             </flux:navlist>

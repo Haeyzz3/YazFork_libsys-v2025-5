@@ -5,7 +5,7 @@
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Manage Admins</h1>
-                    <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, username, email and role.</p>
+                    <p class="mt-2 text-sm text-gray-700">A list of all the admins in your system including their name, username, email and role.</p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2">
                     <a href="{{ route('admins.create') }}">

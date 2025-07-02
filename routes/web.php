@@ -11,6 +11,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::view('dashboard', 'dashboard')->name('dashboard');
+
 Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(function () {
     Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
@@ -20,8 +22,9 @@ Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(funct
     Route::delete('admins/{admin}', [AdminController::class, 'destroy'])->name('admins.destroy');
 });
 
-Route::view('dashboard', 'dashboard')->name('dashboard');
-Route::get('patrons', [PatronController::class, 'index'])->name('manage_patrons');
+Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(function () {
+    Route::get('patrons', [PatronController::class, 'index'])->name('patrons.index');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

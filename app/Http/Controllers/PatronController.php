@@ -9,8 +9,6 @@ class PatronController extends Controller
 {
     public function index()
     {
-        $this->authorize('view-section-manage-patrons');
-
         return view('patrons.index');
     }
 
