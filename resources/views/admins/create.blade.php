@@ -28,14 +28,40 @@
                         <div class="sm:col-span-3">
                             <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
                             <div class="mt-2">
-                                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <input
+                                    id="first-name"
+                                    name="first-name"
+                                    type="text"
+                                    autocomplete="given-name"
+                                    placeholder="Enter your first name"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('first-name') }}"
+                                    required
+                                    @error('first-name') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('first-name')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="sm:col-span-3">
                             <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
                             <div class="mt-2">
-                                <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <input
+                                    id="last-name"
+                                    name="last-name"
+                                    type="text"
+                                    autocomplete="family-name"
+                                    placeholder="Enter your last name"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('last-name') }}"
+                                    required
+                                    @error('last-name') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('last-name')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -50,10 +76,11 @@
                                     placeholder="Enter your username"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     value="{{ old('username') }}"
+                                    required
                                     @error('username') ring-red-500 focus:ring-red-500 @enderror
                                 >
                                 @error('username')
-                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -61,7 +88,60 @@
                         <div class="sm:col-span-4">
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                             <div class="mt-2">
-                                <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    autocomplete="email"
+                                    placeholder="Enter your email address"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('email') }}"
+                                    required
+                                    @error('email') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('email')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                            <div class="mt-2">
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="new-password"
+                                    placeholder="Enter your password"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('password') }}"
+                                    required
+                                    @error('password') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('password')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label for="password-confirmation" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
+                            <div class="mt-2">
+                                <input
+                                    id="password-confirmation"
+                                    name="password_confirmation"
+                                    type="password"
+                                    autocomplete="new-password"
+                                    placeholder="Confirm your password"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('password_confirmation') }}"
+                                    required
+                                    @error('password_confirmation') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('password_confirmation')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
