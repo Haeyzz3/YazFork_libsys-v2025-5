@@ -11,12 +11,13 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-    Route::get('admins', [AdminController::class, 'index'])->name('manage_admins')
-        ->middleware('permission:manage_admins');
-    Route::get('patrons', [PatronController::class, 'index'])->name('manage_patrons');
+Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(function () {
+    Route::get('admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('admin/create', [AdminController::class, 'create'])->name('admin.create');
 });
+
+Route::view('dashboard', 'dashboard')->name('dashboard');
+Route::get('patrons', [PatronController::class, 'index'])->name('manage_patrons');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
