@@ -117,4 +117,19 @@ class AdminController extends Controller
                 ->withInput();
         }
     }
+
+    public function destroy(User $admin): RedirectResponse
+    {
+        try {
+            // If using soft deletes, this will soft delete
+            $admin->delete();
+
+            return redirect()->route('admins.index')
+                ->with('success', 'Admin deactivated successfully.');
+
+        } catch (\Exception $e) {
+            return redirect()->route('admins.index')
+                ->with('error', 'Failed to deactivate admin.');
+        }
+    }
 }

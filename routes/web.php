@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(funct
     Route::post('admins', [AdminController::class, 'store'])->name('admins.store');
     Route::get('admins/{admin}/edit', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
+    Route::delete('admins/{admin}', [AdminController::class, 'destroy'])->name('admins.destroy');
 });
 
 Route::view('dashboard', 'dashboard')->name('dashboard');
