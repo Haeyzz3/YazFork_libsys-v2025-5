@@ -87,7 +87,7 @@ class User extends Authenticatable
     {
         return $this->role
             && $this->role->permissions
-                ->pluck('permission_name')
+                ->pluck('name')
                 ->contains($permissionName);
     }
 }

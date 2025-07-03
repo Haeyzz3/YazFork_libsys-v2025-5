@@ -15,7 +15,7 @@ class AdminController extends Controller
     {
         $admins = User::with('role')
             ->whereHas('role', function ($query) {
-                $query->where('role_name', 'admin');
+                $query->where('name', 'admin');
             })
             ->paginate(10);
 
@@ -29,7 +29,7 @@ class AdminController extends Controller
 
     public function store(Request $request) : RedirectResponse
     {
-        $adminRole = Role::where('role_name', 'admin')->firstOrFail();
+        $adminRole = Role::where('name', 'admin')->firstOrFail();
 
         // Validate the incoming request
         $validator = Validator::make($request->all(), [

@@ -13,7 +13,7 @@
 
             @if(auth()->user()->role)
                 <div class="my-8">
-                    Role: {{ Str::title(str_replace('_', ' ', auth()->user()->role->role_name)) }}
+                    Role: {{ Str::title(str_replace('_', ' ', auth()->user()->role->name)) }}
                 </div>
             @endif
 
