@@ -51,34 +51,32 @@ class AdminSeeder extends Seeder
         // Default Users
 
         User::create([
-            'first_name' => 'Super',
-            'last_name' => 'Admin',
-            'middle_name' => 'Middle',
+            'first_name' => 'Raffy',
+            'last_name' => 'Dela Cruz',
+            'middle_name' => 'Abay-abay',
             'username' => '@superadmin',
             'birth_date' => '1990-01-01',
-            'email' => 's.admin@email.com',
+            'email' => 'radelacruz00121@usep.edu.ph',
             'role_id' => $super->id,
             'password' => bcrypt('admin123'),
         ]);
 
         User::create([
-            'first_name' => 'Admin',
-            'last_name' => 'Only',
-            'middle_name' => 'Middle',
+            'first_name' => 'Kaiser',
+            'last_name' => 'Zamora',
             'birth_date' => '1990-01-01',
-            'username' => '@admin',
-            'email' => 'admin@email.com',
+            'username' => '@kai',
+            'email' => 'kaiser@email.com',
             'role_id' => $admin->id,
             'password' => bcrypt('admin123'),
         ]);
 
         User::create([
-            'first_name' => 'Juan',
-            'middle_name' => 'Ayy',
-            'last_name' => 'Dela Cruz',
+            'first_name' => 'John Robert',
+            'last_name' => 'Paler',
             'birth_date' => '1990-01-01',
-            'username' => '@juan',
-            'email' => 'juan@email.com',
+            'username' => '@j.robert',
+            'email' => 'r.robert@email.com',
             'role_id' => $admin->id,
             'password' => bcrypt('admin123'),
         ]);
