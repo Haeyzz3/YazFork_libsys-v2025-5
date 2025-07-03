@@ -164,7 +164,6 @@
                                     autocomplete="new-password"
                                     placeholder="Enter your password"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    value="{{ old('password') }}"
                                     required
                                     @error('password') ring-red-500 focus:ring-red-500 @enderror
                                 >
@@ -184,7 +183,6 @@
                                     autocomplete="new-password"
                                     placeholder="Confirm your password"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    value="{{ old('password_confirmation') }}"
                                     required
                                     @error('password_confirmation') ring-red-500 focus:ring-red-500 @enderror
                                 >
@@ -266,18 +264,19 @@
                             <div class="mt-2">
                                 <select
                                     id="program"
-                                    name="program"
+                                    name="program-id"
                                     autocomplete="off"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    @error('program') ring-red-500 focus:ring-red-500 @enderror
+                                    @error('program-id') ring-red-500 focus:ring-red-500 @enderror
                                 >
                                     <option value="" disabled selected>Select your program</option>
-                                    <option value="bsit" {{ old('program') == 'bsit' ? 'selected' : '' }}>Bachelor of Science in Information Technology</option>
-                                    <option value="bscs" {{ old('program') == 'bscs' ? 'selected' : '' }}>Bachelor of Science in Computer Science</option>
-                                    <option value="bsce" {{ old('program') == 'bsce' ? 'selected' : '' }}>Bachelor of Science in Computer Engineering</option>
-                                    <option value="bsis" {{ old('program') == 'bsis' ? 'selected' : '' }}>Bachelor of Science in Information Systems</option>
+                                    @foreach($programs as $program)
+                                        <option value="{{ $program->id }}" {{ old('program-id') === $program->id ? 'selected' : '' }}>
+                                            {{ $program->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                                @error('program')
+                                @error('program-id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

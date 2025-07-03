@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Program;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,7 +23,8 @@ class PatronController extends Controller
 
     public function create()
     {
-        return view('patrons.create');
+        $programs = Program::all();
+        return view('patrons.create', ['programs' => $programs]);
     }
 
     public function store(Request $request)
@@ -39,7 +41,7 @@ class PatronController extends Controller
             'student-id' => 'required|string|max:10|unique:users,student_id',
             'library-id' => 'nullable|string|max:10|unique:users,library_id',
             'sex' => 'required|in:male,female',
-            'program' => 'required|exists:programs,id'
+            'program-id' => 'required|exists:programs,id'
         ]);
 
         if ($validator->fails()) {
