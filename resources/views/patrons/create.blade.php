@@ -202,6 +202,29 @@
 
                     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
                         <div class="sm:col-span-3">
+                            <label for="patron-type" class="block text-sm font-medium leading-6 text-gray-900">Patron Type</label>
+                            <div class="mt-2">
+                                <select
+                                    id="patron-type"
+                                    name="patron-type-id"
+                                    autocomplete="off"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    @error('patron-type-id') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                    <option value="" disabled selected>Select patron type</option>
+                                    @foreach($patron_types as $patron_type)
+                                        <option value="{{ $patron_type->id }}" {{ old('patron-type-id') === $patron_type->id ? 'selected' : '' }}>
+                                            {{ $patron_type->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('patron-type-id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-3">
                             <label for="student-id" class="block text-sm font-medium leading-6 text-gray-900">Student ID</label>
                             <div class="mt-2">
                                 <input
@@ -312,12 +335,11 @@
                                     id="office"
                                     name="office-id"
                                     autocomplete="off"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    @error('office-id') ring-red-500 focus:ring-red-500 @enderror
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 @error('office-id') ring-red-500 focus:ring-red-500 @enderror"
                                 >
-                                    <option value="" disabled selected>Select office</option>
+                                    <option value="" disabled selected>Select your office</option>
                                     @foreach($offices as $office)
-                                        <option value="{{ $office->id }}" {{ old('office-id') === $office->id ? 'selected' : '' }}>
+                                        <option value="{{ $office->id }}" {{ old('office-id') == $office->id ? 'selected' : '' }}>
                                             {{ $office->name }}
                                         </option>
                                     @endforeach
@@ -325,52 +347,6 @@
                                 @error('office-id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-4">
-                            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                            <div class="mt-2">
-                                <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-3">
-                            <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
-                            <div class="mt-2">
-                                <select id="country" name="country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                    <option>United States</option>
-                                    <option>Canada</option>
-                                    <option>Mexico</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-span-full">
-                            <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Street address</label>
-                            <div class="mt-2">
-                                <input type="text" name="street-address" id="street-address" autocomplete="street-address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-2 sm:col-start-1">
-                            <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
-                            <div class="mt-2">
-                                <input type="text" name="city" id="city" autocomplete="address-level2" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-2">
-                            <label for="region" class="block text-sm font-medium leading-6 text-gray-900">State / Province</label>
-                            <div class="mt-2">
-                                <input type="text" name="region" id="region" autocomplete="address-level1" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-2">
-                            <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">ZIP / Postal code</label>
-                            <div class="mt-2">
-                                <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                         </div>
                     </div>

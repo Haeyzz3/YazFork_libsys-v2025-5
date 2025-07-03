@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Major;
 use App\Models\Office;
+use App\Models\PatronType;
 use App\Models\Program;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,11 +26,13 @@ class PatronController extends Controller
 
     public function create()
     {
+        $patron_types = PatronType::all();
         $programs = Program::all();
         $majors = Major::all();
         $offices = Office::all();
 
         return view('patrons.create', [
+            'patron_types' => $patron_types,
             'programs' => $programs,
             'majors' => $majors,
             'offices' => $offices
@@ -47,6 +50,7 @@ class PatronController extends Controller
             'username' => 'required|string|max:20|unique:users,username',
             'email' => 'required|string|email|max:50|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'patron-type-id' => 'required|exists:patron_types,id',
             'student-id' => 'required|string|max:10|unique:users,student_id',
             'library-id' => 'nullable|string|max:10|unique:users,library_id',
             'sex' => 'required|in:male,female',
