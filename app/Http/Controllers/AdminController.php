@@ -29,14 +29,17 @@ class AdminController extends Controller
 
     public function store(Request $request) : RedirectResponse
     {
+
         $adminRole = Role::where('name', 'admin')->firstOrFail();
 
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
-            'first-name' => 'required|string|max:255',
-            'last-name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username',
-            'email' => 'required|string|email|max:255|unique:users,email',
+            'first-name' => 'required|string|max:50',
+            'last-name' => 'required|string|max:50',
+            'middle-name' => 'required|string|max:50',
+            'birth-date' => 'required|date|before:today',
+            'username' => 'required|string|max:20|unique:users,username',
+            'email' => 'required|string|email|max:50|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -52,6 +55,8 @@ class AdminController extends Controller
             $admin = User::create([
                 'first_name' => $request->input('first-name'),
                 'last_name' => $request->input('last-name'),
+                'middle_name' => $request->input('middle-name'),
+                'birth_date' => $request->input('birth-date'),
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
                 'role_id' => $adminRole->id,

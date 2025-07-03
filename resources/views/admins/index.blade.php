@@ -36,12 +36,12 @@
 
                                 @foreach($admins as $admin)
                                     <tr>
-                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $admin->first_name . ' ' . $admin->last_name }}</td>
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $admin->first_name . ' ' . ($admin->middle_name ? \Str::substr($admin->middle_name, 0, 1) . '. ' : '') . $admin->last_name }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $admin->username }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $admin->email }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $admin->role->name }}</td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                                            <a href="{{ route('admins.edit', $admin) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                                            <a href="{{ route('admins.edit', $admin) }}" class="text-indigo-600 hover:text-indigo-900">View all details<span class="sr-only">, Lindsay Walton</span></a>
                                         </td>
                                     </tr>
                                 @endforeach
