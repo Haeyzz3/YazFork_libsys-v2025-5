@@ -30,6 +30,12 @@
                 </flux:navlist.group>
             </flux:navlist>
 
+            <flux:navlist variant="outline">
+                <flux:navlist.group :heading="__('Catalog')" class="grid">
+                    <flux:navlist.item icon="crown" href="#"  wire:navigate>{{ __('Manage Books') }}</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+
             <flux:spacer />
 
             <flux:navlist variant="outline">
