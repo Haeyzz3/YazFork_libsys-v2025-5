@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('patron_details', function (Blueprint $table) {
             $table->foreignId('user_id')->primary()->constrained('users')->onDelete('cascade');
-            $table->string('library_id', 20)->unique()->nullable();
-            $table->text('address')->nullable();
+            $table->string('school_id', 10)->unique()->nullable();
+            $table->string('library_id', 10)->unique()->nullable();
+            $table->enum('sex', ['male', 'female'])->nullable();
+            $table->foreignId('program_id')->nullable()->constrained('programs')->onDelete('set null');
+            $table->foreignId('major_id')->nullable()->constrained('majors')->onDelete('set null');
+            $table->foreignId('patron_type_id')->constrained('patron_types')->onDelete('cascade');
+            $table->foreignId('office_id')->nullable()->constrained('offices')->onDelete('set null');
+            $table->string('address', 255)->nullable();
             $table->string('phone', 20)->nullable();
             $table->timestamps();
         });
