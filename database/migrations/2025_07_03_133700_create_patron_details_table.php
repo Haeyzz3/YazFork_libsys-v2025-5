@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('patron_details', function (Blueprint $table) {
             $table->foreignId('user_id')->primary()->constrained('users')->onDelete('cascade');
-            $table->string('school_id', 10)->unique()->nullable();
+            $table->string('student_id', 10)->unique()->nullable();
             $table->string('library_id', 10)->unique()->nullable();
-            $table->enum('sex', ['male', 'female'])->nullable();
+            $table->enum('sex', ['male', 'female']);
             $table->foreignId('program_id')->nullable()->constrained('programs')->onDelete('set null');
             $table->foreignId('major_id')->nullable()->constrained('majors')->onDelete('set null');
             $table->foreignId('patron_type_id')->constrained('patron_types')->onDelete('cascade');

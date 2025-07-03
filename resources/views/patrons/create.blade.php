@@ -306,23 +306,23 @@
                         </div>
 
                         <div class="sm:col-span-3">
-                            <label for="patron-type" class="block text-sm font-medium leading-6 text-gray-900">Patron Type</label>
+                            <label for="office" class="block text-sm font-medium leading-6 text-gray-900">Office</label>
                             <div class="mt-2">
                                 <select
-                                    id="patron-type"
-                                    name="patron-type-id"
+                                    id="office"
+                                    name="office-id"
                                     autocomplete="off"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    @error('patron-type-id') ring-red-500 focus:ring-red-500 @enderror
+                                    @error('office-id') ring-red-500 focus:ring-red-500 @enderror
                                 >
-                                    <option value="" disabled selected>Select patron type</option>
-                                    @foreach($patron_types as $patron_type)
-                                        <option value="{{ $patron_type->id }}" {{ old('patron-type-id') === $patron_type->id ? 'selected' : '' }}>
-                                            {{ $patron_type->name }}
+                                    <option value="" disabled selected>Select office</option>
+                                    @foreach($offices as $office)
+                                        <option value="{{ $office->id }}" {{ old('office-id') === $office->id ? 'selected' : '' }}>
+                                            {{ $office->name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('patron-type-id')
+                                @error('office-id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

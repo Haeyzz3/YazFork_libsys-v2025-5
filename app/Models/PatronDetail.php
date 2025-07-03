@@ -27,4 +27,9 @@ class PatronDetail extends Model
         return $this->belongsTo(Major::class);
     }
 
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'office_id');
+    }
+
 }
