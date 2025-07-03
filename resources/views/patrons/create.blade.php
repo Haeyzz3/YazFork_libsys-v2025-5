@@ -204,19 +204,19 @@
 
                     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
                         <div class="sm:col-span-3">
-                            <label for="school-id" class="block text-sm font-medium leading-6 text-gray-900">School ID</label>
+                            <label for="student-id" class="block text-sm font-medium leading-6 text-gray-900">Student ID</label>
                             <div class="mt-2">
                                 <input
-                                    id="school-id"
-                                    name="school-id"
+                                    id="student-id"
+                                    name="student-id"
                                     type="text"
                                     autocomplete="off"
                                     placeholder="Enter your school ID"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    value="{{ old('school-id') }}"
-                                    @error('school-id') ring-red-500 focus:ring-red-500 @enderror
+                                    value="{{ old('student-id') }}"
+                                    @error('student-id') ring-red-500 focus:ring-red-500 @enderror
                                 >
-                                @error('school-id')
+                                @error('student-id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

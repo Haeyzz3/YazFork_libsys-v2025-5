@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PatronController extends Controller
 {
@@ -22,6 +23,31 @@ class PatronController extends Controller
     public function create()
     {
         return view('patrons.create');
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'first-name' => 'required|string|max:50',
+            'last-name' => 'required|string|max:50',
+            'middle-name' => 'required|string|max:50',
+            'birth-date' => 'required|date|before:today',
+            'username' => 'required|string|max:20|unique:users,username',
+            'email' => 'required|string|email|max:50|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'student-id' => 'required|string|max:10|unique:users,student_id',
+            'library-id' => 'nullable|string|max:10|unique:users,library_id',
+            'sex' => 'required|in:male,female',
+            'program' => 'required|exists:programs,id'
+        ]);
+
+        if ($validator->fails()) {
+            dd($validator->errors());
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
     }
 
     public function edit()
