@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\PatronType;
 use App\Models\Program;
+use App\Models\Major;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,10 +18,10 @@ class PatronSeeder extends Seeder
         $student_patron_type = PatronType::firstOrCreate(['name' => 'student']);
 
         $bsit_program = Program::firstOrCreate(['name' => 'Bachelor of Science in Information Technology']);
-        Program::firstOrCreate(['name' => 'Bachelor of Science in Secondary Education']);
+        $bsed_program = Program::firstOrCreate(['name' => 'Bachelor of Science in Secondary Education']);
 
-        Program::firstOrCreate(['name' => 'Information Security']);
-        Program::firstOrCreate(['name' => 'Filipino']);
+        Major::firstOrCreate(['name' => 'Information Security', 'program_id' => $bsit_program->id]);
+        Major::firstOrCreate(['name' => 'Filipino', 'program_id' => $bsed_program->id]);
 
         User::create([
             'first_name' => 'Patron',

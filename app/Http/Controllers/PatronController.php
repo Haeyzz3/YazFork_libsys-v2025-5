@@ -47,7 +47,8 @@ class PatronController extends Controller
             'student-id' => 'required|string|max:10|unique:users,student_id',
             'library-id' => 'nullable|string|max:10|unique:users,library_id',
             'sex' => 'required|in:male,female',
-            'program-id' => 'required|exists:programs,id'
+            'program-id' => 'required|exists:programs,id',
+            'major-id' => 'required|exists:majors,id'
         ]);
 
         if ($validator->fails()) {

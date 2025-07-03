@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('majors', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('description', 255)->nullable();
+            $table->string('name', 50)->unique();
+            $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
             $table->timestamps();
         });
     }
