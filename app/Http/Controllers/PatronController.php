@@ -52,6 +52,7 @@ class PatronController extends Controller
             'sex' => 'required|in:male,female',
             'program-id' => 'required|exists:programs,id',
             'major-id' => 'required|exists:majors,id',
+            'office-id' => 'required|exists:offices,id',
         ]);
 
         if ($validator->fails()) {
