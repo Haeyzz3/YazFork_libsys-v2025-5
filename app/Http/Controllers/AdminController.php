@@ -89,8 +89,10 @@ class AdminController extends Controller
     {
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
-            'first-name' => 'required|string|max:255',
-            'last-name' => 'required|string|max:255',
+            'first-name' => 'required|string|max:50',
+            'last-name' => 'required|string|max:50',
+            'middle-name' => 'required|string|max:50',
+            'birth-date' => 'required|date|before:today',
             'username' => 'required|string|max:255|unique:users,username,' . $admin->id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $admin->id,
             'password' => 'nullable|string|min:8|confirmed',
@@ -108,6 +110,8 @@ class AdminController extends Controller
             $updateData = [
                 'first_name' => $request->input('first-name'),
                 'last_name' => $request->input('last-name'),
+                'middle_name' => $request->input('middle-name'),
+                'birth_date' => $request->input('birth-date'),
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
             ];
