@@ -12,10 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
-            $table->foreignId('permission_id')->constrained('permissions')->onDelete('cascade');
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('permission_id');
             $table->timestamps();
+
+            // Define composite primary key
+            $table->primary(['role_id', 'permission_id']);
+
+            // Foreign key constraints
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
+
+            // Add indexes for better performance (optional, as composite key already indexes)
+            $table->index('permission_id');
+            $table->index('role_id');
         });
     }
 

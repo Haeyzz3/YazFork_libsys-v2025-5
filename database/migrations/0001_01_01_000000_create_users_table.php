@@ -31,6 +31,9 @@ return new class extends Migration
                 ->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
+
+            // Add index for role_id for better performance
+            $table->index('role_id');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
