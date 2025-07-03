@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\PatronType;
+use App\Models\Program;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,8 @@ class PatronSeeder extends Seeder
     public function run(): void
     {
         $student_patron_type = PatronType::firstOrCreate(['name' => 'student']);
+
+        $bsit_program = Program::firstOrCreate(['name' => 'Bachelor of Science in Information Technology']);
 
         User::create([
             'first_name' => 'Patron',
@@ -27,6 +30,7 @@ class PatronSeeder extends Seeder
             ->create([
                 'library_id' => '001',
                 'patron_type_id' => $student_patron_type->id,
+                'program_id' => $bsit_program->id,
                 'address' => 'sample address',
                 'phone' => '0123456789',
             ]);

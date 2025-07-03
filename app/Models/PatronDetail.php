@@ -17,4 +17,9 @@ class PatronDetail extends Model
         return $this->belongsTo(PatronType::class);
     }
 
+    public function program()
+    {
+        return $this->belongsTo(Program::class);
+    }
+
 }
