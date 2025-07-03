@@ -11,4 +11,10 @@ class PatronDetail extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function patronType() : BelongsTo
+    {
+        return $this->belongsTo(PatronType::class);
+    }
+
 }

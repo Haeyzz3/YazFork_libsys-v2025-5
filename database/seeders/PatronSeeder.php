@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\PatronType;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,8 @@ class PatronSeeder extends Seeder
      */
     public function run(): void
     {
+        $student_patron_type = PatronType::firstOrCreate(['name' => 'student']);
+
         User::create([
             'first_name' => 'Patron',
             'last_name' => 'Student',
@@ -23,7 +26,7 @@ class PatronSeeder extends Seeder
         ])->patronDetails()
             ->create([
                 'library_id' => '001',
-                'patron_type_id' => '001',
+                'patron_type_id' => $student_patron_type->id,
                 'address' => 'sample address',
                 'phone' => '0123456789',
             ]);
