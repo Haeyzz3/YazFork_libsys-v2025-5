@@ -19,6 +19,11 @@ class PatronController extends Controller
         return view('patrons.index', ['patrons' => $patrons]);
     }
 
+    public function create()
+    {
+        return view('patrons.create');
+    }
+
     public function edit()
     {
         return view('patrons.edit');
