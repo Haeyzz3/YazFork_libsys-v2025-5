@@ -19,6 +19,7 @@ class AdminSeeder extends Seeder
         // 1) Create roles
         $admin = Role::firstOrCreate(['name' => 'admin']);
         $super = Role::firstOrCreate(['name' => 'super_admin']);
+        Role::Create(['name' => 'patron']);
 
         // 2) Create permissions
         $perms = [

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\PatronType;
 use App\Models\Program;
 use App\Models\Major;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,7 @@ class PatronSeeder extends Seeder
      */
     public function run(): void
     {
+        $patron_role = Role::where('name', 'patron')->first();
         $student_patron_type = PatronType::firstOrCreate(['name' => 'student']);
 
         $bsit_program = Program::firstOrCreate(['name' => 'Bachelor of Science in Information Technology']);
@@ -29,6 +31,7 @@ class PatronSeeder extends Seeder
             'middle_name' => 'Child',
             'birth_date' => '1990-01-01',
             'username' => '@patron',
+            'role_id' => $patron_role->id,
             'email' => 'patron@email.com',
             'password' => bcrypt('patron123'),
         ])->patronDetails()

@@ -30,14 +30,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('role_id')
-                ->nullable()
-                ->constrained('roles')
-                ->onDelete('set null');
+                ->constrained('roles');
             $table->rememberToken();
             $table->timestamps();
-
-            // Add index for role_id for better performance
-            $table->index('role_id');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
