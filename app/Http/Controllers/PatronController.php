@@ -48,6 +48,7 @@ class PatronController extends Controller
             'middle-name' => 'required|string|max:50',
             'birth-date' => 'required|date|before:today',
             'username' => 'required|string|max:20|unique:users,username',
+            'contact-number' => 'nullable|string|max:20',
             'email' => 'required|string|email|max:50|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'patron-type-id' => 'required|exists:patron_types,id',

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('last_name', 50);
             $table->date('birth_date');
             $table->string('profile_image')->nullable();
+            $table->string('contact_number', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
