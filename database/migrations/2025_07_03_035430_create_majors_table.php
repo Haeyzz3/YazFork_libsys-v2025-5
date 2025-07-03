@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('majors', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100)->unique();
+            $table->string('description', 255)->nullable();
             $table->timestamps();
         });
     }
