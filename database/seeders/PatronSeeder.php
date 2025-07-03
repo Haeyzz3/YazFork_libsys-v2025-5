@@ -17,7 +17,10 @@ class PatronSeeder extends Seeder
         $student_patron_type = PatronType::firstOrCreate(['name' => 'student']);
 
         $bsit_program = Program::firstOrCreate(['name' => 'Bachelor of Science in Information Technology']);
-        $bsed_program = Program::firstOrCreate(['name' => 'Bachelor of Science in Secondary Education']);
+        Program::firstOrCreate(['name' => 'Bachelor of Science in Secondary Education']);
+
+        Program::firstOrCreate(['name' => 'Information Security']);
+        Program::firstOrCreate(['name' => 'Filipino']);
 
         User::create([
             'first_name' => 'Patron',

@@ -22,4 +22,9 @@ class PatronDetail extends Model
         return $this->belongsTo(Program::class);
     }
 
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
+
 }

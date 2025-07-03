@@ -282,6 +282,29 @@
                             </div>
                         </div>
 
+                        <div class="sm:col-span-3">
+                            <label for="major" class="block text-sm font-medium leading-6 text-gray-900">Major</label>
+                            <div class="mt-2">
+                                <select
+                                    id="major"
+                                    name="major-id"
+                                    autocomplete="off"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    @error('major-id') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                    <option value="" disabled selected>Select your major</option>
+                                    @foreach($majors as $major)
+                                        <option value="{{ $major->id }}" {{ old('major-id') === $major->id ? 'selected' : '' }}>
+                                            {{ $major->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('major-id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="sm:col-span-4">
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                             <div class="mt-2">

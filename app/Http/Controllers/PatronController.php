@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Major;
 use App\Models\Program;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,7 +25,12 @@ class PatronController extends Controller
     public function create()
     {
         $programs = Program::all();
-        return view('patrons.create', ['programs' => $programs]);
+        $majors = Major::all();
+
+        return view('patrons.create', [
+            'programs' => $programs,
+            'majors' => $majors
+        ]);
     }
 
     public function store(Request $request)
