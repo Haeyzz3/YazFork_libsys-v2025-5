@@ -17,8 +17,8 @@ class AdminSeeder extends Seeder
     {
 
         // 1) Create roles
-        $admin = Role::firstOrCreate(['role_name' => 'admin']);
-        $super = Role::firstOrCreate(['role_name' => 'super_admin']);
+        $admin = Role::firstOrCreate(['name' => 'admin']);
+        $super = Role::firstOrCreate(['name' => 'super_admin']);
 
         // 2) Create permissions
         $perms = [
@@ -29,15 +29,15 @@ class AdminSeeder extends Seeder
         ];
         foreach ($perms as $name => $desc) {
             Permission::firstOrCreate([
-                'permission_name'        => $name,
-                'permission_description' => $desc,
+                'name'        => $name,
+                'description' => $desc,
             ]);
         }
 
         // 3) Attach permissions to roles
 
         $admin->permissions()->sync(
-            Permission::whereIn('permission_name', [
+            Permission::whereIn('name', [
                 'manage_patrons',
                 'manage_books',
                 'circulate',
@@ -52,7 +52,9 @@ class AdminSeeder extends Seeder
         User::create([
             'first_name' => 'Super',
             'last_name' => 'Admin',
+            'middle_name' => 'Middle',
             'username' => '@superadmin',
+            'birth_date' => '1990-01-01',
             'email' => 's.admin@email.com',
             'role_id' => $super->id,
             'password' => bcrypt('admin123'),
@@ -61,6 +63,8 @@ class AdminSeeder extends Seeder
         User::create([
             'first_name' => 'Admin',
             'last_name' => 'Only',
+            'middle_name' => 'Middle',
+            'birth_date' => '1990-01-01',
             'username' => '@admin',
             'email' => 'admin@email.com',
             'role_id' => $admin->id,
@@ -69,7 +73,9 @@ class AdminSeeder extends Seeder
 
         User::create([
             'first_name' => 'Juan',
+            'middle_name' => 'Ayy',
             'last_name' => 'Dela Cruz',
+            'birth_date' => '1990-01-01',
             'username' => '@juan',
             'email' => 'juan@email.com',
             'role_id' => $admin->id,
@@ -78,7 +84,9 @@ class AdminSeeder extends Seeder
 
         User::create([
             'first_name' => 'John',
+            'middle_name' => 'Kennedy',
             'last_name' => 'Doe',
+            'birth_date' => '1990-01-01',
             'username' => '@john',
             'email' => 'john@email.com',
             'role_id' => $admin->id,

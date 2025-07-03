@@ -15,12 +15,15 @@ class PatronSeeder extends Seeder
         User::create([
             'first_name' => 'Patron',
             'last_name' => 'Student',
+            'middle_name' => 'Child',
+            'birth_date' => '1990-01-01',
             'username' => '@patron',
             'email' => 'patron@email.com',
             'password' => bcrypt('patron123'),
         ])->patronDetails()
             ->create([
                 'library_id' => '001',
+                'patron_type_id' => '001',
                 'address' => 'sample address',
                 'phone' => '0123456789',
             ]);
