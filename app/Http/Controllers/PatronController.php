@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Major;
+use App\Models\PatronType;
 use App\Models\Program;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,10 +27,12 @@ class PatronController extends Controller
     {
         $programs = Program::all();
         $majors = Major::all();
+        $patron_types = PatronType::all();
 
         return view('patrons.create', [
             'programs' => $programs,
-            'majors' => $majors
+            'majors' => $majors,
+            'patron_types' => $patron_types
         ]);
     }
 
@@ -48,7 +51,8 @@ class PatronController extends Controller
             'library-id' => 'nullable|string|max:10|unique:users,library_id',
             'sex' => 'required|in:male,female',
             'program-id' => 'required|exists:programs,id',
-            'major-id' => 'required|exists:majors,id'
+            'major-id' => 'required|exists:majors,id',
+            'patron-type-id' => 'required|exists:patron_types,id'
         ]);
 
         if ($validator->fails()) {
