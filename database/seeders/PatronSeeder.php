@@ -20,6 +20,8 @@ class PatronSeeder extends Seeder
         $patron_role = Role::where('name', 'patron')->first();
 
         $undergraduate_patron_type = PatronType::firstOrCreate(['name' => 'undergraduate']);
+        PatronType::firstOrCreate(['name' => 'graduate']);
+        PatronType::firstOrCreate(['name' => 'alumni']);
 
         $osas_office = Office::firstOrCreate(['name' => 'Office of Student Affairs and Services']);
         Office::firstOrCreate(['name' => 'University Assessment and Guidance Center']);
