@@ -98,7 +98,6 @@ class PatronController extends Controller
                 ->with('success', 'Patron created successfully!');
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             // Handle any errors during creation
             return redirect()->back()
                 ->with('error', 'Failed to create patron. Please try again.')

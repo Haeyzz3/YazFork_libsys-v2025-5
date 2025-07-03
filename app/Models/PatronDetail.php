@@ -7,7 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PatronDetail extends Model
 {
-    protected $fillable = ['patron_type_id'];
+    protected $fillable = [
+        'patron_type_id',
+        'student_id',
+        'library_id',
+        'program_id',
+        'major_id',
+        'office_id',
+        'address',
+        'contact_number',
+    ];
 
     public function user() : BelongsTo
     {
