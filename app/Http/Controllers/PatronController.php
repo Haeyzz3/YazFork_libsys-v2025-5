@@ -6,8 +6,10 @@ use App\Models\Major;
 use App\Models\Office;
 use App\Models\PatronType;
 use App\Models\Program;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class PatronController extends Controller
@@ -41,6 +43,8 @@ class PatronController extends Controller
 
     public function store(Request $request)
     {
+        $patron_role = Role::where('name', 'patron')->firstOrFail();
+
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'first-name' => 'required|string|max:50',
@@ -52,8 +56,8 @@ class PatronController extends Controller
             'email' => 'required|string|email|max:50|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'patron-type-id' => 'required|exists:patron_types,id',
-            'student-id' => 'required|string|max:10|unique:users,student_id',
-            'library-id' => 'nullable|string|max:10|unique:users,library_id',
+            'student-id' => 'required|string|max:10|unique:patron_details,student_id',
+            'library-id' => 'nullable|string|max:10|unique:patron_details,library_id',
             'sex' => 'required|in:male,female',
             'program-id' => 'required|exists:programs,id',
             'major-id' => 'required|exists:majors,id',
@@ -61,9 +65,43 @@ class PatronController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return redirect()->back()
                 ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            // Create the admin
+            User::create([
+                'first_name' => $request->input('first-name'),
+                'last_name' => $request->input('last-name'),
+                'middle_name' => $request->input('middle-name'),
+                'birth_date' => $request->input('birth-date'),
+                'username' => $request->input('username'),
+                'contact_number' => $request->input('contact-number'),
+                'email' => $request->input('email'),
+                'role_id' => $patron_role->id,
+                'password' => Hash::make($request->input('password')),
+            ])
+                ->patronDetails()->create([
+                'patron_type_id' => $request->input('patron-type-id'),
+                'student_id' => $request->input('student-id'),
+                'library_id' => $request->input('library-id'),
+                'sex' => $request->input('sex'),
+                'program_id' => $request->input('program-id'),
+                'major_id' => $request->input('major-id'),
+                'office_id' => $request->input('office-id'),
+            ]);
+
+            // Redirect with success message
+            return redirect()->route('patrons.index')
+                ->with('success', 'Patron created successfully!');
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            // Handle any errors during creation
+            return redirect()->back()
+                ->with('error', 'Failed to create patron. Please try again.')
                 ->withInput();
         }
     }
