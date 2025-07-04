@@ -196,7 +196,7 @@
                                 >
                                     <option value="" disabled selected>Select patron type</option>
                                     @foreach($patron_types as $patron_type)
-                                        <option value="{{ $patron_type->id }}" {{ old('patron-type-id') === $patron_type->id ? 'selected' : '' }}>
+                                        <option value="{{ $patron_type->id }}" {{ old('patron-type-id', $patron->patronDetails->patronType->id) === $patron_type->id ? 'selected' : '' }}>
                                             {{ $patron_type->name }}
                                         </option>
                                     @endforeach
@@ -256,8 +256,8 @@
                                     @error('sex') ring-red-500 focus:ring-red-500 @enderror
                                 >
                                     <option value="" disabled selected>Select your sex</option>
-                                    <option value="male" {{ old('sex') == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('sex') == 'female' ? 'selected' : '' }}>Female</option>
+                                    <option value="male" {{ old('sex', $patron->patronDetails->sex) == 'male' ? 'selected' : '' }}>Male</option>
+                                    <option value="female" {{ old('sex', $patron->patronDetails->sex) == 'female' ? 'selected' : '' }}>Female</option>
                                 </select>
                                 @error('sex')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -277,7 +277,7 @@
                                 >
                                     <option value="" disabled selected>Select your program</option>
                                     @foreach($programs as $program)
-                                        <option value="{{ $program->id }}" {{ old('program-id') === $program->id ? 'selected' : '' }}>
+                                        <option value="{{ $program->id }}" {{ old('program-id', $patron->patronDetails->program->id) === $program->id ? 'selected' : '' }}>
                                             {{ $program->name }}
                                         </option>
                                     @endforeach
@@ -300,7 +300,7 @@
                                 >
                                     <option value="" disabled selected>Select your major</option>
                                     @foreach($majors as $major)
-                                        <option value="{{ $major->id }}" {{ old('major-id') === $major->id ? 'selected' : '' }}>
+                                        <option value="{{ $major->id }}" {{ old('major-id', $patron->patronDetails->major->id) === $major->id ? 'selected' : '' }}>
                                             {{ $major->name }}
                                         </option>
                                     @endforeach
@@ -322,7 +322,7 @@
                                 >
                                     <option value="" disabled selected>Select your office</option>
                                     @foreach($offices as $office)
-                                        <option value="{{ $office->id }}" {{ old('office-id') == $office->id ? 'selected' : '' }}>
+                                        <option value="{{ $office->id }}" {{ old('office-id', $patron->patronDetails->office->id) == $office->id ? 'selected' : '' }}>
                                             {{ $office->name }}
                                         </option>
                                     @endforeach
@@ -340,7 +340,7 @@
                 <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                 <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold
                 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
-                focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Patron</button>
+                focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Patron</button>
             </div>
         </form>
     </div>
