@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(funct
 Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(function () {
     Route::get('patrons/{patron}', [PatronController::class, 'show'])->name('patrons.show');
     Route::get('patrons/{patron}/edit', [PatronController::class, 'edit'])->name('patrons.edit');
+    Route::put('patrons/{patron}', [PatronController::class, 'update'])->name('patrons.update');
     Route::get('patrons', [PatronController::class, 'index'])->name('patrons.index');
     Route::get('patrons/create', [PatronController::class, 'create'])->name('patrons.create');
     Route::post('patrons', [PatronController::class, 'store'])->name('patrons.store');

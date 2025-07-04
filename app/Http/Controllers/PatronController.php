@@ -110,13 +110,25 @@ class PatronController extends Controller
         return view('patrons.show', ['patron' => $patron]);
     }
 
-    public function edit()
+    public function edit(User $patron)
     {
-        return view('patrons.edit');
+        $patron_types = PatronType::all();
+        $programs = Program::all();
+        $majors = Major::all();
+        $offices = Office::all();
+
+        return view('patrons.edit', [
+            'patron_types' => $patron_types,
+            'programs' => $programs,
+            'majors' => $majors,
+            'offices' => $offices,
+            'patron' => $patron
+        ]);
     }
 
     public function update(Request $request, User $user)
     {
+        dd($request->all() );
         $this->authorize('update', $user);
 
         return redirect()->route('dashboard');
