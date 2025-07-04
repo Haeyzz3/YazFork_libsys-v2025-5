@@ -55,7 +55,7 @@
                 <dl class="grid grid-cols-1 sm:grid-cols-2">
                     <div class="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Patron Type</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->username }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->patronDetails->patronType->name }}</dd>
                     </div>
                     <div class="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Student ID</dt>
@@ -63,19 +63,19 @@
                     </div>
                     <div class="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Library ID</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->last_name }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->patronDetails->library_id }}</dd>
                     </div>
                     <div class="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Sex</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->middle_name }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->patronDetails->sex }}</dd>
                     </div>
                     <div class="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Program</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->birth_date }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->patronDetails->program->name }}</dd>
                     </div>
                     <div class="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Office</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->birth_date }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $patron->patronDetails->office->name }}</dd>
                     </div>
                 </dl>
             </div>
