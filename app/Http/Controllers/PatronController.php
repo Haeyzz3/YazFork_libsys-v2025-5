@@ -188,4 +188,19 @@ class PatronController extends Controller
                 ->withInput();
         }
     }
+
+    public  function destroy(User $patron)
+    {
+        try {
+            // If using soft deletes, this will soft delete
+            $patron->delete();
+
+            return redirect()->route('patrons.index')
+                ->with('success', 'Patron deactivated successfully.');
+
+        } catch (\Exception $e) {
+            return redirect()->route('patrons.index')
+                ->with('error', 'Patron to deactivate admin.');
+        }
+    }
 }
