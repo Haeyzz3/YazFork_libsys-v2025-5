@@ -50,7 +50,6 @@ class PatronSeeder extends Seeder
                 'program_id' => $bsit_program->id,
                 'major_id' => $infosec_major->id,
                 'office_id' => $osas_office->id,
-                'contact_number' => '0123456789',
             ]);
     }
 }
