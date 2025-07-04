@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('major_id')->nullable()->constrained('majors')->onDelete('set null');
             $table->foreignId('patron_type_id')->constrained('patron_types')->onDelete('cascade');
             $table->foreignId('office_id')->nullable()->constrained('offices')->onDelete('set null');
-            $table->string('contact_number', 20)->nullable();
             $table->timestamps();
         });
     }
