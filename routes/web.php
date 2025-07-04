@@ -14,7 +14,7 @@ Route::get('/', function () {
 Route::view('dashboard', 'dashboard')->name('dashboard');
 
 Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(function () {
-    Route::get('admins/{admin}', [AdminController::class, 'detail'])->name('admins.show');
+    Route::get('admins/{admin}', [AdminController::class, 'show'])->name('admins.show');
     Route::get('admins/{admin}/edit', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
     Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
