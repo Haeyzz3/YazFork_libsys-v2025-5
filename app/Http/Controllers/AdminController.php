@@ -75,9 +75,9 @@ class AdminController extends Controller
         }
     }
 
-    public function detail(User $admin)
+    public function show(User $admin)
     {
-        return view('admins.detail', ['admin' => $admin]);
+        return view('admins.show', ['admin' => $admin]);
     }
 
     public function edit(User $admin)

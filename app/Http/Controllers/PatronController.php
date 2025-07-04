@@ -105,6 +105,11 @@ class PatronController extends Controller
         }
     }
 
+    public function show(User $patron)
+    {
+        return view('patrons.show', ['patron' => $patron]);
+    }
+
     public function edit()
     {
         return view('patrons.edit');

@@ -14,12 +14,12 @@ Route::get('/', function () {
 Route::view('dashboard', 'dashboard')->name('dashboard');
 
 Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(function () {
+    Route::get('admins/{admin}', [AdminController::class, 'detail'])->name('admins.show');
+    Route::get('admins/{admin}/edit', [AdminController::class, 'edit'])->name('admins.edit');
+    Route::put('admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
     Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
     Route::post('admins', [AdminController::class, 'store'])->name('admins.store');
-    Route::get('admins/{admin}/detail', [AdminController::class, 'detail'])->name('admins.detail');
-    Route::get('admins/{admin}/edit', [AdminController::class, 'edit'])->name('admins.edit');
-    Route::put('admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
     Route::delete('admins/{admin}', [AdminController::class, 'destroy'])->name('admins.destroy');
 });
 
@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(func
     Route::get('patrons', [PatronController::class, 'index'])->name('patrons.index');
     Route::get('patrons/create', [PatronController::class, 'create'])->name('patrons.create');
     Route::post('patrons', [PatronController::class, 'store'])->name('patrons.store');
+    Route::get('patrons/{patron}', [PatronController::class, 'show'])->name('patrons.show');
 });
 
 Route::middleware(['auth'])->group(function () {
