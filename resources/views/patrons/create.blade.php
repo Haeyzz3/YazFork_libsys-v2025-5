@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Create Admin')">
+<x-layouts.app :title="__('Create Patron')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <!--
           This example requires some changes to your config:
