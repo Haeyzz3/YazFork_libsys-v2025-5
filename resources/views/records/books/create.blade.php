@@ -304,7 +304,7 @@
                                     id="date-acquired"
                                     name="date-acquired"
                                     type="date"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     value="{{ old('date-acquired', date('Y-m-d')) }}"
                                     @error('date-acquired') ring-red-500 focus:ring-red-500 @enderror
                                 >
@@ -320,7 +320,7 @@
                                 <select
                                     id="source"
                                     name="source"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     @error('source') ring-red-500 focus:ring-red-500 @enderror
                                 >
                                     <option value="" {{ old('source') == '' ? 'selected' : '' }}>Select source</option>
@@ -344,7 +344,7 @@
                                     type="number"
                                     step="0.01"
                                     placeholder="Enter amount"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     value="{{ old('purchase-amount') }}"
                                     @error('purchase-amount') ring-red-500 focus:ring-red-500 @enderror
                                 >
@@ -360,7 +360,7 @@
                                 <select
                                     id="acquisition-status"
                                     name="acquisition-status"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     @error('acquisition-status') ring-red-500 focus:ring-red-500 @enderror
                                 >
                                     <option value="" {{ old('acquisition-status') == '' ? 'selected' : '' }}>Select status</option>
@@ -384,77 +384,51 @@
                     <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
 
                         <div class="sm:col-span-1">
-                            <label for="date-acquired" class="block text-sm font-medium leading-6 text-gray-900">Date Acquired</label>
+                            <label for="table-of-contents" class="block text-sm font-medium leading-6 text-gray-900">Table of Contents</label>
                             <div class="mt-2">
-                                <input
-                                    id="date-acquired"
-                                    name="date-acquired"
-                                    type="date"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    value="{{ old('date-acquired', date('Y-m-d')) }}"
-                                    @error('date-acquired') ring-red-500 focus:ring-red-500 @enderror
-                                >
-                                @error('date-acquired')
+                                <textarea
+                                    id="table-of-contents"
+                                    name="table-of-contents"
+                                    rows="4"
+                                    placeholder="Enter table of contents"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    @error('table-of-contents') ring-red-500 focus:ring-red-500 @enderror
+                                >{{ old('table-of-contents') }}</textarea>
+                                @error('table-of-contents')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="sm:col-span-1">
-                            <label for="source" class="block text-sm font-medium leading-6 text-gray-900">Source</label>
+                            <label for="summary-abstract" class="block text-sm font-medium leading-6 text-gray-900">Summary/Abstract</label>
                             <div class="mt-2">
-                                <select
-                                    id="source"
-                                    name="source"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    @error('source') ring-red-500 focus:ring-red-500 @enderror
-                                >
-                                    <option value="" {{ old('source') == '' ? 'selected' : '' }}>Select source</option>
-                                    <option value="Purchase" {{ old('source') == 'Purchase' ? 'selected' : '' }}>Purchase</option>
-                                    <option value="Donation" {{ old('source') == 'Donation' ? 'selected' : '' }}>Donation</option>
-                                    <option value="Exchange" {{ old('source') == 'Exchange' ? 'selected' : '' }}>Exchange</option>
-                                    <option value="Government Depository" {{ old('source') == 'Government Depository' ? 'selected' : '' }}>Government Depository</option>
-                                </select>
-                                @error('source')
+                                <textarea
+                                    id="summary-abstract"
+                                    name="summary-abstract"
+                                    rows="4"
+                                    placeholder="Enter summary or abstract"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    @error('summary-abstract') ring-red-500 focus:ring-red-500 @enderror
+                                >{{ old('summary-abstract') }}</textarea>
+                                @error('summary-abstract')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="sm:col-span-1">
-                            <label for="purchase-amount" class="block text-sm font-medium leading-6 text-gray-900">Purchase Amount</label>
+                            <label for="additional-notes" class="block text-sm font-medium leading-6 text-gray-900">Additional Notes</label>
                             <div class="mt-2">
-                                <input
-                                    id="purchase-amount"
-                                    name="purchase-amount"
-                                    type="number"
-                                    step="0.01"
-                                    placeholder="Enter amount"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    value="{{ old('purchase-amount') }}"
-                                    @error('purchase-amount') ring-red-500 focus:ring-red-500 @enderror
-                                >
-                                @error('purchase-amount')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-1">
-                            <label for="acquisition-status" class="block text-sm font-medium leading-6 text-gray-900">Acquisition Status</label>
-                            <div class="mt-2">
-                                <select
-                                    id="acquisition-status"
-                                    name="acquisition-status"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    @error('acquisition-status') ring-red-500 focus:ring-red-500 @enderror
-                                >
-                                    <option value="" {{ old('acquisition-status') == '' ? 'selected' : '' }}>Select status</option>
-                                    <option value="Processing" {{ old('acquisition-status') == 'Processing' ? 'selected' : '' }}>Processing</option>
-                                    <option value="Available" {{ old('acquisition-status') == 'Available' ? 'selected' : '' }}>Available</option>
-                                    <option value="Pending Review" {{ old('acquisition-status') == 'Pending Review' ? 'selected' : '' }}>Pending Review</option>
-                                </select>
-                                @error('acquisition-status')
+                                <textarea
+                                    id="additional-notes"
+                                    name="additional-notes"
+                                    rows="4"
+                                    placeholder="Enter additional notes"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    @error('additional-notes') ring-red-500 focus:ring-red-500 @enderror
+                                >{{ old('additional-notes') }}</textarea>
+                                @error('additional-notes')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
