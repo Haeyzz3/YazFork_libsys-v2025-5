@@ -14,7 +14,7 @@ class BookSeeder extends Seeder
     public function run(): void
     {
         Record::factory()
-            ->has(Book::factory(), 'books')
+            ->has(Book::factory(), 'book')
             ->count(20)->create();
     }
 }
