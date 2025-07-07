@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,33 @@ class RecordFactory extends Factory
      */
     public function definition(): array
     {
+        // Define possible values for fields to mimic your data
+        $classifications = [
+            'Applied Science', 'Literature', 'Pure Science', 'History',
+            'Arts', 'Social Sciences', 'Philosophy & Religion', 'Geography'
+        ];
+        $locations = [
+            'Circulation', 'Fiction', 'Filipiniana', 'General References',
+            'Graduate School', 'reserve', 'PCAARRD','Vertical Files'
+        ];
+        $sources = ['Purchase', 'Donation', 'Exchange', 'Government Publication'];
+        $languages = ['English', 'Filipino', 'Spanish', 'Cebuano', 'Others'];
+        $statuses = ['Available', 'Processing'];
+
         return [
-            //
+            'title' => $this->faker->sentence(3, true),
+            'language' => $this->faker->randomElement($languages),
+            'ddc_classification' => $this->faker->randomElement($classifications),
+            'call_number' => $this->faker->regexify('[A-Z]{3,4}[0-9]{3}\.[0-9]{4}'),
+            'physical_location' => $this->faker->randomElement($locations),
+            'location_symbol' => $this->faker->regexify('[A-Z]{2,4}-[A-Z][1-9]'),
+            'date_acquired' => Carbon::now()->subMonths($this->faker->numberBetween(1, 12)),
+            'source' => $source = $this->faker->randomElement($sources),
+            'purchase_amount' => $source === 'Purchase' ? $this->faker->randomFloat(2, 30, 150) : null,
+            'acquisition_status' => $this->faker->randomElement($statuses),
+            'additional_notes' => $this->faker->sentence(5, true),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

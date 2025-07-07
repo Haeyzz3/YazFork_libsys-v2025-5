@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('source'); // Dropdown: Purchase, Donation, etc.
             $table->decimal('purchase_amount', 10, 2)->nullable(); // Conditional based on source
             $table->string('acquisition_status'); // Required dropdown: Processing, Available, etc.
-            $table->text('subject_headings')->nullable(); // Text area with autocomplete
             $table->text('additional_notes')->nullable(); // Text area
             $table->timestamps(); // created_at and updated_at
             $table->softDeletes(); // For soft delete functionality
