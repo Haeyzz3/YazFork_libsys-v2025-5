@@ -13,11 +13,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Record::with('book')
+        $records = Record::with('book')
         ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('records.books.index', ['books' => $books]);
+        return view('records.books.index', ['records' => $records]);
     }
 
     /**
