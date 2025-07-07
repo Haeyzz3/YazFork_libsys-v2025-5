@@ -12,7 +12,7 @@ class ECollectionController extends Controller
      */
     public function index()
     {
-        //
+        return view('records.e-collection.index');
     }
 
     /**
