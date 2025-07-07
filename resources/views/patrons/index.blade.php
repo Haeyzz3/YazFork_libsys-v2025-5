@@ -52,6 +52,11 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Render pagination links -->
+            <div class="py-8">
+                {{ $patrons->links() }}
+            </div>
         </div>
     </div>
 </x-layouts.app>

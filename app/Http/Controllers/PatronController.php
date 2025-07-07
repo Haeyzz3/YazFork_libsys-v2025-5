@@ -16,12 +16,12 @@ class PatronController extends Controller
 {
     public function index()
     {
-        $users = User::with('patronDetails')->get();
-
-        // Filter users that have patron details
-        $patrons = $users->filter(function ($user) {
-            return $user->patronDetails !== null;
-        });
+        $patrons = User::with('patronDetails')
+            ->whereHas('role', function($query){
+                $query->where('name', 'patron');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('patrons.index', ['patrons' => $patrons]);
     }
