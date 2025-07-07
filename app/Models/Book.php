@@ -9,8 +9,8 @@ class Book extends Model
 {
     use HasFactory;
 
-    public function resource()
+    public function record()
     {
-        return $this->belongsTo(Record::class, 'Resource_ID', 'Resource_ID');
+        return $this->belongsTo(Record::class);
     }
 }

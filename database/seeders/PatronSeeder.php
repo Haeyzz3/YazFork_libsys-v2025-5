@@ -35,6 +35,6 @@ class PatronSeeder extends Seeder
 
         User::factory()
             ->has(PatronDetail::factory(), 'patronDetails')
-            ->count(20)->create();
+            ->count(15)->create();
     }
 }
