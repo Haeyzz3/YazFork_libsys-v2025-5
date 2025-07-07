@@ -25,7 +25,7 @@ class AdminSeeder extends Seeder
         $perms = [
             'manage_admins'    => 'Manage admin accounts and permissions',
             'manage_patrons'   => 'Manage patron accounts and permissions',
-            'manage_books'     => 'Manage book catalog',
+            'manage_records'     => 'Manage bibliographic catalog',
             'circulate'        => 'Handle borrowing and returns',
         ];
         foreach ($perms as $name => $desc) {
@@ -40,7 +40,7 @@ class AdminSeeder extends Seeder
         $admin->permissions()->sync(
             Permission::whereIn('name', [
                 'manage_patrons',
-                'manage_books',
+                'manage_records',
                 'circulate',
             ])->pluck('id')
         );
