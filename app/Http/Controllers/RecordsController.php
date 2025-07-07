@@ -12,7 +12,7 @@ class RecordsController extends Controller
      */
     public function index()
     {
-        //
+        return view('records.index');
     }
 
     /**
