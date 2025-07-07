@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,12 +25,39 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'middle_name' => $this->faker->boolean(50) ? $this->faker->lastName : null, // 50% chance of having a middle name
+            'username' => $this->faker->unique()->userName,
+            'birth_date' => $this->faker->date('Y-m-d', '2005-01-01'), // Random date before 2005
+            'email' => $this->faker->unique()->safeEmail,
+            'contact_number' => $this->faker->phoneNumber,
+            'role_id' => Role::where('name', 'admin')->first()->id, // Assumes you have a Role factory
+            'password' => Hash::make('admin123'),
         ];
+    }
+
+    public function superAdmin()
+    {
+        return $this->state([
+            'first_name' => 'Raffy',
+            'last_name' => 'Dela Cruz',
+            'middle_name' => 'Abay-abay',
+            'username' => '@superadmin',
+            'email' => 'radelacruz00121@usep.edu.ph',
+            'role_id' => Role::where('name', 'super_admin')->first()->id,
+        ]);
+    }
+
+    public function yazee()
+    {
+        return $this->state([
+            'first_name' => 'John Yazee',
+            'last_name' => 'Dela Cruz',
+            'username' => '@yazee',
+            'email' => 'jydelacruz00121@usep.edu.ph',
+            'role_id' => Role::where('name', 'admin')->first()->id,
+        ]);
     }
 
     /**

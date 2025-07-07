@@ -17,6 +17,7 @@ class AdminController extends Controller
             ->whereHas('role', function ($query) {
                 $query->where('name', 'admin');
             })
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return view('admins.index', ['admins' => $admins]);
@@ -40,7 +41,7 @@ class AdminController extends Controller
             'birth-date' => 'required|date|before:today',
             'username' => 'required|string|max:20|unique:users,username',
             'email' => 'required|string|email|max:50|unique:users,email',
-            'contact-number' => 'required|numeric|digits:20|unique:users,contact_number',
+            'contact-number' => 'required|unique:users,contact_number',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -60,6 +61,7 @@ class AdminController extends Controller
                 'birth_date' => $request->input('birth-date'),
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
+                'contact_number' => $request->input('contact-number'),
                 'role_id' => $adminRole->id,
                 'password' => Hash::make($request->input('password')),
             ]);

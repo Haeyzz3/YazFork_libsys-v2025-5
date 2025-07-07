@@ -48,48 +48,9 @@ class AdminSeeder extends Seeder
         // Super admin gets everything:
         $super->permissions()->sync(Permission::pluck('id'));
 
-        // Default Users
-
-        User::create([
-            'first_name' => 'Raffy',
-            'last_name' => 'Dela Cruz',
-            'middle_name' => 'Abay-abay',
-            'username' => '@superadmin',
-            'birth_date' => '1990-01-01',
-            'email' => 'radelacruz00121@usep.edu.ph',
-            'role_id' => $super->id,
-            'password' => bcrypt('admin123'),
-        ]);
-
-        User::create([
-            'first_name' => 'Kaiser',
-            'last_name' => 'Zamora',
-            'birth_date' => '1990-01-01',
-            'username' => '@kai',
-            'email' => 'kaiser@email.com',
-            'role_id' => $admin->id,
-            'password' => bcrypt('admin123'),
-        ]);
-
-        User::create([
-            'first_name' => 'John Robert',
-            'last_name' => 'Paler',
-            'birth_date' => '1990-01-01',
-            'username' => '@j.robert',
-            'email' => 'r.robert@email.com',
-            'role_id' => $admin->id,
-            'password' => bcrypt('admin123'),
-        ]);
-
-        User::create([
-            'first_name' => 'John',
-            'middle_name' => 'Kennedy',
-            'last_name' => 'Doe',
-            'birth_date' => '1990-01-01',
-            'username' => '@john',
-            'email' => 'john@email.com',
-            'role_id' => $admin->id,
-            'password' => bcrypt('admin123'),
-        ]);
+        // Default Admins
+        User::factory()->superAdmin()->create();
+        User::factory()->yazee()->create();
+        User::factory()->count(20)->create();
     }
 }
