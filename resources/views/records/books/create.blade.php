@@ -53,7 +53,7 @@
                         <h2 class="text-base font-semibold leading-7 text-gray-900">Basic Information</h2>
                     </div>
 
-                    <div class="grid max-w-4xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
+                    <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                         <div class="sm:col-span-1">
                             <label for="accession-number" class="block text-sm font-medium leading-6 text-gray-900">Accession Number</label>
                             <div class="mt-2">
@@ -206,6 +206,69 @@
                                     <option value="Other" {{ old('language') == 'Other' ? 'selected' : '' }}>Other</option>
                                 </select>
                                 @error('language')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8 mt-8">
+
+                    <div>
+                        <h2 class="text-base font-semibold leading-7 text-gray-900">Additional Authors & Contributors</h2>
+                    </div>
+
+                    <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
+                        <div class="sm:col-span-2">
+                            <label for="additional-authors" class="block text-sm font-medium leading-6 text-gray-900">Additional Authors</label>
+                            <div class="mt-2">
+                                <input
+                                    id="additional-authors"
+                                    name="additional-authors"
+                                    type="text"
+                                    placeholder="Enter additional authors (separate multiple authors with commas)"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('additional-authors') }}"
+                                    @error('additional-authors') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('additional-authors')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-1">
+                            <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">Editor</label>
+                            <div class="mt-2">
+                                <input
+                                    id="editor"
+                                    name="editor"
+                                    type="text"
+                                    placeholder="Enter editor name"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('editor') }}"
+                                    @error('editor') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('editor')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-1">
+                            <label for="series-title" class="block text-sm font-medium leading-6 text-gray-900">Series Title</label>
+                            <div class="mt-2">
+                                <input
+                                    id="series-title"
+                                    name="series-title"
+                                    type="text"
+                                    placeholder="Enter series title"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('series-title') }}"
+                                    @error('series-title') ring-red-500 focus:ring-red-500 @enderror
+                                >
+                                @error('series-title')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
