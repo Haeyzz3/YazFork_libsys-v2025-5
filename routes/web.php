@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(func
 
 Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(function () {
     Route::get('records', [RecordsController::class, 'index'])->name('records.index');
+    Route::get('records', [BooksController::class, 'books'])->name('records.books.index');
 });
 
 Route::middleware(['auth'])->group(function () {
