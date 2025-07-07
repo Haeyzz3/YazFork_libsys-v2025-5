@@ -40,6 +40,7 @@ class AdminController extends Controller
             'birth-date' => 'required|date|before:today',
             'username' => 'required|string|max:20|unique:users,username',
             'email' => 'required|string|email|max:50|unique:users,email',
+            'contact-number' => 'required|numeric|digits:20|unique:users,contact_number',
             'password' => 'required|string|min:8|confirmed',
         ]);
 

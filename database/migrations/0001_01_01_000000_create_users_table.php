@@ -19,7 +19,6 @@ return new class extends Migration
         });
 
         Schema::create('users', function (Blueprint $table) {
-            $table->softDeletes();
             $table->id();
             $table->string('username', 50)->unique();
             $table->string('first_name', 50);
@@ -34,6 +33,7 @@ return new class extends Migration
             $table->foreignId('role_id')
                 ->constrained('roles');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 

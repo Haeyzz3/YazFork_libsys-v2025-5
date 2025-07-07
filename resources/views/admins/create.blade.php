@@ -174,7 +174,7 @@
                             </div>
                         </div>
 
-                        <div class="sm:col-span-4">
+                        <div class="sm:col-span-3   ">
                             <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
                             <div class="mt-2">
                                 <input
@@ -194,7 +194,7 @@
                             </div>
                         </div>
 
-                        <div class="sm:col-span-4">
+                        <div class="sm:col-span-3   ">
                             <label for="password-confirmation" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
                             <div class="mt-2">
                                 <input
