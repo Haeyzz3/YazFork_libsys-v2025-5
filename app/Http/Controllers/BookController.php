@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Record;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -12,7 +13,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('records.books.index');
+        $books = Record::with('book')
+        ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('records.books.index', ['books' => $books]);
     }
 
     /**
