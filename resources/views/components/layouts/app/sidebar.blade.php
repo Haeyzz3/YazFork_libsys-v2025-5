@@ -32,7 +32,7 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Catalog')" class="grid">
-                    <flux:navlist.item icon="crown" href="#"  wire:navigate>{{ __('Manage Books') }}</flux:navlist.item>
+                    <flux:navlist.item icon="crown" :href="route('records.index')"  wire:navigate>{{ __('Manage Records') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

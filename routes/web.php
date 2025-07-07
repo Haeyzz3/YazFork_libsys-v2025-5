@@ -33,6 +33,10 @@ Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(func
     Route::delete('patrons/{patron}', [PatronController::class, 'destroy'])->name('patrons.destroy');
 });
 
+Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(function () {
+    Route::get('records', [RecordsController::class, 'index'])->name('records.index');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
