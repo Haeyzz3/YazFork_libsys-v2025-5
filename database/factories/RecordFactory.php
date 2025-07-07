@@ -31,6 +31,7 @@ class RecordFactory extends Factory
         $statuses = ['Available', 'Processing'];
 
         return [
+            'accession_number' => $this->faker->randomNumber(6),
             'title' => $this->faker->sentence(3, true),
             'language' => $this->faker->randomElement($languages),
             'ddc_classification' => $this->faker->randomElement($classifications),

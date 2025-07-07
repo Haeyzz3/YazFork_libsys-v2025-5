@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id(); // Primary key, auto-generated
+            $table->string('accession_number', 10);
             $table->string('title')->index(); // Required, indexed for search
             $table->string('language'); // Dropdown: English, Filipino, Spanish, Other
             $table->string('ddc_classification'); // Required dropdown: Applied Science, Arts, etc.
