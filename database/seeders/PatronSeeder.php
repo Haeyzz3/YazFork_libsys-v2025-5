@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Office;
+use App\Models\PatronDetail;
 use App\Models\PatronType;
 use App\Models\Program;
 use App\Models\Major;
@@ -32,24 +33,8 @@ class PatronSeeder extends Seeder
         $infosec_major = Major::firstOrCreate(['name' => 'Information Security', 'program_id' => $bsit_program->id]);
         Major::firstOrCreate(['name' => 'Filipino', 'program_id' => $bsed_program->id]);
 
-        User::create([
-            'first_name' => 'Patron',
-            'last_name' => 'Student',
-            'middle_name' => 'Child',
-            'birth_date' => '1990-01-01',
-            'username' => '@patron',
-            'role_id' => $patron_role->id,
-            'email' => 'patron@email.com',
-            'password' => bcrypt('patron123'),
-        ])->patronDetails()
-            ->create([
-                'student_id' => '001',
-                'library_id' => '001',
-                'sex' => 'male',
-                'patron_type_id' => $undergraduate_patron_type->id,
-                'program_id' => $bsit_program->id,
-                'major_id' => $infosec_major->id,
-                'office_id' => $osas_office->id,
-            ]);
+        User::factory()
+            ->has(PatronDetail::factory(), 'PatronDetails')
+            ->count(20)->create();
     }
 }

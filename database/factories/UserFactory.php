@@ -28,11 +28,11 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'middle_name' => $this->faker->boolean(50) ? $this->faker->lastName : null, // 50% chance of having a middle name
-            'username' => $this->faker->unique()->userName,
+            'username' => '@' . $this->faker->unique()->userName,
             'birth_date' => $this->faker->date('Y-m-d', '2005-01-01'), // Random date before 2005
             'email' => $this->faker->unique()->safeEmail,
             'contact_number' => $this->faker->phoneNumber,
-            'role_id' => Role::where('name', 'admin')->first()->id, // Assumes you have a Role factory
+            'role_id' => Role::where('name', 'patron')->first()->id, // Assumes you have a Role factory
             'password' => Hash::make('admin123'),
         ];
     }
@@ -57,6 +57,13 @@ class UserFactory extends Factory
             'username' => '@yazee',
             'email' => 'jydelacruz00121@usep.edu.ph',
             'role_id' => Role::where('name', 'admin')->first()->id,
+        ]);
+    }
+
+    public function admin()
+    {
+        return $this->state([
+            'role_id' =>  Role::where('name', 'admin')->first()->id,
         ]);
     }
 

@@ -51,6 +51,6 @@ class AdminSeeder extends Seeder
         // Default Admins
         User::factory()->superAdmin()->create();
         User::factory()->yazee()->create();
-        User::factory()->count(20)->create();
+        User::factory()->admin()->count(20)->create();
     }
 }

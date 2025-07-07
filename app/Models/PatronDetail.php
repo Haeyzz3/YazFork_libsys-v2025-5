@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PatronDetail extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'patron_type_id',
         'student_id',
@@ -15,7 +17,6 @@ class PatronDetail extends Model
         'major_id',
         'office_id',
         'address',
-        'contact_number',
     ];
 
     public function user() : BelongsTo
