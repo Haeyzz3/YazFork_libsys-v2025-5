@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Record;
 use Illuminate\Database\Seeder;
 
 class BookSeeder extends Seeder
@@ -13,6 +13,8 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        Book::factory()->count(20)->create();
+        Record::factory()
+            ->has(Book::factory(), 'books')
+            ->count(20)->create();
     }
 }

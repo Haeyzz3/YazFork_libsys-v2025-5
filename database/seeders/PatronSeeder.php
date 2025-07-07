@@ -34,7 +34,7 @@ class PatronSeeder extends Seeder
         Major::firstOrCreate(['name' => 'Filipino', 'program_id' => $bsed_program->id]);
 
         User::factory()
-            ->has(PatronDetail::factory(), 'PatronDetails')
+            ->has(PatronDetail::factory(), 'patronDetails')
             ->count(20)->create();
     }
 }

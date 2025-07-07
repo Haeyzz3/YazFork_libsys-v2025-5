@@ -10,4 +10,9 @@ class Record extends Model
     use hasFactory;
 
     protected $table = 'records';
+
+    public function book()
+    {
+        return $this->hasOne(Book::class);
+    }
 }
