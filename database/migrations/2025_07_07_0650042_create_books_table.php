@@ -48,12 +48,12 @@ return new class extends Migration
         });
 
         Schema::create('books', function (Blueprint $table) {
-            $table->foreignId('resource_id') // Foreign key to resources table
-            ->constrained('resources', 'resource_id')
+            $table->foreignId('record_id') // Foreign key to resources table
+            ->constrained('records')
                 ->onDelete('cascade');
             $table->foreignId('primary_author_id') // Foreign key to authors table
             ->nullable()
-                ->constrained('authors', 'author_id')
+                ->constrained('authors')
                 ->onDelete('set null');
             $table->year('publication_year'); // Required
             $table->string('publisher'); // Required
@@ -76,17 +76,18 @@ return new class extends Migration
             $table->index(['primary_author_id', 'publication_year']);
         });
 
-        Schema::create('book_authors', function (Blueprint $table) {
-            $table->foreignId('book_id')
-                ->constrained('books', 'book_id')
+        Schema::create('author_record', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('record_id')
+                ->constrained('records')
                 ->onDelete('cascade');
             $table->foreignId('author_id')
-                ->constrained('authors', 'author_id')
+                ->constrained('authors')
                 ->onDelete('cascade');
             $table->timestamps();
 
             // Composite unique constraint
-            $table->unique(['book_id', 'author_id']);
+            $table->unique(['record_id', 'author_id']);
         });
     }
 
