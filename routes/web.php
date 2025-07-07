@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(func
 
 Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(function () {
     Route::get('records/books', [BookController::class, 'index'])->name('books.index');
+    Route::get('records/e-collections', [ECollectionController::class, 'index'])->name('e-collections.index');
 });
 
 Route::middleware(['auth'])->group(function () {
