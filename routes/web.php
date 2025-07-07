@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\PatronController;
 use App\Http\Controllers\RecordsController;
 use App\Livewire\Settings\Appearance;
@@ -35,8 +36,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(func
 });
 
 Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(function () {
-    Route::get('records', [RecordsController::class, 'index'])->name('records.index');
-    Route::get('records', [BooksController::class, 'books'])->name('records.books.index');
+    Route::get('records/books', [BooksController::class, 'index'])->name('books.index');
 });
 
 Route::middleware(['auth'])->group(function () {
