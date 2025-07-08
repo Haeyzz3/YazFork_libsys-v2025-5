@@ -127,7 +127,7 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $record)
+    public function show(Record $record)
     {
         return view('records.books.show', [
             'record' => $record,

@@ -22,6 +22,7 @@ return new class extends Migration
         });
 
         Schema::create('books', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('record_id') // Foreign key to resources table
             ->constrained('records')
                 ->onDelete('cascade');

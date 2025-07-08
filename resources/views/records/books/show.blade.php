@@ -67,27 +67,27 @@
         <dl class="grid grid-cols-1 sm:grid-cols-3">
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Publication Year</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->publication_year }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book?->publication_year ?? 'N/A' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Publisher</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->Publisher }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->publisher }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Place of Publication</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->Place_of_Publication }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->place_of_publication }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">ISBN/ISSN</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->ISBN_ISSN }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->isbn_issn }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Series Title</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->Series_Title ?? 'Not part of a series' }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->series_title ?? 'Not part of a series' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Edition</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->Edition ?? 'First edition' }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->edition ?? 'First edition' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Cover Type</dt>
@@ -131,10 +131,10 @@
         @endif
 
         <div class="mt-4 flex justify-end px-4">
-            <a href="{{ route('records.edit', $record) }}">
+            <a href="#">
                 <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold
                         text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
-                        focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Record</button>
+                        focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Book</button>
             </a>
         </div>
     </div>
