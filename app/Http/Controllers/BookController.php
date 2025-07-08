@@ -47,7 +47,7 @@ class BookController extends Controller
             'date-acquired' => 'required|date',
             'source' => 'required|string|in:Purchase,Donation,Gift,Exchange,Other',
             'purchase-amount' => 'nullable|numeric|min:0',
-            'acquisition-status' => 'required|string|in:Available,Checked Out,Lost,Damaged,Under Repair,Withdrawn',
+            'acquisition-status' => 'required|string|in:Processing,Available,Pending Review',
             'additional-notes' => 'nullable|string|max:1000',
 //        end of records part, start of book part
             'primary-author' => 'required|string|max:255',
