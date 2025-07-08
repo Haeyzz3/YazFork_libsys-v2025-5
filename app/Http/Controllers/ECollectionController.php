@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ECollection;
+use App\Models\Record;
 use Illuminate\Http\Request;
 
 class ECollectionController extends Controller
@@ -12,7 +13,12 @@ class ECollectionController extends Controller
      */
     public function index()
     {
-        return view('records.e-collection.index');
+        $records = Record::with('eCollection')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('records.e-collection.index', [
+            'records' => $records
+        ]);
     }
 
     /**
