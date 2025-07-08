@@ -40,6 +40,8 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/books/create', [BookController::class, 'create'])->name('books.create');
     Route::post('records/books', [BookController::class, 'store'])->name('books.store');
     Route::get('records/books/{record}', [BookController::class, 'show'])->name('books.show');
+    Route::get('records/books/{record}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::put('records/books/{record}', [BookController::class, 'update'])->name('books.update');
     Route::get('records/e-collections', [ECollectionController::class, 'index'])->name('e-collections.index');
 });
 

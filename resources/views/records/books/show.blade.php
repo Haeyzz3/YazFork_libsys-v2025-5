@@ -118,20 +118,20 @@
                 @if($record->book->table_of_contents)
                     <div class="px-4 py-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Table of Contents</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->Table_of_Contents }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->table_of_contents }}</dd>
                     </div>
                 @endif
                 @if($record->book->summary_abstract)
                     <div class="px-4 py-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Summary/Abstract</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->Summary_Abstract }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->summary_abstract }}</dd>
                     </div>
                 @endif
             </dl>
         @endif
 
         <div class="mt-4 flex justify-end px-4">
-            <a href="#">
+            <a href="{{ route('books.edit', $record) }}">
                 <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold
                         text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
                         focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Book</button>
