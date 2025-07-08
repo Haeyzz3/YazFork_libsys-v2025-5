@@ -20,7 +20,7 @@ class DigitalResource extends Model
         'access_method',
         'file_format',
         'duration',
-        'resource_cover',
+        'resource_cover_thumbnail',
         'system_requirements',
         'summary_abstract',
     ];
