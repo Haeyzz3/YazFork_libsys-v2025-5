@@ -50,6 +50,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::post('records/digital', [DigitalResourceController::class, 'store'])->name('digital.store');
     Route::get('records/digital/{record}', [DigitalResourceController::class, 'show'])->name('digital.show');
     Route::get('records/digital/{record}/edit', [DigitalResourceController::class, 'edit'])->name('digital.edit');
+    Route::put('records/digital/{record}', [DigitalResourceController::class, 'update'])->name('digital.update');
 });
 
 Route::middleware(['auth'])->group(function () {

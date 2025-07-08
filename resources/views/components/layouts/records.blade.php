@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Manage Patrons')">
+<x-layouts.app :title="__($attributes->get('heading-title', 'Library Haven'))">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
 
         <div class="px-4 sm:px-6 lg:px-8">
