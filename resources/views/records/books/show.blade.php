@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Book Details')">
+<x-layouts.records>
     <div class="flex flex-col gap-2 rounded-xl">
         <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-gray-900">Book Information</h3>
@@ -83,7 +83,7 @@
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Publisher</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->publisher }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book?->publisher ?? 'N/A' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Place of Publication</dt>
@@ -150,4 +150,4 @@
             </a>
         </div>
     </div>
-</x-layouts.app>
+</x-layouts.records>

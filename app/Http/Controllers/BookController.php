@@ -249,7 +249,9 @@ class BookController extends Controller
     public function destroy(Record $record)
     {
         try {
+
             $record->delete();
+            $record->book->delete();
 
             return redirect()->route('books.index')
                 ->with('success', 'Book deleted successfully!');
