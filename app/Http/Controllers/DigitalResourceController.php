@@ -16,6 +16,7 @@ class DigitalResourceController extends Controller
     public function index()
     {
         $records = Record::with('digitalResource')
+            ->whereHas('digitalResource')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
         return view('records.digital-resources.index', [

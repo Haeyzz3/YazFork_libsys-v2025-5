@@ -16,8 +16,9 @@ class BookController extends Controller
     public function index()
     {
         $records = Record::with('book')
-        ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->whereHas('book')
+            ->orderBy('created_at', 'desc')
+                ->paginate(10);
 
         return view('records.books.index', ['records' => $records]);
     }
