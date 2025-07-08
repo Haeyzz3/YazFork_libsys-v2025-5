@@ -45,7 +45,7 @@ class BookController extends Controller
             'physical-location' => 'required|string|in:Circulation,Fiction,Filipiniana,General References,Graduate School,Reserve,PCAARRD,Vertical Files',
             'location-symbol' => 'required|string|max:10',
             'date-acquired' => 'required|date',
-            'source' => 'required|string|in:Purchase,Donation,Gift,Exchange,Other',
+            'source' => 'required|string|in:Purchase,Donation,Exchange,Government Depository',
             'purchase-amount' => 'nullable|numeric|min:0',
             'acquisition-status' => 'required|string|in:Processing,Available,Pending Review',
             'additional-notes' => 'nullable|string|max:1000',
@@ -93,6 +93,20 @@ class BookController extends Controller
                 'purchase_amount' => $request->input('purchase-amount'),
                 'acquisition_status' => $request->input('acquisition-status'),
                 'additional_notes' => $request->input('additional-notes'),
+            ]);
+
+            // Create the associated book with additional details
+            $record->book()->create([
+                'Publication_Year' => $request->input('publication-year'),
+                'Publisher' => $request->input('publisher'),
+                'Place_of_Publication' => $request->input('place-of-publication'),
+                'ISBN_ISSN' => $request->input('isbn-issn'),
+                'Series_Title' => $request->input('series-title'),
+                'Edition' => $request->input('edition'),
+                'Cover_Type' => $request->input('cover-type'),
+                'Book_Cover_Image' => $coverImagePath, // Use the uploaded image path
+                'Table_of_Contents' => $request->input('table-of-contents'),
+                'Summary_Abstract' => $request->input('summary-abstract'),
             ]);
 
             // Redirect with success message
