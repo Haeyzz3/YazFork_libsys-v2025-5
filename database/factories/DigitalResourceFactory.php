@@ -20,6 +20,7 @@ class DigitalResourceFactory extends Factory
             'primary_author' => $this->faker->name(),
             'publication_copyright_year' => $this->faker->year(),
             'publisher_producer' => $this->faker->company(),
+            'editor_producer' => $this->faker->company(),
             'collection_type' => $this->faker->randomElement(['E-books', 'Audiobooks', 'Digital Magazines', 'Online Databases', 'Streaming Media']),
             'access_method' => $this->faker->randomElement(['Online', 'CD/DVD', 'USB', 'Network Access']),
             'file_format' => $this->faker->randomElement(['PDF', 'EPUB', 'MOBI', 'MP3', 'MP4', 'HTML', 'XML']),

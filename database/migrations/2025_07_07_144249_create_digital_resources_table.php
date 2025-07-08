@@ -30,6 +30,7 @@ return new class extends Migration
             // Optional Fields
             $table->enum('file_format', ['PDF', 'EPUB', 'MOBI', 'MP3', 'MP4', 'HTML', 'XML'])->nullable();
             $table->string('duration')->nullable(); // For audiobooks/videos
+            $table->string('editor_producer')->nullable(); // For audiobooks/videos
             $table->text('system_requirements')->nullable();
             $table->string('resource_cover_thumbnail')->nullable(); // Store file path
             $table->text('license_access_rights')->nullable();

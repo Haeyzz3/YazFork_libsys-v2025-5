@@ -61,77 +61,42 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publication-year" class="block text-sm font-medium leading-6 text-gray-900">Publication Year</label>
+                    <label for="publication-copyright-year" class="block text-sm font-medium leading-6 text-gray-900">Publication/Copyright Year</label>
                     <div class="mt-2">
                         <input
-                            id="publication-year"
-                            name="publication-year"
+                            id="publication-copyright-year"
+                            name="publication-copyright-year"
                             type="number"
                             placeholder="Enter publication year"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('publication-year') }}"
+                            value="{{ old('publication-copyright-year') }}"
                             required
-                            @error('publication-year') ring-red-500 focus:ring-red-500 @enderror
+                            @error('publication-copyright-year') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('publication-year')
+                        @error('publication-copyright-year')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publisher" class="block text-sm font-medium leading-6 text-gray-900">Publisher</label>
+                    <label for="publisher-producer" class="block text-sm font-medium leading-6 text-gray-900">Publisher/Producer</label>
                     <div class="mt-2">
                         <input
-                            id="publisher"
-                            name="publisher"
+                            id="publisher-producer"
+                            name="publisher-producer"
                             type="text"
-                            placeholder="Enter publisher"
+                            placeholder="Enter publisher/producer"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('publisher') }}"
+                            value="{{ old('publisher-producer') }}"
                             required
-                            @error('publisher') ring-red-500 focus:ring-red-500 @enderror
+                            @error('publisher-producer') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('publisher')
+                        @error('publisher-producer')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
-                <div class="sm:col-span-1">
-                    <label for="place-of-publication" class="block text-sm font-medium leading-6 text-gray-900">Place of Publication</label>
-                    <div class="mt-2">
-                        <input
-                            id="place-of-publication"
-                            name="place-of-publication"
-                            type="text"
-                            placeholder="Enter place of publication"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('place-of-publication') }}"
-                            required
-                            @error('place-of-publication') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                        @error('place-of-publication')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="isbn-issn" class="block text-sm font-medium leading-6 text-gray-900">ISBN/ISSN</label>
-                    <div class="mt-2">
-                        <input
-                            id="isbn-issn"
-                            name="isbn-issn"
-                            type="text"
-                            placeholder="Enter ISBN/ISSN"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('isbn-issn') }}"
-                            required
-                            @error('isbn-issn') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                        @error('isbn-issn')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+
                 <div class="sm:col-span-1">
                     <label for="language" class="block text-sm font-medium leading-6 text-gray-900">Language</label>
                     <div class="mt-2">
@@ -158,11 +123,9 @@
             </div>
         </div>
 
-        <!-- Additional Authors & Contributors section — add px-2 similarly -->
-
         <div class="space-y-8 mt-8">
             <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Additional Authors & Contributors</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Additional Contributors</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <div class="sm:col-span-2">
@@ -183,35 +146,18 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">Editor</label>
+                    <label for="editor-producer" class="block text-sm font-medium leading-6 text-gray-900">Editor/Producer</label>
                     <div class="mt-2">
                         <input
-                            id="editor"
-                            name="editor"
+                            id="editor-producer"
+                            name="editor-producer"
                             type="text"
                             placeholder="Enter editor name"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('editor') }}"
-                            @error('editor') ring-red-500 focus:ring-red-500 @enderror
+                            value="{{ old('editor-producer') }}"
+                            @error('editor-producer') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('editor')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="series-title" class="block text-sm font-medium leading-6 text-gray-900">Series Title</label>
-                    <div class="mt-2">
-                        <input
-                            id="series-title"
-                            name="series-title"
-                            type="text"
-                            placeholder="Enter series title"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('series-title') }}"
-                            @error('series-title') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                        @error('series-title')
+                        @error('editor-producer')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -221,7 +167,7 @@
 
         <div class="space-y-8 mt-8">
             <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Classification & Location</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Classification & Access</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
 
@@ -278,120 +224,138 @@
                 </div>
 
                 <div class="sm:col-span-1">
-                    <label for="physical-location" class="block text-sm font-medium leading-6 text-gray-900">Physical Location</label>
+                    <label for="collection-type" class="block text-sm font-medium leading-6 text-gray-900">Collection Type</label>
                     <div class="mt-2">
                         <select
-                            id="physical-location"
-                            name="physical-location"
+                            id="collection-type"
+                            name="collection-type"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
                    ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
                    sm:text-sm sm:leading-6"
-                            onchange="updateLocationSymbol()"
                         >
-                            <option value="" disabled selected>Select physical location</option>
-                            <option value="Circulation" {{ old('physical-location') == 'Circulation' ? 'selected' : '' }}>Circulation</option>
-                            <option value="Fiction" {{ old('physical-location') == 'Fiction' ? 'selected' : '' }}>Fiction</option>
-                            <option value="Filipiniana" {{ old('physical-location') == 'Filipiniana' ? 'selected' : '' }}>Filipiniana</option>
-                            <option value="General References" {{ old('physical-location') == 'General References' ? 'selected' : '' }}>General References</option>
-                            <option value="Graduate School" {{ old('physical-location') == 'Graduate School' ? 'selected' : '' }}>Graduate School</option>
-                            <option value="Reserve" {{ old('physical-location') == 'Reserve' ? 'selected' : '' }}>Reserve</option>
-                            <option value="PCAARRD" {{ old('physical-location') == 'PCAARRD' ? 'selected' : '' }}>PCAARRD</option>
-                            <option value="Vertical Files" {{ old('physical-location') == 'Vertical Files' ? 'selected' : '' }}>Vertical Files</option>
+                            <option value="" disabled selected>Select collection type</option>
+                            <option value="E-books" {{ old('collection-type') == 'E-books' ? 'selected' : '' }}>E-books</option>
+                            <option value="Audiobooks" {{ old('collection-type') == 'Audiobooks' ? 'selected' : '' }}>Audiobooks</option>
+                            <option value="Databases" {{ old('collection-type') == 'Databases' ? 'selected' : '' }}>Databases</option>
+                            <option value="Digital Archives" {{ old('collection-type') == 'Digital Archives' ? 'selected' : '' }}>Digital Archives</option>
+                            <option value="Multimedia" {{ old('collection-type') == 'Multimedia' ? 'selected' : '' }}>Multimedia</option>
                         </select>
-                        @error('physical-location')
+                        @error('collection-type')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
+                {{-- Access Method (dropdown: Online, CD/DVD, Local Server, Cloud Storage) --}}
                 <div class="sm:col-span-1">
-                    <label for="location-symbol" class="block text-sm font-medium leading-6 text-gray-900">Location Symbol</label>
-                    <div class="mt-2">
-                        <input
-                            disabled
-                            id="location-symbol"
-                            name="location-symbol"
-                            type="text"
-                            placeholder="Auto-generated based on location"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                   ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                   focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('location-symbol') }}"
-                            readonly
-                        >
-                        @error('location-symbol')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <label for="access-method" class="block text-sm font-medium leading-6 text-gray-900">Access Method</label>
+                        <div class="mt-2">
+                            <select
+                                id="access-method"
+                                name="access-method"
+                                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                >
+                                <option value="" disabled selected>Select access method</option>
+                                <option value="Online" {{ old('access-method') == 'Online' ? 'selected' : '' }}>Online</option>
+                                <option value="CD/DVD" {{ old('access-method') == 'CD/DVD' ? 'selected' : '' }}>CD/DVD</option>
+                                <option value="Local Server" {{ old('access-method') == 'Local Server' ? 'selected' : '' }}>Local Server</option>
+                                <option value="Cloud Storage" {{ old('access-method') == 'Cloud Storage' ? 'selected' : '' }}>Cloud Storage</option>
+                            </select>
+                            @error('access-method')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                 </div>
 
             </div>
         </div>
 
+
         <div class="space-y-8 mt-8">
             <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Technical Specifications</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
 
                 <div class="sm:col-span-1">
-                    <label for="edition" class="block text-sm font-medium leading-6 text-gray-900">Edition</label>
-                    <div class="mt-2">
-                        <input
-                            id="edition"
-                            name="edition"
-                            type="text"
-                            placeholder="Enter edition"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                           ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('edition') }}"
-                        >
-                        @error('edition')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="cover-type" class="block text-sm font-medium leading-6 text-gray-900">Cover Type</label>
+                    <label for="file_format" class="block text-sm font-medium leading-6 text-gray-900">File Format</label>
                     <div class="mt-2">
                         <select
-                            id="cover-type"
-                            name="cover-type"
+                            id="file_format"
+                            name="file_format"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                           ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
-                           sm:text-sm sm:leading-6"
+                                ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                                focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         >
-                            <option value="" disabled selected>Select cover type</option>
-                            <option value="Hardcover" {{ old('cover-type') == 'Hardcover' ? 'selected' : '' }}>Hardcover</option>
-                            <option value="Paperback" {{ old('cover-type') == 'Paperback' ? 'selected' : '' }}>Paperback</option>
-                            <option value="Spiral-bound" {{ old('cover-type') == 'Spiral-bound' ? 'selected' : '' }}>Spiral-bound</option>
-                            <option value="Other" {{ old('cover-type') == 'Other' ? 'selected' : '' }}>Other</option>
+                            <option value="">Select file format</option>
+                            <option value="PDF" {{ old('file_format') == 'PDF' ? 'selected' : '' }}>PDF</option>
+                            <option value="EPUB" {{ old('file_format') == 'EPUB' ? 'selected' : '' }}>EPUB</option>
+                            <option value="MP3" {{ old('file_format') == 'MP3' ? 'selected' : '' }}>MP3</option>
+                            <option value="MP4" {{ old('file_format') == 'MP4' ? 'selected' : '' }}>MP4</option>
+                            <option value="HTML" {{ old('file_format') == 'HTML' ? 'selected' : '' }}>HTML</option>
+                            <option value="Database" {{ old('file_format') == 'Database' ? 'selected' : '' }}>Database</option>
+                            <option value="Other" {{ old('file_format') == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
-                        @error('cover-type')
+                        @error('file_format')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
                 <div class="sm:col-span-1">
-                    <label for="book-cover-image" class="block text-sm font-medium leading-6 text-gray-900">Book Cover Image</label>
+                    <label for="duration" class="block text-sm font-medium leading-6 text-gray-900">Duration</label>
                     <div class="mt-2">
                         <input
-                            id="book-cover-image"
-                            name="book-cover-image"
-                            type="file"
-                            accept=".jpg,.jpeg,.png,.pdf"
+                            id="duration"
+                            name="duration"
+                            type="text"
+                            placeholder="Enter duration (e.g., 1h 30m)"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                           ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
-                           sm:text-sm sm:leading-6"
+                   ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                   focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            value="{{ old('duration') }}"
                         >
-                        @error('book-cover-image')
+                        @error('duration')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
+
+                <div class="sm:col-span-1">
+                    <label for="resource_cover" class="block text-sm font-medium leading-6 text-gray-900">Resource Cover/Thumbnail</label>
+                    <div class="mt-2">
+                        <input
+                            id="resource_cover"
+                            name="resource_cover"
+                            type="file"
+                            accept=".jpg,.png"
+                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
+                   ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                   focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                        @error('resource_cover')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="sm:col-span-1">
+                    <label for="system_requirements" class="block text-sm font-medium leading-6 text-gray-900">System Requirements</label>
+                    <div class="mt-2">
+                    <textarea
+                        id="system_requirements"
+                        name="system_requirements"
+                        placeholder="Enter system requirements"
+                        class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
+                               ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                               focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    >{{ old('system_requirements') }}</textarea>
+                        @error('system_requirements')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
 
             </div>
         </div>
@@ -487,23 +451,6 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-
-                <div class="sm:col-span-1">
-                    <label for="table-of-contents" class="block text-sm font-medium leading-6 text-gray-900">Table of Contents</label>
-                    <div class="mt-2">
-                                <textarea
-                                    id="table-of-contents"
-                                    name="table-of-contents"
-                                    rows="4"
-                                    placeholder="Enter table of contents"
-                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    @error('table-of-contents') ring-red-500 focus:ring-red-500 @enderror
-                                >{{ old('table-of-contents') }}</textarea>
-                        @error('table-of-contents')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
 
                 <div class="sm:col-span-1">
                     <label for="summary-abstract" class="block text-sm font-medium leading-6 text-gray-900">Summary/Abstract</label>
