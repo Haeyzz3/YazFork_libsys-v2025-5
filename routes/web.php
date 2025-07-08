@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::delete('records/books/{record}', [BookController::class, 'destroy'])->name('books.destroy');
     // e-collections
     Route::get('records/e-collections', [ECollectionController::class, 'index'])->name('e-collections.index');
+    Route::get('records/e-collections/create', [ECollectionController::class, 'create'])->name('e-collections.create');
 });
 
 Route::middleware(['auth'])->group(function () {

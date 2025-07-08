@@ -1,6 +1,6 @@
 <x-layouts.records heading-title="Manage Electronic Records">
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex justify-end gap-2">
-        <a href="{{ route('books.create') }}">
+        <a href="{{ route('e-collections.create') }}">
             <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold
                          text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
                          focus-visible:outline-offset-2 focus-visible:outline-indigo-600">

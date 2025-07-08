@@ -26,7 +26,7 @@ class ECollectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('records.e-collection.create');
     }
 
     /**
