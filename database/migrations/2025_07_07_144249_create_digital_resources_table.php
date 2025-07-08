@@ -24,13 +24,14 @@ return new class extends Migration
             // Required Fields
             $table->year('publication_copyright_year');
             $table->string('publisher_producer');
-            $table->enum('collection_type', ['E-books', 'Audiobooks', 'Digital Magazines', 'Online Databases', 'Streaming Media']);
-            $table->enum('access_method', ['Online', 'CD/DVD', 'USB', 'Network Access']);
+            $table->string('collection_type');
+            $table->string('access_method');
 
             // Optional Fields
-            $table->enum('file_format', ['PDF', 'EPUB', 'MOBI', 'MP3', 'MP4', 'HTML', 'XML'])->nullable();
+            $table->string('file_format', 50)->nullable();
             $table->string('duration')->nullable(); // For audiobooks/videos
             $table->string('editor_producer')->nullable(); // For audiobooks/videos
+            $table->string('additional_authors')->nullable();
             $table->text('system_requirements')->nullable();
             $table->string('resource_cover_thumbnail')->nullable(); // Store file path
             $table->text('license_access_rights')->nullable();

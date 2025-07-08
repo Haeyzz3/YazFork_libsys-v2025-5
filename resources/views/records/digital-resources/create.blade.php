@@ -257,7 +257,7 @@
                                 >
                                 <option value="" disabled selected>Select access method</option>
                                 <option value="Online" {{ old('access-method') == 'Online' ? 'selected' : '' }}>Online</option>
-                                <option value="CD/DVD" {{ old('access-method') == 'CD/DVD' ? 'selected' : '' }}>CD/DVD</option>
+                                <option value="Physical Media" {{ old('access-method') == 'Physical Media' ? 'selected' : '' }}>Physical Media</option>
                                 <option value="Local Server" {{ old('access-method') == 'Local Server' ? 'selected' : '' }}>Local Server</option>
                                 <option value="Cloud Storage" {{ old('access-method') == 'Cloud Storage' ? 'selected' : '' }}>Cloud Storage</option>
                             </select>
@@ -292,8 +292,6 @@
                             <option value="EPUB" {{ old('file_format') == 'EPUB' ? 'selected' : '' }}>EPUB</option>
                             <option value="MP3" {{ old('file_format') == 'MP3' ? 'selected' : '' }}>MP3</option>
                             <option value="MP4" {{ old('file_format') == 'MP4' ? 'selected' : '' }}>MP4</option>
-                            <option value="HTML" {{ old('file_format') == 'HTML' ? 'selected' : '' }}>HTML</option>
-                            <option value="Database" {{ old('file_format') == 'Database' ? 'selected' : '' }}>Database</option>
                             <option value="Other" {{ old('file_format') == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
                         @error('file_format')
@@ -322,18 +320,18 @@
                 </div>
 
                 <div class="sm:col-span-1">
-                    <label for="resource_cover" class="block text-sm font-medium leading-6 text-gray-900">Resource Cover/Thumbnail</label>
+                    <label for="resource-cover-thumbnail" class="block text-sm font-medium leading-6 text-gray-900">Resource Cover/Thumbnail</label>
                     <div class="mt-2">
                         <input
-                            id="resource_cover"
-                            name="resource_cover"
+                            id="resource-cover-thumbnail"
+                            name="resource-cover-thumbnail"
                             type="file"
                             accept=".jpg,.png"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
                    ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                    focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         >
-                        @error('resource_cover')
+                        @error('resource-cover-thumbnail')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
