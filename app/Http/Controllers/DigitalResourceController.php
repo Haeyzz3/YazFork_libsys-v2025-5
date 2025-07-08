@@ -19,7 +19,7 @@ class DigitalResourceController extends Controller
             ->whereHas('digitalResource')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('records.digital-resources.index', [
+        return view('records.digital.index', [
             'records' => $records
         ]);
     }
@@ -29,7 +29,7 @@ class DigitalResourceController extends Controller
      */
     public function create()
     {
-        return view('records.digital-resources.create');
+        return view('records.digital.create');
     }
 
     /**
@@ -123,9 +123,11 @@ class DigitalResourceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DigitalResource $eCollection)
+    public function show(Record $record)
     {
-        //
+        return view('records.digital.show', [
+            'record' => $record,
+        ]);
     }
 
     /**

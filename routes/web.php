@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/digital', [DigitalResourceController::class, 'index'])->name('digital.index');
     Route::get('records/digital/create', [DigitalResourceController::class, 'create'])->name('digital.create');
     Route::post('records/digital', [DigitalResourceController::class, 'store'])->name('digital.store');
+    Route::get('records/digital/{record}', [DigitalResourceController::class, 'show'])->name('digital.show');
 });
 
 Route::middleware(['auth'])->group(function () {
