@@ -1,4 +1,4 @@
-<x-layouts.records>
+<x-layouts.records heading-title="Manage Books">
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex justify-end gap-2">
         <a href="{{ route('books.create') }}">
             <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold

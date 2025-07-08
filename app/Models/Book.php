@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Book extends Model
 {
@@ -23,7 +24,7 @@ class Book extends Model
         'summary_abstract',
     ];
 
-    public function record()
+    public function record(): BelongsTo
     {
         return $this->belongsTo(Record::class);
     }

@@ -11,16 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::create('authors', function (Blueprint $table) {
-//            $table->id(); // Primary key, auto-generated
-//            $table->string('name');
-//            $table->timestamps(); // created_at and updated_at
-//            $table->softDeletes(); // For soft delete functionality
-//
-//            // Indexes for better performance
-//            $table->index('name');
-//        });
-
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->foreignId('record_id') // Foreign key to resources table
@@ -46,20 +36,6 @@ return new class extends Migration
             $table->index('isbn_issn');
             $table->index('cover_type');
         });
-
-//        Schema::create('author_record', function (Blueprint $table) {
-//            $table->id();
-//            $table->foreignId('record_id')
-//                ->constrained('records')
-//                ->onDelete('cascade');
-//            $table->foreignId('author_id')
-//                ->constrained('authors')
-//                ->onDelete('cascade');
-//            $table->timestamps();
-//
-//            // Composite unique constraint
-//            $table->unique(['record_id', 'author_id']);
-//        });
     }
 
     /**

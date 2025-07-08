@@ -33,4 +33,9 @@ class Record extends Model
     {
         return $this->hasOne(Book::class);
     }
+
+    public function eCollection(): HasOne
+    {
+        return $this->hasOne(ECollection::class);
+    }
 }
