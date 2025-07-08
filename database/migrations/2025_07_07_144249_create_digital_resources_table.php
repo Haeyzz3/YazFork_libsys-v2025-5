@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('e_collections', function (Blueprint $table) {
+        Schema::create('digital_resources', function (Blueprint $table) {
             $table->id();
 
             // Foreign Keys

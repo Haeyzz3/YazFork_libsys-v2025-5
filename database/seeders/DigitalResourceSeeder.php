@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
-use App\Models\ECollection;
+use App\Models\DigitalResource;
 use App\Models\Record;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ECollectionSeeder extends Seeder
+class DigitalResourceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class ECollectionSeeder extends Seeder
     public function run(): void
     {
         Record::factory()
-            ->has(ECollection::factory(), 'eCollection')
+            ->has(DigitalResource::factory(), 'digitalResource')
             ->count(15)->create();
     }
 }

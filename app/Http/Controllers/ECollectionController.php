@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ECollection;
+use App\Models\DigitalResource;
 use App\Models\Record;
 use Illuminate\Http\Request;
 
@@ -40,7 +40,7 @@ class ECollectionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ECollection $eCollection)
+    public function show(DigitalResource $eCollection)
     {
         //
     }
@@ -48,7 +48,7 @@ class ECollectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ECollection $eCollection)
+    public function edit(DigitalResource $eCollection)
     {
         //
     }
@@ -56,7 +56,7 @@ class ECollectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ECollection $eCollection)
+    public function update(Request $request, DigitalResource $eCollection)
     {
         //
     }
@@ -64,7 +64,7 @@ class ECollectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ECollection $eCollection)
+    public function destroy(DigitalResource $eCollection)
     {
         //
     }

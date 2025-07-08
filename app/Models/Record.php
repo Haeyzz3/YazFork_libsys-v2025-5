@@ -34,8 +34,8 @@ class Record extends Model
         return $this->hasOne(Book::class);
     }
 
-    public function eCollection(): HasOne
+    public function digitalResource(): HasOne
     {
-        return $this->hasOne(ECollection::class);
+        return $this->hasOne(DigitalResource::class);
     }
 }
