@@ -87,16 +87,16 @@
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Edition</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->edition ?? 'First edition' }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->edition ?? 'Not specified' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Cover Type</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->Cover_Type }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->cover_type }}</dd>
             </div>
             <div class="px-4 py-3 flex items-center gap-x-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Book Cover</dt>
-                @if($record->book->Book_Cover_Image)
-                    <img src="{{ asset('storage/' . $record->book->Book_Cover_Image) }}"
+                @if($record->book->book_cover_image)
+                    <img src="{{ asset('storage/' . $record->book->book_cover_image) }}"
                          alt="Book cover"
                          class="h-16 w-12 object-cover rounded-md shadow-sm">
                 @else
@@ -109,19 +109,19 @@
             </div>
         </dl>
 
-        @if($record->book->Table_of_Contents || $record->book->Summary_Abstract)
+        @if($record->book->table_of_contents || $record->book->summary_abstract)
             <div class="mt-4 px-4 sm:px-0">
                 <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Information</h3>
             </div>
 
             <dl class="grid grid-cols-1">
-                @if($record->book->Table_of_Contents)
+                @if($record->book->table_of_contents)
                     <div class="px-4 py-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Table of Contents</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->Table_of_Contents }}</dd>
                     </div>
                 @endif
-                @if($record->book->Summary_Abstract)
+                @if($record->book->summary_abstract)
                     <div class="px-4 py-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Summary/Abstract</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->Summary_Abstract }}</dd>
