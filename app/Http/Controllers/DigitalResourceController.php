@@ -133,9 +133,11 @@ class DigitalResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DigitalResource $eCollection)
+    public function edit(Record $record)
     {
-        //
+        return view('records.digital.edit', [
+            'record' => $record,
+        ]);
     }
 
     /**

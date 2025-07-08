@@ -1,4 +1,4 @@
-<x-layouts.records heading-title="View E Details">
+<x-layouts.records heading-title="View Digital Resource Details">
     <div class="flex flex-col gap-2 rounded-xl">
         <!-- Basic Information Section -->
         <div class="px-4 sm:px-0">
@@ -158,10 +158,10 @@
         @endif
 
         <div class="mt-4 flex justify-end px-4">
-            <a href="{{ route('books.edit', $record) }}">
+            <a href="{{ route('digital.edit', $record) }}">
                 <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold
                         text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
-                        focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Book</button>
+                        focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Digital Resource</button>
             </a>
         </div>
     </div>
