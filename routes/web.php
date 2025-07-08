@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DigitalResourceController;
 use App\Http\Controllers\PatronController;
+use App\Http\Controllers\PeriodicalController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -52,6 +53,9 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/digital/{record}/edit', [DigitalResourceController::class, 'edit'])->name('digital.edit');
     Route::put('records/digital/{record}', [DigitalResourceController::class, 'update'])->name('digital.update');
     Route::delete('records/digital/{record}', [DigitalResourceController::class, 'destroy'])->name('digital.destroy');
+    // periodical
+    Route::get('records/periodicals', [PeriodicalController::class, 'index'])->name('periodicals.index');
+
 });
 
 Route::middleware(['auth'])->group(function () {
