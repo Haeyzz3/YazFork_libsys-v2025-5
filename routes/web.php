@@ -13,7 +13,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')->name('dashboard');
+Route::view('dashboard', 'dashboard')->name('dashboard')
+    ->middleware(['auth', 'permission:manage_admins', 'permission:manage_patrons']);
 
 Route::middleware(['auth', 'verified', 'permission:manage_admins'])->group(function () {
     Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
