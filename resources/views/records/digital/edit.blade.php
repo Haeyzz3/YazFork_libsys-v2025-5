@@ -453,11 +453,76 @@
             </div>
         </div>
 
-        <div class="mt-6 py-8 flex items-center justify-end gap-x-6">
-            <a href="{{ route('digital.index') }}">
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-            </a>
-            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Book</button>
+        <div class="mt-6 py-8 flex items-center justify-between gap-x-6">
+            <button type="submit" form="delete-form" class="text-sm font-semibold leading-6 text-red-900">Delete</button>
+            <div class="flex gap-x-6">
+                <a href="{{ route('digital.show', $record) }}">
+                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                </a>
+                <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Book</button>
+            </div>
         </div>
     </form>
+
+    <form id="delete-form" action="{{ route('digital.destroy', $record) }}" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
 </x-layouts.records>
+
+<script>
+    // DDC Classification to Call Number mapping
+    const ddcCallNumbers = {
+        'Applied Science': '600-699',
+        'Arts': '700-799',
+        'Fiction': 'F',
+        'General Works': '000-099',
+        'History': '900-999',
+        'Language': '400-499',
+        'Literature': '800-899',
+        'Philosophy': '100-199',
+        'Pure Science': '500-599',
+        'Religion': '200-299',
+        'Social Science': '300-399'
+    };
+
+    // Physical Location to Symbol mapping
+    const locationSymbols = {
+        'Circulation': 'CIRC',
+        'Fiction': 'FIC',
+        'Filipiniana': 'FIL',
+        'General References': 'GEN',
+        'Graduate School': 'GS',
+        'Reserve': 'RES',
+        'PCAARRD': 'PCAR',
+        'Vertical Files': 'VF'
+    };
+
+    function updateCallNumber() {
+        const ddcSelect = document.getElementById('ddc-classification');
+        const callNumberInput = document.getElementById('call-number');
+
+        if (ddcSelect.value && ddcCallNumbers[ddcSelect.value]) {
+            callNumberInput.value = ddcCallNumbers[ddcSelect.value];
+        } else {
+            callNumberInput.value = '';
+        }
+    }
+
+    function updateLocationSymbol() {
+        const locationSelect = document.getElementById('physical-location');
+        const symbolInput = document.getElementById('location-symbol');
+
+        if (locationSelect.value && locationSymbols[locationSelect.value]) {
+            symbolInput.value = locationSymbols[locationSelect.value];
+        } else {
+            symbolInput.value = '';
+        }
+    }
+
+    // Initialize on page load if values are already selected
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCallNumber();
+        updateLocationSymbol();
+    });
+</script>

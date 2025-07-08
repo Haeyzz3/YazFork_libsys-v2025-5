@@ -238,8 +238,23 @@ class DigitalResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DigitalResource $eCollection)
+    public function destroy(Record $record)
     {
-        //
+        try {
+
+            $record->digitalResource()->delete();
+            $record->delete();
+
+            return redirect()->route('digital.index')
+                ->with('success', 'Digital resource deleted successfully!');
+        } catch (\Exception $e) {
+            $errorMessage = app()->environment('local') // will only show this in local
+                ? 'Failed to Digital resource book: ' . $e->getMessage()
+                : 'Failed to Digital resource book. Please try again.';
+
+            return redirect()->back()
+                ->with('error', $errorMessage)
+                ->withInput();
+        }
     }
 }

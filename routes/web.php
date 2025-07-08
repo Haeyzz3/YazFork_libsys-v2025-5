@@ -51,6 +51,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/digital/{record}', [DigitalResourceController::class, 'show'])->name('digital.show');
     Route::get('records/digital/{record}/edit', [DigitalResourceController::class, 'edit'])->name('digital.edit');
     Route::put('records/digital/{record}', [DigitalResourceController::class, 'update'])->name('digital.update');
+    Route::delete('records/digital/{record}', [DigitalResourceController::class, 'destroy'])->name('digital.destroy');
 });
 
 Route::middleware(['auth'])->group(function () {
