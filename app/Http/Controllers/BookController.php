@@ -250,8 +250,8 @@ class BookController extends Controller
     {
         try {
 
-            $record->delete();
             $record->book->delete();
+            $record->delete();
 
             return redirect()->route('books.index')
                 ->with('success', 'Book deleted successfully!');
