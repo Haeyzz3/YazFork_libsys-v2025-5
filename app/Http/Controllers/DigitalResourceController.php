@@ -6,17 +6,17 @@ use App\Models\DigitalResource;
 use App\Models\Record;
 use Illuminate\Http\Request;
 
-class ECollectionController extends Controller
+class DigitalResourceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $records = Record::with('eCollection')
+        $records = Record::with('digitalResource')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('records.e-collection.index', [
+        return view('records.digital-resources.index', [
             'records' => $records
         ]);
     }
@@ -26,7 +26,7 @@ class ECollectionController extends Controller
      */
     public function create()
     {
-        return view('records.e-collection.create');
+        return view('records.digital-resources.create');
     }
 
     /**

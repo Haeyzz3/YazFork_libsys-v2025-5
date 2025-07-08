@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\ECollectionController;
+use App\Http\Controllers\DigitalResourceController;
 use App\Http\Controllers\PatronController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -44,8 +44,8 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::put('records/books/{record}', [BookController::class, 'update'])->name('books.update');
     Route::delete('records/books/{record}', [BookController::class, 'destroy'])->name('books.destroy');
     // e-collections
-    Route::get('records/e-collections', [ECollectionController::class, 'index'])->name('e-collections.index');
-    Route::get('records/e-collections/create', [ECollectionController::class, 'create'])->name('e-collections.create');
+    Route::get('records/digital', [DigitalResourceController::class, 'index'])->name('digital.index');
+    Route::get('records/digital/create', [DigitalResourceController::class, 'create'])->name('digital.create');
 });
 
 Route::middleware(['auth'])->group(function () {
