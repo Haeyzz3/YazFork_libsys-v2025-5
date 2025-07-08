@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Record extends Model
 {
@@ -28,7 +29,7 @@ class Record extends Model
         'additional_notes',
     ];
 
-    public function book()
+    public function book(): HasOne
     {
         return $this->hasOne(Book::class);
     }
