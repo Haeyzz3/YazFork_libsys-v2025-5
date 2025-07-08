@@ -3,7 +3,7 @@
         <div class="px-4 sm:px-6 lg:px-8">
             <!-- header & nav omitted for brevity -->
 
-            <form action="#" method="POST">
+            <form action="{{ route('books.store') }}" method="POST">
                 @csrf
                 <div class="space-y-8 mt-8">
                     <div>
@@ -169,7 +169,7 @@
                         <h2 class="text-base font-semibold leading-7 text-gray-900">Additional Authors & Contributors</h2>
                     </div>
                     <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-                        <div class="sm:col-span-1">
+                        <div class="sm:col-span-2">
                             <label for="additional-authors" class="block text-sm font-medium leading-6 text-gray-900">Additional Authors</label>
                             <div class="mt-2">
                                 <input
