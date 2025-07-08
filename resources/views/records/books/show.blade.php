@@ -14,6 +14,18 @@
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->title }}</dd>
             </div>
             <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Primary Author</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->primary_author ?? 'Not specified' }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Additional Authors</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->additional_authors ?? 'None' }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Editor</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->editor ?? 'Not specified' }}</dd>
+            </div>
+            <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Language</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->language }}</dd>
             </div>

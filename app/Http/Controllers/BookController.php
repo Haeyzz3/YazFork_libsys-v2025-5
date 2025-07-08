@@ -50,7 +50,7 @@ class BookController extends Controller
             'acquisition-status' => 'required|string|in:Processing,Available,Pending Review',
             'additional-notes' => 'nullable|string|max:1000',
 //        end of records part, start of book part
-            'primary-author' => 'required|string|max:255',
+            'primary-author' => 'required|string|max:50',
             'publication-year' => 'required|integer|min:1000|max:' . (date('Y') + 10),
             'publisher' => 'required|string|max:255',
             'place-of-publication' => 'required|string|max:255',
@@ -97,6 +97,7 @@ class BookController extends Controller
 
             // Create the associated book with additional details
             $record->book()->create([
+                'primary_author' => $request->input('primary-author'),
                 'publication_year' => $request->input('publication-year'),
                 'publisher' => $request->input('publisher'),
                 'place_of_publication' => $request->input('place-of-publication'),
@@ -215,6 +216,7 @@ class BookController extends Controller
 
             // Update the associated book with additional details
             $record->book()->update([
+                'primary_author' => $request->input('primary-author'),
                 'publication_year' => $request->input('publication-year'),
                 'publisher' => $request->input('publisher'),
                 'place_of_publication' => $request->input('place-of-publication'),
