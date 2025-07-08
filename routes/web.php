@@ -42,6 +42,8 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/books/{record}', [BookController::class, 'show'])->name('books.show');
     Route::get('records/books/{record}/edit', [BookController::class, 'edit'])->name('books.edit');
     Route::put('records/books/{record}', [BookController::class, 'update'])->name('books.update');
+    Route::delete('records/books/{record}', [BookController::class, 'destroy'])->name('books.destroy');
+    // e-collections
     Route::get('records/e-collections', [ECollectionController::class, 'index'])->name('e-collections.index');
 });
 

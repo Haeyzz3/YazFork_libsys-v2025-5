@@ -246,8 +246,21 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $books)
+    public function destroy(Record $record)
     {
-        //
+        try {
+            $record->delete();
+
+            return redirect()->route('books.index')
+                ->with('success', 'Book deleted successfully!');
+        } catch (\Exception $e) {
+            $errorMessage = app()->environment('local') // will only show this in local
+                ? 'Failed to delete book: ' . $e->getMessage()
+                : 'Failed to delete book. Please try again.';
+
+            return redirect()->back()
+                ->with('error', $errorMessage)
+                ->withInput();
+        }
     }
 }
