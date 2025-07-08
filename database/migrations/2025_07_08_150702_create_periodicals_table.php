@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('periodicals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('record_id')->constrained('records')->onDelete('cascade');
+            $table->string('primary_author');
+            $table->year('publication_year');
+            $table->string('publisher');
+            $table->unsignedSmallInteger('volume_number')->nullable();
+            $table->unsignedSmallInteger('issue_number')->nullable();
+            $table->date('publication_date')->nullable();
+            $table->string('issn', 9)->nullable(); // ISSN format: XXXX-XXXX
+            $table->enum('frequency', ['Daily', 'Weekly', 'Biweekly', 'Monthly', 'Quarterly', 'Annually'])->nullable();
+            $table->enum('format', ['Print', 'Microfilm', 'Digital', 'Other'])->nullable();
+            $table->string('cover_sample_image')->nullable(); // Stores file path
+            $table->text('summary_contents')->nullable();
             $table->timestamps();
         });
     }

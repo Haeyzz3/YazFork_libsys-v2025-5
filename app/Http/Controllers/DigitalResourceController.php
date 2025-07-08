@@ -20,7 +20,7 @@ class DigitalResourceController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('records.periodicals.index', [
+        return view('records.digital.index', [
             'records' => $records
         ]);
     }
