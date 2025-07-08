@@ -36,6 +36,12 @@
                 </flux:navlist.group>
             </flux:navlist>
 
+            <flux:navlist variant="outline">
+                <flux:navlist.group :heading="__('Circulation')" class="grid">
+                    <flux:navlist.item icon="crown" :href="route('books.index')" wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+
             <flux:spacer />
 
             <flux:navlist variant="outline">
