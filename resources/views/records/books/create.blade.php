@@ -225,6 +225,113 @@
 
                 <div class="space-y-8 mt-8">
                     <div>
+                        <h2 class="text-base font-semibold leading-7 text-gray-900">Classification & Location</h2>
+                    </div>
+                    <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+
+                        <div class="sm:col-span-1">
+                            <label for="ddc-classification" class="block text-sm font-medium leading-6 text-gray-900">DDC Classification <span class="text-red-500">*</span></label>
+                            <div class="mt-2">
+                                <select
+                                    id="ddc-classification"
+                                    name="ddc-classification"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
+                   ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                   sm:text-sm sm:leading-6"
+                                    onchange="updateCallNumber()"
+                                    required
+                                >
+                                    <option value="" disabled selected>Select DDC classification</option>
+                                    <option value="Applied Science" {{ old('ddc-classification') == 'Applied Science' ? 'selected' : '' }}>Applied Science</option>
+                                    <option value="Arts" {{ old('ddc-classification') == 'Arts' ? 'selected' : '' }}>Arts</option>
+                                    <option value="Fiction" {{ old('ddc-classification') == 'Fiction' ? 'selected' : '' }}>Fiction</option>
+                                    <option value="General Works" {{ old('ddc-classification') == 'General Works' ? 'selected' : '' }}>General Works</option>
+                                    <option value="History" {{ old('ddc-classification') == 'History' ? 'selected' : '' }}>History</option>
+                                    <option value="Language" {{ old('ddc-classification') == 'Language' ? 'selected' : '' }}>Language</option>
+                                    <option value="Literature" {{ old('ddc-classification') == 'Literature' ? 'selected' : '' }}>Literature</option>
+                                    <option value="Philosophy" {{ old('ddc-classification') == 'Philosophy' ? 'selected' : '' }}>Philosophy</option>
+                                    <option value="Pure Science" {{ old('ddc-classification') == 'Pure Science' ? 'selected' : '' }}>Pure Science</option>
+                                    <option value="Religion" {{ old('ddc-classification') == 'Religion' ? 'selected' : '' }}>Religion</option>
+                                    <option value="Social Science" {{ old('ddc-classification') == 'Social Science' ? 'selected' : '' }}>Social Science</option>
+                                </select>
+                                @error('ddc-classification')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-1">
+                            <label for="call-number" class="block text-sm font-medium leading-6 text-gray-900">Call Number</label>
+                            <div class="mt-2">
+                                <input
+                                    id="call-number"
+                                    name="call-number"
+                                    type="text"
+                                    placeholder="Auto-suggested based on DDC"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
+                   ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                   focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('call-number') }}"
+                                    readonly
+                                >
+                                @error('call-number')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-1">
+                            <label for="physical-location" class="block text-sm font-medium leading-6 text-gray-900">Physical Location</label>
+                            <div class="mt-2">
+                                <select
+                                    id="physical-location"
+                                    name="physical-location"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
+                   ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                   sm:text-sm sm:leading-6"
+                                    onchange="updateLocationSymbol()"
+                                >
+                                    <option value="" disabled selected>Select physical location</option>
+                                    <option value="Circulation" {{ old('physical-location') == 'Circulation' ? 'selected' : '' }}>Circulation</option>
+                                    <option value="Fiction" {{ old('physical-location') == 'Fiction' ? 'selected' : '' }}>Fiction</option>
+                                    <option value="Filipiniana" {{ old('physical-location') == 'Filipiniana' ? 'selected' : '' }}>Filipiniana</option>
+                                    <option value="General References" {{ old('physical-location') == 'General References' ? 'selected' : '' }}>General References</option>
+                                    <option value="Graduate School" {{ old('physical-location') == 'Graduate School' ? 'selected' : '' }}>Graduate School</option>
+                                    <option value="Reserve" {{ old('physical-location') == 'Reserve' ? 'selected' : '' }}>Reserve</option>
+                                    <option value="PCAARRD" {{ old('physical-location') == 'PCAARRD' ? 'selected' : '' }}>PCAARRD</option>
+                                    <option value="Vertical Files" {{ old('physical-location') == 'Vertical Files' ? 'selected' : '' }}>Vertical Files</option>
+                                </select>
+                                @error('physical-location')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-1">
+                            <label for="location-symbol" class="block text-sm font-medium leading-6 text-gray-900">Location Symbol</label>
+                            <div class="mt-2">
+                                <input
+                                    id="location-symbol"
+                                    name="location-symbol"
+                                    type="text"
+                                    placeholder="Auto-generated based on location"
+                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
+                   ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                   focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    value="{{ old('location-symbol') }}"
+                                    readonly
+                                >
+                                @error('location-symbol')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="space-y-8 mt-8">
+                    <div>
                         <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
                     </div>
                     <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
@@ -445,3 +552,62 @@
         </div>
     </div>
 </x-layouts.app>
+
+{{-- this is just a temporary fix --}}
+
+<script>
+    // DDC Classification to Call Number mapping
+    const ddcCallNumbers = {
+        'Applied Science': '600-699',
+        'Arts': '700-799',
+        'Fiction': 'F',
+        'General Works': '000-099',
+        'History': '900-999',
+        'Language': '400-499',
+        'Literature': '800-899',
+        'Philosophy': '100-199',
+        'Pure Science': '500-599',
+        'Religion': '200-299',
+        'Social Science': '300-399'
+    };
+
+    // Physical Location to Symbol mapping
+    const locationSymbols = {
+        'Circulation': 'CIRC',
+        'Fiction': 'FIC',
+        'Filipiniana': 'FIL',
+        'General References': 'GEN',
+        'Graduate School': 'GS',
+        'Reserve': 'RES',
+        'PCAARRD': 'PCAR',
+        'Vertical Files': 'VF'
+    };
+
+    function updateCallNumber() {
+        const ddcSelect = document.getElementById('ddc-classification');
+        const callNumberInput = document.getElementById('call-number');
+
+        if (ddcSelect.value && ddcCallNumbers[ddcSelect.value]) {
+            callNumberInput.value = ddcCallNumbers[ddcSelect.value];
+        } else {
+            callNumberInput.value = '';
+        }
+    }
+
+    function updateLocationSymbol() {
+        const locationSelect = document.getElementById('physical-location');
+        const symbolInput = document.getElementById('location-symbol');
+
+        if (locationSelect.value && locationSymbols[locationSelect.value]) {
+            symbolInput.value = locationSymbols[locationSelect.value];
+        } else {
+            symbolInput.value = '';
+        }
+    }
+
+    // Initialize on page load if values are already selected
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCallNumber();
+        updateLocationSymbol();
+    });
+</script>
