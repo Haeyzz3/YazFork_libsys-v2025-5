@@ -40,10 +40,10 @@ class BookController extends Controller
             'accession-number' => 'required|string|max:255|unique:records,accession_number',
             'title' => 'required|string|max:500',
             'language' => 'required|string|max:100',
-//            ddc classification
-//        call number
-//            physical location
-//            location symbol
+            'ddc-classification' => 'required|string|in:Applied Science,Arts,Fiction,General Works,History,Language,Literature,Philosophy,Pure Science,Religion,Social Science',
+            'call-number' => 'required|string|max:50',
+            'physical-location' => 'required|string|in:Circulation,Fiction,Filipiniana,General References,Graduate School,Reserve,PCAARRD,Vertical Files',
+            'location-symbol' => 'required|string|max:10',
             'date-acquired' => 'required|date',
             'source' => 'required|string|in:Purchase,Donation,Gift,Exchange,Other',
             'purchase-amount' => 'nullable|numeric|min:0',
@@ -84,10 +84,10 @@ class BookController extends Controller
                 'accession_number' => $request->input('accession-number'),
                 'title' => $request->input('title'),
                 'language' => $request->input('language'),
-//                ddc classification
-//            call number
-//            physical location
-//            location symbol
+                'ddc_classification' => $request->input('ddc-classification'),
+                'call_number' => $request->input('call-number'),
+                'physical_location' => $request->input('physical-location'),
+                'location_symbol' => $request->input('location-symbol'),
                 'date_acquired' => $request->input('date-acquired'),
                 'source' => $request->input('source'),
                 'purchase_amount' => $request->input('purchase-amount'),
@@ -100,9 +100,12 @@ class BookController extends Controller
                 ->with('success', 'Book "' . $record->title . '" created successfully!');
 
         } catch (\Exception $e) {
-            // Handle any errors during creation
+            $errorMessage = app()->environment('local') // will only show this in local
+                ? 'Failed to create book: ' . $e->getMessage()
+                : 'Failed to create book. Please try again.';
+
             return redirect()->back()
-                ->with('error', 'Failed to create book. Please try again.')
+                ->with('error', $errorMessage)
                 ->withInput();
         }
     }
