@@ -1,4 +1,4 @@
-<x-layouts.records>
+<x-layouts.records heading-title="View Book Details">
     <div class="flex flex-col gap-2 rounded-xl">
         <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-gray-900">Book Information</h3>
