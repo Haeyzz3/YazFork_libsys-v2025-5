@@ -41,9 +41,9 @@ class BookController extends Controller
             'title' => 'required|string|max:500',
             'language' => 'required|string|max:100',
             'ddc-classification' => 'required|string|in:Applied Science,Arts,Fiction,General Works,History,Language,Literature,Philosophy,Pure Science,Religion,Social Science',
-            'call-number' => 'required|string|max:50',
+            'call-number' => 'string|max:50',
             'physical-location' => 'required|string|in:Circulation,Fiction,Filipiniana,General References,Graduate School,Reserve,PCAARRD,Vertical Files',
-            'location-symbol' => 'required|string|max:10',
+            'location-symbol' => 'string|max:10',
             'date-acquired' => 'required|date',
             'source' => 'required|string|in:Purchase,Donation,Exchange,Government Depository',
             'purchase-amount' => 'nullable|numeric|min:0',
@@ -97,16 +97,16 @@ class BookController extends Controller
 
             // Create the associated book with additional details
             $record->book()->create([
-                'Publication_Year' => $request->input('publication-year'),
-                'Publisher' => $request->input('publisher'),
-                'Place_of_Publication' => $request->input('place-of-publication'),
-                'ISBN_ISSN' => $request->input('isbn-issn'),
-                'Series_Title' => $request->input('series-title'),
-                'Edition' => $request->input('edition'),
-                'Cover_Type' => $request->input('cover-type'),
-                'Book_Cover_Image' => $coverImagePath, // Use the uploaded image path
-                'Table_of_Contents' => $request->input('table-of-contents'),
-                'Summary_Abstract' => $request->input('summary-abstract'),
+                'publication_year' => $request->input('publication-year'),
+                'publisher' => $request->input('publisher'),
+                'place_of_publication' => $request->input('place-of-publication'),
+                'isbn_issn' => $request->input('isbn-issn'),
+                'series_title' => $request->input('series-title'),
+                'edition' => $request->input('edition'),
+                'cover_type' => $request->input('cover-type'),
+                'book_cover_image' => $coverImagePath, // Use the uploaded image path
+                'table_of_contents' => $request->input('table-of-contents'),
+                'summary_abstract' => $request->input('summary-abstract'),
             ]);
 
             // Redirect with success message
@@ -127,9 +127,11 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $books)
+    public function show(Book $record)
     {
-        //
+        return view('records.books.show', [
+            'record' => $record,
+        ]);
     }
 
     /**

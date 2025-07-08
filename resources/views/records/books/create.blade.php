@@ -264,6 +264,7 @@
                             <label for="call-number" class="block text-sm font-medium leading-6 text-gray-900">Call Number</label>
                             <div class="mt-2">
                                 <input
+                                    disabled
                                     id="call-number"
                                     name="call-number"
                                     type="text"
@@ -311,6 +312,7 @@
                             <label for="location-symbol" class="block text-sm font-medium leading-6 text-gray-900">Location Symbol</label>
                             <div class="mt-2">
                                 <input
+                                    disabled
                                     id="location-symbol"
                                     name="location-symbol"
                                     type="text"

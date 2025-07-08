@@ -10,16 +10,16 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = [
-        'Publication_Year',
-        'Publisher',
-        'Place_of_Publication',
-        'ISBN_ISSN',
-        'Series_Title',
-        'Edition',
-        'Cover_Type',
-        'Book_Cover_Image',
-        'Table_of_Contents',
-        'Summary_Abstract',
+        'publication_year',
+        'publisher',
+        'place_of_publication',
+        'isbn_issn',
+        'series_title',
+        'edition',
+        'cover_type',
+        'book_cover_image',
+        'table_of_contents',
+        'summary_abstract',
     ];
 
     public function record()
