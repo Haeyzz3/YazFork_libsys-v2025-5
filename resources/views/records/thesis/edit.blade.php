@@ -548,14 +548,22 @@
             </div>
         </div>
 
-        <div class="mt-6 py-8 flex items-center justify-end gap-x-6">
-            <a href="{{ route('thesis.index') }}">
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-            </a>
-            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white
-            shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-             focus-visible:outline-indigo-600">Update Thesis/Dissertation</button>
+        <div class="mt-6 py-8 flex items-center justify-between gap-x-6">
+            <button type="submit" form="delete-form" class="text-sm font-semibold leading-6 text-red-900">Delete</button>
+            <div class="flex gap-x-6">
+                <a href="{{ route('thesis.show', $record) }}">
+                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                </a>
+                <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white
+                shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
+                focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Thesis/Dissertation</button>
+            </div>
         </div>
+    </form>
+
+    <form id="delete-form" action="{{ route('thesis.destroy', $record) }}" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
     </form>
 </x-layouts.records>
 

@@ -256,8 +256,23 @@ class ThesisController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Thesis $thesis)
+    public function destroy(Record $record)
     {
-        //
+        try {
+
+            $record->thesis()->delete();
+            $record->delete();
+
+            return redirect()->route('thesis.index')
+                ->with('success', 'Thesis/Dissertation deleted successfully!');
+        } catch (\Exception $e) {
+            $errorMessage = app()->environment('local') // will only show this in local
+                ? 'Failed to delete Thesis/Dissertation: ' . $e->getMessage()
+                : 'Failed to delete Thesis/Dissertation . Please try again.';
+
+            return redirect()->back()
+                ->with('error', $errorMessage)
+                ->withInput();
+        }
     }
 }
