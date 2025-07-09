@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::delete('records/digital/{record}', [DigitalResourceController::class, 'destroy'])->name('digital.destroy');
     // periodical
     Route::get('records/periodicals', [PeriodicalController::class, 'index'])->name('periodicals.index');
+    Route::get('records/periodicals/create', [PeriodicalController::class, 'create'])->name('periodicals.create');
 
 });
 

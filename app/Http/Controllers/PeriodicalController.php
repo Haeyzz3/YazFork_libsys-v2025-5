@@ -18,4 +18,9 @@ class PeriodicalController extends Controller
             'records' => $records,
         ]);
     }
+
+    public function create()
+    {
+        return view('records.periodicals.create');
+    }
 }
