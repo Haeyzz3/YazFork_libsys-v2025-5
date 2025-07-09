@@ -1,5 +1,5 @@
 <x-layouts.records heading-title="Add Thesis/Dissertation Records">
-    <form action="{{ route('periodicals.store') }}" method="POST">
+    <form action="{{ route('thesis.store') }}" method="POST">
         @csrf
         <div class="space-y-8 mt-8">
             <div>
@@ -152,7 +152,7 @@
                             id="adviser"
                             name="adviser"
                             type="text"
-                            placeholder="Enter volume number"
+                            placeholder="Enter adviser"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             value="{{ old('adviser') }}"
                             @error('adviser') ring-red-500 focus:ring-red-500 @enderror
@@ -380,29 +380,6 @@
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
                                ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
                                sm:text-sm sm:leading-6"
-                            required
-                        >
-                        @error('number-of-pages')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="number-of-pages" class="block text-sm font-medium leading-6 text-gray-900">
-                        Number of Pages
-                    </label>
-                    <div class="mt-2">
-                        <input
-                            id="number-of-pages"
-                            name="number-of-pages"
-                            type="number"
-                            min="1"
-                            placeholder="Enter number of pages"
-                            value="{{ old('number-of-pages') }}"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                           ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
-                           sm:text-sm sm:leading-6"
                             required
                         >
                         @error('number-of-pages')
