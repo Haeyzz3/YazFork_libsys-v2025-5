@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PatronSeeder::class);
         $this->call(BookSeeder::class);
         $this->call(DigitalResourceSeeder::class);
+        $this->call(PeriodicalSeeder::class);
     }
 }
