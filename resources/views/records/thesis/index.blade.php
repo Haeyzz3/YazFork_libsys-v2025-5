@@ -32,7 +32,7 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $record->ddc_classification }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $record->acquisition_status }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                                <a href="{{ route('periodicals.show', $record) }}" class="text-indigo-600 hover:text-indigo-900">View all details</a>
+                                <a href="{{ route('thesis.show', $record) }}" class="text-indigo-600 hover:text-indigo-900">View all details</a>
                             </td>
                         </tr>
                     @endforeach

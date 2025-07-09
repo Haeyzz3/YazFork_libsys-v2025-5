@@ -131,9 +131,11 @@ class ThesisController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Thesis $thesis)
+    public function show(Record $record)
     {
-        //
+        return view('records.thesis.show', [
+            'record' => $record,
+        ]);
     }
 
     /**
