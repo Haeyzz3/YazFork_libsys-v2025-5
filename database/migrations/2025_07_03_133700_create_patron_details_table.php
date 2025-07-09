@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('sex', ['male', 'female']);
             $table->foreignId('program_id')->nullable()->constrained('programs')->onDelete('set null');
             $table->foreignId('major_id')->nullable()->constrained('majors')->onDelete('set null');
-            $table->foreignId('patron_type_id')->constrained('patron_types')->onDelete('cascade');
+            $table->foreignId('patron_type_id')->constrained('patron_types')->onDelete('set null');
             $table->foreignId('office_id')->nullable()->constrained('offices')->onDelete('set null');
             $table->timestamps();
         });

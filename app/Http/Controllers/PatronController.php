@@ -16,7 +16,7 @@ class PatronController extends Controller
 {
     public function index()
     {
-        $patrons = User::with('patronDetails')
+        $patrons = User::with('patronDetails.patronType')
             ->whereHas('role', function($query){
                 $query->where('name', 'patron');
             })
