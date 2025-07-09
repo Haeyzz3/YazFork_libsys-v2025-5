@@ -38,4 +38,9 @@ class Record extends Model
     {
         return $this->hasOne(DigitalResource::class);
     }
+
+    public function periodical(): HasOne
+    {
+        return $this->hasOne(Periodical::class);
+    }
 }
