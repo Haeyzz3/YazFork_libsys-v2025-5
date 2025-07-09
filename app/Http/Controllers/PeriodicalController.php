@@ -110,4 +110,18 @@ class PeriodicalController extends Controller
                 ->withInput();
         }
     }
+
+    public function show(Record $record)
+    {
+        return view('records.periodicals.show', [
+            'record' => $record,
+        ]);
+    }
+
+    public function edit(Record $record)
+    {
+        return view('records.periodicals.edit', [
+            'record' => $record,
+        ]);
+    }
 }
