@@ -1,10 +1,10 @@
-<x-layouts.app :title="__($attributes->get('heading-title', 'Library Haven'))">
+<x-layouts.app :title="__( $attributes->get('heading-title') ?? $headingTitle )">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
 
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
-                    <h1 class="text-base font-semibold leading-6 text-gray-900">{{ $attributes->get('heading-title', 'Manage Records') }}</h1>
+                    <h1 class="text-base font-semibold leading-6 text-gray-900">{{ $attributes->get('heading-title') ?? $headingTitle }}</h1>
                 </div>
             </div>
 

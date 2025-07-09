@@ -11,12 +11,6 @@
                 <x-app-logo />
             </a>
 
-            @if(auth()->user()->role)
-                <div class="my-2 text-sm">
-                    Role: {{ Str::title(str_replace('_', ' ', auth()->user()->role->name)) }}
-                </div>
-            @endif
-
             <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
 
             <flux:navlist variant="outline">
@@ -27,36 +21,31 @@
                     @can('manage-patrons')
                         <flux:navlist.item icon="shield-user" :href="route('patrons.index')" :current="request()->routeIs(['patrons', 'patrons.*'])" wire:navigate>{{ __('Patrons') }}</flux:navlist.item>
                     @endcan
+                        <flux:navlist.item icon="crown" :href="route('books.index')" wire:navigate>{{ __('Logger') }}</flux:navlist.item>
+                        <flux:navlist.item icon="chart-bar" :href="route('dashboard')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Catalog')" class="grid">
-                    <flux:navlist.item icon="crown" :href="route('books.index')"
+                    <flux:navlist.item icon="book-open" :href="route('books.index')"
                                        :current="request()->routeIs(['records' ,'books.*', 'digital.*', 'periodicals.*'])"
                                        wire:navigate>{{ __('Records') }}</flux:navlist.item>
+                    <flux:navlist.item icon="rectangle-stack" :href="route('dashboard')" wire:navigate>{{ __('Inventory') }}</flux:navlist.item>
+                    <flux:navlist.item icon="chart-bar" :href="route('dashboard')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Circulation')" class="grid">
                     <flux:navlist.item icon="crown" :href="route('books.index')" wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
-                </flux:navlist.group>
-            </flux:navlist>
-
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Patron Management')" class="grid">
-                    <flux:navlist.item icon="crown" :href="route('books.index')" wire:navigate>{{ __('Logger') }}</flux:navlist.item>
+                    <flux:navlist.item icon="chart-bar" :href="route('dashboard')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Reports') }}
-                </flux:navlist.item>
-
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('History Logs') }}
                 </flux:navlist.item>
@@ -88,6 +77,16 @@
                                 </div>
                             </div>
                         </div>
+                    </flux:menu.radio.group>
+
+                    <flux:menu.separator />
+
+                    <flux:menu.radio.group>
+                        @if(auth()->user()->role)
+                            <div class="my-2 text-sm">
+                                Role: {{ Str::title(str_replace('_', ' ', auth()->user()->role->name)) }}
+                            </div>
+                        @endif
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
