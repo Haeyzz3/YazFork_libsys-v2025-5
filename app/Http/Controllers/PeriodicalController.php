@@ -203,7 +203,7 @@ class PeriodicalController extends Controller
 
             // Redirect with success message
             return redirect()->route('periodicals.show', $record)
-                ->with('success', 'Periodical/Magazine "' . $record->title . '" created successfully!');
+                ->with('success', 'Periodical/Magazine "' . $record->title . '" update successfully!');
 
 
         } catch (\Exception $e) {
