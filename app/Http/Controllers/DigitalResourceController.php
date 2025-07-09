@@ -6,6 +6,7 @@ use App\Models\DigitalResource;
 use App\Models\Record;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class DigitalResourceController extends Controller
@@ -75,7 +76,7 @@ class DigitalResourceController extends Controller
             // Handle file upload if present
             $coverImagePath = null;
             if ($request->hasFile('resource_cover')) {
-                $coverImagePath = $request->file('resource_cover')->store('resource-cover-thumbnails', 'public');
+                $coverImagePath = $request->file('resource_cover')?->store('resource-cover-thumbnails', 'public');
             }
 
             // Create the record
@@ -144,7 +145,7 @@ class DigitalResourceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Record $record)
+    public function update(Request $request, Record $record): ?RedirectResponse
     {
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
@@ -239,7 +240,7 @@ class DigitalResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Record $record)
+    public function destroy(Record $record): ?RedirectResponse
     {
         try {
 
