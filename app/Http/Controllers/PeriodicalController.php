@@ -94,7 +94,6 @@ class PeriodicalController extends Controller
                 'format' => $request->input('format'),
                 'cover_sample_image' => $coverSampleImagePath, // Use the uploaded image path
                 'summary_contents' => $request->input('summary-contents'),
-                'additional_notes' => $request->input('additional-notes'),
             ]);
 
             // Redirect with success message

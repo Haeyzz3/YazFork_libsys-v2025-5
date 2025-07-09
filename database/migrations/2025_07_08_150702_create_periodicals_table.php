@@ -21,8 +21,8 @@ return new class extends Migration
             $table->unsignedSmallInteger('issue_number')->nullable();
             $table->date('publication_date')->nullable();
             $table->string('issn', 9)->nullable(); // ISSN format: XXXX-XXXX
-            $table->enum('frequency', ['Daily', 'Weekly', 'Biweekly', 'Monthly', 'Quarterly', 'Annually'])->nullable();
-            $table->enum('format', ['Print', 'Microfilm', 'Digital', 'Other'])->nullable();
+            $table->string('frequency', '50')->nullable();
+            $table->string('format', '50')->nullable();
             $table->string('cover_sample_image')->nullable(); // Stores file path
             $table->text('summary_contents')->nullable();
             $table->timestamps();

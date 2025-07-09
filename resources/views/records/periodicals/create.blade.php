@@ -233,7 +233,7 @@
                             <option value="Weekly" {{ old('frequency') == 'Weekly' ? 'selected' : '' }}>Weekly</option>
                             <option value="Monthly" {{ old('frequency') == 'Monthly' ? 'selected' : '' }}>Monthly</option>
                             <option value="Quarterly" {{ old('frequency') == 'Quarterly' ? 'selected' : '' }}>Quarterly</option>
-                            <option value="Annual" {{ old('frequency') == 'Annual' ? 'selected' : '' }}>Annual</option>
+                            <option value="Annual" {{ old('frequency') == 'Annually' ? 'selected' : '' }}>Annually</option>
                             <option value="Irregular" {{ old('frequency') == 'Irregular' ? 'selected' : '' }}>Irregular</option>
                         </select>
                         @error('frequency')
