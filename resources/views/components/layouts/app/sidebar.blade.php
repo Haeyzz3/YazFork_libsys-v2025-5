@@ -32,7 +32,9 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Catalog')" class="grid">
-                    <flux:navlist.item icon="crown" :href="route('books.index')" :current="request()->routeIs(['records' ,'books.*', 'digital.*'])"  wire:navigate>{{ __('Manage Records') }}</flux:navlist.item>
+                    <flux:navlist.item icon="crown" :href="route('books.index')"
+                                       :current="request()->routeIs(['records' ,'books.*', 'digital.*', 'periodicals.*'])"
+                                       wire:navigate>{{ __('Manage Records') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
