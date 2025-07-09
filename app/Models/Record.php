@@ -43,4 +43,9 @@ class Record extends Model
     {
         return $this->hasOne(Periodical::class);
     }
+
+    public function thesis(): HasOne
+    {
+        return $this->hasOne(Thesis::class);
+    }
 }

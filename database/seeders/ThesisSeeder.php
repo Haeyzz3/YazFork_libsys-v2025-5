@@ -2,13 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\DigitalResource;
-use App\Models\Periodical;
 use App\Models\Record;
+use App\Models\Thesis;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PeriodicalSeeder extends Seeder
+class ThesisSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +15,7 @@ class PeriodicalSeeder extends Seeder
     public function run(): void
     {
         Record::factory()
-            ->has(Periodical::factory(), 'periodical')
+            ->has(Thesis::factory(), 'thesis')
             ->count(15)->create();
     }
 }

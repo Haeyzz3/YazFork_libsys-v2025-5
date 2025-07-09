@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\ThesisFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BookSeeder::class);
         $this->call(DigitalResourceSeeder::class);
         $this->call(PeriodicalSeeder::class);
+        $this->call(ThesisSeeder::class);
     }
 }
