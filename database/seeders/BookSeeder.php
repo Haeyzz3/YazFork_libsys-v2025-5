@@ -17,4 +17,6 @@ class BookSeeder extends Seeder
             ->has(Book::factory(), 'book')
             ->count(15)->create();
     }
+
+    // \App\Models\Record::factory()->has(\App\Models\Book::factory(), 'book')->count(500)->create();
 }
