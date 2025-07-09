@@ -5,6 +5,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\DigitalResourceController;
 use App\Http\Controllers\PatronController;
 use App\Http\Controllers\PeriodicalController;
+use App\Http\Controllers\ThesisController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -63,6 +64,9 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/periodicals/{record}/edit', [PeriodicalController::class, 'edit'])->name('periodicals.edit');
     Route::put('records/periodicals/{record}', [PeriodicalController::class, 'update'])->name('periodicals.update');
     Route::delete('records/periodicals/{record}', [PeriodicalController::class, 'destroy'])->name('periodicals.destroy');
+    // thesis
+    Route::get('records/thesis', [ThesisController::class, 'index'])->name('thesis.index');
+
 });
 
 Route::middleware(['auth'])->group(function () {
