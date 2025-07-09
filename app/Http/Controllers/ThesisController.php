@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Record;
 use App\Models\Thesis;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,12 @@ class ThesisController extends Controller
      */
     public function index()
     {
-        return view('records.thesis.index');
+        $records = Record::with('thesis')
+            ->whereHas('thesis')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('records.thesis.index', ['records' => $records]);
     }
 
     /**
@@ -20,7 +26,7 @@ class ThesisController extends Controller
      */
     public function create()
     {
-        //
+        return view('records.thesis.create');
     }
 
     /**

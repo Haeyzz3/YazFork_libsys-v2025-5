@@ -66,6 +66,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::delete('records/periodicals/{record}', [PeriodicalController::class, 'destroy'])->name('periodicals.destroy');
     // thesis
     Route::get('records/thesis', [ThesisController::class, 'index'])->name('thesis.index');
+    Route::get('records/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
 
 });
 

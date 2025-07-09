@@ -20,7 +20,7 @@ class ThesisFactory extends Factory
             'researchers' => $this->faker->name(), // or join multiple names
             'academic_year' => $this->faker->year() . '-' . ($this->faker->year() + 1),
             'institution' => $this->faker->company . ' University of Southeastern Philippines',
-            'department' => $this->faker->words(2, true),
+            'college' => $this->faker->words(2, true),
             'adviser' => $this->faker->name(),
             'panelist' => implode(', ', $this->faker->randomElements([
                 $this->faker->name(),
@@ -29,6 +29,7 @@ class ThesisFactory extends Factory
                 $this->faker->name()
             ], 3)),
             'degree_program' => $this->faker->randomElement(['Computer Science', 'Information Technology', 'Engineering', 'Business Administration']),
+            'major' => $this->faker->randomElement(['Filipino', 'English', 'Science', 'Math']),
             'degree_level' => $this->faker->randomElement(['Bachelor\'s', 'Master\'s', 'PhD']),
             'format' => $this->faker->randomElement(['Print', 'Digital', 'Bound Volume']),
             'number_of_pages' => $this->faker->numberBetween(50, 300),
