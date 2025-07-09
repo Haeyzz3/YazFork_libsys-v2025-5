@@ -62,6 +62,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/periodicals/{record}', [PeriodicalController::class, 'show'])->name('periodicals.show');
     Route::get('records/periodicals/{record}/edit', [PeriodicalController::class, 'edit'])->name('periodicals.edit');
     Route::put('records/periodicals/{record}', [PeriodicalController::class, 'update'])->name('periodicals.update');
+    Route::delete('records/periodicals/{record}', [PeriodicalController::class, 'destroy'])->name('periodicals.destroy');
 });
 
 Route::middleware(['auth'])->group(function () {

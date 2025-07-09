@@ -216,4 +216,24 @@ class PeriodicalController extends Controller
                 ->withInput();
         }
     }
+
+    public function destroy(Record $record): ?RedirectResponse
+    {
+        try {
+
+            $record->periodical()->delete();
+            $record->delete();
+
+            return redirect()->route('periodicals.index')
+                ->with('success', 'Periodical/Magazine deleted successfully!');
+        } catch (\Exception $e) {
+            $errorMessage = app()->environment('local') // will only show this in local
+                ? 'Failed to Periodical/Magazine: ' . $e->getMessage()
+                : 'Failed to Periodical/Magazine . Please try again.';
+
+            return redirect()->back()
+                ->with('error', $errorMessage)
+                ->withInput();
+        }
+    }
 }
