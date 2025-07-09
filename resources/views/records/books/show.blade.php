@@ -3,7 +3,6 @@
         <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-gray-900">Book Information</h3>
         </div>
-
         <dl class="grid grid-cols-1 sm:grid-cols-3">
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Accession Number</dt>
@@ -17,66 +16,6 @@
                 <dt class="text-sm font-medium leading-6 text-gray-900">Primary Author</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->primary_author ?? 'Not specified' }}</dd>
             </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Additional Authors</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->additional_authors ?? 'None' }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Editor</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->editor ?? 'Not specified' }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Language</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->language }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">DDC Classification</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->ddc_classification }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Call Number</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->call_number }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Physical Location</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->physical_location }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Location Symbol</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->location_symbol }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Date Acquired</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->date_acquired }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Source</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->source }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Purchase Amount</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->purchase_amount ? '₱' . number_format($record->purchase_amount, 2) : 'Not specified' }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Acquisition Status</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">
-                    <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium
-                        {{ $record->acquisition_status === 'active' ? 'bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20' : 'bg-gray-50 text-gray-600 ring-1 ring-inset ring-gray-500/10' }}">
-                        {{ ucfirst($record->acquisition_status) }}
-                    </span>
-                </dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Additional Notes</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->additional_notes ?? 'None' }}</dd>
-            </div>
-        </dl>
-
-        <div class="mt-4 px-4 sm:px-0">
-            <h3 class="text-base font-semibold leading-7 text-gray-900">Publication Details</h3>
-        </div>
-
-        <dl class="grid grid-cols-1 sm:grid-cols-3">
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Publication Year</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book?->publication_year ?? 'N/A' }}</dd>
@@ -94,9 +33,58 @@
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->isbn_issn }}</dd>
             </div>
             <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Language</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->language }}</dd>
+            </div>
+        </dl>
+
+        <div class="px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Authors & Contributors</h3>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-3">
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Additional Authors</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->additional_authors ?? 'None' }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Editor</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->editor ?? 'Not specified' }}</dd>
+            </div>
+            <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Series Title</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->series_title ?? 'Not part of a series' }}</dd>
             </div>
+        </dl>
+
+        <div class="px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Classification & Location</h3>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-3">
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">DDC Classification</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->ddc_classification }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Call Number</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->call_number }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Physical Location</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->physical_location }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Location Symbol</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->location_symbol }}</dd>
+            </div>
+        </dl>
+
+        <div class="px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h3>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-3">
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Edition</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->edition ?? 'Not specified' }}</dd>
@@ -121,12 +109,40 @@
             </div>
         </dl>
 
+        <div class="px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h3>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-3">
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Date Acquired</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->date_acquired }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Source</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->source }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Purchase Amount</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->purchase_amount ? '₱' . number_format($record->purchase_amount, 2) : 'Not specified' }}</dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Acquisition Status</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">
+                    <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium
+                        {{ $record->acquisition_status === 'active' ? 'bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20' : 'bg-gray-50 text-gray-600 ring-1 ring-inset ring-gray-500/10' }}">
+                        {{ ucfirst($record->acquisition_status) }}
+                    </span>
+                </dd>
+            </div>
+        </dl>
+
         @if($record->book->table_of_contents || $record->book->summary_abstract)
             <div class="mt-4 px-4 sm:px-0">
                 <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Information</h3>
             </div>
 
-            <dl class="grid grid-cols-1">
+            <dl class="grid grid-cols-3">
                 @if($record->book->table_of_contents)
                     <div class="px-4 py-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Table of Contents</dt>
@@ -139,6 +155,10 @@
                         <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->summary_abstract }}</dd>
                     </div>
                 @endif
+                    <div class="px-4 py-3">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Additional Notes</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->additional_notes ?? 'None' }}</dd>
+                    </div>
             </dl>
         @endif
 

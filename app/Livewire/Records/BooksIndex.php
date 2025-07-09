@@ -25,6 +25,7 @@ class BooksIndex extends Component
                         $query->where('primary_author', 'like', '%' . $this->search . '%');
                     });
             })
+            ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
         return view('livewire.records.books-index', [

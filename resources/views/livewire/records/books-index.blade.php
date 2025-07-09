@@ -39,17 +39,17 @@
                     @forelse($records as $record)
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $record->accession_number }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $record->title }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $record->ddc_classification }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $record->book->primary_author ?? 'Not specified' }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $record->acquisition_status }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->title }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->ddc_classification }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->primary_author ?? 'Not specified' }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->acquisition_status }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                                 <a href="{{ route('books.show', $record) }}" class="text-indigo-600 hover:text-indigo-900">View all details</a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-4 text-center text-sm text-gray-500">No records found.</td>
+                            <td colspan="6" class="py-4 text-center text-sm text-gray-600">No records found.</td>
                         </tr>
                     @endforelse
                     </tbody>
