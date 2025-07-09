@@ -141,9 +141,11 @@ class ThesisController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Thesis $thesis)
+    public function edit(Record $record)
     {
-        //
+        return view('records.thesis.edit', [
+            'record' => $record,
+        ]);
     }
 
     /**
@@ -151,7 +153,7 @@ class ThesisController extends Controller
      */
     public function update(Request $request, Thesis $thesis)
     {
-        //
+        dd($request->all());
     }
 
     /**

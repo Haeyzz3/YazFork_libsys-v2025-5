@@ -1,5 +1,5 @@
-<x-layouts.records heading-title="Edit Periodical/Magazine Record">
-    <form action="{{ route('periodicals.update', $record) }}" method="POST">
+<x-layouts.records heading-title="Edit Thesis/Dissertation Record">
+    <form action="{{ route('thesis.update', $record) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="space-y-8 mt-8">
@@ -8,7 +8,7 @@
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <div class="sm:col-span-1">
-                    <label for="accession-number" class="block text-sm font-medium leading-6 text-gray-900">Accession Number</label>
+                    <label for="accession-number" class="block text(sm font-medium leading-6 text-gray-900">Accession Number</label>
                     <div class="mt-2">
                         <input
                             id="accession-number"
@@ -16,7 +16,7 @@
                             type="text"
                             placeholder="Enter accession number"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->accession_number ?? old('accession-number') }}"
+                            value="{{ old('accession-number', $record->accession_number) }}"
                             required
                             @error('accession-number') ring-red-500 focus:ring-red-500 @enderror
                         >
@@ -34,7 +34,7 @@
                             type="text"
                             placeholder="Enter book title"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->title ?? old('title') }}"
+                            value="{{ old('title', $record->title) }}"
                             required
                             @error('title') ring-red-500 focus:ring-red-500 @enderror
                         >
@@ -43,56 +43,73 @@
                         @enderror
                     </div>
                 </div>
-                <div class="sm:col-span-1">
-                    <label for="primary-author" class="block text-sm font-medium leading-6 text-gray-900">Primary Author/Editor</label>
+                <div class="sm:col-span-2">
+                    <label for="researchers" class="block text-sm font-medium leading-6 text-gray-900">Researchers</label>
                     <div class="mt-2">
                         <input
-                            id="primary-author"
-                            name="primary-author"
+                            id="researchers"
+                            name="researchers"
                             type="text"
-                            placeholder="Enter primary author"
+                            placeholder="Enter researchers (separate multiple researchers with commas)"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->periodical->primary_author ?? old('primary-author') }}"
-                            required
-                            @error('primary-author') ring-red-500 focus:ring-red-500 @enderror
+                            value="{{ old('researchers', $record->thesis->researchers) }}"
+                            @error('researchers') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('primary-author')
+                        @error('researchers')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publication-year" class="block text-sm font-medium leading-6 text-gray-900">Publication Year</label>
+                    <label for="academic-year" class="block text-sm font-medium leading-6 text-gray-900">Academic Year</label>
                     <div class="mt-2">
                         <input
-                            id="publication-year"
-                            name="publication-year"
+                            id="academic-year"
+                            name="academic-year"
                             type="number"
                             placeholder="Enter publication year"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->periodical->publication_year ?? old('publication-year') }}"
+                            value="{{ old('academic-year', $record->thesis->academic_year) }}"
                             required
-                            @error('publication-year') ring-red-500 focus:ring-red-500 @enderror
+                            @error('academic-year') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('publication-year')
+                        @error('academic-year')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publisher" class="block text-sm font-medium leading-6 text-gray-900">Publisher</label>
+                    <label for="institution" class="block text-sm font-medium leading-6 text-gray-900">Institution/School</label>
                     <div class="mt-2">
                         <input
-                            id="publisher"
-                            name="publisher"
+                            id="institution"
+                            name="institution"
                             type="text"
-                            placeholder="Enter publisher/producer"
+                            placeholder="Enter institution/school"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->periodical->publisher ?? old('publisher') }}"
+                            value="{{ old('institution', $record->thesis->institution) }}"
                             required
-                            @error('publisher') ring-red-500 focus:ring-red-500 @enderror
+                            @error('institution') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('publisher')
+                        @error('institution')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="sm:col-span-1">
+                    <label for="college" class="block text-sm font-medium leading-6 text-gray-900">College</label>
+                    <div class="mt-2">
+                        <input
+                            id="college"
+                            name="college"
+                            type="text"
+                            placeholder="Enter college/school"
+                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            value="{{ old('college', $record->thesis->college) }}"
+                            required
+                            @error('college') ring-red-500 focus:ring-red-500 @enderror
+                        >
+                        @error('college')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -107,13 +124,13 @@
                             required
                             @error('language') ring-red-500 focus:ring-red-500 @enderror
                         >
-                            <option value="" disabled>Select a language</option>
-                            <option value="English" {{ $record->language == 'English' ? 'selected' : '' }}>English</option>
-                            <option value="Spanish" {{ $record->language == 'Spanish' ? 'selected' : '' }}>Spanish</option>
-                            <option value="French" {{ $record->language == 'French' ? 'selected' : '' }}>French</option>
-                            <option value="German" {{ $record->language == 'German' ? 'selected' : '' }}>German</option>
-                            <option value="Chinese" {{ $record->language == 'Chinese' ? 'selected' : '' }}>Chinese</option>
-                            <option value="Other" {{ $record->language == 'Other' ? 'selected' : '' }}>Other</option>
+                            <option value="" disabled {{ old('language', $record->language) == '' ? 'selected' : '' }}>Select a language</option>
+                            <option value="English" {{ old('language', $record->language) == 'English' ? 'selected' : '' }}>English</option>
+                            <option value="Spanish" {{ old('language', $record->language) == 'Spanish' ? 'selected' : '' }}>Spanish</option>
+                            <option value="French" {{ old('language', $record->language) == 'French' ? 'selected' : '' }}>French</option>
+                            <option value="German" {{ old('language', $record->language) == 'German' ? 'selected' : '' }}>German</option>
+                            <option value="Chinese" {{ old('language', $record->language) == 'Chinese' ? 'selected' : '' }}>Chinese</option>
+                            <option value="Other" {{ old('language', $record->language) == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
                         @error('language')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -125,94 +142,83 @@
 
         <div class="space-y-8 mt-8">
             <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Publication Details</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Academic Details</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <div class="sm:col-span-1">
-                    <label for="volume-number" class="block text-sm font-medium leading-6 text-gray-900">Volume Number</label>
+                    <label for="adviser" class="block text-sm font-medium leading-6 text-gray-900">Adviser</label>
                     <div class="mt-2">
                         <input
-                            id="volume-number"
-                            name="volume-number"
+                            id="adviser"
+                            name="adviser"
                             type="text"
-                            placeholder="Enter volume number"
+                            placeholder="Enter adviser"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->periodical->volume_number ?? old('volume-number') }}"
-                            @error('volume-number') ring-red-500 focus:ring-red-500 @enderror
+                            value="{{ old('adviser', $record->thesis->adviser) }}"
+                            @error('adviser') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('volume-number')
+                        @error('adviser')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
-                <div class="sm:col-span-1">
-                    <label for="issue-number" class="block text-sm font-medium leading-6 text-gray-900">Issue Number</label>
+                <div class="sm:col-span-2">
+                    <label for="panelist" class="block text-sm font-medium leading-6 text-gray-900">Panelist</label>
                     <div class="mt-2">
                         <input
-                            id="issue-number"
-                            name="issue-number"
+                            id="panelist"
+                            name="panelist"
                             type="text"
-                            placeholder="Enter issue number"
+                            placeholder="Enter panelist (separate multiple panelist with commas)"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->periodical->issue_number ?? old('issue-number') }}"
-                            @error('issue-number') ring-red-500 focus:ring-red-500 @enderror
+                            value="{{ old('panelist', $record->thesis->panelist) }}"
+                            @error('panelist') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('issue-number')
+                        @error('panelist')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publication-date" class="block text-sm font-medium leading-6 text-gray-900">Publication Date</label>
-                    <div class="mt-2">
-                        <input
-                            id="publication-date"
-                            name="publication-date"
-                            type="date"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->periodical->publication_date ?? old('publication-date') }}"
-                            @error('publication-date') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                        @error('publication-date')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="issn" class="block text-sm font-medium leading-6 text-gray-900">ISSN</label>
-                    <div class="mt-2">
-                        <input
-                            id="issn"
-                            name="issn"
-                            type="text"
-                            placeholder="Enter ISSN"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->periodical->issn ?? old('issn') }}"
-                            @error('issn') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                        @error('issn')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="frequency" class="block text-sm font-medium leading-6 text-gray-900">Frequency</label>
+                    <label for="degree-program" class="block text-sm font-medium leading-6 text-gray-900">Degree Program</label>
                     <div class="mt-2">
                         <select
-                            id="frequency"
-                            name="frequency"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            @error('frequency') ring-red-500 focus:ring-red-500 @enderror
+                            id="degree-program"
+                            name="degree-program"
+                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                            required
+                            @error('degree-program') ring-red-500 focus:ring-red-500 @enderror
                         >
-                            <option value="">Select frequency</option>
-                            <option value="Daily" {{ $record->periodical->frequency == 'Daily' ? 'selected' : '' }}>Daily</option>
-                            <option value="Weekly" {{ $record->periodical->frequency == 'Weekly' ? 'selected' : '' }}>Weekly</option>
-                            <option value="Monthly" {{ $record->periodical->frequency == 'Monthly' ? 'selected' : '' }}>Monthly</option>
-                            <option value="Quarterly" {{ $record->periodical->frequency == 'Quarterly' ? 'selected' : '' }}>Quarterly</option>
-                            <option value="Annual" {{ $record->periodical->frequency == 'Annually' ? 'selected' : '' }}>Annually</option>
-                            <option value="Irregular" {{ $record->periodical->frequency == 'Irregular' ? 'selected' : '' }}>Irregular</option>
+                            <option value="" disabled {{ old('degree-program', $record->thesis->degree_program) == '' ? 'selected' : '' }}>Select a degree program</option>
+                            <option value="BSCS" {{ old('degree-program', $record->thesis->degree_program) == 'BSCS' ? 'selected' : '' }}>BSCS</option>
+                            <option value="BSIT" {{ old('degree-program', $record->thesis->degree_program) == 'BSIT' ? 'selected' : '' }}>BSIT</option>
+                            <option value="BSEd" {{ old('degree-program', $record->thesis->degree_program) == 'BSEd' ? 'selected' : '' }}>BSEd</option>
+                            <option value="BA" {{ old('degree-program', $record->thesis->degree_program) == 'BA' ? 'selected' : '' }}>BA</option>
+                            <option value="MA" {{ old('degree-program', $record->thesis->degree_program) == 'MA' ? 'selected' : '' }}>MA</option>
+                            <option value="PhD" {{ old('degree-program', $record->thesis->degree_program) == 'PhD' ? 'selected' : '' }}>PhD</option>
+                            <option value="Other" {{ old('degree-program', $record->thesis->degree_program) == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
-                        @error('frequency')
+                        @error('degree-program')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="sm:col-span-1">
+                    <label for="degree-level" class="block text-sm font-medium leading-6 text-gray-900">Degree Level</label>
+                    <div class="mt-2">
+                        <select
+                            id="degree-level"
+                            name="degree-level"
+                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                            required
+                            @error('degree-level') ring-red-500 focus:ring-red-500 @enderror
+                        >
+                            <option value="" disabled {{ old('degree-level', $record->thesis->degree_level) == '' ? 'selected' : '' }}>Select degree level</option>
+                            <option value="Bachelor's Thesis" {{ old('degree-level', $record->thesis->degree_level) == "Bachelor's Thesis" ? 'selected' : '' }}>Bachelor's Thesis</option>
+                            <option value="Master's Thesis" {{ old('degree-level', $record->thesis->degree_level) == "Master's Thesis" ? 'selected' : '' }}>Master's Thesis</option>
+                            <option value="Doctoral Dissertation" {{ old('degree-level', $record->thesis->degree_level) == "Doctoral Dissertation" ? 'selected' : '' }}>Doctoral Dissertation</option>
+                        </select>
+                        @error('degree-level')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -234,19 +240,20 @@
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             onchange="updateCallNumber()"
                             required
+                            @error('ddc-classification') ring-red-500 focus:ring-red-500 @enderror
                         >
-                            <option value="" disabled>Select DDC classification</option>
-                            <option value="Applied Science" {{ $record->ddc_classification == 'Applied Science' ? 'selected' : '' }}>Applied Science</option>
-                            <option value="Arts" {{ $record->ddc_classification == 'Arts' ? 'selected' : '' }}>Arts</option>
-                            <option value="Fiction" {{ $record->ddc_classification == 'Fiction' ? 'selected' : '' }}>Fiction</option>
-                            <option value="General Works" {{ $record->ddc_classification == 'General Works' ? 'selected' : '' }}>General Works</option>
-                            <option value="History" {{ $record->ddc_classification == 'History' ? 'selected' : '' }}>History</option>
-                            <option value="Language" {{ $record->ddc_classification == 'Language' ? 'selected' : '' }}>Language</option>
-                            <option value="Literature" {{ $record->ddc_classification == 'Literature' ? 'selected' : '' }}>Literature</option>
-                            <option value="Philosophy" {{ $record->ddc_classification == 'Philosophy' ? 'selected' : '' }}>Philosophy</option>
-                            <option value="Pure Science" {{ $record->ddc_classification == 'Pure Science' ? 'selected' : '' }}>Pure Science</option>
-                            <option value="Religion" {{ $record->ddc_classification == 'Religion' ? 'selected' : '' }}>Religion</option>
-                            <option value="Social Science" {{ $record->ddc_classification == 'Social Science' ? 'selected' : '' }}>Social Science</option>
+                            <option value="" disabled {{ old('ddc-classification', $record->ddc_classification) == '' ? 'selected' : '' }}>Select DDC classification</option>
+                            <option value="Applied Science" {{ old('ddc-classification', $record->ddc_classification) == 'Applied Science' ? 'selected' : '' }}>Applied Science</option>
+                            <option value="Arts" {{ old('ddc-classification', $record->ddc_classification) == 'Arts' ? 'selected' : '' }}>Arts</option>
+                            <option value="Fiction" {{ old('ddc-classification', $record->ddc_classification) == 'Fiction' ? 'selected' : '' }}>Fiction</option>
+                            <option value="General Works" {{ old('ddc-classification', $record->ddc_classification) == 'General Works' ? 'selected' : '' }}>General Works</option>
+                            <option value="History" {{ old('ddc-classification', $record->ddc_classification) == 'History' ? 'selected' : '' }}>History</option>
+                            <option value="Language" {{ old('ddc-classification', $record->ddc_classification) == 'Language' ? 'selected' : '' }}>Language</option>
+                            <option value="Literature" {{ old('ddc-classification', $record->ddc_classification) == 'Literature' ? 'selected' : '' }}>Literature</option>
+                            <option value="Philosophy" {{ old('ddc-classification', $record->ddc_classification) == 'Philosophy' ? 'selected' : '' }}>Philosophy</option>
+                            <option value="Pure Science" {{ old('ddc-classification', $record->ddc_classification) == 'Pure Science' ? 'selected' : '' }}>Pure Science</option>
+                            <option value="Religion" {{ old('ddc-classification', $record->ddc_classification) == 'Religion' ? 'selected' : '' }}>Religion</option>
+                            <option value="Social Science" {{ old('ddc-classification', $record->ddc_classification) == 'Social Science' ? 'selected' : '' }}>Social Science</option>
                         </select>
                         @error('ddc-classification')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -263,8 +270,9 @@
                             type="text"
                             placeholder="Auto-suggested based on DDC"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->call_number ?? old('call-number') }}"
+                            value="{{ old('call-number', $record->call_number) }}"
                             readonly
+                            @error('call-number') ring-red-500 focus:ring-red-500 @enderror
                         >
                         @error('call-number')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -279,16 +287,17 @@
                             name="physical-location"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             onchange="updateLocationSymbol()"
+                            @error('physical-location') ring-red-500 focus:ring-red-500 @enderror
                         >
-                            <option value="" disabled>Select physical location</option>
-                            <option value="Circulation" {{ $record->physical_location == 'Circulation' ? 'selected' : '' }}>Circulation</option>
-                            <option value="Fiction" {{ $record->physical_location == 'Fiction' ? 'selected' : '' }}>Fiction</option>
-                            <option value="Filipiniana" {{ $record->physical_location == 'Filipiniana' ? 'selected' : '' }}>Filipiniana</option>
-                            <option value="General References" {{ $record->physical_location == 'General References' ? 'selected' : '' }}>General References</option>
-                            <option value="Graduate School" {{ $record->physical_location == 'Graduate School' ? 'selected' : '' }}>Graduate School</option>
-                            <option value="Reserve" {{ $record->physical_location == 'Reserve' ? 'selected' : '' }}>Reserve</option>
-                            <option value="PCAARRD" {{ $record->physical_location == 'PCAARRD' ? 'selected' : '' }}>PCAARRD</option>
-                            <option value="Vertical Files" {{ $record->physical_location == 'Vertical Files' ? 'selected' : '' }}>Vertical Files</option>
+                            <option value="" disabled {{ old('physical-location', $record->physical_location) == '' ? 'selected' : '' }}>Select physical location</option>
+                            <option value="Circulation" {{ old('physical-location', $record->physical_location) == 'Circulation' ? 'selected' : '' }}>Circulation</option>
+                            <option value="Fiction" {{ old('physical-location', $record->physical_location) == 'Fiction' ? 'selected' : '' }}>Fiction</option>
+                            <option value="Filipiniana" {{ old('physical-location', $record->physical_location) == 'Filipiniana' ? 'selected' : '' }}>Filipiniana</option>
+                            <option value="General References" {{ old('physical-location', $record->physical_location) == 'General References' ? 'selected' : '' }}>General References</option>
+                            <option value="Graduate School" {{ old('physical-location', $record->physical_location) == 'Graduate School' ? 'selected' : '' }}>Graduate School</option>
+                            <option value="Reserve" {{ old('physical-location', $record->physical_location) == 'Reserve' ? 'selected' : '' }}>Reserve</option>
+                            <option value="PCAARRD" {{ old('physical-location', $record->physical_location) == 'PCAARRD' ? 'selected' : '' }}>PCAARRD</option>
+                            <option value="Vertical Files" {{ old('physical-location', $record->physical_location) == 'Vertical Files' ? 'selected' : '' }}>Vertical Files</option>
                         </select>
                         @error('physical-location')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -305,8 +314,9 @@
                             type="text"
                             placeholder="Auto-generated based on location"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->location_symbol ?? old('location-symbol') }}"
+                            value="{{ old('location-symbol', $record->location_symbol) }}"
                             readonly
+                            @error('location-symbol') ring-red-500 focus:ring-red-500 @enderror
                         >
                         @error('location-symbol')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -330,11 +340,11 @@
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             @error('format') ring-red-500 focus:ring-red-500 @enderror
                         >
-                            <option value="">Select format</option>
-                            <option value="Print" {{ $record->periodical->format == 'Print' ? 'selected' : '' }}>Print</option>
-                            <option value="Microfilm" {{ $record->periodical->format == 'Microfilm' ? 'selected' : '' }}>Microfilm</option>
-                            <option value="Digital" {{ $record->periodical->format == 'Digital' ? 'selected' : '' }}>Digital</option>
-                            <option value="Bound Volume" {{ $record->periodical->format == 'Bound Volume' ? 'selected' : '' }}>Bound Volume</option>
+                            <option value="" {{ old('format', $record->thesis->format) == '' ? 'selected' : '' }}>Select format</option>
+                            <option value="Print" {{ old('format', $record->thesis->format) == 'Print' ? 'selected' : '' }}>Print</option>
+                            <option value="Microfilm" {{ old('format', $record->thesis->format) == 'Microfilm' ? 'selected' : '' }}>Microfilm</option>
+                            <option value="Digital" {{ old('format', $record->thesis->format) == 'Digital' ? 'selected' : '' }}>Digital</option>
+                            <option value="Bound Volume" {{ old('format', $record->thesis->format) == 'Bound Volume' ? 'selected' : '' }}>Bound Volume</option>
                         </select>
                         @error('format')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -342,16 +352,58 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="cover-sample-image" class="block text-sm font-medium leading-6 text-gray-900">Cover/Sample Image</label>
+                    <label for="number-of-pages" class="block text-sm font-medium leading-6 text-gray-900">Number of Pages</label>
                     <div class="mt-2">
                         <input
-                            id="cover-sample-image"
-                            name="cover-sample-image"
-                            type="file"
-                            accept=".jpg,.jpeg,.png,.pdf"
+                            id="number-of-pages"
+                            name="number-of-pages"
+                            type="number"
+                            min="1"
+                            placeholder="Enter number of pages"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            value="{{ old('number-of-pages', $record->thesis->number_of_pages) }}"
+                            required
+                            @error('number-of-pages') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('cover-sample-image')
+                        @error('number-of-pages')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="sm:col-span-1">
+                    <label for="abstract-document" class="block text-sm font-medium leading-6 text-gray-900">Abstract Document</label>
+                    <div class="mt-2">
+                        <input
+                            id="abstract-document"
+                            name="abstract-document"
+                            type="file"
+                            accept=".pdf"
+                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            @error('abstract-document') ring-red-500 focus:ring-red-500 @enderror
+                        >
+                        @if($record->thesis->abstract_document)
+                            <p class="mt-2 text-sm text-gray-600">Current file: {{ basename($record->thesis->abstract_document) }}</p>
+                        @endif
+                        @error('abstract-document')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="sm:col-span-1">
+                    <label for="full-text" class="block text-sm font-medium leading-6 text-gray-900">Full Text</label>
+                    <div class="mt-2">
+                        <input
+                            id="full-text"
+                            name="full-text"
+                            type="file"
+                            accept=".pdf"
+                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            @error('full-text') ring-red-500 focus:ring-red-500 @enderror
+                        >
+                        @if($record->thesis->full_text)
+                            <p class="mt-2 text-sm text-gray-600">Current file: {{ basename($record->thesis->full_text) }}</p>
+                        @endif
+                        @error('full-text')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -372,7 +424,7 @@
                             name="date-acquired"
                             type="date"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->date_acquired ?? old('date-acquired', date('Y-m-d')) }}"
+                            value="{{ old('date-acquired', $record->thesis->date_acquired) }}"
                             @error('date-acquired') ring-red-500 focus:ring-red-500 @enderror
                         >
                         @error('date-acquired')
@@ -389,11 +441,11 @@
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             @error('source') ring-red-500 focus:ring-red-500 @enderror
                         >
-                            <option value="">Select source</option>
-                            <option value="Purchase" {{ $record->source == 'Purchase' ? 'selected' : '' }}>Purchase</option>
-                            <option value="Donation" {{ $record->source == 'Donation' ? 'selected' : '' }}>Donation</option>
-                            <option value="Exchange" {{ $record->source == 'Exchange' ? 'selected' : '' }}>Exchange</option>
-                            <option value="Government Depository" {{ $record->source == 'Government Depository' ? 'selected' : '' }}>Government Depository</option>
+                            <option value="" {{ old('source', $record->source) == '' ? 'selected' : '' }}>Select source</option>
+                            <option value="Purchase" {{ old('source', $record->source) == 'Purchase' ? 'selected' : '' }}>Purchase</option>
+                            <option value="Donation" {{ old('source', $record->source) == 'Donation' ? 'selected' : '' }}>Donation</option>
+                            <option value="Exchange" {{ old('source', $record->source) == 'Exchange' ? 'selected' : '' }}>Exchange</option>
+                            <option value="Government Depository" {{ old('source', $record->source) == 'Government Depository' ? 'selected' : '' }}>Government Depository</option>
                         </select>
                         @error('source')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -410,7 +462,7 @@
                             step="0.01"
                             placeholder="Enter amount"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ $record->purchase_amount ?? old('purchase-amount') }}"
+                            value="{{ old('purchase-amount', $record->purchase_amount) }}"
                             @error('purchase-amount') ring-red-500 focus:ring-red-500 @enderror
                         >
                         @error('purchase-amount')
@@ -427,10 +479,10 @@
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             @error('acquisition-status') ring-red-500 focus:ring-red-500 @enderror
                         >
-                            <option value="">Select status</option>
-                            <option value="Processing" {{ $record->acquisition_status == 'Processing' ? 'selected' : '' }}>Processing</option>
-                            <option value="Available" {{ $record->acquisition_status == 'Available' ? 'selected' : '' }}>Available</option>
-                            <option value="Pending Review" {{ $record->acquisition_status == 'Pending Review' ? 'selected' : '' }}>Pending Review</option>
+                            <option value="" {{ old('acquisition-status', $record->acquisition_status) == '' ? 'selected' : '' }}>Select status</option>
+                            <option value="Processing" {{ old('acquisition-status', $record->acquisition_status) == 'Processing' ? 'selected' : '' }}>Processing</option>
+                            <option value="Available" {{ old('acquisition-status', $record->acquisition_status) == 'Available' ? 'selected' : '' }}>Available</option>
+                            <option value="Pending Review" {{ old('acquisition-status', $record->acquisition_status) == 'Pending Review' ? 'selected' : '' }}>Pending Review</option>
                         </select>
                         @error('acquisition-status')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -446,17 +498,33 @@
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <div class="sm:col-span-1">
-                    <label for="summary-contents" class="block text-sm font-medium leading-6 text-gray-900">Summary/Contents</label>
+                    <label for="abstract-summary" class="block text-sm font-medium leading-6 text-gray-900">Abstract/Summary</label>
                     <div class="mt-2">
                         <textarea
-                            id="summary-contents"
-                            name="summary-contents"
+                            id="abstract-summary"
+                            name="abstract-summary"
                             rows="4"
-                            placeholder="Enter summary or abstract"
+                            placeholder="Enter abstract or summary"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            @error('summary-contents') ring-red-500 focus:ring-red-500 @enderror
-                        >{{ $record->periodical->summary_contents ?? old('summary-contents') }}</textarea>
-                        @error('summary-contents')
+                            @error('abstract-summary') ring-red-500 focus:ring-red-500 @enderror
+                        >{{ old('abstract-summary', $record->thesis->abstract_summary) }}</textarea>
+                        @error('abstract-summary')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="sm:col-span-1">
+                    <label for="keywords" class="block text-sm font-medium leading-6 text-gray-900">Keywords</label>
+                    <div class="mt-2">
+                        <textarea
+                            id="keywords"
+                            name="keywords"
+                            rows="4"
+                            placeholder="Enter keywords"
+                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            @error('keywords') ring-red-500 focus:ring-red-500 @enderror
+                        >{{ old('keywords', $record->thesis->keywords) }}</textarea>
+                        @error('keywords')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -471,7 +539,7 @@
                             placeholder="Enter additional notes"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             @error('additional-notes') ring-red-500 focus:ring-red-500 @enderror
-                        >{{ $record->additional_notes ?? old('additional-notes') }}</textarea>
+                        >{{ old('additional-notes', $record->additional_notes) }}</textarea>
                         @error('additional-notes')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -480,22 +548,14 @@
             </div>
         </div>
 
-        <div class="mt-6 py-8 flex items-center justify-between gap-x-6">
-            <button type="submit" form="delete-form" class="text-sm font-semibold leading-6 text-red-900">Delete</button>
-            <div class="flex gap-x-6">
-                <a href="{{ route('periodicals.show', $record) }}">
-                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                </a>
-                <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white
-                shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
-                focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Periodical/Magazine</button>
-            </div>
+        <div class="mt-6 py-8 flex items-center justify-end gap-x-6">
+            <a href="{{ route('thesis.index') }}">
+                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+            </a>
+            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white
+            shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+             focus-visible:outline-indigo-600">Update Thesis/Dissertation</button>
         </div>
-    </form>
-
-    <form id="delete-form" action="{{ route('periodicals.destroy', $record) }}" method="POST" style="display: none;">
-        @csrf
-        @method('DELETE')
     </form>
 </x-layouts.records>
 

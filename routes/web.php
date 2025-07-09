@@ -69,6 +69,8 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
     Route::post('records/thesis', [ThesisController::class, 'store'])->name('thesis.store');
     Route::get('records/thesis/{record}', [ThesisController::class, 'show'])->name('thesis.show');
+    Route::get('records/thesis/{record}/edit', [ThesisController::class, 'edit'])->name('thesis.edit');
+    Route::put('records/thesis/{record}/', [ThesisController::class, 'update'])->name('thesis.update');
 
 });
 
