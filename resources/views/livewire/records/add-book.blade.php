@@ -57,7 +57,7 @@
                 </div>
                 <!-- Other fields (editor, publication-year, etc.) follow the same pattern -->
                 <!-- Example for dynamic additional authors -->
-                <div class="sm:col-span-2">
+                <div class="sm:col-span-1">
                     <label class="block text-sm font-medium leading-6 text-gray-900">Additional Authors</label>
                     @foreach($additionalAuthors as $index => $author)
                         <div class="mt-2 flex gap-x-2">
