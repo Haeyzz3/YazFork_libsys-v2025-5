@@ -5,58 +5,36 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Basic Information</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-                <div class="sm:col-span-1">
-                    <label for="accession-number" class="block text-sm font-medium leading-6 text-gray-900">Accession Number <span class="text-red-600">*</span></label>
-                    <div class="mt-2">
-                        <input
-                            id="accession-number"
-                            wire:model.blur="accessionNumber"
-                            type="text"
-                            placeholder="Enter accession number"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('accessionNumber') ring-red-500 focus:ring-red-500 @enderror"
-                            required
-                        >
-                        @error('accessionNumber')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title <span class="text-red-600">*</span></label>
-                    <div class="mt-2">
-                        <input
-                            id="title"
-                            wire:model.blur="title"
-                            type="text"
-                            placeholder="Enter book title"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('title') ring-red-500 focus:ring-red-500 @enderror"
-                            required
-                        >
-                        @error('title')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="author" class="block text-sm font-medium leading-6 text-gray-900">Author</label>
-                    <div class="mt-2">
-                        <input
-                            id="author"
-                            wire:model.blur="author"
-                            type="text"
-                            placeholder="Enter author"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('author') ring-red-500 focus:ring-red-500 @enderror"
-                        >
-                        @error('author')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <!-- Other fields (editor, publication-year, etc.) follow the same pattern -->
-                <!-- Example for dynamic additional authors -->
+                <x-form-input
+                    name="accession_number"
+                    label="Accession Number"
+                    placeholder="Enter accession number"
+                    type="text"
+                    :required="true"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('accession_number', '')"
+                    wireModel="accession_number"
+                />
+                <x-form-input
+                    name="title"
+                    label="Title"
+                    placeholder="Enter title"
+                    type="text"
+                    :required="true"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('title', '')"
+                    wireModel="title"
+                />
+                <x-form-input
+                    name="author"
+                    label="Author"
+                    placeholder="Enter author"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('author', '')"
+                    wireModel="author"
+                />
                 <div class="sm:col-span-1">
                     <label class="block text-sm font-medium leading-6 text-gray-900">Additional Authors</label>
                     @foreach($additionalAuthors as $index => $author)
@@ -76,92 +54,60 @@
                     @endforeach
                     <button wire:click="addAuthorField" type="button" class="mt-2 text-sm font-semibold text-indigo-600">Add Author</button>
                 </div>
-                <div class="sm:col-span-1">
-                    <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">Editor</label>
-                    <div class="mt-2">
-                        <input
-                            id="editor"
-                            wire:model.blur="editor"
-                            type="text"
-                            placeholder="Enter editor"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('editor') ring-red-500 focus:ring-red-500 @enderror"
-                        >
-                        @error('editor')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">Publication Year</label>
-                    <div class="mt-2">
-                        <input
-                            id="editor"
-                            wire:model.blur="editor"
-                            type="text"
-                            placeholder="Enter editor"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('editor') ring-red-500 focus:ring-red-500 @enderror"
-                        >
-                        @error('editor')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">Publisher</label>
-                    <div class="mt-2">
-                        <input
-                            id="editor"
-                            wire:model.blur="editor"
-                            type="text"
-                            placeholder="Enter editor"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('editor') ring-red-500 focus:ring-red-500 @enderror"
-                        >
-                        @error('editor')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">Place of Publication</label>
-                    <div class="mt-2">
-                        <input
-                            id="editor"
-                            wire:model.blur="editor"
-                            type="text"
-                            placeholder="Enter editor"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('editor') ring-red-500 focus:ring-red-500 @enderror"
-                        >
-                        @error('editor')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">ISBN</label>
-                    <div class="mt-2">
-                        <input
-                            id="editor"
-                            wire:model.blur="editor"
-                            type="text"
-                            placeholder="Enter editor"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('editor') ring-red-500 focus:ring-red-500 @enderror"
-                        >
-                        @error('editor')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                <x-form-input
+                    name="editor"
+                    label="Editor"
+                    placeholder="Enter editor"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('editor', '')"
+                    wireModel="editor"
+                />
+                <x-form-input
+                    name="publication_year"
+                    label="Year of publication"
+                    placeholder="Enter year of publication"
+                    type="text"
+                    :required="true"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('publication_year', '')"
+                    wireModel="publication_year"
+                />
+                <x-form-input
+                    name="publisher"
+                    label="Publisher"
+                    placeholder="Enter publisher"
+                    type="text"
+                    :required="true"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('publisher', '')"
+                    wireModel="publisher"
+                />
+                <x-form-input
+                    name="publication_place"
+                    label="Place of publication"
+                    placeholder="Enter place of publication"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('publication_place', '')"
+                    wireModel="publication_place"
+                />
+                <x-form-input
+                    name="isbn"
+                    label="ISBN"
+                    placeholder="Enter ISBN"
+                    type="text"
+                    :required="true"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('isbn', '')"
+                    wireModel="isbn"
+                />
             </div>
-
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
-
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
                 <div class="sm:col-span-1">
                     <label for="ddc-classification" class="block text-sm font-medium leading-6 text-gray-900">DDC Classification <span class="text-red-500">*</span></label>
