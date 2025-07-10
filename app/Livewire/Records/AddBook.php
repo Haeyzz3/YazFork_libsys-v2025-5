@@ -18,15 +18,15 @@ class AddBook extends Component
     public $seriesTitle = '';
 
     protected $rules = [
-        'accessionNumber' => 'required|string|max:255',
+        'accessionNumber' => 'required|string|max:10',
         'title' => 'required|string|max:255',
         'author' => 'nullable|string|max:255',
+        'additionalAuthors.*' => 'nullable|string|max:255',
         'editor' => 'nullable|string|max:255',
         'publicationYear' => 'required|integer|min:1800|max:' . 2025,
         'publisher' => 'required|string|max:255',
         'placeOfPublication' => 'required|string|max:255',
         'isbn' => 'required|string|max:13',
-        'additionalAuthors.*' => 'nullable|string|max:255',
         'seriesTitle' => 'nullable|string|max:255',
     ];
 
@@ -61,6 +61,7 @@ class AddBook extends Component
             'isbn' => $this->isbn,
             'additional_authors' => implode(', ', array_filter($this->additionalAuthors)),
             'series_title' => $this->seriesTitle,
+//            added by
         ]);
 
         session()->flash('message', 'Book added successfully!');
