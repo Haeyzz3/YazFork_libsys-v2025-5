@@ -7,7 +7,7 @@
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <div class="sm:col-span-1">
-                    <label for="accession-number" class="block text-sm font-medium leading-6 text-gray-900">Accession Number</label>
+                    <label for="accession-number" class="block text-sm font-medium leading-6 text-gray-900">Accession Number <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="accession-number"
@@ -25,14 +25,16 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                    <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="title"
                             name="title"
                             type="text"
                             placeholder="Enter book title"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1
+                            ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+                             focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             value="{{ old('title') }}"
                             required
                             @error('title') ring-red-500 focus:ring-red-500 @enderror
@@ -43,7 +45,7 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="primary-author" class="block text-sm font-medium leading-6 text-gray-900">Primary Author</label>
+                    <label for="primary-author" class="block text-sm font-medium leading-6 text-gray-900">Primary Author <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="primary-author"
@@ -61,7 +63,7 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publication-year" class="block text-sm font-medium leading-6 text-gray-900">Publication Year</label>
+                    <label for="publication-year" class="block text-sm font-medium leading-6 text-gray-900">Publication Year <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="publication-year"
@@ -79,7 +81,7 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publisher" class="block text-sm font-medium leading-6 text-gray-900">Publisher</label>
+                    <label for="publisher" class="block text-sm font-medium leading-6 text-gray-900">Publisher <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="publisher"
@@ -97,7 +99,7 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="place-of-publication" class="block text-sm font-medium leading-6 text-gray-900">Place of Publication</label>
+                    <label for="place-of-publication" class="block text-sm font-medium leading-6 text-gray-900">Place of Publication <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="place-of-publication"
@@ -115,7 +117,7 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="isbn-issn" class="block text-sm font-medium leading-6 text-gray-900">ISBN/ISSN</label>
+                    <label for="isbn-issn" class="block text-sm font-medium leading-6 text-gray-900">ISBN/ISSN <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="isbn-issn"
@@ -139,7 +141,6 @@
                             id="language"
                             name="language"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required
                             @error('language') ring-red-500 focus:ring-red-500 @enderror
                         >
                             <option value="" disabled selected>Select a language</option>
