@@ -24,6 +24,10 @@ class Book extends Model
         'summary_abstract',
     ];
 
+    protected $casts = [
+        'additional_authors' => 'array', // saved as json in db
+    ];
+
     public function record(): BelongsTo
     {
         return $this->belongsTo(Record::class);

@@ -2,32 +2,53 @@
 
 namespace App\Livewire\Records;
 
+use App\Models\Record;
 use Livewire\Component;
 
 class AddBook extends Component
 {
-    public $accessionNumber = '';
+    public $accession_number = '';
     public $title = '';
     public $author = '';
-    public $editor = '';
-    public $publicationYear = '';
-    public $publisher = '';
-    public $placeOfPublication = '';
-    public $isbn = '';
     public $additionalAuthors = [''];
-    public $seriesTitle = '';
+    public $editor = '';
+//    public $publication_year = '';
+//    public $publisher = '';
+//    public $publication_place = '';
+//    public $isbn = '';
+//    public $ddc_classification = '';
+//    public $lc_classification = '';
+//    public $call_number = '';
+//    public $physical_location = '';
+//    public $location_symbol = '';
+//    public $cover_type = '';
+//    public $cover_image = '';
+//    public $ics_number = '';
+//    public $ics_number_date = '';
+//    public $pr_number = '';
+//    public $pr_date = '';
+//    public $po_number = '';
+//    public $po_date = '';
+//    public $source = '';
+//    public $purchase_amount = '';
+//    public $lot_cost = '';
+//    public $donated_by = '';
+//    public $supplier = '';
+//    public $acquisition_status = '';
+//    public $table_of_contents = '';
+//    public $subjectHeadings = '';
 
     protected $rules = [
-        'accessionNumber' => 'required|string|max:10',
+        'accession_number' => 'required|string|max:25',
         'title' => 'required|string|max:255',
-        'author' => 'nullable|string|max:255',
+        'author' => 'nullable|string|max:100',
         'additionalAuthors.*' => 'nullable|string|max:255',
-        'editor' => 'nullable|string|max:255',
-        'publicationYear' => 'required|integer|min:1800|max:' . 2025,
-        'publisher' => 'required|string|max:255',
-        'placeOfPublication' => 'required|string|max:255',
-        'isbn' => 'required|string|max:13',
-        'seriesTitle' => 'nullable|string|max:255',
+        'editor' => 'nullable|string|max:100',
+//        'publicationYear' => 'required|integer|min:1800|max:' . 2025,
+//        'publisher' => 'required|string|max:255',
+//        'placeOfPublication' => 'required|string|max:255',
+//        'isbn' => 'required|string|max:13',
+//        'seriesTitle' => 'nullable|string|max:255',
     ];
 
     public function updated($propertyName)
@@ -50,22 +71,34 @@ class AddBook extends Component
     {
         $this->validate();
 
-        Book::create([
-            'accession_number' => $this->accessionNumber,
-            'title' => $this->title,
-            'author' => $this->author,
-            'editor' => $this->editor,
-            'publication_year' => $this->publicationYear,
-            'publisher' => $this->publisher,
-            'place_of_publication' => $this->placeOfPublication,
-            'isbn' => $this->isbn,
-            'additional_authors' => implode(', ', array_filter($this->additionalAuthors)),
-            'series_title' => $this->seriesTitle,
-//            added by
-        ]);
+        try {
+            $record = Record::create([
+                'accession_number' => $this->accession_number,
+                'title' => $this->title,
+    //            'publication_year' => $this->publicationYear,
+    //            'publisher' => $this->publisher,
+    //            'place_of_publication' => $this->placeOfPublication,
+    //            'isbn' => $this->isbn,
+    //            'series_title' => $this->seriesTitle,
+    ////            added by
+            ]);
 
-        session()->flash('message', 'Book added successfully!');
-        return redirect()->route('books.index');
+            $record->book()->create([
+                'author' => $this->author,
+                'additional_authors' => $this->additionalAuthors,
+                'editor' => $this->editor,
+            ]);
+
+            session()->flash('message', 'Book added successfully!');
+            return redirect()->route('books.index');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle database-specific errors (e.g., duplicate entry, foreign key issues)
+            session()->flash('error', 'Failed to add book: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            // Handle any other unexpected errors
+            session()->flash('error', 'An unexpected error occurred: ' . $e->getMessage());
+        }
     }
 
     public function render()

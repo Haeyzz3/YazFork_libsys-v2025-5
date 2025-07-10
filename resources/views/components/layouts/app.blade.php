@@ -20,6 +20,7 @@
             <button @click="show = false" class="ml-4 text-white hover:text-gray-200">×</button>
         </div>
     @endif
+
     <flux:main>
         {{ $slot }}
     </flux:main>

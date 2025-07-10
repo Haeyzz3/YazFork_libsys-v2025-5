@@ -16,7 +16,10 @@ return new class extends Migration
             $table->foreignId('record_id') // Foreign key to resources table
             ->constrained('records')
                 ->onDelete('cascade');
-            $table->string('primary_author');
+            $table->string('author', '100')->nullable();
+            $table->json('additional_authors')->nullable();
+            $table->string('editor','100')->nullable();
+
             $table->year('publication_year'); // Required
             $table->string('publisher'); // Required
             $table->string('place_of_publication'); // Required

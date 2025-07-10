@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // Primary key, auto-generated
             $table->string('accession_number', 10);
             $table->string('title')->index(); // Required, indexed for search
-            $table->string('language'); // Dropdown: English, Filipino, Spanish, Other
+
             $table->string('ddc_classification'); // Required dropdown: Applied Science, Arts, etc.
             $table->string('call_number')->unique()->nullable(); // Auto-suggested, unique
             $table->string('physical_location')->nullable(); // Required dropdown: Circulation, Fiction, etc.
