@@ -1,6 +1,6 @@
 <div>
     <form wire:submit.prevent="submit">
-        <div class="space-y-8 mt-8">
+        <div class="space-y-8">
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Basic Information</h2>
             </div>
@@ -10,20 +10,18 @@
                     label="Accession Number"
                     placeholder="Enter accession number"
                     type="text"
-                    :required="true"
+                    required
                     wrapperClass="sm:col-span-1"
                     :value="old('accession_number', '')"
-                    wireModel="accession_number"
                 />
                 <x-form-input
                     name="title"
                     label="Title"
                     placeholder="Enter title"
                     type="text"
-                    :required="true"
+                    required
                     wrapperClass="sm:col-span-1"
                     :value="old('title', '')"
-                    wireModel="title"
                 />
                 <x-form-input
                     name="author"
@@ -33,7 +31,6 @@
                     :required="false"
                     wrapperClass="sm:col-span-1"
                     :value="old('author', '')"
-                    wireModel="author"
                 />
                 <div class="sm:col-span-1">
                     <label class="block text-sm font-medium leading-6 text-gray-900">Additional Authors</label>
@@ -62,325 +59,229 @@
                     :required="false"
                     wrapperClass="sm:col-span-1"
                     :value="old('editor', '')"
-                    wireModel="editor"
                 />
                 <x-form-input
                     name="publication_year"
                     label="Year of publication"
                     placeholder="Enter year of publication"
                     type="text"
-                    :required="true"
+                    required
                     wrapperClass="sm:col-span-1"
                     :value="old('publication_year', '')"
-                    wireModel="publication_year"
                 />
                 <x-form-input
                     name="publisher"
                     label="Publisher"
                     placeholder="Enter publisher"
                     type="text"
-                    :required="true"
+                    required
                     wrapperClass="sm:col-span-1"
                     :value="old('publisher', '')"
-                    wireModel="publisher"
                 />
                 <x-form-input
                     name="publication_place"
                     label="Place of publication"
                     placeholder="Enter place of publication"
                     type="text"
-                    :required="false"
+                    required
                     wrapperClass="sm:col-span-1"
                     :value="old('publication_place', '')"
-                    wireModel="publication_place"
                 />
                 <x-form-input
                     name="isbn"
                     label="ISBN"
                     placeholder="Enter ISBN"
                     type="text"
-                    :required="true"
+                    required
                     wrapperClass="sm:col-span-1"
                     :value="old('isbn', '')"
-                    wireModel="isbn"
                 />
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
-            <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
-                <div class="sm:col-span-1">
-                    <label for="ddc-classification" class="block text-sm font-medium leading-6 text-gray-900">DDC Classification <span class="text-red-500">*</span></label>
-                    <div class="mt-2">
-                        <select
-                            id="ddc-classification"
-                            name="ddc-classification"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                   ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
-                   sm:text-sm sm:leading-6"
-                            onchange="updateCallNumber()"
-                            required
-                        >
-                            <option value="" disabled selected>Select DDC classification</option>
-                            <option value="Applied Science" {{ old('ddc-classification') == 'Applied Science' ? 'selected' : '' }}>Applied Science</option>
-                            <option value="Arts" {{ old('ddc-classification') == 'Arts' ? 'selected' : '' }}>Arts</option>
-                            <option value="Fiction" {{ old('ddc-classification') == 'Fiction' ? 'selected' : '' }}>Fiction</option>
-                            <option value="General Works" {{ old('ddc-classification') == 'General Works' ? 'selected' : '' }}>General Works</option>
-                            <option value="History" {{ old('ddc-classification') == 'History' ? 'selected' : '' }}>History</option>
-                            <option value="Language" {{ old('ddc-classification') == 'Language' ? 'selected' : '' }}>Language</option>
-                            <option value="Literature" {{ old('ddc-classification') == 'Literature' ? 'selected' : '' }}>Literature</option>
-                            <option value="Philosophy" {{ old('ddc-classification') == 'Philosophy' ? 'selected' : '' }}>Philosophy</option>
-                            <option value="Pure Science" {{ old('ddc-classification') == 'Pure Science' ? 'selected' : '' }}>Pure Science</option>
-                            <option value="Religion" {{ old('ddc-classification') == 'Religion' ? 'selected' : '' }}>Religion</option>
-                            <option value="Social Science" {{ old('ddc-classification') == 'Social Science' ? 'selected' : '' }}>Social Science</option>
-                        </select>
-                        @error('ddc-classification')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">LC</label>
-                    <div class="mt-2">
-                        <input
-                            id="editor"
-                            wire:model.blur="editor"
-                            type="text"
-                            placeholder="Enter editor"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            class="@error('editor') ring-red-500 focus:ring-red-500 @enderror"
-                        >
-                        @error('editor')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="call-number" class="block text-sm font-medium leading-6 text-gray-900">Call Number</label>
-                    <div class="mt-2">
-                        <input
-                            disabled
-                            id="call-number"
-                            name="call-number"
-                            type="text"
-                            placeholder="Auto-suggested based on DDC"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                   ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                   focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('call-number') }}"
-                            readonly
-                        >
-                        @error('call-number')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="physical-location" class="block text-sm font-medium leading-6 text-gray-900">Physical Location</label>
-                    <div class="mt-2">
-                        <select
-                            id="physical-location"
-                            name="physical-location"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                   ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
-                   sm:text-sm sm:leading-6"
-                            onchange="updateLocationSymbol()"
-                        >
-                            <option value="" disabled selected>Select physical location</option>
-                            <option value="Circulation" {{ old('physical-location') == 'Circulation' ? 'selected' : '' }}>Circulation</option>
-                            <option value="Fiction" {{ old('physical-location') == 'Fiction' ? 'selected' : '' }}>Fiction</option>
-                            <option value="Filipiniana" {{ old('physical-location') == 'Filipiniana' ? 'selected' : '' }}>Filipiniana</option>
-                            <option value="General References" {{ old('physical-location') == 'General References' ? 'selected' : '' }}>General References</option>
-                            <option value="Graduate School" {{ old('physical-location') == 'Graduate School' ? 'selected' : '' }}>Graduate School</option>
-                            <option value="Reserve" {{ old('physical-location') == 'Reserve' ? 'selected' : '' }}>Reserve</option>
-                            <option value="PCAARRD" {{ old('physical-location') == 'PCAARRD' ? 'selected' : '' }}>PCAARRD</option>
-                            <option value="Vertical Files" {{ old('physical-location') == 'Vertical Files' ? 'selected' : '' }}>Vertical Files</option>
-                        </select>
-                        @error('physical-location')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="location-symbol" class="block text-sm font-medium leading-6 text-gray-900">Location Symbol</label>
-                    <div class="mt-2">
-                        <input
-                            disabled
-                            id="location-symbol"
-                            name="location-symbol"
-                            type="text"
-                            placeholder="Auto-generated based on location"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                   ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                   focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('location-symbol') }}"
-                            readonly
-                        >
-                        @error('location-symbol')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+            <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
+                <x-form-select-input
+                    name="ddc_classification"
+                    label="DDC Classification"
+                    :options="['sample' => 'data']"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
+                <x-form-select-input
+                    name="lc_classification"
+                    label="LC Classification"
+                    :options="['sample' => 'data']"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
+                <x-form-input
+                    name="call_number"
+                    label="Call Number"
+                    placeholder="Enter call number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('call_number', '')"
+                />
+                <x-form-select-input
+                    name="physical_location"
+                    label="Physical Location"
+                    :options="['sample' => 'data']"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
+                <x-form-input
+                    name="location_symbol"
+                    label="Location Symbol"
+                    placeholder="Enter location symbol"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('location_symbol', '')"
+                />
             </div>
-
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
             </div>
-
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-
-                <div class="sm:col-span-1">
-                    <label for="edition" class="block text-sm font-medium leading-6 text-gray-900">Edition</label>
-                    <div class="mt-2">
-                        <input
-                            id="edition"
-                            name="edition"
-                            type="text"
-                            placeholder="Enter edition"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                           ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('edition') }}"
-                        >
-                        @error('edition')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="cover-type" class="block text-sm font-medium leading-6 text-gray-900">Cover Type</label>
-                    <div class="mt-2">
-                        <select
-                            id="cover-type"
-                            name="cover-type"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                           ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
-                           sm:text-sm sm:leading-6"
-                        >
-                            <option value="" disabled selected>Select cover type</option>
-                            <option value="Hardcover" {{ old('cover-type') == 'Hardcover' ? 'selected' : '' }}>Hardcover</option>
-                            <option value="Paperback" {{ old('cover-type') == 'Paperback' ? 'selected' : '' }}>Paperback</option>
-                            <option value="Spiral-bound" {{ old('cover-type') == 'Spiral-bound' ? 'selected' : '' }}>Spiral-bound</option>
-                            <option value="Other" {{ old('cover-type') == 'Other' ? 'selected' : '' }}>Other</option>
-                        </select>
-                        @error('cover-type')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="book-cover-image" class="block text-sm font-medium leading-6 text-gray-900">Book Cover Image</label>
-                    <div class="mt-2">
-                        <input
-                            id="book-cover-image"
-                            name="book-cover-image"
-                            type="file"
-                            accept=".jpg,.jpeg,.png,.pdf"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm
-                           ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600
-                           sm:text-sm sm:leading-6"
-                        >
-                        @error('book-cover-image')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                <x-form-input
+                    name="edition"
+                    label="Edition"
+                    placeholder="Enter edition"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('edition','')"
+                />
+                <x-form-select-input
+                    name="cover_type"
+                    label="Cover Type"
+                    :options="['sample' => 'data']"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
+                <x-form-input
+                    name="cover_image"
+                    label="Cover Image"
+                    type="file"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('cover_image','')"
+                />
             </div>
-
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h2>
             </div>
-
-            <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-
-                <div class="sm:col-span-1">
-                    <label for="date-acquired" class="block text-sm font-medium leading-6 text-gray-900">Date Acquired</label>
-                    <div class="mt-2">
-                        <input
-                            id="date-acquired"
-                            name="date-acquired"
-                            type="date"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('date-acquired', date('Y-m-d')) }}"
-                            @error('date-acquired') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                        @error('date-acquired')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="source" class="block text-sm font-medium leading-6 text-gray-900">Source</label>
-                    <div class="mt-2">
-                        <select
-                            id="source"
-                            name="source"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            @error('source') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                            <option value="" {{ old('source') == '' ? 'selected' : '' }}>Select source</option>
-                            <option value="Purchase" {{ old('source') == 'Purchase' ? 'selected' : '' }}>Purchase</option>
-                            <option value="Donation" {{ old('source') == 'Donation' ? 'selected' : '' }}>Donation</option>
-                            <option value="Exchange" {{ old('source') == 'Exchange' ? 'selected' : '' }}>Exchange</option>
-                            <option value="Government Depository" {{ old('source') == 'Government Depository' ? 'selected' : '' }}>Government Depository</option>
-                        </select>
-                        @error('source')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="purchase-amount" class="block text-sm font-medium leading-6 text-gray-900">Purchase Amount</label>
-                    <div class="mt-2">
-                        <input
-                            id="purchase-amount"
-                            name="purchase-amount"
-                            type="number"
-                            step="0.01"
-                            placeholder="Enter amount"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('purchase-amount') }}"
-                            @error('purchase-amount') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                        @error('purchase-amount')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="sm:col-span-1">
-                    <label for="acquisition-status" class="block text-sm font-medium leading-6 text-gray-900">Acquisition Status</label>
-                    <div class="mt-2">
-                        <select
-                            id="acquisition-status"
-                            name="acquisition-status"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            @error('acquisition-status') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                            <option value="" {{ old('acquisition-status') == '' ? 'selected' : '' }}>Select status</option>
-                            <option value="Processing" {{ old('acquisition-status') == 'Processing' ? 'selected' : '' }}>Processing</option>
-                            <option value="Available" {{ old('acquisition-status') == 'Available' ? 'selected' : '' }}>Available</option>
-                            <option value="Pending Review" {{ old('acquisition-status') == 'Pending Review' ? 'selected' : '' }}>Pending Review</option>
-                        </select>
-                        @error('acquisition-status')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+            <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
+                <x-form-input
+                    name="ics_number"
+                    label="ICS Number"
+                    placeholder="Enter ICS number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('ics_number','')"
+                />
+                <x-form-input
+                    name="ics_number_date"
+                    label="ICS Number Date"
+                    type="date"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('ics_number_date','')"
+                />
+                <x-form-input
+                    name="pr_number"
+                    label="PR Number"
+                    placeholder="Enter PR number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('pr_number','')"
+                />
+                <x-form-input
+                    name="pr_date"
+                    label="PR Date"
+                    type="date"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('pr_date','')"
+                />
+                <x-form-input
+                    name="po_number"
+                    label="PO Number"
+                    placeholder="Enter PO number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('po_number','')"
+                />
+                <x-form-input
+                    name="po_date"
+                    label="PO Date"
+                    type="date"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('po_date','')"
+                />
+                <x-form-select-input
+                    name="source"
+                    label="Source"
+                    placeholder="Enter source"
+                    :options="['sample' => 'data']"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
+                <x-form-input
+                    name="purchase_amount"
+                    label="Purchase Amount"
+                    placeholder="Enter purchase amount"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('purchase_amount','')"
+                />
+                <x-form-input
+                    name="lot_cost"
+                    label="Lot Cost"
+                    placeholder="Enter lot cost"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('lot_cost','')"
+                />
+                <x-form-input
+                    name="donated_by"
+                    label="Donated By"
+                    placeholder="Enter donor"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('donated_by','')"
+                />
+                <x-form-input
+                    name="supplier"
+                    label="Supplier"
+                    placeholder="Enter supplier"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('supplier','')"
+                />
+                <x-form-select-input
+                    name="acquisition_status"
+                    label="Acquisition Status"
+                    placeholder="Enter acquisition status"
+                    :options="['sample' => 'data']"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
             </div>
-
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
             </div>
-
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-
                 <div class="sm:col-span-1">
                     <label for="table-of-contents" class="block text-sm font-medium leading-6 text-gray-900">Table of Contents</label>
                     <div class="mt-2">
@@ -398,22 +299,17 @@
                     </div>
                 </div>
 
-                <div class="sm:col-span-1">
-                    <label for="summary-abstract" class="block text-sm font-medium leading-6 text-gray-900">Subject Headings</label>
-                    <div class="mt-2">
-                                <textarea
-                                    id="summary-abstract"
-                                    name="summary-abstract"
-                                    rows="4"
-                                    placeholder="Enter summary or abstract"
-                                    class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    @error('summary-abstract') ring-red-500 focus:ring-red-500 @enderror
-                                >{{ old('summary-abstract') }}</textarea>
-                        @error('summary-abstract')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                <x-form-select-input-with-add
+                    :authors="$additionalAuthors"
+                    name="subject_headings"
+                    label="Subject Headings"
+                    placeholder="Enter subject headings"
+                    wrapperClass="sm:col-span-1"
+                    addButtonText="Add Another Subject Heading"
+                    removeButtonText="Delete"
+                    addButtonBlass="mt-2 text-sm font-semibold text-blue-600"
+                    removeButtonClass="text-red-500"
+                />
             </div>
         </div>
 
