@@ -7,15 +7,17 @@ use Livewire\Component;
 
 class AddBook extends Component
 {
+    public $isModalOpen = false;
+
     public $accession_number = '';
     public $title = '';
     public $author = '';
     public $additionalAuthors = [''];
     public $editor = '';
-//    public $publication_year = '';
-//    public $publisher = '';
-//    public $publication_place = '';
-//    public $isbn = '';
+    public $publication_year = '';
+    public $publisher = '';
+    public $publication_place = '';
+    public $isbn = '';
 //    public $ddc_classification = '';
 //    public $lc_classification = '';
 //    public $call_number = '';
@@ -38,18 +40,20 @@ class AddBook extends Component
 //    public $table_of_contents = '';
 //    public $subjectHeadings = '';
 
-    protected $rules = [
-        'accession_number' => 'required|string|max:25',
-        'title' => 'required|string|max:255',
-        'author' => 'nullable|string|max:100',
-        'additionalAuthors.*' => 'nullable|string|max:255',
-        'editor' => 'nullable|string|max:100',
-//        'publicationYear' => 'required|integer|min:1800|max:' . 2025,
-//        'publisher' => 'required|string|max:255',
-//        'placeOfPublication' => 'required|string|max:255',
-//        'isbn' => 'required|string|max:13',
-//        'seriesTitle' => 'nullable|string|max:255',
-    ];
+    public function rules()
+    {
+        return [
+            'accession_number' => 'required|string|max:25',
+            'title' => 'required|string|max:255',
+            'author' => 'nullable|string|max:100',
+            'additionalAuthors.*' => 'nullable|string|max:255',
+            'editor' => 'nullable|string|max:100',
+            'publication_year' => 'required|integer|min:1800|max:' . date('Y'),
+            'publisher' => 'nullable|string|max:100',
+            'publication_place' => 'nullable|string|max:255',
+            'isbn' => 'nullable|string|max:25',
+        ];
+    }
 
     public function updated($propertyName)
     {
@@ -87,6 +91,10 @@ class AddBook extends Component
                 'author' => $this->author,
                 'additional_authors' => $this->additionalAuthors,
                 'editor' => $this->editor,
+                'publication_year' => $this->publication_year,
+                'publisher' => $this->publisher,
+                'publication_place' => $this->publication_place,
+                'isbn' => $this->isbn,
             ]);
 
             session()->flash('message', 'Book added successfully!');
@@ -99,6 +107,16 @@ class AddBook extends Component
             // Handle any other unexpected errors
             session()->flash('error', 'An unexpected error occurred: ' . $e->getMessage());
         }
+    }
+
+    public function openModal()
+    {
+        $this->isModalOpen = true;
+    }
+
+    public function closeModal()
+    {
+        $this->isModalOpen = false;
     }
 
     public function render()

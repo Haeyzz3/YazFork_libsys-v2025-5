@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('author', '100')->nullable();
             $table->json('additional_authors')->nullable();
             $table->string('editor','100')->nullable();
-
             $table->year('publication_year'); // Required
-            $table->string('publisher'); // Required
-            $table->string('place_of_publication'); // Required
+            $table->string('publisher', '100'); // Required
+            $table->string('publication_place', '200'); // Required
+            $table->string('isbn', '25');
+
             $table->string('isbn_issn', 20)->nullable()->unique(); // ISBN or ISSN
             $table->string('series_title')->nullable();
             $table->string('edition')->nullable();
