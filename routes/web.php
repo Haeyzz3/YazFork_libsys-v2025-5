@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     // books
     Route::get('records/books', BooksIndex::class)->name('books.index');
     Route::get('records/books/create', [BookController::class, 'create'])->name('books.create');
+    Route::get('records/books/create/test', [BookController::class, 'createTest'])->name('books.create.test');
     Route::post('records/books', [BookController::class, 'store'])->name('books.store');
     Route::get('records/books/{record}', [BookController::class, 'show'])->name('books.show');
     Route::get('records/books/{record}/edit', [BookController::class, 'edit'])->name('books.edit');

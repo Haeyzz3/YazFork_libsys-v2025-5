@@ -45,31 +45,31 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="primary-author" class="block text-sm font-medium leading-6 text-gray-900">Primary Author <span class="text-red-600">*</span></label>
+                    <label for="author" class="block text-sm font-medium leading-6 text-gray-900">Author <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
-                            id="primary-author"
-                            name="primary-author"
+                            id="author"
+                            name="author"
                             type="text"
                             placeholder="Enter primary author"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('primary-author') }}"
+                            value="{{ old('author') }}"
                             required
-                            @error('primary-author') ring-red-500 focus:ring-red-500 @enderror
+                            @error('author') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('primary-author')
+                        @error('author')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="publication-year" class="block text-sm font-medium leading-6 text-gray-900">Publication Year <span class="text-red-600">*</span></label>
+                    <label for="publication-year" class="block text-sm font-medium leading-6 text-gray-900">Year of Publication <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
                             id="publication-year"
                             name="publication-year"
                             type="number"
-                            placeholder="Enter publication year"
+                            placeholder="Enter year of publication"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             value="{{ old('publication-year') }}"
                             required
@@ -117,41 +117,19 @@
                     </div>
                 </div>
                 <div class="sm:col-span-1">
-                    <label for="isbn-issn" class="block text-sm font-medium leading-6 text-gray-900">ISBN/ISSN <span class="text-red-600">*</span></label>
+                    <label for="isbn" class="block text-sm font-medium leading-6 text-gray-900">ISBN <span class="text-red-600">*</span></label>
                     <div class="mt-2">
                         <input
-                            id="isbn-issn"
-                            name="isbn-issn"
+                            id="isbn"
+                            name="isbn"
                             type="text"
-                            placeholder="Enter ISBN/ISSN"
+                            placeholder="Enter ISBN"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            value="{{ old('isbn-issn') }}"
+                            value="{{ old('isbn') }}"
                             required
-                            @error('isbn-issn') ring-red-500 focus:ring-red-500 @enderror
+                            @error('isbn') ring-red-500 focus:ring-red-500 @enderror
                         >
-                        @error('isbn-issn')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-1">
-                    <label for="language" class="block text-sm font-medium leading-6 text-gray-900">Language</label>
-                    <div class="mt-2">
-                        <select
-                            id="language"
-                            name="language"
-                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            @error('language') ring-red-500 focus:ring-red-500 @enderror
-                        >
-                            <option value="" disabled selected>Select a language</option>
-                            <option value="English" {{ old('language') == 'English' ? 'selected' : '' }}>English</option>
-                            <option value="Spanish" {{ old('language') == 'Spanish' ? 'selected' : '' }}>Spanish</option>
-                            <option value="French" {{ old('language') == 'French' ? 'selected' : '' }}>French</option>
-                            <option value="German" {{ old('language') == 'German' ? 'selected' : '' }}>German</option>
-                            <option value="Chinese" {{ old('language') == 'Chinese' ? 'selected' : '' }}>Chinese</option>
-                            <option value="Other" {{ old('language') == 'Other' ? 'selected' : '' }}>Other</option>
-                        </select>
-                        @error('language')
+                        @error('isbn')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -549,62 +527,3 @@
         </div>
     </form>
 </x-layouts.records>
-
-{{-- this is just a temporary fix --}}
-
-<script>
-    // DDC Classification to Call Number mapping
-    const ddcCallNumbers = {
-        'Applied Science': '600-699',
-        'Arts': '700-799',
-        'Fiction': 'F',
-        'General Works': '000-099',
-        'History': '900-999',
-        'Language': '400-499',
-        'Literature': '800-899',
-        'Philosophy': '100-199',
-        'Pure Science': '500-599',
-        'Religion': '200-299',
-        'Social Science': '300-399'
-    };
-
-    // Physical Location to Symbol mapping
-    const locationSymbols = {
-        'Circulation': 'CIRC',
-        'Fiction': 'FIC',
-        'Filipiniana': 'FIL',
-        'General References': 'GEN',
-        'Graduate School': 'GS',
-        'Reserve': 'RES',
-        'PCAARRD': 'PCAR',
-        'Vertical Files': 'VF'
-    };
-
-    function updateCallNumber() {
-        const ddcSelect = document.getElementById('ddc-classification');
-        const callNumberInput = document.getElementById('call-number');
-
-        if (ddcSelect.value && ddcCallNumbers[ddcSelect.value]) {
-            callNumberInput.value = ddcCallNumbers[ddcSelect.value];
-        } else {
-            callNumberInput.value = '';
-        }
-    }
-
-    function updateLocationSymbol() {
-        const locationSelect = document.getElementById('physical-location');
-        const symbolInput = document.getElementById('location-symbol');
-
-        if (locationSelect.value && locationSymbols[locationSelect.value]) {
-            symbolInput.value = locationSymbols[locationSelect.value];
-        } else {
-            symbolInput.value = '';
-        }
-    }
-
-    // Initialize on page load if values are already selected
-    document.addEventListener('DOMContentLoaded', function() {
-        updateCallNumber();
-        updateLocationSymbol();
-    });
-</script>
