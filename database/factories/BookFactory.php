@@ -17,17 +17,22 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'primary_author' => $this->faker->name,
-            'Publication_Year' => $this->faker->year(),
-            'Publisher' => $this->faker->company(),
-            'Place_of_Publication' => $this->faker->city(),
-            'ISBN_ISSN' => $this->faker->optional()->isbn13(),
-            'Series_Title' => $this->faker->optional()->words(3, true),
-            'Edition' => $this->faker->optional()->randomElement(['1st', '2nd', '3rd', 'Revised']),
-            'Cover_Type' => $this->faker->randomElement(['Hardcover', 'Paperback', 'Other']),
-            'Book_Cover_Image' => $this->faker->optional()->imageUrl(200, 300, 'books', true, 'cover'),
-            'Table_of_Contents' => $this->faker->optional()->paragraphs(3, true),
-            'Summary_Abstract' => $this->faker->optional()->paragraph(),
+            'author' => $this->faker->name,
+            'additional_authors' => [
+                $this->faker->name,
+                $this->faker->name,
+                $this->faker->name,
+            ],
+            'publication_year' => $this->faker->year(),
+            'publisher' => $this->faker->company(),
+            'publication_place' => $this->faker->city(),
+            'isbn' => $this->faker->isbn13(),
+//            'Series_Title' => $this->faker->optional()->words(3, true),
+//            'Edition' => $this->faker->optional()->randomElement(['1st', '2nd', '3rd', 'Revised']),
+//            'Cover_Type' => $this->faker->randomElement(['Hardcover', 'Paperback', 'Other']),
+//            'Book_Cover_Image' => $this->faker->optional()->imageUrl(200, 300, 'books', true, 'cover'),
+//            'Table_of_Contents' => $this->faker->optional()->paragraphs(3, true),
+//            'Summary_Abstract' => $this->faker->optional()->paragraph(),
         ];
     }
 }

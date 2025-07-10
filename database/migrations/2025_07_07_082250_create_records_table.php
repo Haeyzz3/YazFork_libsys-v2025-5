@@ -15,25 +15,24 @@ return new class extends Migration
             $table->id(); // Primary key, auto-generated
             $table->string('accession_number', 10);
             $table->string('title')->index(); // Required, indexed for search
-
             $table->string('ddc_classification'); // Required dropdown: Applied Science, Arts, etc.
-            $table->string('call_number')->unique()->nullable(); // Auto-suggested, unique
-            $table->string('physical_location')->nullable(); // Required dropdown: Circulation, Fiction, etc.
-            $table->string('location_symbol', 10)->nullable(); // Auto-generated
-            $table->date('date_acquired')->default(now()); // Auto-filled with current date
-            $table->string('source'); // Dropdown: Purchase, Donation, etc.
-            $table->decimal('purchase_amount', 10, 2)->nullable(); // Conditional based on source
-            $table->string('acquisition_status'); // Required dropdown: Processing, Available, etc.
-            $table->text('additional_notes')->nullable(); // Text area
+
+//            $table->string('call_number')->unique()->nullable(); // Auto-suggested, unique
+//            $table->string('physical_location')->nullable(); // Required dropdown: Circulation, Fiction, etc.
+//            $table->string('location_symbol', 10)->nullable(); // Auto-generated
+//            $table->date('date_acquired')->default(now()); // Auto-filled with current date
+//            $table->string('source'); // Dropdown: Purchase, Donation, etc.
+//            $table->decimal('purchase_amount', 10, 2)->nullable(); // Conditional based on source
+//            $table->string('acquisition_status'); // Required dropdown: Processing, Available, etc.
+//            $table->text('additional_notes')->nullable(); // Text area
             $table->timestamps(); // created_at and updated_at
             $table->softDeletes(); // For soft delete functionality
-
-            // Indexes for better performance
-            $table->index(['ddc_classification', 'physical_location']);
-            $table->index('acquisition_status');
-            $table->index('date_acquired');
-            $table->index('language');
-            $table->index('source');
+//
+//            // Indexes for better performance
+//            $table->index(['ddc_classification', 'physical_location']);
+//            $table->index('acquisition_status');
+//            $table->index('date_acquired');
+//            $table->index('source');
         });
     }
 

@@ -8,6 +8,10 @@ use Livewire\Component;
 class AddBook extends Component
 {
     public $isModalOpen = false;
+    public $ddc_classifications = [
+        'Applied Science', 'Literature', 'Pure Science', 'History',
+        'Arts', 'Social Sciences', 'Philosophy & Religion', 'Geography'
+    ];
 
     public $accession_number = '';
     public $title = '';
@@ -18,7 +22,7 @@ class AddBook extends Component
     public $publisher = '';
     public $publication_place = '';
     public $isbn = '';
-//    public $ddc_classification = '';
+    public $ddc_classification = '';
 //    public $lc_classification = '';
 //    public $call_number = '';
 //    public $physical_location = '';
@@ -49,9 +53,10 @@ class AddBook extends Component
             'additionalAuthors.*' => 'nullable|string|max:255',
             'editor' => 'nullable|string|max:100',
             'publication_year' => 'required|integer|min:1800|max:' . date('Y'),
-            'publisher' => 'nullable|string|max:100',
-            'publication_place' => 'nullable|string|max:255',
-            'isbn' => 'nullable|string|max:25',
+            'publisher' => 'required|string|max:100',
+            'publication_place' => 'required|string|max:255',
+            'isbn' => 'required|string|max:25',
+            'ddc_classification' => 'nullable|string|max:100',
         ];
     }
 
@@ -79,12 +84,9 @@ class AddBook extends Component
             $record = Record::create([
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
-    //            'publication_year' => $this->publicationYear,
-    //            'publisher' => $this->publisher,
-    //            'place_of_publication' => $this->placeOfPublication,
-    //            'isbn' => $this->isbn,
-    //            'series_title' => $this->seriesTitle,
-    ////            added by
+                'ddc_classification' => $this->ddc_classification,
+
+                'added_by' => auth()->user()->id,
             ]);
 
             $record->book()->create([

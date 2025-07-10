@@ -104,13 +104,13 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-form-select-input--}}
-{{--                    name="ddc_classification"--}}
-{{--                    label="DDC Classification"--}}
-{{--                    :options="['sample' => 'data']"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                />--}}
+                <x-form-select-input
+                    name="ddc_classification"
+                    label="DDC Classification"
+                    :options="$ddc_classifications"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
 {{--                <x-form-select-input--}}
 {{--                    name="lc_classification"--}}
 {{--                    label="LC Classification"--}}
