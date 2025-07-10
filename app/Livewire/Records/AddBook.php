@@ -23,8 +23,8 @@ class AddBook extends Component
     public $publication_place = '';
     public $isbn = '';
     public $ddc_classification = '';
-//    public $lc_classification = '';
-//    public $call_number = '';
+    public $lc_classification = '';
+    public $call_number = '';
 //    public $physical_location = '';
 //    public $location_symbol = '';
 //    public $cover_type = '';
@@ -57,6 +57,8 @@ class AddBook extends Component
             'publication_place' => 'required|string|max:255',
             'isbn' => 'required|string|max:25',
             'ddc_classification' => 'nullable|string|max:100',
+            'lc_classification' => 'nullable|string|max:100',
+            'call_number' => 'nullable|string|max:50',
         ];
     }
 
@@ -85,6 +87,8 @@ class AddBook extends Component
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
                 'ddc_classification' => $this->ddc_classification,
+                'lc_classification' => $this->lc_classification,
+                'call_number' => $this->call_number,
 
                 'added_by' => auth()->user()->id,
             ]);
@@ -99,7 +103,7 @@ class AddBook extends Component
                 'isbn' => $this->isbn,
             ]);
 
-            session()->flash('message', 'Book added successfully!');
+            session()->flash('success', 'Book added successfully!');
             return redirect()->route('books.index');
 
         } catch (\Illuminate\Database\QueryException $e) {

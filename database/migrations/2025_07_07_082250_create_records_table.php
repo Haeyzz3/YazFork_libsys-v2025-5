@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->id(); // Primary key, auto-generated
             $table->string('accession_number', 10);
-            $table->string('title')->index(); // Required, indexed for search
-            $table->string('ddc_classification'); // Required dropdown: Applied Science, Arts, etc.
+            $table->string('title')->index();
+            $table->string('ddc_classification')->nullable();
+            $table->string('lc_classification')->nullable();
+            $table->string('call_number')->unique()->nullable();
 
-//            $table->string('call_number')->unique()->nullable(); // Auto-suggested, unique
 //            $table->string('physical_location')->nullable(); // Required dropdown: Circulation, Fiction, etc.
 //            $table->string('location_symbol', 10)->nullable(); // Auto-generated
 //            $table->date('date_acquired')->default(now()); // Auto-filled with current date

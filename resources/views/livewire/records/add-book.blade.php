@@ -111,22 +111,21 @@
                     :required="false"
                     wrapperClass="sm:col-span-1"
                 />
-{{--                <x-form-select-input--}}
-{{--                    name="lc_classification"--}}
-{{--                    label="LC Classification"--}}
-{{--                    :options="['sample' => 'data']"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="call_number"--}}
-{{--                    label="Call Number"--}}
-{{--                    placeholder="Enter call number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('call_number', '')"--}}
-{{--                />--}}
+                <x-form-select-input
+                    name="lc_classification"
+                    label="LC Classification"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
+                <x-form-input
+                    name="call_number"
+                    label="Call Number"
+                    placeholder="Enter call number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('call_number', '')"
+                />
 {{--                <x-form-select-input--}}
 {{--                    name="physical_location"--}}
 {{--                    label="Physical Location"--}}

@@ -42,7 +42,7 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->title }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->ddc_classification }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->primary_author ?? 'Not specified' }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->acquisition_status }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->acquisition_status ?? 'Not specified' }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                                 <a href="{{ route('books.show', $record) }}" class="text-indigo-600 hover:text-indigo-900">View all details</a>
                             </td>
