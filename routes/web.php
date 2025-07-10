@@ -6,6 +6,7 @@ use App\Http\Controllers\DigitalResourceController;
 use App\Http\Controllers\PatronController;
 use App\Http\Controllers\PeriodicalController;
 use App\Http\Controllers\ThesisController;
+use App\Livewire\Records\AddBook;
 use App\Livewire\Records\BooksIndex;
 use App\Livewire\Records\DigitalIndex;
 use App\Livewire\Settings\Appearance;
@@ -41,10 +42,11 @@ Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(func
 });
 
 Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(function () {
-    Route::get('records', BooksIndex::class)->name('records');
+//    Route::get('records', BooksIndex::class)->name('records');
     // books
     Route::get('records/books', BooksIndex::class)->name('books.index');
-    Route::get('records/books/create', [BookController::class, 'create'])->name('books.create');
+//    Route::get('records/books/create', [BookController::class, 'create'])->name('books.create');
+    Route::get('records/books/create', AddBook::class)->name('books.create');
     Route::get('records/books/create/test', [BookController::class, 'createTest'])->name('books.create.test');
     Route::post('records/books', [BookController::class, 'store'])->name('books.store');
     Route::get('records/books/{record}', [BookController::class, 'show'])->name('books.show');
