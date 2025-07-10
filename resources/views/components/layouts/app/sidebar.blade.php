@@ -21,9 +21,9 @@
                     @can('manage-patrons')
                         <flux:navlist.item icon="shield-user" :href="route('patrons.index')" :current="request()->routeIs(['patrons', 'patrons.*'])" wire:navigate>{{ __('Patrons') }}</flux:navlist.item>
                     @endcan
-                        <flux:navlist.item icon="crown" :href="route('books.index')" wire:navigate>{{ __('Logger') }}</flux:navlist.item>
-                        <flux:navlist.item icon="document-check" :href="route('books.index')" wire:navigate>{{ __('Clearance') }}</flux:navlist.item>
-                        <flux:navlist.item icon="chart-bar" :href="route('dashboard')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
+                        <flux:navlist.item icon="crown" href="#" wire:navigate>{{ __('Logger') }}</flux:navlist.item>
+                        <flux:navlist.item icon="document-check" href="#" wire:navigate>{{ __('Clearance') }}</flux:navlist.item>
+                        <flux:navlist.item icon="chart-bar" href="#" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -32,15 +32,15 @@
                     <flux:navlist.item icon="book-open" :href="route('books.index')"
                                        :current="request()->routeIs(['records' ,'books.*', 'digital.*', 'periodicals.*', 'thesis.*'])"
                                        wire:navigate>{{ __('Records') }}</flux:navlist.item>
-                    <flux:navlist.item icon="rectangle-stack" :href="route('dashboard')" wire:navigate>{{ __('Inventory') }}</flux:navlist.item>
-                    <flux:navlist.item icon="chart-bar" :href="route('dashboard')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
+                    <flux:navlist.item icon="rectangle-stack" href="#" wire:navigate>{{ __('Inventory') }}</flux:navlist.item>
+                    <flux:navlist.item icon="chart-bar" href="#" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Circulation')" class="grid">
-                    <flux:navlist.item icon="arrows-right-left" :href="route('books.index')" wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
-                    <flux:navlist.item icon="chart-bar" :href="route('dashboard')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
+                    <flux:navlist.item icon="arrows-right-left" href="#" wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
+                    <flux:navlist.item icon="chart-bar" href="#" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
