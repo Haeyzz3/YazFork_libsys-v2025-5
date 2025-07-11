@@ -18,6 +18,13 @@ class Book extends Model
         'publisher',
         'publication_place',
         'isbn',
+        'cover_type',
+        'ics_number',
+        'ics_number_date',
+        'pr_number',
+        'pr_number_date',
+        'po_number',
+        'po_number_date',
     ];
 
     protected $casts = [

@@ -130,7 +130,7 @@
                     name="physical_location"
                     label="Physical Location"
                     :options="$locations"
-                    :required="false"
+                    :required="true"
                     wrapperClass="sm:col-span-1"
                 />
                 <x-form-input
@@ -147,13 +147,13 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-form-select-input--}}
-{{--                    name="cover_type"--}}
-{{--                    label="Cover Type"--}}
-{{--                    :options="['sample' => 'data']"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                />--}}
+                <x-form-select-input
+                    name="cover_type"
+                    label="Cover Type"
+                    :options="$cover_types"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
 {{--                <x-form-input--}}
 {{--                    name="cover_image"--}}
 {{--                    label="Cover Image"--}}
@@ -167,57 +167,57 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
-{{--                <x-form-input--}}
-{{--                    name="ics_number"--}}
-{{--                    label="ICS Number"--}}
-{{--                    placeholder="Enter ICS number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('ics_number','')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="ics_number_date"--}}
-{{--                    label="ICS Number Date"--}}
-{{--                    type="date"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('ics_number_date','')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="pr_number"--}}
-{{--                    label="PR Number"--}}
-{{--                    placeholder="Enter PR number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('pr_number','')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="pr_date"--}}
-{{--                    label="PR Date"--}}
-{{--                    type="date"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('pr_date','')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="po_number"--}}
-{{--                    label="PO Number"--}}
-{{--                    placeholder="Enter PO number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('po_number','')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="po_date"--}}
-{{--                    label="PO Date"--}}
-{{--                    type="date"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('po_date','')"--}}
-{{--                />--}}
+                <x-form-input
+                    name="ics_number"
+                    label="ICS Number"
+                    placeholder="Enter ICS number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('ics_number','')"
+                />
+                <x-form-input
+                    name="ics_number_date"
+                    label="ICS Number Date"
+                    type="date"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('ics_number_date','')"
+                />
+                <x-form-input
+                    name="pr_number"
+                    label="PR Number"
+                    placeholder="Enter PR number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('pr_number','')"
+                />
+                <x-form-input
+                    name="pr_number_date"
+                    label="PR Number  Date"
+                    type="date"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('pr_number_date','')"
+                />
+                <x-form-input
+                    name="po_number"
+                    label="PO Number"
+                    placeholder="Enter PO number"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('po_number','')"
+                />
+                <x-form-input
+                    name="po_number_date"
+                    label="PO Number Date"
+                    type="date"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('po_number_date','')"
+                />
 {{--                <x-form-select-input--}}
 {{--                    name="source"--}}
 {{--                    label="Source"--}}

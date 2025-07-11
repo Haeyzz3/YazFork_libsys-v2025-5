@@ -23,10 +23,16 @@ return new class extends Migration
             $table->string('publisher', '100'); // Required
             $table->string('publication_place', '200'); // Required
             $table->string('isbn', '25');
+            $table->string('cover_type')->nullable();
+            $table->string('ics_number', '25')->nullable();
+            $table->string('ics_number_date', '25')->nullable();
+            $table->string('pr_number', '25')->nullable();
+            $table->string('pr_number_date', '25')->nullable();
+            $table->string('po_number', '25')->nullable();
+            $table->string('po_number_date', '25')->nullable();
 
 //            $table->string('series_title')->nullable();
 //            $table->string('edition')->nullable();
-//            $table->string('cover_type')->nullable(); // Dropdown: Hardcover, Paperback, etc.
 //            $table->string('book_cover_image')->nullable(); // File path for uploaded image
 //            $table->text('table_of_contents')->nullable(); // Text area
 //            $table->text('summary_abstract')->nullable(); // Text area

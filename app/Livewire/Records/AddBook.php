@@ -16,6 +16,7 @@ class AddBook extends Component
         'Circulation', 'Fiction', 'Filipiniana', 'General References',
         'Graduate School', 'reserve', 'PCAARRD','Vertical Files'
     ];
+    public $cover_types = ['Hardcover', 'Paperback', 'Other'];
 
     public $accession_number = '';
     public $title = '';
@@ -31,14 +32,14 @@ class AddBook extends Component
     public $call_number = '';
     public $physical_location = '';
     public $location_symbol = '';
-//    public $cover_type = '';
+    public $cover_type = '';
+    public $ics_number = '';
+    public $ics_number_date = '';
+    public $pr_number = '';
+    public $pr_number_date = '';
+    public $po_number = '';
+    public $po_number_date = '';
 //    public $cover_image = '';
-//    public $ics_number = '';
-//    public $ics_number_date = '';
-//    public $pr_number = '';
-//    public $pr_date = '';
-//    public $po_number = '';
-//    public $po_date = '';
 //    public $source = '';
 //    public $purchase_amount = '';
 //    public $lot_cost = '';
@@ -65,6 +66,13 @@ class AddBook extends Component
             'call_number' => 'nullable|string|max:50',
             'physical_location' => 'required|string|max:100',
             'location_symbol' => 'nullable|string|max:50',
+            'cover_type' => 'nullable|string|max:100',
+            'ics_number' => 'nullable|string|max:20',
+            'ics_number_date' => 'nullable|string|max:20',
+            'pr_number' => 'nullable|string|max:50',
+            'pr_number_date' => 'nullable|string|max:50',
+            'po_number' => 'nullable|string|max:50',
+            'po_number_date' => 'nullable|string|max:50',
         ];
     }
 
@@ -108,6 +116,13 @@ class AddBook extends Component
                 'publisher' => $this->publisher,
                 'publication_place' => $this->publication_place,
                 'isbn' => $this->isbn,
+                'cover_type' => $this->cover_type,
+                'ics_number' => $this->ics_number,
+                'ics_number_date' => $this->ics_number_date,
+                'pr_number' => $this->pr_number,
+                'pr_number_date' => $this->pr_number_date,
+                'po_number' => $this->po_number,
+                'po_number_date' => $this->po_number_date,
             ]);
 
             session()->flash('success', 'Book added successfully!');
