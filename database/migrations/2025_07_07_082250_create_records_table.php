@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('ddc_classification')->nullable();
             $table->string('lc_classification')->nullable();
             $table->string('call_number')->unique()->nullable();
+            $table->string('physical_location')->nullable();
+            $table->string('location_symbol', 50)->nullable();
 
-//            $table->string('physical_location')->nullable(); // Required dropdown: Circulation, Fiction, etc.
-//            $table->string('location_symbol', 10)->nullable(); // Auto-generated
 //            $table->date('date_acquired')->default(now()); // Auto-filled with current date
 //            $table->string('source'); // Dropdown: Purchase, Donation, etc.
 //            $table->decimal('purchase_amount', 10, 2)->nullable(); // Conditional based on source

@@ -29,8 +29,8 @@
             wire:model.blur="{{ $name }}"
             >
             <option value="" disabled {{ old($name) ? '' : 'selected' }}>Select {{ $label }}</option>
-            @foreach ($options as $value => $text)
-                <option value="{{ $value }}" {{ old($name) == $value ? 'selected' : '' }}>{{ $text }}</option>
+            @foreach ($options as $text)
+                <option value="{{ $text }}" {{ old($name) == $text ? 'selected' : '' }}>{{ $text }}</option>
             @endforeach
         </select>
         @error($name)

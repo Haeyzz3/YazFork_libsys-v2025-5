@@ -27,9 +27,9 @@
                     <tr>
                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">Accession no.</th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Title</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">DDC classification</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Primary Author</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Acquisition Status</th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">DDC Classification</th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Author</th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Publication Year</th>
                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
                             <span class="sr-only">Edit</span>
                         </th>
@@ -41,8 +41,8 @@
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $record->accession_number }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->title }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->ddc_classification }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->primary_author ?? 'Not specified' }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->acquisition_status ?? 'Not specified' }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->author ?? 'Not specified' }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->publication_year ?? 'Not specified' }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                                 <a href="{{ route('books.show', $record) }}" class="text-indigo-600 hover:text-indigo-900">View all details</a>
                             </td>

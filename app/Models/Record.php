@@ -15,18 +15,15 @@ class Record extends Model
     protected $fillable = [
         'accession_number',
         'title',
-        'language',
-        // Classification & Location fields
         'ddc_classification',
         'call_number',
         'physical_location',
         'location_symbol',
-        // Other fields
-        'date_acquired',
-        'source',
-        'purchase_amount',
-        'acquisition_status',
-        'additional_notes',
+//        'date_acquired',
+//        'source',
+//        'purchase_amount',
+//        'acquisition_status',
+//        'additional_notes',
     ];
 
     public function book(): HasOne

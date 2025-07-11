@@ -12,6 +12,10 @@ class AddBook extends Component
         'Applied Science', 'Literature', 'Pure Science', 'History',
         'Arts', 'Social Sciences', 'Philosophy & Religion', 'Geography'
     ];
+    public $locations = [
+        'Circulation', 'Fiction', 'Filipiniana', 'General References',
+        'Graduate School', 'reserve', 'PCAARRD','Vertical Files'
+    ];
 
     public $accession_number = '';
     public $title = '';
@@ -25,8 +29,8 @@ class AddBook extends Component
     public $ddc_classification = '';
     public $lc_classification = '';
     public $call_number = '';
-//    public $physical_location = '';
-//    public $location_symbol = '';
+    public $physical_location = '';
+    public $location_symbol = '';
 //    public $cover_type = '';
 //    public $cover_image = '';
 //    public $ics_number = '';
@@ -59,6 +63,8 @@ class AddBook extends Component
             'ddc_classification' => 'nullable|string|max:100',
             'lc_classification' => 'nullable|string|max:100',
             'call_number' => 'nullable|string|max:50',
+            'physical_location' => 'required|string|max:100',
+            'location_symbol' => 'nullable|string|max:50',
         ];
     }
 
@@ -89,7 +95,8 @@ class AddBook extends Component
                 'ddc_classification' => $this->ddc_classification,
                 'lc_classification' => $this->lc_classification,
                 'call_number' => $this->call_number,
-
+                'physical_location' => $this->physical_location,
+                'location_symbol' => $this->location_symbol,
                 'added_by' => auth()->user()->id,
             ]);
 

@@ -126,22 +126,22 @@
                     wrapperClass="sm:col-span-1"
                     :value="old('call_number', '')"
                 />
-{{--                <x-form-select-input--}}
-{{--                    name="physical_location"--}}
-{{--                    label="Physical Location"--}}
-{{--                    :options="['sample' => 'data']"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="location_symbol"--}}
-{{--                    label="Location Symbol"--}}
-{{--                    placeholder="Enter location symbol"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('location_symbol', '')"--}}
-{{--                />--}}
+                <x-form-select-input
+                    name="physical_location"
+                    label="Physical Location"
+                    :options="$locations"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                />
+                <x-form-input
+                    name="location_symbol"
+                    label="Location Symbol"
+                    placeholder="Enter location symbol"
+                    type="text"
+                    :required="false"
+                    wrapperClass="sm:col-span-1"
+                    :value="old('location_symbol', '')"
+                />
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
@@ -314,7 +314,6 @@
                 </button>
             </div>
         </div>
-
         <div class="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
             <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
