@@ -108,21 +108,23 @@ class BooksCreate extends Component
 
     public function removeAuthorField($index)
     {
-        unset($this->additional_authors[$index]);
-        $this->additional_authors = array_values($this->additional_authors);
+        if (isset($this->additional_authors[$index])) {
+            unset($this->additional_authors[$index]);
+            $this->additional_authors = array_values($this->additional_authors);
+        }
     }
 
     public function removeSubjectHeadingField($index)
     {
-        unset($this->subject_headings[$index]);
-        $this->subject_headings = array_values($this->subject_headings);
+        if (isset($this->additional_authors[$index])) {
+            unset($this->subject_headings[$index]);
+            $this->subject_headings = array_values($this->subject_headings);
+        }
     }
 
     public function submit()
     {
         try {
-
-            dd($this->additional_authors);
 
             $this->validate();
 
@@ -151,7 +153,7 @@ class BooksCreate extends Component
 
             $record->book()->create([
                 'author' => $this->author,
-                'additional_authors' => $this->additional_authors,
+                'additional_authors' => array_filter($this->additional_authors, static fn($author) => !empty(trim($author))),
                 'editor' => $this->editor,
                 'publication_year' => $this->publication_year,
                 'publisher' => $this->publisher,
@@ -166,7 +168,7 @@ class BooksCreate extends Component
                 'po_number_date' => $this->po_number_date,
                 'cover_image' => $cover_image_path,
                 'table_of_contents' => $this->table_of_contents,
-                'subject_headings' => $this->subject_headings,
+                'subject_headings' => array_filter($this->subject_headings, static fn($subject) => !empty(trim($subject))),
             ]);
 
             // Reset the file input after saving
