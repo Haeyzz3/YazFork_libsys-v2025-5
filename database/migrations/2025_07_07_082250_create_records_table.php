@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('location_symbol', 50)->nullable();
             $table->string('added_by', 50)->nullable();
             $table->string('source'); // Dropdown: Purchase, Donation, etc.
-            $table->decimal('purchase_amount', 10, 2)->nullable(); // Conditional based on source
-            $table->decimal('lot_cost', 10, 2)->nullable(); // Conditional based on source
+            $table->string('purchase_amount', 10)->nullable(); // Conditional based on source
+            $table->string('lot_cost', 10)->nullable(); // Conditional based on source
             $table->string('supplier'); // Required dropdown: Processing, Available, etc.
             $table->string('donated_by'); // Required dropdown: Processing, Available, etc.
             $table->string('acquisition_status'); // Required dropdown: Processing, Available, etc.

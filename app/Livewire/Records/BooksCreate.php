@@ -58,7 +58,7 @@ class BooksCreate extends Component
     public function rules()
     {
         return [
-            'accession_number' => 'required|string|max:25',
+            'accession_number' => 'required|string|max:25|unique:records,accession_number',
             'title' => 'required|string|max:255',
             'author' => 'nullable|string|max:100',
             'additional_authors.*' => 'nullable|string|max:255',
