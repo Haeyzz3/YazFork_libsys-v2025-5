@@ -60,6 +60,11 @@ return [
             'report' => false,
         ],
 
+        'tmp-for-tests' => [
+            'driver' => 'local',
+            'root' => storage_path('framework/testing/disks/tmp-for-tests'),
+        ],
+
     ],
 
     /*

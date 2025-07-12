@@ -8,6 +8,8 @@
     'wrapperClass' => 'sm:col-span-1',
     'accept' => 'image/*',
     'multiple' => false,
+    'showPreview' => true,
+    'maxPreviewHeight' => '200px',
     'attributes' => [],
 ])
 
@@ -36,5 +38,36 @@
         @error($name)
         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
         @enderror
+
+        @if($showPreview)
+            <!-- Livewire Preview -->
+            @if(isset($this->{$name}) && $this->{$name})
+                <div class="mt-3">
+                    <div class="flex items-start space-x-3">
+                        @if(method_exists($this->{$name}, 'temporaryUrl'))
+                            <img src="{{ $this->{$name}->temporaryUrl() }}" alt="Preview" class="rounded-md shadow-sm border border-gray-300" style="max-height: {{ $maxPreviewHeight }}; max-width: 100%;">
+                        @endif
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm text-gray-600 truncate">{{ $this->{$name}->getClientOriginalName() }}</p>
+                            <p class="text-xs text-gray-500 mt-1">{{ $this->formatFileSize($this->{$name}->getSize()) }}</p>
+                            <button type="button" wire:click="$set('{{ $name }}', null)" class="text-xs text-red-600 hover:text-red-800 mt-1">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endif
     </div>
 </div>
+
+@if($showPreview)
+    <script>
+        // Helper function that can be used in Livewire component
+        window.formatFileSize = function(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        };
+    </script>
+@endif

@@ -99,9 +99,10 @@ class BooksCreate extends Component
 
     public function submit()
     {
-        $this->validate();
 
         try {
+
+            $this->validate();
 
             $cover_image_path = null;
 
@@ -145,11 +146,17 @@ class BooksCreate extends Component
             return redirect()->route('books.index');
 
         } catch (\Illuminate\Database\QueryException $e) {
-            // Handle database-specific errors (e.g., duplicate entry, foreign key issues)
-            session()->flash('error', 'Failed to add book: ' . $e->getMessage());
+            // Handle database-specific errors
+            $message = app()->environment('production')
+                ? 'Failed to add book. Please try again.'
+                : 'Failed to add book: ' . $e->getMessage();
+            session()->flash('error', $message);
         } catch (\Exception $e) {
             // Handle any other unexpected errors
-            session()->flash('error', 'An unexpected error occurred: ' . $e->getMessage());
+            $message = app()->environment('production')
+                ? 'An unexpected error occurred. Please try again.'
+                : 'An unexpected error occurred: ' . $e->getMessage();
+            session()->flash('error', $message);
         }
     }
 
@@ -161,6 +168,15 @@ class BooksCreate extends Component
     public function closeModal()
     {
         $this->isModalOpen = false;
+    }
+
+    public function formatFileSize($bytes)
+    {
+        if ($bytes === 0) return '0 Bytes';
+        $k = 1024;
+        $sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        $i = floor(log($bytes) / log($k));
+        return round(($bytes / pow($k, $i)), 2) . ' ' . $sizes[$i];
     }
 
     public function render()
