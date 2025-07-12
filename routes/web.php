@@ -8,6 +8,7 @@ use App\Http\Controllers\PeriodicalController;
 use App\Http\Controllers\ThesisController;
 use App\Livewire\Records\BooksCreate;
 use App\Livewire\Records\BooksIndex;
+use App\Livewire\Records\DigitalCreate;
 use App\Livewire\Records\DigitalIndex;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -54,7 +55,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::delete('records/books/{record}', [BookController::class, 'destroy'])->name('books.destroy');
     // e-collections
     Route::get('records/digital', DigitalIndex::class)->name('digital.index');
-    Route::get('records/digital/create', [DigitalResourceController::class, 'create'])->name('digital.create');
+    Route::get('records/digital/create', DigitalCreate::class)->name('digital.create');
     Route::post('records/digital', [DigitalResourceController::class, 'store'])->name('digital.store');
     Route::get('records/digital/{record}', [DigitalResourceController::class, 'show'])->name('digital.show');
     Route::get('records/digital/{record}/edit', [DigitalResourceController::class, 'edit'])->name('digital.edit');
