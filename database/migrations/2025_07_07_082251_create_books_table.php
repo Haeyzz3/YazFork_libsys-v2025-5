@@ -36,11 +36,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            // Indexes for better performance
-//            $table->index('publication_year');
-//            $table->index('publisher');
-//            $table->index('isbn_issn');
-//            $table->index('cover_type');
+            $table->index('publication_year');
+            $table->index('publisher');
+            $table->index('isbn');
+            $table->index('cover_type');
         });
     }
 
