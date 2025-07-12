@@ -48,15 +48,14 @@
                     @foreach($additional_authors as $index => $author)
                         <div class="mt-2 flex gap-x-2">
                             <input
-                                wire:model.blur="$additional_authors.{{ $index }}"
+                                wire:model.blur="additional_authors.{{ $index }}"
                                 type="text"
                                 placeholder="Enter additional author"
-                                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                class="@error('$additional_authors.' . $index) ring-red-500 focus:ring-red-500 @enderror"
+                                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 @error('additional_authors.' . $index) ring-red-500 focus:ring-red-500 @enderror"
                             >
                             <button wire:click="removeAuthorField({{ $index }})" type="button" class="text-red-600">Remove</button>
                         </div>
-                        @error('$additional_authors.' . $index)
+                        @error('additional_authors.' . $index)
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     @endforeach

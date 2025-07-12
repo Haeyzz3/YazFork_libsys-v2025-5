@@ -120,8 +120,9 @@ class BooksCreate extends Component
 
     public function submit()
     {
-
         try {
+
+            dd($this->additional_authors);
 
             $this->validate();
 
