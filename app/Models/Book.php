@@ -25,6 +25,7 @@ class Book extends Model
         'pr_number_date',
         'po_number',
         'po_number_date',
+        'cover_image',
     ];
 
     protected $casts = [

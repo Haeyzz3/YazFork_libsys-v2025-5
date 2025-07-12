@@ -4,14 +4,18 @@ namespace App\Livewire\Records;
 
 use App\Models\Record;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
-class AddBook extends Component
+class BooksCreate extends Component
 {
+    use WithFileUploads;
+
     public $isModalOpen = false;
     public $ddc_classifications = [
         'Applied Science', 'Literature', 'Pure Science', 'History',
         'Arts', 'Social Sciences', 'Philosophy & Religion', 'Geography'
     ];
+    public $lc_classifications = ['sampe', 'data'];
     public $locations = [
         'Circulation', 'Fiction', 'Filipiniana', 'General References',
         'Graduate School', 'reserve', 'PCAARRD','Vertical Files'
@@ -39,7 +43,7 @@ class AddBook extends Component
     public $pr_number_date = '';
     public $po_number = '';
     public $po_number_date = '';
-//    public $cover_image = '';
+    public $cover_image;
 //    public $source = '';
 //    public $purchase_amount = '';
 //    public $lot_cost = '';
@@ -73,6 +77,7 @@ class AddBook extends Component
             'pr_number_date' => 'nullable|string|max:50',
             'po_number' => 'nullable|string|max:50',
             'po_number_date' => 'nullable|string|max:50',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
@@ -97,6 +102,13 @@ class AddBook extends Component
         $this->validate();
 
         try {
+
+            $cover_image_path = null;
+
+            if ($this->cover_image) {
+                $cover_image_path = $this->cover_image->store('uploads', 'public');
+            }
+
             $record = Record::create([
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
@@ -123,7 +135,11 @@ class AddBook extends Component
                 'pr_number_date' => $this->pr_number_date,
                 'po_number' => $this->po_number,
                 'po_number_date' => $this->po_number_date,
+                'cover_image' => $cover_image_path,
             ]);
+
+            // Reset the file input after saving
+            $this->reset('cover_image');
 
             session()->flash('success', 'Book added successfully!');
             return redirect()->route('books.index');
@@ -149,6 +165,6 @@ class AddBook extends Component
 
     public function render()
     {
-        return view('livewire.records.add-book')->layout('components.layouts.records', ['headingTitle' => 'Add Book']);
+        return view('livewire.records.books-create')->layout('components.layouts.records', ['headingTitle' => 'Add Book']);
     }
 }

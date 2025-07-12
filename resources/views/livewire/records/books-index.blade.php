@@ -5,8 +5,8 @@
             <input
                 type="text"
                 wire:model.live="search"
-                placeholder="acc no., title, ddc class, author"
-                class="block w-full sm:w-64 rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="acc no., title, ddc class, author, year"
+                class="block w-full sm:w-74 rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
         </div>
         <a href="{{ route('books.create') }}">
@@ -29,7 +29,7 @@
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Title</th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">DDC Classification</th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Author</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Publication Year</th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Year of Publication</th>
                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
                             <span class="sr-only">Edit</span>
                         </th>

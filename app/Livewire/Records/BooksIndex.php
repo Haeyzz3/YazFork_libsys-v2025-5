@@ -22,7 +22,9 @@ class BooksIndex extends Component
                     ->orWhere('title', 'like', '%' . $this->search . '%')
                     ->orWhere('ddc_classification', 'like', '%' . $this->search . '%')
                     ->orWhereHas('book', function ($query) {
-                        $query->where('primary_author', 'like', '%' . $this->search . '%');
+                        $query->where('author', 'like', '%' . $this->search . '%');
+                    })->orWhereHas('book', function ($query) {
+                        $query->where('publication_year', 'like', '%' . $this->search . '%');
                     });
             })
             ->orderBy('created_at', 'desc')

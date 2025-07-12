@@ -2,10 +2,18 @@
 
     <x-flash-messenger/>
 
-    <form wire:submit.prevent="submit">
+    <form wire:submit.prevent="submit" enctype="multipart/form-data">
         <div class="space-y-8">
-            <div>
+            <div class="flex justify-between">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Basic Information</h2>
+                <button
+                    type="button"
+                    wire:click="openModal"
+                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                >
+                    <span wire:loading wire:target="openModal">Opening...</span>
+                    <span wire:loading.remove wire:target="openModal">Add a copy</span>
+                </button>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <x-form-input
@@ -14,7 +22,7 @@
                     placeholder="Enter accession number"
                     type="text"
                     required
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('accession_number', '')"
                 />
                 <x-form-input
@@ -23,7 +31,7 @@
                     placeholder="Enter title"
                     type="text"
                     required
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('title', '')"
                 />
                 <x-form-input
@@ -32,7 +40,7 @@
                     placeholder="Enter author"
                     type="text"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('author', '')"
                 />
                 <div class="sm:col-span-1">
@@ -60,7 +68,7 @@
                     placeholder="Enter editor"
                     type="text"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('editor', '')"
                 />
                 <x-form-input
@@ -69,7 +77,7 @@
                     placeholder="Enter year of publication"
                     type="text"
                     required
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('publication_year', '')"
                 />
                 <x-form-input
@@ -78,7 +86,7 @@
                     placeholder="Enter publisher"
                     type="text"
                     required
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('publisher', '')"
                 />
                 <x-form-input
@@ -87,7 +95,7 @@
                     placeholder="Enter place of publication"
                     type="text"
                     required
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('publication_place', '')"
                 />
                 <x-form-input
@@ -96,7 +104,7 @@
                     placeholder="Enter ISBN"
                     type="text"
                     required
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('isbn', '')"
                 />
             </div>
@@ -109,13 +117,14 @@
                     label="DDC Classification"
                     :options="$ddc_classifications"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                 />
                 <x-form-select-input
                     name="lc_classification"
                     label="LC Classification"
+                    :options="$lc_classifications"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                 />
                 <x-form-input
                     name="call_number"
@@ -123,7 +132,7 @@
                     placeholder="Enter call number"
                     type="text"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('call_number', '')"
                 />
                 <x-form-select-input
@@ -131,7 +140,7 @@
                     label="Physical Location"
                     :options="$locations"
                     :required="true"
-                    wrapperClass="sm:col-span-1"
+
                 />
                 <x-form-input
                     name="location_symbol"
@@ -139,7 +148,7 @@
                     placeholder="Enter location symbol"
                     type="text"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('location_symbol', '')"
                 />
             </div>
@@ -152,16 +161,12 @@
                     label="Cover Type"
                     :options="$cover_types"
                     :required="false"
+                />
+                <x-form-input-image
+                    name="cover_image"
+                    label="Profile Image"
                     wrapperClass="sm:col-span-1"
                 />
-{{--                <x-form-input--}}
-{{--                    name="cover_image"--}}
-{{--                    label="Cover Image"--}}
-{{--                    type="file"--}}
-{{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                    :value="old('cover_image','')"--}}
-{{--                />--}}
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h2>
@@ -173,7 +178,7 @@
                     placeholder="Enter ICS number"
                     type="text"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('ics_number','')"
                 />
                 <x-form-input
@@ -181,7 +186,7 @@
                     label="ICS Number Date"
                     type="date"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('ics_number_date','')"
                 />
                 <x-form-input
@@ -190,7 +195,7 @@
                     placeholder="Enter PR number"
                     type="text"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('pr_number','')"
                 />
                 <x-form-input
@@ -198,7 +203,7 @@
                     label="PR Number  Date"
                     type="date"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('pr_number_date','')"
                 />
                 <x-form-input
@@ -207,7 +212,7 @@
                     placeholder="Enter PO number"
                     type="text"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('po_number','')"
                 />
                 <x-form-input
@@ -215,7 +220,7 @@
                     label="PO Number Date"
                     type="date"
                     :required="false"
-                    wrapperClass="sm:col-span-1"
+
                     :value="old('po_number_date','')"
                 />
 {{--                <x-form-select-input--}}
@@ -224,7 +229,7 @@
 {{--                    placeholder="Enter source"--}}
 {{--                    :options="['sample' => 'data']"--}}
 {{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
+{{--                    --}}
 {{--                />--}}
 {{--                <x-form-input--}}
 {{--                    name="purchase_amount"--}}
@@ -232,7 +237,7 @@
 {{--                    placeholder="Enter purchase amount"--}}
 {{--                    type="text"--}}
 {{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
+{{--                    --}}
 {{--                    :value="old('purchase_amount','')"--}}
 {{--                />--}}
 {{--                <x-form-input--}}
@@ -241,7 +246,7 @@
 {{--                    placeholder="Enter lot cost"--}}
 {{--                    type="text"--}}
 {{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
+{{--                    --}}
 {{--                    :value="old('lot_cost','')"--}}
 {{--                />--}}
 {{--                <x-form-input--}}
@@ -250,7 +255,7 @@
 {{--                    placeholder="Enter donor"--}}
 {{--                    type="text"--}}
 {{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
+{{--                    --}}
 {{--                    :value="old('donated_by','')"--}}
 {{--                />--}}
 {{--                <x-form-input--}}
@@ -259,7 +264,7 @@
 {{--                    placeholder="Enter supplier"--}}
 {{--                    type="text"--}}
 {{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
+{{--                    --}}
 {{--                    :value="old('supplier','')"--}}
 {{--                />--}}
 {{--                <x-form-select-input--}}
@@ -268,7 +273,7 @@
 {{--                    placeholder="Enter acquisition status"--}}
 {{--                    :options="['sample' => 'data']"--}}
 {{--                    :required="false"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
+{{--                    --}}
 {{--                />--}}
             </div>
             <div>
@@ -303,16 +308,6 @@
 {{--                    <button wire:click="addAuthorField" type="button" class="mt-2 text-sm font-semibold text-indigo-600">Add Author</button>--}}
 {{--                </div>--}}
             </div>
-            <div class="flex w-full justify-end">
-                <button
-                    type="button"
-                    wire:click="openModal"
-                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                >
-                    <span wire:loading wire:target="openModal">Opening...</span>
-                    <span wire:loading.remove wire:target="openModal">Add a copy</span>
-                </button>
-            </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
@@ -335,7 +330,7 @@
                         placeholder="Enter accession number"
                         type="text"
                         required
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('accession_number', '')"
                     />
                     <x-form-input
@@ -344,7 +339,7 @@
                         placeholder="Enter title"
                         type="text"
                         required
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('title', '')"
                     />
                     <x-form-input
@@ -353,7 +348,7 @@
                         placeholder="Enter author"
                         type="text"
                         :required="false"
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('author', '')"
                     />
                     <div class="sm:col-span-1">
@@ -381,7 +376,7 @@
                         placeholder="Enter editor"
                         type="text"
                         :required="false"
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('editor', '')"
                     />
                     <x-form-input
@@ -390,7 +385,7 @@
                         placeholder="Enter year of publication"
                         type="text"
                         required
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('publication_year', '')"
                     />
                     <x-form-input
@@ -399,7 +394,7 @@
                         placeholder="Enter publisher"
                         type="text"
                         required
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('publisher', '')"
                     />
                     <x-form-input
@@ -408,7 +403,7 @@
                         placeholder="Enter place of publication"
                         type="text"
                         required
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('publication_place', '')"
                     />
                     <x-form-input
@@ -417,7 +412,7 @@
                         placeholder="Enter ISBN"
                         type="text"
                         required
-                        wrapperClass="sm:col-span-1"
+
                         :value="old('isbn', '')"
                     />
                 </div>
@@ -430,14 +425,14 @@
                     {{--                    label="DDC Classification"--}}
                     {{--                    :options="['sample' => 'data']"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                />--}}
                     {{--                <x-form-select-input--}}
                     {{--                    name="lc_classification"--}}
                     {{--                    label="LC Classification"--}}
                     {{--                    :options="['sample' => 'data']"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
                     {{--                    name="call_number"--}}
@@ -445,7 +440,7 @@
                     {{--                    placeholder="Enter call number"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('call_number', '')"--}}
                     {{--                />--}}
                     {{--                <x-form-select-input--}}
@@ -453,7 +448,7 @@
                     {{--                    label="Physical Location"--}}
                     {{--                    :options="['sample' => 'data']"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
                     {{--                    name="location_symbol"--}}
@@ -461,7 +456,7 @@
                     {{--                    placeholder="Enter location symbol"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('location_symbol', '')"--}}
                     {{--                />--}}
                 </div>
@@ -474,14 +469,14 @@
                     {{--                    label="Cover Type"--}}
                     {{--                    :options="['sample' => 'data']"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
                     {{--                    name="cover_image"--}}
                     {{--                    label="Cover Image"--}}
                     {{--                    type="file"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('cover_image','')"--}}
                     {{--                />--}}
                 </div>
@@ -495,7 +490,7 @@
                     {{--                    placeholder="Enter ICS number"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('ics_number','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -503,7 +498,7 @@
                     {{--                    label="ICS Number Date"--}}
                     {{--                    type="date"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('ics_number_date','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -512,7 +507,7 @@
                     {{--                    placeholder="Enter PR number"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('pr_number','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -520,7 +515,7 @@
                     {{--                    label="PR Date"--}}
                     {{--                    type="date"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('pr_date','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -529,7 +524,7 @@
                     {{--                    placeholder="Enter PO number"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('po_number','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -537,7 +532,7 @@
                     {{--                    label="PO Date"--}}
                     {{--                    type="date"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('po_date','')"--}}
                     {{--                />--}}
                     {{--                <x-form-select-input--}}
@@ -546,7 +541,7 @@
                     {{--                    placeholder="Enter source"--}}
                     {{--                    :options="['sample' => 'data']"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
                     {{--                    name="purchase_amount"--}}
@@ -554,7 +549,7 @@
                     {{--                    placeholder="Enter purchase amount"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('purchase_amount','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -563,7 +558,7 @@
                     {{--                    placeholder="Enter lot cost"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('lot_cost','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -572,7 +567,7 @@
                     {{--                    placeholder="Enter donor"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('donated_by','')"--}}
                     {{--                />--}}
                     {{--                <x-form-input--}}
@@ -581,7 +576,7 @@
                     {{--                    placeholder="Enter supplier"--}}
                     {{--                    type="text"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                    :value="old('supplier','')"--}}
                     {{--                />--}}
                     {{--                <x-form-select-input--}}
@@ -590,7 +585,7 @@
                     {{--                    placeholder="Enter acquisition status"--}}
                     {{--                    :options="['sample' => 'data']"--}}
                     {{--                    :required="false"--}}
-                    {{--                    wrapperClass="sm:col-span-1"--}}
+                    {{--                    --}}
                     {{--                />--}}
                 </div>
                 <div>
