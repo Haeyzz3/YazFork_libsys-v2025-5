@@ -31,11 +31,8 @@ return new class extends Migration
             $table->string('po_number', '25')->nullable();
             $table->string('po_number_date', '25')->nullable();
             $table->string('cover_image')->nullable();
-
-//            $table->string('series_title')->nullable();
-//            $table->string('edition')->nullable();
-//            $table->text('table_of_contents')->nullable(); // Text area
-//            $table->text('summary_abstract')->nullable(); // Text area
+            $table->text('table_of_contents')->nullable();
+            $table->json('subject_headings')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

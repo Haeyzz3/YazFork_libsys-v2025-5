@@ -15,17 +15,19 @@ class BooksCreate extends Component
         'Applied Science', 'Literature', 'Pure Science', 'History',
         'Arts', 'Social Sciences', 'Philosophy & Religion', 'Geography'
     ];
-    public $lc_classifications = ['sampe', 'data'];
+    public $lc_classifications = ['sample', 'data'];
+    public $sources = ['Donation', 'Purchase'];
     public $locations = [
         'Circulation', 'Fiction', 'Filipiniana', 'General References',
         'Graduate School', 'reserve', 'PCAARRD','Vertical Files'
     ];
     public $cover_types = ['Hardcover', 'Paperback', 'Other'];
+    public $acquisition_statuses = ['sample', 'data'];
 
     public $accession_number = '';
     public $title = '';
     public $author = '';
-    public $additionalAuthors = [''];
+    public $additional_authors = [''];
     public $editor = '';
     public $publication_year = '';
     public $publisher = '';
@@ -44,14 +46,14 @@ class BooksCreate extends Component
     public $po_number = '';
     public $po_number_date = '';
     public $cover_image;
-//    public $source = '';
-//    public $purchase_amount = '';
-//    public $lot_cost = '';
-//    public $donated_by = '';
-//    public $supplier = '';
-//    public $acquisition_status = '';
-//    public $table_of_contents = '';
-//    public $subjectHeadings = '';
+    public $source = '';
+    public $purchase_amount = '';
+    public $lot_cost = '';
+    public $supplier = '';
+    public $donated_by = '';
+    public $acquisition_status = '';
+    public $table_of_contents = '';
+    public $subject_headings = [''];
 
     public function rules()
     {
@@ -59,7 +61,7 @@ class BooksCreate extends Component
             'accession_number' => 'required|string|max:25',
             'title' => 'required|string|max:255',
             'author' => 'nullable|string|max:100',
-            'additionalAuthors.*' => 'nullable|string|max:255',
+            'additional_authors.*' => 'nullable|string|max:255',
             'editor' => 'nullable|string|max:100',
             'publication_year' => 'required|integer|min:1800|max:' . date('Y'),
             'publisher' => 'required|string|max:100',
@@ -78,6 +80,14 @@ class BooksCreate extends Component
             'po_number' => 'nullable|string|max:50',
             'po_number_date' => 'nullable|string|max:50',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'source' => 'nullable|string|max:50',
+            'purchase_amount' => 'nullable|numeric|min:0',
+            'lot_cost' => 'nullable|numeric|min:0',
+            'supplier' => 'nullable|string|max:100',
+            'donated_by' => 'nullable|string|max:100',
+            'acquisition_status' => 'required|string|max:100',
+            'table_of_contents' => 'nullable|string|max:1000',
+            'subject_headings.*' => 'nullable|string|max:255',
         ];
     }
 
@@ -88,13 +98,24 @@ class BooksCreate extends Component
 
     public function addAuthorField()
     {
-        $this->additionalAuthors[] = '';
+        $this->additional_authors[] = '';
+    }
+
+    public function addSubjectHeadingField()
+    {
+        $this->subject_headings[] = '';
     }
 
     public function removeAuthorField($index)
     {
-        unset($this->additionalAuthors[$index]);
-        $this->additionalAuthors = array_values($this->additionalAuthors);
+        unset($this->additional_authors[$index]);
+        $this->additional_authors = array_values($this->additional_authors);
+    }
+
+    public function removeSubjectHeadingField($index)
+    {
+        unset($this->subject_headings[$index]);
+        $this->subject_headings = array_values($this->subject_headings);
     }
 
     public function submit()
@@ -119,11 +140,17 @@ class BooksCreate extends Component
                 'physical_location' => $this->physical_location,
                 'location_symbol' => $this->location_symbol,
                 'added_by' => auth()->user()->id,
+                'source' => $this->source,
+                'purchase_amount' => $this->purchase_amount,
+                'lot_cost' => $this->lot_cost,
+                'supplier' => $this->supplier,
+                'donated_by' => $this->donated_by,
+                'acquisition_status' => $this->acquisition_status,
             ]);
 
             $record->book()->create([
                 'author' => $this->author,
-                'additional_authors' => $this->additionalAuthors,
+                'additional_authors' => $this->additional_authors,
                 'editor' => $this->editor,
                 'publication_year' => $this->publication_year,
                 'publisher' => $this->publisher,
@@ -137,6 +164,8 @@ class BooksCreate extends Component
                 'po_number' => $this->po_number,
                 'po_number_date' => $this->po_number_date,
                 'cover_image' => $cover_image_path,
+                'table_of_contents' => $this->table_of_contents,
+                'subject_headings' => $this->subject_headings,
             ]);
 
             // Reset the file input after saving

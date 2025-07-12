@@ -10,7 +10,7 @@
     'attributes' => [],
 ])
 
-<div class="{{ $wrapperClass }}">
+<div x-data="{ show: false }" x-init="setTimeout(() => show = true, 50)" x-show="show" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="{{ $wrapperClass }}">
     <label for="{{ $id }}" class="block text-sm font-medium leading-6 text-gray-900">
         {{ $label }} @if($required)
             <span class="text-red-600">*</span>
@@ -26,7 +26,7 @@
             @foreach ($attributes as $key => $value)
                 {{ $key }}="{{ $value }}"
             @endforeach
-            wire:model.blur="{{ $name }}"
+            wire:model.live="{{ $name }}"
             >
             <option value="" disabled {{ old($name) ? '' : 'selected' }}>Select {{ $label }}</option>
             @foreach ($options as $text)

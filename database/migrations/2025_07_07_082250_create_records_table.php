@@ -20,12 +20,13 @@ return new class extends Migration
             $table->string('call_number')->unique()->nullable();
             $table->string('physical_location')->nullable();
             $table->string('location_symbol', 50)->nullable();
-
-//            $table->date('date_acquired')->default(now()); // Auto-filled with current date
-//            $table->string('source'); // Dropdown: Purchase, Donation, etc.
-//            $table->decimal('purchase_amount', 10, 2)->nullable(); // Conditional based on source
-//            $table->string('acquisition_status'); // Required dropdown: Processing, Available, etc.
-//            $table->text('additional_notes')->nullable(); // Text area
+            $table->string('added_by', 50)->nullable();
+            $table->string('source'); // Dropdown: Purchase, Donation, etc.
+            $table->decimal('purchase_amount', 10, 2)->nullable(); // Conditional based on source
+            $table->decimal('lot_cost', 10, 2)->nullable(); // Conditional based on source
+            $table->string('supplier'); // Required dropdown: Processing, Available, etc.
+            $table->string('donated_by'); // Required dropdown: Processing, Available, etc.
+            $table->string('acquisition_status'); // Required dropdown: Processing, Available, etc.
             $table->timestamps(); // created_at and updated_at
             $table->softDeletes(); // For soft delete functionality
 //
