@@ -77,7 +77,7 @@ class BooksCreate extends Component
             'publisher' => 'nullable|string|max:255',
             'isbn' => 'nullable|string|max:20|unique:books,isbn',
             'publication_place' => 'nullable|string|max:255',
-            'ddc_class_id' => 'nullable|exists:ddc_classes,id',
+            'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
 //            'lc_class_id' => 'nullable|exists:lc_classes,id',
 //            'call_number' => 'nullable|string|max:50',
 //            'physical_location_id' => 'nullable|exists:physical_locations,id',
