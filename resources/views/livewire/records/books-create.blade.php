@@ -22,43 +22,24 @@
                     required
                     :value="old('title', '')"
                 />
-                <div class="sm:col-span-1">
-                    <label class="block text-sm font-medium leading-6 text-gray-900">Author/authors</label>
-                    @foreach($authors as $index => $author)
-                        <div class="mt-2 flex gap-x-2">
-                            <input
-                                wire:model.blur="authors.{{ $index }}"
-                                type="text"
-                                placeholder="Enter author"
-                                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 @error('additional_authors.' . $index) ring-red-500 focus:ring-red-500 @enderror"
-                            >
-                            <button wire:click="removeAuthorField({{ $index }})" type="button" class="text-red-600">Remove</button>
-                        </div>
-                        @error('authors.' . $index)
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    @endforeach
-                    <button wire:click="addAuthorField" type="button" class="mt-2 text-sm font-semibold text-indigo-600">Add Author</button>
-                </div>
-                <div class="sm:col-span-1">
-                    <label class="block text-sm font-medium leading-6 text-gray-900">Editor/editor</label>
-                    @foreach($editors as $index => $editor)
-                        <div class="mt-2 flex gap-x-2">
-                            <input
-                                wire:model.blur="editors.{{ $index }}"
-                                type="text"
-                                placeholder="Enter editor"
-                                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 @error('additional_authors.' . $index) ring-red-500 focus:ring-red-500 @enderror"
-                            >
-                            <button wire:click="removeEditorField({{ $index }})" type="button" class="text-red-600">Remove</button>
-                        </div>
-                        @error('editor.' . $index)
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    @endforeach
-                    <button wire:click="addEditorField" type="button" class="mt-2 text-sm font-semibold text-indigo-600">Add Author</button>
-                </div>
-
+                <x-dynamic-input-list
+                    label="Author/authors"
+                    :items="$authors"
+                    fieldName="authors"
+                    placeholder="Enter author"
+                    addMethod="addAuthorField"
+                    removeMethod="removeAuthorField"
+                    addButtonText="Add Author"
+                />
+                <x-dynamic-input-list
+                    label="Editor/editors"
+                    :items="$editors"
+                    fieldName="editors"
+                    placeholder="Enter editor"
+                    addMethod="addEditorField"
+                    removeMethod="removeEditorField"
+                    addButtonText="Add Editor"
+                />
                 <x-form-input
                     name="publication_year"
                     label="Year of publication"
@@ -83,7 +64,6 @@
                     required
                     :value="old('publication_place', '')"
                 />
-                @dump($publication_place)
 {{--                <x-form-input--}}
 {{--                    name="isbn"--}}
 {{--                    label="ISBN"--}}
