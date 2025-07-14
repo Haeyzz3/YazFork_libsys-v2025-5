@@ -93,21 +93,25 @@
                     :required="false"
                     :value="old('call_number', '')"
                 />
-                @dump($call_number)
-                <x-form-select-input
-                    wireModel="ddc_class_id"
-                    :options="$ddc_classifications"
-                    name="ddc_class_id"
-                    label="DDC Classification"
-                />
-                @dump($ddc_class_id)
-                <x-form-select-input
-                    name="lc_classification"
-                    label="LC Classification"
-                    :options="$lc_classifications"
-                    :required="false"
-                />
-                @dump($lc_class_id)
+                @if(!$lc_class_id)
+                    @dump($call_number)
+                    <x-form-select-input
+                        wireModel="ddc_class_id"
+                        :options="$ddc_classifications"
+                        name="ddc_class_id"
+                        label="DDC Classification"
+                    />
+                    @dump($ddc_class_id)
+                @endif
+                @if(!$ddc_class_id)
+                    <x-form-select-input
+                        wireModel="lc_class_id"
+                        :options="$lc_classifications"
+                        name="lc_class_id"
+                        label="LC Classification"
+                    />
+                    @dump($lc_class_id)
+                @endif
 
                 {{--                <x-form-select-input--}}
 {{--                    name="physical_location"--}}
