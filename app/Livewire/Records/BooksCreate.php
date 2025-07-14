@@ -35,7 +35,7 @@ class BooksCreate extends Component
     public $publisher = null;
     public $publication_place = null;
     public $isbn = null;
-    public $ddc_class_id = null;
+    public $ddc_class_id = '';
 //    public $lc_class = null;
 //    public $call_number = null;
 //    public $physical_location_id = null;

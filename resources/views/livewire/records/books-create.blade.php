@@ -105,16 +105,21 @@
 {{--                        @enderror--}}
 {{--                    </div>--}}
 {{--                </div>--}}
+
+{{--                <x-form-select-input--}}
+{{--                    label="DCC Classification"--}}
+{{--                    :options="$ddc_classifications"--}}
+{{--                    wireModel="ddc_class_id"--}}
+{{--                />--}}
+
+                <select wire:model.change="ddc_class_id">
+                    <option value="" selected disabled>Default</option>
+                    @foreach($ddc_classifications as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
+                </select>
+
                 @dump($ddc_class_id)
-
-
-                                    <x-form-select-input
-                                        name="ddc_classification"
-                                        label="DCC Classification"
-                                        :options="$ddc_classifications"
-                                        wireModel="ddc_class_id"
-                                    />
-
 
                 {{--                @if(!$ddc_classification)--}}
 {{--                    <x-form-select-input--}}
