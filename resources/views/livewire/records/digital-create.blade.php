@@ -12,7 +12,6 @@
                     placeholder="Enter accession number"
                     type="text"
                     required
-
                     :value="old('accession_number', '')"
                 />
                 <x-form-input
