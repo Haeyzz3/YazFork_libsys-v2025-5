@@ -30,7 +30,11 @@ return new class extends Migration
             $table->text('abstract_summary')->nullable();
             $table->text('keywords')->nullable();
             $table->text('additional_notes')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
+
+            // indexes later for performance
         });
     }
 
