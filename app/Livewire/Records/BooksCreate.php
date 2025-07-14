@@ -10,12 +10,11 @@ class BooksCreate extends Component
 {
     use WithFileUploads;
 
-    public $isModalOpen = false;
-    public $ddc_classifications = [
+    public $ddc_classes_local = [
         'Applied Science', 'Literature', 'Pure Science', 'History',
         'Arts', 'Social Sciences', 'Philosophy & Religion', 'Geography'
     ];
-    public $lc_classifications = ['sample', 'data'];
+    public $lc_classes_local = ['one', 'two', 'three'];
     public $sources = ['Donation', 'Purchase'];
     public $locations = [
         'Circulation', 'Fiction', 'Filipiniana', 'General References',
@@ -24,97 +23,100 @@ class BooksCreate extends Component
     public $cover_types = ['Hardcover', 'Paperback', 'Other'];
     public $acquisition_statuses = ['sample', 'data'];
 
-    public $accession_number = null;
+    // records fields
     public $title = null;
-    public $author = null;
-    public $additional_authors = [null];
-    public $editor = null;
+    public $accession_number = null;
+    public $acquisition_status = null;
+    public  $condition = null;
+    public  $subject_headings = null;
+
+    // books fields
+    public $authors = [''];
+    public $editors = [''];
     public $publication_year = null;
     public $publisher = null;
     public $publication_place = null;
     public $isbn = null;
-    public $ddc_classification = null;
-    public $lc_classification = null;
+    public $ddc_class_id = null;
+    public $lc_class_id = null;
     public $call_number = null;
-    public $physical_location = null;
-    public $location_symbol = null;
+    public $physical_location_id = null;
     public $cover_type = null;
+    public $cover_image = null;
     public $ics_number = null;
-    public $ics_number_date = null;
+    public $ics_date = null;
     public $pr_number = null;
-    public $pr_number_date = null;
+    public $pr_date = null;
     public $po_number = null;
-    public $po_number_date = null;
-    public $cover_image;
+    public $po_date = null;
     public $source = null;
+    public $donated_by = null;
     public $purchase_amount = null;
     public $lot_cost = null;
     public $supplier = null;
-    public $donated_by = null;
-    public $acquisition_status = null;
     public $table_of_contents = null;
-    public $subject_headings = [null];
 
     public function rules()
     {
         return [
-            'accession_number' => 'required|string|max:25|unique:records,accession_number',
+            // Records fields
             'title' => 'required|string|max:255',
-            'author' => 'nullable|string|max:100',
-            'additional_authors.*' => 'nullable|string|max:255',
-            'editor' => 'nullable|string|max:100',
-            'publication_year' => 'required|integer|min:1800|max:' . date('Y'),
-            'publisher' => 'required|string|max:100',
-            'publication_place' => 'required|string|max:255',
-            'isbn' => 'required|string|max:25',
-            'ddc_classification' => 'nullable|string|max:100',
-            'lc_classification' => 'nullable|string|max:100',
+            'accession_number' => 'required|string|max:50|unique:records,accession_number',
+            'acquisition_status' => 'nullable|string|max:50',
+            'condition' => 'nullable|string|max:100',
+            'subject_headings.*' => 'string|max:100',
+
+            // Books fields
+            'authors.*' => 'string|max:100',
+            'editors.*' => 'string|max:100',
+            'publication_year' => 'nullable|integer|min:1000|max:' . now()->year,
+            'publisher' => 'nullable|string|max:255',
+            'isbn' => 'nullable|string|max:20|unique:books,isbn',
+            'publication_place' => 'nullable|string|max:255',
+            'ddc_class_id' => 'nullable|exists:ddc_classes,id',
+            'lc_class_id' => 'nullable|exists:lc_classes,id',
             'call_number' => 'nullable|string|max:50',
-            'physical_location' => 'required|string|max:100',
-            'location_symbol' => 'nullable|string|max:50',
-            'cover_type' => 'nullable|string|max:100',
-            'ics_number' => 'nullable|string|max:20',
-            'ics_number_date' => 'nullable|string|max:20',
+            'physical_location_id' => 'nullable|exists:physical_locations,id',
+            'cover_type' => 'nullable|string|max:50',
+            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
+            'ics_number' => 'nullable|string|max:50',
+            'ics_date' => 'nullable|date',
             'pr_number' => 'nullable|string|max:50',
-            'pr_number_date' => 'nullable|string|max:50',
+            'pr_date' => 'nullable|date',
             'po_number' => 'nullable|string|max:50',
-            'po_number_date' => 'nullable|string|max:50',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'source' => 'nullable|string|max:50',
+            'po_date' => 'nullable|date',
+            'source' => 'nullable|string|max:100',
+            'donated_by' => 'nullable|string|max:255',
             'purchase_amount' => 'nullable|numeric|min:0',
             'lot_cost' => 'nullable|numeric|min:0',
-            'supplier' => 'nullable|string|max:100',
-            'donated_by' => 'nullable|string|max:100',
-            'acquisition_status' => 'required|string|max:100',
-            'table_of_contents' => 'nullable|string|max:1000',
-            'subject_headings.*' => 'nullable|string|max:255',
+            'supplier' => 'nullable|string|max:255',
+            'table_of_contents' => 'nullable|string',
         ];
     }
 
-    public function updated($propertyName)
+    // Livewire lifecycle hook that is automatically triggered whenever a property (field) bound to the component is updated in the frontend (e.g., when a user types in an input field).
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
 
-    public function addAuthorField()
+    public function addAuthorField(): void
     {
-        $this->additional_authors[] = '';
+        $this->authors[] = '';
     }
-
-    public function addSubjectHeadingField()
+    public function removeAuthorField($index): void
     {
-        $this->subject_headings[] = '';
-    }
-
-    public function removeAuthorField($index)
-    {
-        if (isset($this->additional_authors[$index])) {
-            unset($this->additional_authors[$index]);
-            $this->additional_authors = array_values($this->additional_authors);
+        if (isset($this->authors[$index])) {
+            unset($this->authors[$index]);
+            $this->authors = array_values($this->authors);
         }
     }
 
-    public function removeSubjectHeadingField($index)
+    public function addSubjectHeadingField(): void
+    {
+        $this->subject_headings[] = '';
+    }
+    public function removeSubjectHeadingField($index): void
     {
         if (isset($this->additional_authors[$index])) {
             unset($this->subject_headings[$index]);
@@ -124,6 +126,41 @@ class BooksCreate extends Component
 
     public function submit()
     {
+        dd([
+            // Records fields
+            'accession_number' => $this->accession_number,
+            'title' => $this->title,
+            'acquisition_status' => $this->acquisition_status,
+            'condition' => $this->condition,
+            'subject_headings' => $this->subject_headings,
+
+            // Books fields
+            'authors' => $this->authors,
+            'editors' => $this->editors,
+            'publication_year' => $this->publication_year,
+            'publisher' => $this->publisher,
+            'isbn' => $this->isbn,
+            'publication_place' => $this->publication_place,
+            'ddc_class_id' => $this->ddc_class_id,
+            'lc_class_id' => $this->lc_class_id,
+            'call_number' => $this->call_number,
+            'physical_location_id' => $this->physical_location_id,
+            'cover_type' => $this->cover_type,
+            'cover_image' => $this->cover_image,
+            'ics_number' => $this->ics_number,
+            'ics_date' => $this->ics_date,
+            'pr_number' => $this->pr_number,
+            'pr_date' => $this->pr_date,
+            'po_number' => $this->po_number,
+            'po_date' => $this->po_date,
+            'source' => $this->source,
+            'donated_by' => $this->donated_by,
+            'purchase_amount' => $this->purchase_amount,
+            'lot_cost' => $this->lot_cost,
+            'supplier' => $this->supplier,
+            'table_of_contents' => $this->table_of_contents,
+        ]);
+
         try {
 
             $this->validate();
