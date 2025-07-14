@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('isbn')->nullable()->unique();
 
             $table->foreignId('ddc_class_id')->nullable()
-                ->constrained('ddc_classes')->onDelete('set null');
+                ->constrained('ddc_classifications')->onDelete('set null');
             $table->foreignId('lc_class_id')->nullable()
                 ->constrained('lc_classes')->onDelete('set null');
             $table->string('call_number')->nullable();

@@ -14,6 +14,7 @@
                     required
                     :value="old('accession_number', '')"
                 />
+                @dump($accession_number)
                 <x-form-input
                     name="title"
                     label="Title"
@@ -22,6 +23,7 @@
                     required
                     :value="old('title', '')"
                 />
+                @dump($title)
                 <x-dynamic-input-list
                     label="Author/authors"
                     :items="$authors"
@@ -31,6 +33,7 @@
                     removeMethod="removeAuthorField"
                     addButtonText="Add Author"
                 />
+                @dump($authors)
                 <x-dynamic-input-list
                     label="Editor/editors"
                     :items="$editors"
@@ -40,6 +43,7 @@
                     removeMethod="removeEditorField"
                     addButtonText="Add Editor"
                 />
+                @dump($editors)
                 <x-form-input
                     name="publication_year"
                     label="Year of publication"
@@ -48,6 +52,7 @@
                     required
                     :value="old('publication_year', '')"
                 />
+                @dump($publication_year)
                 <x-form-input
                     name="publisher"
                     label="Publisher"
@@ -56,6 +61,7 @@
                     required
                     :value="old('publisher', '')"
                 />
+                @dump($publisher)
                 <x-form-input
                     name="publication_place"
                     label="Place of publication"
@@ -64,29 +70,30 @@
                     required
                     :value="old('publication_place', '')"
                 />
-{{--                <x-form-input--}}
-{{--                    name="isbn"--}}
-{{--                    label="ISBN"--}}
-{{--                    placeholder="Enter ISBN"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-
-{{--                    :value="old('isbn', '')"--}}
-{{--                />--}}
+                @dump($publication_place)
+                <x-form-input
+                    name="isbn"
+                    label="ISBN"
+                    placeholder="Enter ISBN"
+                    type="text"
+                    required
+                    :value="old('isbn', '')"
+                />
+                @dump($isbn)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                @if($lc_classification)--}}
-{{--                    <x-form-select-input--}}
-{{--                        name="ddc_classification"--}}
-{{--                        label="DDC Classification"--}}
-{{--                        :options="$ddc_classifications"--}}
-{{--                        :required="false"--}}
-{{--                    />--}}
-{{--                @endif--}}
-{{--                @if(!$ddc_classification)--}}
+                    <x-form-select-input
+                        name="ddc_classification"
+                        label="DDC Classification"
+                        :options="$ddc_classifications"
+                        :required="false"
+                    />
+                @dump($ddc_class_id)
+
+                {{--                @if(!$ddc_classification)--}}
 {{--                    <x-form-select-input--}}
 {{--                        name="lc_classification"--}}
 {{--                        label="LC Classification"--}}

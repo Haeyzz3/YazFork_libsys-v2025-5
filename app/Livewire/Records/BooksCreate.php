@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Records;
 
+use App\Models\DdcClassification;
 use App\Models\Record;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -10,10 +11,7 @@ class BooksCreate extends Component
 {
     use WithFileUploads;
 
-    public $ddc_classes_local = [
-        'Applied Science', 'Literature', 'Pure Science', 'History',
-        'Arts', 'Social Sciences', 'Philosophy & Religion', 'Geography'
-    ];
+    public $ddc_classifications = [];
     public $lc_classes_local = ['one', 'two', 'three'];
     public $sources = ['Donation', 'Purchase'];
     public $locations = [
@@ -38,23 +36,29 @@ class BooksCreate extends Component
     public $publication_place = null;
     public $isbn = null;
     public $ddc_class_id = null;
-    public $lc_class_id = null;
-    public $call_number = null;
-    public $physical_location_id = null;
-    public $cover_type = null;
-    public $cover_image = null;
-    public $ics_number = null;
-    public $ics_date = null;
-    public $pr_number = null;
-    public $pr_date = null;
-    public $po_number = null;
-    public $po_date = null;
-    public $source = null;
-    public $donated_by = null;
-    public $purchase_amount = null;
-    public $lot_cost = null;
-    public $supplier = null;
-    public $table_of_contents = null;
+//    public $lc_class = null;
+//    public $call_number = null;
+//    public $physical_location_id = null;
+//    public $cover_type = null;
+//    public $cover_image = null;
+//    public $ics_number = null;
+//    public $ics_date = null;
+//    public $pr_number = null;
+//    public $pr_date = null;
+//    public $po_number = null;
+//    public $po_date = null;
+//    public $source = null;
+//    public $donated_by = null;
+//    public $purchase_amount = null;
+//    public $lot_cost = null;
+//    public $supplier = null;
+//    public $table_of_contents = null;
+
+    public function mount()
+    {
+        // Fetch DDC classifications from the database
+        $this->ddc_classifications = DdcClassification::pluck('name')->toArray();
+    }
 
     public function rules()
     {
@@ -74,23 +78,23 @@ class BooksCreate extends Component
             'isbn' => 'nullable|string|max:20|unique:books,isbn',
             'publication_place' => 'nullable|string|max:255',
             'ddc_class_id' => 'nullable|exists:ddc_classes,id',
-            'lc_class_id' => 'nullable|exists:lc_classes,id',
-            'call_number' => 'nullable|string|max:50',
-            'physical_location_id' => 'nullable|exists:physical_locations,id',
-            'cover_type' => 'nullable|string|max:50',
-            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
-            'ics_number' => 'nullable|string|max:50',
-            'ics_date' => 'nullable|date',
-            'pr_number' => 'nullable|string|max:50',
-            'pr_date' => 'nullable|date',
-            'po_number' => 'nullable|string|max:50',
-            'po_date' => 'nullable|date',
-            'source' => 'nullable|string|max:100',
-            'donated_by' => 'nullable|string|max:255',
-            'purchase_amount' => 'nullable|numeric|min:0',
-            'lot_cost' => 'nullable|numeric|min:0',
-            'supplier' => 'nullable|string|max:255',
-            'table_of_contents' => 'nullable|string',
+//            'lc_class_id' => 'nullable|exists:lc_classes,id',
+//            'call_number' => 'nullable|string|max:50',
+//            'physical_location_id' => 'nullable|exists:physical_locations,id',
+//            'cover_type' => 'nullable|string|max:50',
+//            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
+//            'ics_number' => 'nullable|string|max:50',
+//            'ics_date' => 'nullable|date',
+//            'pr_number' => 'nullable|string|max:50',
+//            'pr_date' => 'nullable|date',
+//            'po_number' => 'nullable|string|max:50',
+//            'po_date' => 'nullable|date',
+//            'source' => 'nullable|string|max:100',
+//            'donated_by' => 'nullable|string|max:255',
+//            'purchase_amount' => 'nullable|numeric|min:0',
+//            'lot_cost' => 'nullable|numeric|min:0',
+//            'supplier' => 'nullable|string|max:255',
+//            'table_of_contents' => 'nullable|string',
         ];
     }
 

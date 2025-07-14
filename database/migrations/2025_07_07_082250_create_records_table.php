@@ -12,15 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Dewey Decimal Classification table
-        Schema::create('ddc_classes', function (Blueprint $table) {
-            $table->id();
-            $table->string('code', 3)->unique();     // DDC codes are 3 digits
-            $table->string('name');
-            $table->timestamps();
-        });
 
         // Library of Congress Classification table
+        $now = Carbon::now();
         Schema::create('lc_classes', function (Blueprint $table) {
             $table->id();
             $table->string('code', 5)->unique();     // LC codes can be 1-5 characters (e.g., "A", "QA76")
@@ -34,21 +28,6 @@ return new class extends Migration
             $table->string('symbol', 5)->unique();     // LC codes can be 1-5 characters (e.g., "A", "QA76")
             $table->timestamps();
         });
-
-        // Insert DDC main classes
-        $now = Carbon::now();
-        DB::table('ddc_classes')->insert([
-            ['code' => '000', 'name' => 'Computer science, information & general works', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '100', 'name' => 'Philosophy & psychology', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '200', 'name' => 'Religion', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '300', 'name' => 'Social sciences', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '400', 'name' => 'Language', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '500', 'name' => 'Science', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '600', 'name' => 'Technology', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '700', 'name' => 'Arts & recreation', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '800', 'name' => 'Literature', 'created_at' => $now, 'updated_at' => $now],
-            ['code' => '900', 'name' => 'History & geography', 'created_at' => $now, 'updated_at' => $now],
-        ]);
 
         // Insert LC main classes (actual Library of Congress classifications)
         DB::table('lc_classes')->insert([
@@ -106,7 +85,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ddc_classes');
         Schema::dropIfExists('lc_classes');
         Schema::dropIfExists('records');
     }

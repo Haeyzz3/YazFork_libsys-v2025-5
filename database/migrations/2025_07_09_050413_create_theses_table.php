@@ -23,9 +23,10 @@ return new class extends Migration
             $table->string('institution')->nullable();
             $table->string('college')->nullable();
             $table->string('degree_program')->nullable();
-            $table->enum('degree_level', ['bachelor\'s thesis', 'masteral\'s thesis', 'doctoral\'s thesis'])->nullable();
+            $table->string('degree_level')->nullable();
 
-            $table->foreignId('ddc_class_id')->nullable()->constrained('ddc_classes')->onDelete('set null');
+            $table->foreignId('ddc_class_id')->nullable()
+                ->constrained('ddc_classifications')->onDelete('set null');
             $table->foreignId('lc_class_id')->nullable()->constrained('lc_classes')->onDelete('set null');
             $table->string('call_number')->nullable();
             $table->foreignId('physical_location_id')->nullable()
