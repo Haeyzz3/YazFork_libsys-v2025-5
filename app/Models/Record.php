@@ -14,6 +14,10 @@ class Record extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'subject_headings' => 'array',
+    ];
+
     public function book(): HasOne
     {
         return $this->hasOne(Book::class);

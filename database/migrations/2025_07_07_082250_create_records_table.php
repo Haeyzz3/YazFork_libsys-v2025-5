@@ -13,28 +13,19 @@ return new class extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id(); // Primary key, auto-generated
-            $table->string('accession_number', 10);
-            $table->string('title')->index();
-            $table->string('ddc_classification')->nullable();
-            $table->string('lc_classification')->nullable();
-            $table->string('call_number')->unique()->nullable();
-            $table->string('physical_location')->nullable();
-            $table->string('location_symbol', 50)->nullable();
+
+            $table->string('title');
+            $table->enum('acquisition_status', ['pending', 'pending_review', 'processing'])->nullable();
+            $table->enum('condition', ['excellent', 'good', 'fair', 'poor', 'damaged'])->nullable();
+            $table->json('subject_headings')->nullable();
+
             $table->foreignId('added_by')->nullable()
             ->constrained('users')
                 ->onDelete('set null');
-            $table->string('source'); // Dropdown: Purchase, Donation, etc.
-            $table->string('purchase_amount', 10)->nullable(); // Conditional based on source
-            $table->string('lot_cost', 10)->nullable(); // Conditional based on source
-            $table->string('supplier')->nullable(); // Required dropdown: Processing, Available, etc.
-            $table->string('donated_by')->nullable(); // Required dropdown: Processing, Available, etc.
-            $table->string('acquisition_status'); // Required dropdown: Processing, Available, etc.
             $table->timestamps(); // created_at and updated_at
             $table->softDeletes(); // For soft delete functionality
 
-            $table->index(['ddc_classification', 'physical_location']);
-            $table->index('acquisition_status');
-            $table->index('source');
+            // make idex here for performance in searching
         });
     }
 

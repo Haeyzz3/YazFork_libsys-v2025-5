@@ -16,6 +16,8 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
 Route::get('test', [DigitalResourceController::class, 'create']);
+Route::get('books/create/old', [BookController::class, 'create']);
+Route::get('digital/create/old', [DigitalResourceController::class, 'create']);
 
 Route::get('/', function () {
     return view('welcome');

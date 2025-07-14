@@ -1,5 +1,5 @@
 <x-layouts.records heading-title="Add book">
-    <form action="{{ route('books.store') }}" method="POST">
+    <form action="#" method="POST">
         @csrf
         <div class="space-y-8 mt-8">
             <div>
