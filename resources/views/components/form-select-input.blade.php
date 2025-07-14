@@ -29,8 +29,8 @@
             wire:model.live="{{ $name }}"
             >
             <option value="" disabled {{ old($name) ? '' : 'selected' }}>Select {{ $label }}</option>
-            @foreach ($options as $text)
-                <option value="{{ $text }}" {{ old($name) == $text ? 'selected' : '' }}>{{ $text }}</option>
+            @foreach ($options as $id => $text)
+                <option value="{{ $id }}" {{ old($name) == $id ? 'selected' : '' }}>{{ $text }}</option>
             @endforeach
         </select>
         @error($name)

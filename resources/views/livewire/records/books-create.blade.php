@@ -86,7 +86,7 @@
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                     <x-form-select-input
-                        name="ddc_classification"
+                        name="ddc_class_id"
                         label="DDC Classification"
                         :options="$ddc_classifications"
                         :required="false"

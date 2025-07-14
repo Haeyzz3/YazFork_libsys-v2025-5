@@ -57,7 +57,7 @@ class BooksCreate extends Component
     public function mount()
     {
         // Fetch DDC classifications from the database
-        $this->ddc_classifications = DdcClassification::pluck('name')->toArray();
+        $this->ddc_classifications = DdcClassification::pluck('name','id')->toArray();
     }
 
     public function rules()
