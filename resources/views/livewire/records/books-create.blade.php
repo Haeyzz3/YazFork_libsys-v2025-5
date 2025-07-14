@@ -85,40 +85,16 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <div x-data="{ show: false }" x-init="setTimeout(() => show = true, 50)" x-show="show" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="sm:col-span-1">--}}
-{{--                    <label for="ddc_classification" class="block text-sm font-medium leading-6 text-gray-900">--}}
-{{--                        DDC Classification--}}
-{{--                    </label>--}}
-{{--                    <div class="mt-2">--}}
-{{--                        <select--}}
-{{--                            wire:model.live="ddc_class_id"--}}
-{{--                            id="ddc_classification"--}}
-{{--                            class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 @error('ddc_class_id') ring-red-500 focus:ring-red-500 @enderror"--}}
-{{--                        >--}}
-{{--                            <option value="" disabled {{ old('ddc_class_id') ? '' : 'selected' }}>Select DDC Classification</option>--}}
-{{--                            @foreach($ddc_classifications as $id => $name)--}}
-{{--                                <option value="{{ $id }}" {{ old('ddc_class_id') == $id ? 'selected' : '' }}>{{ $name }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                        @error('ddc_class_id')--}}
-{{--                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>--}}
-{{--                        @enderror--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <x-form-select-input--}}
-{{--                    label="DCC Classification"--}}
-{{--                    :options="$ddc_classifications"--}}
-{{--                    wireModel="ddc_class_id"--}}
-{{--                />--}}
-
+                <x-form-select-input
+                    wireModel="ddc_class_id"
+                    :options="$ddc_classifications"
+                />
                 <select wire:model.change="ddc_class_id">
                     <option value="" selected disabled>Default</option>
                     @foreach($ddc_classifications as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                 </select>
-
                 @dump($ddc_class_id)
 
                 {{--                @if(!$ddc_classification)--}}
