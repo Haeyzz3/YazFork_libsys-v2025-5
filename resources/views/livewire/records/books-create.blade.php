@@ -88,6 +88,8 @@
                 <x-form-select-input
                     wireModel="ddc_class_id"
                     :options="$ddc_classifications"
+                    name="ddc_class_id"
+                    label="DDC Classification"
                 />
                 <select wire:model.change="ddc_class_id">
                     <option value="" selected disabled>Default</option>
