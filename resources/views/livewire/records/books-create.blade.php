@@ -59,33 +59,31 @@
                     <button wire:click="addEditorField" type="button" class="mt-2 text-sm font-semibold text-indigo-600">Add Author</button>
                 </div>
 
-{{--                <x-form-input--}}
-{{--                    name="publication_year"--}}
-{{--                    label="Year of publication"--}}
-{{--                    placeholder="Enter year of publication"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-
-{{--                    :value="old('publication_year', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="publisher"--}}
-{{--                    label="Publisher"--}}
-{{--                    placeholder="Enter publisher"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-
-{{--                    :value="old('publisher', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="publication_place"--}}
-{{--                    label="Place of publication"--}}
-{{--                    placeholder="Enter place of publication"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-
-{{--                    :value="old('publication_place', '')"--}}
-{{--                />--}}
+                <x-form-input
+                    name="publication_year"
+                    label="Year of publication"
+                    placeholder="Enter year of publication"
+                    type="number"
+                    required
+                    :value="old('publication_year', '')"
+                />
+                <x-form-input
+                    name="publisher"
+                    label="Publisher"
+                    placeholder="Enter publisher"
+                    type="text"
+                    required
+                    :value="old('publisher', '')"
+                />
+                <x-form-input
+                    name="publication_place"
+                    label="Place of publication"
+                    placeholder="Enter place of publication"
+                    type="text"
+                    required
+                    :value="old('publication_place', '')"
+                />
+                @dump($publication_place)
 {{--                <x-form-input--}}
 {{--                    name="isbn"--}}
 {{--                    label="ISBN"--}}

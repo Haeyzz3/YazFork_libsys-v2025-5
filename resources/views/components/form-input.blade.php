@@ -11,6 +11,7 @@
     'class' => '',
     'wrapperClass' => 'sm:col-span-1',
     'attributes' => [],
+    'modelModifier' => 'blur'
 ])
 
 <div x-data="{ show: false }" x-init="setTimeout(() => show = true, 50)" x-show="show" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="{{ $wrapperClass }}">
@@ -33,7 +34,7 @@
         @foreach ($attributes as $key => $value)
             {{ $key }}="{{ $value }}"
         @endforeach
-        wire:model.live="{{ $name }}"
+        wire:model.{{ $modelModifier }}="{{ $name }}"
         >
         {{ $slot }}
         @error($name)

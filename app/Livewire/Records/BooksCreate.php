@@ -100,18 +100,6 @@ class BooksCreate extends Component
         $this->validateOnly($propertyName);
     }
 
-//    public function addAuthorField(): void
-//    {
-//        $this->authors[] = '';
-//    }
-//    public function removeAuthorField($index): void
-//    {
-//        if (isset($this->authors[$index])) {
-//            unset($this->authors[$index]);
-//            $this->authors = array_values($this->authors);
-//        }
-//    }
-
     public function addAuthorField(): void
     {
         $this->authors[] = '';
