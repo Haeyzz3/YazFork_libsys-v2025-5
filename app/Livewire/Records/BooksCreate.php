@@ -94,21 +94,46 @@ class BooksCreate extends Component
         ];
     }
 
-    // Livewire lifecycle hook that is automatically triggered whenever a property (field) bound to the component is updated in the frontend (e.g., when a user types in an input field).
+//    // Livewire lifecycle hook that is automatically triggered whenever a property (field) bound to the component is updated in the frontend (e.g., when a user types in an input field).
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
 
+//    public function addAuthorField(): void
+//    {
+//        $this->authors[] = '';
+//    }
+//    public function removeAuthorField($index): void
+//    {
+//        if (isset($this->authors[$index])) {
+//            unset($this->authors[$index]);
+//            $this->authors = array_values($this->authors);
+//        }
+//    }
+
     public function addAuthorField(): void
     {
         $this->authors[] = '';
     }
+
     public function removeAuthorField($index): void
     {
         if (isset($this->authors[$index])) {
             unset($this->authors[$index]);
             $this->authors = array_values($this->authors);
+        }
+    }
+
+    public function addEditorField(): void
+    {
+        $this->editors[] = '';
+    }
+    public function removeEditorField($index): void
+    {
+        if (isset($this->editor[$index])) {
+            unset($this->editor[$index]);
+            $this->editor = array_values($this->editor);
         }
     }
 
