@@ -101,16 +101,15 @@
                     label="DDC Classification"
                 />
                 @dump($ddc_class_id)
+                <x-form-select-input
+                    name="lc_classification"
+                    label="LC Classification"
+                    :options="$lc_classifications"
+                    :required="false"
+                />
+                @dump($lc_class_id)
 
-                {{--                @if(!$ddc_classification)--}}
-{{--                    <x-form-select-input--}}
-{{--                        name="lc_classification"--}}
-{{--                        label="LC Classification"--}}
-{{--                        :options="$lc_classifications"--}}
-{{--                        :required="false"--}}
-{{--                    />--}}
-{{--                @endif--}}
-{{--                <x-form-select-input--}}
+                {{--                <x-form-select-input--}}
 {{--                    name="physical_location"--}}
 {{--                    label="Physical Location"--}}
 {{--                    :options="$locations"--}}

@@ -3,6 +3,7 @@
 namespace App\Livewire\Records;
 
 use App\Models\DdcClassification;
+use App\Models\LcClassification;
 use App\Models\Record;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -12,7 +13,7 @@ class BooksCreate extends Component
     use WithFileUploads;
 
     public $ddc_classifications = [];
-    public $lc_classes_local = ['one', 'two', 'three'];
+    public $lc_classifications = [];
     public $sources = ['Donation', 'Purchase'];
     public $locations = [
         'Circulation', 'Fiction', 'Filipiniana', 'General References',
@@ -37,7 +38,7 @@ class BooksCreate extends Component
     public $isbn = null;
     public $call_number = null;
     public $ddc_class_id = "";
-//    public $lc_class = null;
+    public $lc_class_id = "";
 //    public $physical_location_id = null;
 //    public $cover_type = null;
 //    public $cover_image = null;
@@ -58,6 +59,7 @@ class BooksCreate extends Component
     {
         // Fetch DDC classifications from the database
         $this->ddc_classifications = DdcClassification::pluck('name','id')->toArray();
+        $this->lc_classifications = LcClassification::pluck('name','id')->toArray();
     }
 
     public function rules()
@@ -78,8 +80,8 @@ class BooksCreate extends Component
             'isbn' => 'nullable|string|max:20|unique:books,isbn',
             'publication_place' => 'nullable|string|max:255',
             'call_number' => 'nullable|string|max:50',
-            'ddc_class_id' => 'required|exists:ddc_classifications,id',
-//            'lc_class_id' => 'nullable|exists:lc_classes,id',
+            'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
+            'lc_class_id' => 'nullable|exists:lc_classifications,id',
 //            'physical_location_id' => 'nullable|exists:physical_locations,id',
 //            'cover_type' => 'nullable|string|max:50',
 //            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
