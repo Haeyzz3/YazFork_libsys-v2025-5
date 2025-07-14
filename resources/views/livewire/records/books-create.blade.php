@@ -85,18 +85,21 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
+                <x-form-input
+                    name="call_number"
+                    label="Call Number"
+                    placeholder="Enter call number"
+                    type="text"
+                    :required="false"
+                    :value="old('call_number', '')"
+                />
+                @dump($call_number)
                 <x-form-select-input
                     wireModel="ddc_class_id"
                     :options="$ddc_classifications"
                     name="ddc_class_id"
                     label="DDC Classification"
                 />
-                <select wire:model.change="ddc_class_id">
-                    <option value="" selected disabled>Default</option>
-                    @foreach($ddc_classifications as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach
-                </select>
                 @dump($ddc_class_id)
 
                 {{--                @if(!$ddc_classification)--}}
@@ -107,14 +110,6 @@
 {{--                        :required="false"--}}
 {{--                    />--}}
 {{--                @endif--}}
-{{--                <x-form-input--}}
-{{--                    name="call_number"--}}
-{{--                    label="Call Number"--}}
-{{--                    placeholder="Enter call number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    :value="old('call_number', '')"--}}
-{{--                />--}}
 {{--                <x-form-select-input--}}
 {{--                    name="physical_location"--}}
 {{--                    label="Physical Location"--}}
