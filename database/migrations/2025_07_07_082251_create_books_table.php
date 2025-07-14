@@ -28,7 +28,8 @@ return new class extends Migration
             $table->foreignId('lc_class_id')->nullable()
                 ->constrained('lc_classes')->onDelete('set null');
             $table->string('call_number')->nullable();
-            $table->string('physical_location_id')->nullable();
+            $table->foreignId('physical_location_id')->nullable()
+                ->constrained('physical_locations')->onDelete('set null');
 
             $table->string('cover_type')->nullable();
             $table->string('cover_image')->nullable();

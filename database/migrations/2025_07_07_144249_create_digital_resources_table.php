@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
 
             // Foreign Keys
-            $table->foreignId('record_id') // Foreign key to resources table
-            ->constrained('records')
-                ->onDelete('cascade');
+            $table->foreignId('record_id')->constrained('records')->onDelete('cascade');
 
             $table->json('authors')->nullable();
             $table->json('editors')->nullable();

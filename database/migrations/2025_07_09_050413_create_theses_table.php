@@ -14,22 +14,23 @@ return new class extends Migration
         Schema::create('theses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('record_id')->constrained('records')->onDelete('cascade');
-            $table->string('researchers'); // You can change this to text or json if multiple names
-            $table->string('academic_year');
-            $table->string('institution');
-            $table->string('college'); // or 'school' or 'college'
-            $table->string('adviser')->nullable();
-            $table->string('panelist')->nullable(); // also consider json if multiple
-            $table->string('degree_program');
-            $table->string('major')->nullable();
-            $table->string('degree_level'); // e.g., Bachelor's, Master's, PhD
-            $table->string('format'); // e.g., Print, Digital, etc.
-            $table->integer('number_of_pages')->nullable();
-            $table->string('abstract_document')->nullable(); // store file path
-            $table->string('full_text')->nullable(); // store file path
-            $table->text('abstract_summary')->nullable();
-            $table->text('keywords')->nullable();
-            $table->text('additional_notes')->nullable();
+
+            $table->json('researchers');
+            $table->text('adviser')->nullable();
+            $table->year('year')->nullable();
+            $table->string('month')->nullable();
+
+            $table->string('institution')->nullable();
+            $table->string('college')->nullable();
+            $table->string('degree_program')->nullable();
+            $table->enum('degree_level', ['bachelor\'s thesis', 'masteral\'s thesis', 'doctoral\'s thesis'])->nullable();
+
+            $table->foreignId('ddc_class_id')->nullable()->constrained('ddc_classes')->onDelete('set null');
+            $table->foreignId('lc_class_id')->nullable()->constrained('lc_classes')->onDelete('set null');
+            $table->string('call_number')->nullable();
+            $table->foreignId('physical_location_id')->nullable()
+                ->constrained('physical_locations')->onDelete('set null');
+            $table->string('abstract')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

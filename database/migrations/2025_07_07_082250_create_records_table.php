@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +25,13 @@ return new class extends Migration
             $table->id();
             $table->string('code', 5)->unique();     // LC codes can be 1-5 characters (e.g., "A", "QA76")
             $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('physical_locations', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('symbol', 5)->unique();     // LC codes can be 1-5 characters (e.g., "A", "QA76")
             $table->timestamps();
         });
 
@@ -65,6 +73,13 @@ return new class extends Migration
             ['code' => 'U', 'name' => 'Military Science', 'created_at' => $now, 'updated_at' => $now],
             ['code' => 'V', 'name' => 'Naval Science', 'created_at' => $now, 'updated_at' => $now],
             ['code' => 'Z', 'name' => 'Bibliography, Library Science, Information Resources', 'created_at' => $now, 'updated_at' => $now],
+        ]);
+
+        DB::table('physical_locations')->insert([
+            ['symbol' => 'CIR', 'name' => 'Circulation', 'created_at' => $now, 'updated_at' => $now],
+            ['symbol' => 'RES', 'name' => 'Reserved', 'created_at' => $now, 'updated_at' => $now],
+            ['symbol' => 'F', 'name' => 'Fiction', 'created_at' => $now, 'updated_at' => $now],
+            ['symbol' => 'Fil', 'name' => 'Filipiñana', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         Schema::create('records', function (Blueprint $table) {
