@@ -14,32 +14,45 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->foreignId('record_id') // Foreign key to resources table
-            ->constrained('records')
-                ->onDelete('cascade');
-            $table->string('author', '100')->nullable();
-            $table->json('additional_authors')->nullable();
-            $table->string('editor','100')->nullable();
-            $table->year('publication_year'); // Required
-            $table->string('publisher', '100'); // Required
-            $table->string('publication_place', '200'); // Required
-            $table->string('isbn', '25');
+            ->constrained('records')->onDelete('cascade');
+
+            $table->string('accession_number')->unique();
+            $table->json('authors')->nullable();
+            $table->json('editors')->nullable();
+            $table->year('publication_year')->nullable();
+            $table->string('publisher')->nullable();
+            $table->string('publication_place')->nullable();
+            $table->string('isbn')->nullable()->unique();
+
+            $table->foreignId('ddc_class_id')->nullable()
+                ->constrained('ddc_classes')->onDelete('set null');
+            $table->foreignId('lc_class_id')->nullable()
+                ->constrained('lc_classes')->onDelete('set null');
+            $table->string('call_number')->nullable();
+            $table->string('physical_location_id')->nullable();
+
             $table->string('cover_type')->nullable();
-            $table->string('ics_number', '25')->nullable();
-            $table->string('ics_number_date', '25')->nullable();
-            $table->string('pr_number', '25')->nullable();
-            $table->string('pr_number_date', '25')->nullable();
-            $table->string('po_number', '25')->nullable();
-            $table->string('po_number_date', '25')->nullable();
             $table->string('cover_image')->nullable();
+
+            $table->string('ics_number')->nullable();
+            $table->date('ics_date')->nullable();
+            $table->string('pr_number')->nullable();
+            $table->date('pr_date')->nullable();
+            $table->string('po_number')->nullable();
+            $table->date('po_date')->nullable();
+
+            $table->string('source')->nullable();
+            $table->string('donated_by')->nullable();
+            $table->decimal('purchase_amount', 10, 2)->nullable();
+            $table->decimal('lot_cost', 10, 2)->nullable();
+            $table->string('supplier')->nullable();
+
             $table->text('table_of_contents')->nullable();
-            $table->json('subject_headings')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index('publication_year');
-            $table->index('publisher');
-            $table->index('isbn');
-            $table->index('cover_type');
+            // indexes here later
         });
     }
 
