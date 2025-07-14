@@ -71,6 +71,7 @@ return new class extends Migration
             $table->id(); // Primary key, auto-generated
 
             $table->string('title');
+            $table->string('accession_number')->unique()->nullable();
             $table->enum('acquisition_status', ['available', 'pending_review', 'processing']);
             $table->enum('condition', ['excellent', 'good', 'fair', 'poor', 'damaged']);
             $table->json('subject_headings');

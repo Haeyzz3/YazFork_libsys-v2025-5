@@ -19,31 +19,29 @@ return new class extends Migration
             ->constrained('records')
                 ->onDelete('cascade');
 
-            $table->string('primary_author');
+            $table->json('authors')->nullable();
+            $table->json('editors')->nullable();
+            $table->year('publication_year')->nullable();
+            $table->year('copyright_year')->nullable();
+            $table->string('producer')->nullable();
+            $table->string('language')->nullable();
 
-            // Required Fields
-            $table->year('publication_copyright_year');
-            $table->string('publisher_producer');
-            $table->string('collection_type');
-            $table->string('access_method');
+            $table->enum('collection_type', ['cd', 'duplicate_copy', 'cassette', 'vhs', 'cdr'])->nullable();
+            $table->string('duration')->nullable();
+            $table->string('cover_image')->nullable();
 
-            // Optional Fields
-            $table->string('file_format', 50)->nullable();
-            $table->string('duration')->nullable(); // For audiobooks/videos
-            $table->string('editor_producer')->nullable(); // For audiobooks/videos
-            $table->string('additional_authors')->nullable();
-            $table->text('system_requirements')->nullable();
-            $table->string('resource_cover_thumbnail')->nullable(); // Store file path
-            $table->text('license_access_rights')->nullable();
-            $table->text('summary_abstract')->nullable();
+            $table->string('source')->nullable();
+            $table->string('donated_by')->nullable();
+            $table->decimal('purchase_amount', 10, 2)->nullable();
+            $table->decimal('lot_cost', 10, 2)->nullable();
+            $table->string('supplier')->nullable();
 
-            // Indexes for better performance
-            $table->index('record_id');
-            $table->index('collection_type');
-            $table->index('publication_copyright_year');
+            $table->text('overview')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            // indexes later for performance
         });
     }
 
