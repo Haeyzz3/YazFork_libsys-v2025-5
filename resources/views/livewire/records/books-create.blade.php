@@ -263,13 +263,13 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-form-text-area-input--}}
-{{--                    name="table_of_contents"--}}
-{{--                    label="Table of Contents"--}}
-{{--                    placeholder="Enter table of contents"--}}
-{{--                    :rows="4"--}}
-{{--                    wrapper-class="sm:col-span-1"--}}
-{{--                />--}}
+                <x-form-text-area-input
+                    name="table_of_contents"
+                    label="Table of Contents"
+                    placeholder="Enter table of contents"
+                    :rows="4"
+                />
+                @dump($table_of_contents)
 {{--                <div class="sm:col-span-1">--}}
 {{--                    <label class="block text-sm font-medium leading-6 text-gray-900">Subject Headings</label>--}}
 {{--                    @foreach($subject_headings as $index => $subject)--}}

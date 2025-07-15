@@ -70,7 +70,7 @@ class BooksCreate extends Component
     public $lot_cost = null;
     public $supplier = null;
     public $donated_by = null;
-//    public $table_of_contents = null;
+    public $table_of_contents = null;
 
     public function mount()
     {
@@ -114,7 +114,7 @@ class BooksCreate extends Component
             'lot_cost' => 'nullable|numeric|min:0',
             'supplier' => 'nullable|string|max:255',
             'donated_by' => 'nullable|string|max:255',
-//            'table_of_contents' => 'nullable|string',
+            'table_of_contents' => 'nullable|string',
         ];
     }
 
