@@ -165,7 +165,7 @@
                     name="pr_number"
                     label="PR Number"
                     placeholder="Enter PR number"
-                    type="text"
+                    type="number"
                     :value="old('pr_number','')"
                 />
                 @dump($pr_number)
@@ -178,23 +178,24 @@
                     />
                     @dump($pr_date)
                 @endif
-{{--                <x-form-input--}}
-{{--                    name="po_number"--}}
-{{--                    label="PO Number"--}}
-{{--                    placeholder="Enter PO number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    :value="old('po_number','')"--}}
-{{--                />--}}
-{{--                @if($po_number)--}}
-{{--                    <x-form-input--}}
-{{--                        name="po_number_date"--}}
-{{--                        label="PO Number Date"--}}
-{{--                        type="date"--}}
-{{--                        :required="false"--}}
-{{--                        :value="old('po_number_date','')"--}}
-{{--                    />--}}
-{{--                @endif--}}
+                <x-form-input
+                    modelModifier="live"
+                    name="po_number"
+                    label="PO Number"
+                    placeholder="Enter PO number"
+                    type="number"
+                    :value="old('po_number','')"
+                />
+                @dump($po_number)
+                @if($po_number)
+                    <x-form-input
+                        name="po_date"
+                        label="PO Number Date"
+                        type="date"
+                        :value="old('po_date','')"
+                    />
+                    @dump($po_date)
+                @endif
 {{--                <x-form-select-input--}}
 {{--                    name="source"--}}
 {{--                    label="Source"--}}

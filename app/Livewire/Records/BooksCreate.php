@@ -46,8 +46,8 @@ class BooksCreate extends Component
     public $ics_date = null;
     public $pr_number = null;
     public $pr_date = null;
-//    public $po_number = null;
-//    public $po_date = null;
+    public $po_number = null;
+    public $po_date = null;
 //    public $source = null;
 //    public $donated_by = null;
 //    public $purchase_amount = null;
@@ -90,8 +90,8 @@ class BooksCreate extends Component
             'ics_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
             'pr_number' => 'nullable|string|max:50',
             'pr_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
-//            'po_number' => 'nullable|string|max:50',
-//            'po_date' => 'nullable|date',
+            'po_number' => 'nullable|string|max:50',
+            'po_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
 //            'source' => 'nullable|string|max:100',
 //            'donated_by' => 'nullable|string|max:255',
 //            'purchase_amount' => 'nullable|numeric|min:0',
