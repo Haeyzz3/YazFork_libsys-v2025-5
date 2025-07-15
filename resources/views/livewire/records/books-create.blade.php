@@ -160,23 +160,24 @@
                     />
                     @dump($ics_date)
                 @endif
-{{--                <x-form-input--}}
-{{--                    name="pr_number"--}}
-{{--                    label="PR Number"--}}
-{{--                    placeholder="Enter PR number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    :value="old('pr_number','')"--}}
-{{--                />--}}
-{{--                @if($pr_number)--}}
-{{--                    <x-form-input--}}
-{{--                        name="pr_number_date"--}}
-{{--                        label="PR Number  Date"--}}
-{{--                        type="date"--}}
-{{--                        :required="false"--}}
-{{--                        :value="old('pr_number_date','')"--}}
-{{--                    />--}}
-{{--                @endif--}}
+                <x-form-input
+                    modelModifier="live"
+                    name="pr_number"
+                    label="PR Number"
+                    placeholder="Enter PR number"
+                    type="text"
+                    :value="old('pr_number','')"
+                />
+                @dump($pr_number)
+                @if($pr_number)
+                    <x-form-input
+                        name="pr_date"
+                        label="PR Number  Date"
+                        type="date"
+                        :value="old('pr_date','')"
+                    />
+                    @dump($pr_date)
+                @endif
 {{--                <x-form-input--}}
 {{--                    name="po_number"--}}
 {{--                    label="PO Number"--}}

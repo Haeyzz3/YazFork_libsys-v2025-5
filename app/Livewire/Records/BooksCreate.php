@@ -44,8 +44,8 @@ class BooksCreate extends Component
     public $cover_image = null;
     public $ics_number = null;
     public $ics_date = null;
-//    public $pr_number = null;
-//    public $pr_date = null;
+    public $pr_number = null;
+    public $pr_date = null;
 //    public $po_number = null;
 //    public $po_date = null;
 //    public $source = null;
@@ -87,8 +87,9 @@ class BooksCreate extends Component
             'cover_type' => 'nullable|string|max:50',
             'cover_image' => 'nullable|image|max:2048', // adjust size if needed
             'ics_number' => 'nullable|string|max:50',
-            'ics_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today'
-//            'pr_date' => 'nullable|date',
+            'ics_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
+            'pr_number' => 'nullable|string|max:50',
+            'pr_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
 //            'po_number' => 'nullable|string|max:50',
 //            'po_date' => 'nullable|date',
 //            'source' => 'nullable|string|max:100',
