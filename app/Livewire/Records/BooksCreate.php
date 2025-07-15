@@ -4,7 +4,9 @@ namespace App\Livewire\Records;
 
 use App\Models\DdcClassification;
 use App\Models\LcClassification;
+use App\Models\PhysicalLocation;
 use App\Models\Record;
+use Database\Seeders\PhysicalLocationSeeder;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -14,11 +16,9 @@ class BooksCreate extends Component
 
     public $ddc_classifications = [];
     public $lc_classifications = [];
+    public $physical_locations = [];
     public $sources = ['Donation', 'Purchase'];
-    public $locations = [
-        'Circulation', 'Fiction', 'Filipiniana', 'General References',
-        'Graduate School', 'reserve', 'PCAARRD','Vertical Files'
-    ];
+
     public $cover_types = ['Hardcover', 'Paperback', 'Other'];
     public $acquisition_statuses = ['sample', 'data'];
 
@@ -39,7 +39,7 @@ class BooksCreate extends Component
     public $call_number = null;
     public $ddc_class_id = "";
     public $lc_class_id = "";
-//    public $physical_location_id = null;
+    public $physical_location_id = "";
 //    public $cover_type = null;
 //    public $cover_image = null;
 //    public $ics_number = null;
@@ -60,6 +60,7 @@ class BooksCreate extends Component
         // Fetch DDC classifications from the database
         $this->ddc_classifications = DdcClassification::pluck('name','id')->toArray();
         $this->lc_classifications = LcClassification::pluck('name','id')->toArray();
+        $this->physical_locations = PhysicalLocation::pluck('name','id')->toArray();
     }
 
     public function rules()
@@ -82,7 +83,7 @@ class BooksCreate extends Component
             'call_number' => 'nullable|string|max:50',
             'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
-//            'physical_location_id' => 'nullable|exists:physical_locations,id',
+            'physical_location_id' => 'nullable|exists:physical_locations,id',
 //            'cover_type' => 'nullable|string|max:50',
 //            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
 //            'ics_number' => 'nullable|string|max:50',

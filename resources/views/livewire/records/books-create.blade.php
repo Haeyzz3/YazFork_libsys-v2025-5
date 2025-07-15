@@ -112,21 +112,14 @@
                     />
                     @dump($lc_class_id)
                 @endif
-
-                {{--                <x-form-select-input--}}
-{{--                    name="physical_location"--}}
-{{--                    label="Physical Location"--}}
-{{--                    :options="$locations"--}}
-{{--                    :required="true"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="location_symbol"--}}
-{{--                    label="Location Symbol"--}}
-{{--                    placeholder="Enter location symbol"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    :value="old('location_symbol', '')"--}}
-{{--                />--}}
+                <x-form-select-input
+                    wireModel="physical_location_id"
+                    :options="$physical_locations"
+                    name="physical_location_id"
+                    label="Physical Location"
+                    required
+                />
+                @dump($physical_location_id)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>

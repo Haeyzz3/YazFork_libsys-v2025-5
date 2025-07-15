@@ -12,24 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        // Library of Congress Classification table
-        $now = Carbon::now();
-
-        Schema::create('physical_locations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('symbol', 5)->unique();     // LC codes can be 1-5 characters (e.g., "A", "QA76")
-            $table->timestamps();
-        });
-
-        DB::table('physical_locations')->insert([
-            ['symbol' => 'CIR', 'name' => 'Circulation', 'created_at' => $now, 'updated_at' => $now],
-            ['symbol' => 'RES', 'name' => 'Reserved', 'created_at' => $now, 'updated_at' => $now],
-            ['symbol' => 'F', 'name' => 'Fiction', 'created_at' => $now, 'updated_at' => $now],
-            ['symbol' => 'Fil', 'name' => 'Filipiñana', 'created_at' => $now, 'updated_at' => $now],
-        ]);
-
         Schema::create('records', function (Blueprint $table) {
             $table->id(); // Primary key, auto-generated
 
