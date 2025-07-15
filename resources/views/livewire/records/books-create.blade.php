@@ -125,12 +125,13 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-form-select-input--}}
-{{--                    name="cover_type"--}}
-{{--                    label="Cover Type"--}}
-{{--                    :options="$cover_types"--}}
-{{--                    :required="false"--}}
-{{--                />--}}
+                <x-form-select-input
+                    wireModel="cover_type"
+                    :options="$cover_types"
+                    name="cover_type"
+                    label="Cover Type"
+                />
+                @dump($cover_type)
 {{--                <x-form-input-image--}}
 {{--                    name="cover_image"--}}
 {{--                    label="Profile Image"--}}

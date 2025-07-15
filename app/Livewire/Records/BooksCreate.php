@@ -40,7 +40,7 @@ class BooksCreate extends Component
     public $ddc_class_id = "";
     public $lc_class_id = "";
     public $physical_location_id = "";
-//    public $cover_type = null;
+    public $cover_type = "";
 //    public $cover_image = null;
 //    public $ics_number = null;
 //    public $ics_date = null;
@@ -84,7 +84,7 @@ class BooksCreate extends Component
             'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
             'physical_location_id' => 'nullable|exists:physical_locations,id',
-//            'cover_type' => 'nullable|string|max:50',
+            'cover_type' => 'nullable|string|max:50',
 //            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
 //            'ics_number' => 'nullable|string|max:50',
 //            'ics_date' => 'nullable|date',
