@@ -41,8 +41,8 @@ class BooksCreate extends Component
     public $lc_class_id = "";
     public $physical_location_id = "";
     public $cover_type = "";
-//    public $cover_image = null;
-//    public $ics_number = null;
+    public $cover_image = null;
+    public $ics_number = null;
 //    public $ics_date = null;
 //    public $pr_number = null;
 //    public $pr_date = null;
@@ -85,8 +85,8 @@ class BooksCreate extends Component
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
             'physical_location_id' => 'nullable|exists:physical_locations,id',
             'cover_type' => 'nullable|string|max:50',
-//            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
-//            'ics_number' => 'nullable|string|max:50',
+            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
+            'ics_number' => 'nullable|string|max:50',
 //            'ics_date' => 'nullable|date',
 //            'pr_number' => 'nullable|string|max:50',
 //            'pr_date' => 'nullable|date',

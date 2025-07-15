@@ -90,7 +90,6 @@
                     label="Call Number"
                     placeholder="Enter call number"
                     type="text"
-                    :required="false"
                     :value="old('call_number', '')"
                 />
                 @if(!$lc_class_id)
@@ -132,24 +131,25 @@
                     label="Cover Type"
                 />
                 @dump($cover_type)
-{{--                <x-form-input-image--}}
-{{--                    name="cover_image"--}}
-{{--                    label="Profile Image"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                />--}}
+                <x-form-input-image
+                    name="cover_image"
+                    label="Profile Image"
+                    wrapperClass="sm:col-span-1"
+                />
+                @dump($cover_image)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
-{{--                <x-form-input--}}
-{{--                    name="ics_number"--}}
-{{--                    label="ICS Number"--}}
-{{--                    placeholder="Enter ICS number"--}}
-{{--                    type="text"--}}
-{{--                    :required="false"--}}
-{{--                    :value="old('ics_number','')"--}}
-{{--                />--}}
+                <x-form-input
+                    name="ics_number"
+                    label="ICS Number"
+                    placeholder="Enter ICS number"
+                    type="text"
+                    :value="old('ics_number','')"
+                />
+                @dump($ics_number)
 {{--                @if($ics_number)--}}
 {{--                    <x-form-input--}}
 {{--                        name="ics_number_date"--}}
