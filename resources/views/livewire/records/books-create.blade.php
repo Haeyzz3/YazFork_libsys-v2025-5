@@ -14,7 +14,6 @@
                     required
                     :value="old('accession_number', '')"
                 />
-                @dump($accession_number)
                 <x-form-input
                     name="title"
                     label="Title"
@@ -23,7 +22,6 @@
                     required
                     :value="old('title', '')"
                 />
-                @dump($title)
                 <x-dynamic-input-list
                     label="Author/authors"
                     :items="$authors"
@@ -33,7 +31,6 @@
                     removeMethod="removeAuthorField"
                     addButtonText="Add Author"
                 />
-                @dump($authors)
                 <x-dynamic-input-list
                     label="Editor/editors"
                     :items="$editors"
@@ -43,7 +40,6 @@
                     removeMethod="removeEditorField"
                     addButtonText="Add Editor"
                 />
-                @dump($editors)
                 <x-form-input
                     name="publication_year"
                     label="Year of publication"
@@ -52,7 +48,6 @@
                     required
                     :value="old('publication_year', '')"
                 />
-                @dump($publication_year)
                 <x-form-input
                     name="publisher"
                     label="Publisher"
@@ -61,7 +56,6 @@
                     required
                     :value="old('publisher', '')"
                 />
-                @dump($publisher)
                 <x-form-input
                     name="publication_place"
                     label="Place of publication"
@@ -70,7 +64,6 @@
                     required
                     :value="old('publication_place', '')"
                 />
-                @dump($publication_place)
                 <x-form-input
                     name="isbn"
                     label="ISBN"
@@ -79,7 +72,6 @@
                     required
                     :value="old('isbn', '')"
                 />
-                @dump($isbn)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
@@ -93,14 +85,12 @@
                     :value="old('call_number', '')"
                 />
                 @if(!$lc_class_id)
-                    @dump($call_number)
                     <x-form-select-input
                         wireModel="ddc_class_id"
                         :options="$ddc_classifications"
                         name="ddc_class_id"
                         label="DDC Classification"
                     />
-                    @dump($ddc_class_id)
                 @endif
                 @if(!$ddc_class_id)
                     <x-form-select-input
@@ -109,7 +99,6 @@
                         name="lc_class_id"
                         label="LC Classification"
                     />
-                    @dump($lc_class_id)
                 @endif
                 <x-form-select-input
                     wireModel="physical_location_id"
@@ -118,7 +107,6 @@
                     label="Physical Location"
                     required
                 />
-                @dump($physical_location_id)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
@@ -130,13 +118,11 @@
                     name="cover_type"
                     label="Cover Type"
                 />
-                @dump($cover_type)
                 <x-form-input-image
                     name="cover_image"
                     label="Profile Image"
                     wrapperClass="sm:col-span-1"
                 />
-                @dump($cover_image)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h2>
@@ -150,7 +136,6 @@
                     type="number"
                     :value="old('ics_number','')"
                 />
-                @dump($ics_number)
                 @if($ics_number)
                     <x-form-input
                         name="ics_date"
@@ -158,7 +143,6 @@
                         type="date"
                         :value="old('ics_date','')"
                     />
-                    @dump($ics_date)
                 @endif
                 <x-form-input
                     modelModifier="live"
@@ -168,7 +152,6 @@
                     type="number"
                     :value="old('pr_number','')"
                 />
-                @dump($pr_number)
                 @if($pr_number)
                     <x-form-input
                         name="pr_date"
@@ -176,7 +159,6 @@
                         type="date"
                         :value="old('pr_date','')"
                     />
-                    @dump($pr_date)
                 @endif
                 <x-form-input
                     modelModifier="live"
@@ -186,7 +168,6 @@
                     type="number"
                     :value="old('po_number','')"
                 />
-                @dump($po_number)
                 @if($po_number)
                     <x-form-input
                         name="po_date"
@@ -194,7 +175,6 @@
                         type="date"
                         :value="old('po_date','')"
                     />
-                    @dump($po_date)
                 @endif
                 <x-form-select-input
                     wireModel="source"
@@ -203,7 +183,6 @@
                     label="Source"
                     :required="true"
                 />
-                @dump($source)
                 @if($source === 'purchase')
                     <x-form-input
                         name="purchase_amount"
@@ -212,7 +191,6 @@
                         type="number"
                         :value="old('purchase_amount','')"
                     />
-                    @dump($purchase_amount)
                     <x-form-input
                         name="lot_cost"
                         label="Lot Cost"
@@ -220,14 +198,12 @@
                         type="number"
                         :value="old('lot_cost','')"
                     />
-                    @dump($lot_cost)
                     <x-form-input
                         name="supplier"
                         label="Supplier"
                         placeholder="Enter supplier"
                         :value="old('supplier','')"
                     />
-                    @dump($supplier)
                 @endif
                 @if($source === 'donation')
                     <x-form-input
@@ -236,7 +212,6 @@
                         placeholder="Enter donor"
                         :value="old('donated_by','')"
                     />
-                    @dump($donated_by)
                 @endif
                 <x-form-select-input
                     wireModel="cover_type"
@@ -250,14 +225,12 @@
                     name="acquisition_status"
                     label="Acquisition Status"
                 />
-                @dump($acquisition_status)
                 <x-form-select-input
                     wireModel="condition"
                     :options="$conditions"
                     name="condition"
                     label="Condition"
                 />
-                @dump($condition)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
@@ -269,8 +242,7 @@
                     placeholder="Enter table of contents"
                     :rows="4"
                 />
-                @dump($table_of_contents)
-                <<x-dynamic-input-list
+                <x-dynamic-input-list
                     label="Subject headings"
                     :items="$subject_headings"
                     fieldName="subject_headings"
@@ -279,7 +251,6 @@
                     removeMethod="removeSubjectHeadingField"
                     addButtonText="Add Subject Heading"
                 />
-                @dump($subject_headings)
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">

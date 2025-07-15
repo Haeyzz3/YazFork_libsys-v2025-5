@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('publication_place')->nullable();
             $table->string('isbn')->nullable()->unique();
 
+            $table->string('call_number')->nullable();
             $table->foreignId('ddc_class_id')->nullable()
                 ->constrained('ddc_classifications')->onDelete('set null');
             $table->foreignId('lc_class_id')->nullable()
                 ->constrained('lc_classifications')->onDelete('set null');
-            $table->string('call_number')->nullable();
             $table->foreignId('physical_location_id')->nullable()
                 ->constrained('physical_locations')->onDelete('set null');
 
@@ -42,10 +42,10 @@ return new class extends Migration
             $table->date('po_date')->nullable();
 
             $table->string('source')->nullable();
-            $table->string('donated_by')->nullable();
             $table->decimal('purchase_amount', 10, 2)->nullable();
             $table->decimal('lot_cost', 10, 2)->nullable();
             $table->string('supplier')->nullable();
+            $table->string('donated_by')->nullable();
 
             $table->text('table_of_contents')->nullable();
 

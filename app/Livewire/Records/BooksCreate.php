@@ -176,38 +176,44 @@ class BooksCreate extends Component
             $record = Record::create([
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
-                'ddc_classification' => $this->ddc_classification,
-                'lc_classification' => $this->lc_classification,
-                'call_number' => $this->call_number,
-                'physical_location' => $this->physical_location,
-                'location_symbol' => $this->location_symbol,
+                'acquisition_status' => $this->acquisition_status,
+                'condition' => $this->condition,
+                'subject_headings' => $this->subject_headings,
+
                 'added_by' => auth()->user()->id,
+            ]);
+
+            $record->book()->create([
+//                'authors' => array_filter($this->additional_authors, static fn($author) => !empty(trim($author))),
+                'authors' => $this->authors,
+                'editors' => $this->editors,
+                'publication_year' => $this->publication_year,
+                'publisher' => $this->publisher,
+                'publication_place' => $this->publication_place,
+                'isbn' => $this->isbn,
+
+                'call_number' => $this->call_number,
+                'ddc_class_id' => $this->ddc_class_id,
+                'lc_class_id' => $this->lc_class_id,
+                'physical_location_id' => $this->physical_location_id,
+
+                'cover_type' => $this->cover_type,
+                'cover_image' => $cover_image_path,
+
+                'ics_number' => $this->ics_number,
+                'ics_date' => $this->ics_date,
+                'pr_number' => $this->pr_number,
+                'pr_date' => $this->pr_date,
+                'po_number' => $this->po_number,
+                'po_date' => $this->po_date,
+
                 'source' => $this->source,
                 'purchase_amount' => $this->purchase_amount,
                 'lot_cost' => $this->lot_cost,
                 'supplier' => $this->supplier,
                 'donated_by' => $this->donated_by,
-                'acquisition_status' => $this->acquisition_status,
-            ]);
 
-            $record->book()->create([
-                'author' => $this->author,
-                'additional_authors' => array_filter($this->additional_authors, static fn($author) => !empty(trim($author))),
-                'editor' => $this->editor,
-                'publication_year' => $this->publication_year,
-                'publisher' => $this->publisher,
-                'publication_place' => $this->publication_place,
-                'isbn' => $this->isbn,
-                'cover_type' => $this->cover_type,
-                'ics_number' => $this->ics_number,
-                'ics_number_date' => $this->ics_number_date,
-                'pr_number' => $this->pr_number,
-                'pr_number_date' => $this->pr_number_date,
-                'po_number' => $this->po_number,
-                'po_number_date' => $this->po_number_date,
-                'cover_image' => $cover_image_path,
                 'table_of_contents' => $this->table_of_contents,
-                'subject_headings' => array_filter($this->subject_headings, static fn($subject) => !empty(trim($subject))),
             ]);
 
             // Reset the file input after saving
@@ -231,24 +237,14 @@ class BooksCreate extends Component
         }
     }
 
-    public function openModal()
-    {
-        $this->isModalOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isModalOpen = false;
-    }
-
-    public function formatFileSize($bytes)
-    {
-        if ($bytes === 0) return '0 Bytes';
-        $k = 1024;
-        $sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        $i = floor(log($bytes) / log($k));
-        return round(($bytes / pow($k, $i)), 2) . ' ' . $sizes[$i];
-    }
+//    public function formatFileSize($bytes)
+//    {
+//        if ($bytes === 0) return '0 Bytes';
+//        $k = 1024;
+//        $sizes = ['Bytes', 'KB', 'MB', 'GB'];
+//        $i = floor(log($bytes) / log($k));
+//        return round(($bytes / pow($k, $i)), 2) . ' ' . $sizes[$i];
+//    }
 
     public function render()
     {
