@@ -17,7 +17,10 @@ class BooksCreate extends Component
     public $ddc_classifications = [];
     public $lc_classifications = [];
     public $physical_locations = [];
-    public $sources = ['Donation', 'Purchase'];
+    public $sources = [
+        'donation' => 'Donation',
+        'purchase' => 'Purchase'
+    ];
 
     public $cover_types = ['Hardcover', 'Paperback', 'Other'];
     public $acquisition_statuses = ['sample', 'data'];
@@ -48,11 +51,11 @@ class BooksCreate extends Component
     public $pr_date = null;
     public $po_number = null;
     public $po_date = null;
-//    public $source = null;
+    public $source = "";
+    public $purchase_amount = null;
+    public $lot_cost = null;
+    public $supplier = null;
 //    public $donated_by = null;
-//    public $purchase_amount = null;
-//    public $lot_cost = null;
-//    public $supplier = null;
 //    public $table_of_contents = null;
 
     public function mount()
@@ -92,11 +95,11 @@ class BooksCreate extends Component
             'pr_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
             'po_number' => 'nullable|string|max:50',
             'po_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
-//            'source' => 'nullable|string|max:100',
+            'source' => 'nullable|string|max:100',
+            'purchase_amount' => 'nullable|numeric|min:0',
+            'lot_cost' => 'nullable|numeric|min:0',
+            'supplier' => 'nullable|string|max:255',
 //            'donated_by' => 'nullable|string|max:255',
-//            'purchase_amount' => 'nullable|numeric|min:0',
-//            'lot_cost' => 'nullable|numeric|min:0',
-//            'supplier' => 'nullable|string|max:255',
 //            'table_of_contents' => 'nullable|string',
         ];
     }

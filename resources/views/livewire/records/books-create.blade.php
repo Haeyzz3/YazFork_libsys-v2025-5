@@ -196,39 +196,40 @@
                     />
                     @dump($po_date)
                 @endif
-{{--                <x-form-select-input--}}
-{{--                    name="source"--}}
-{{--                    label="Source"--}}
-{{--                    placeholder="Enter source"--}}
-{{--                    :options="$sources"--}}
-{{--                    :required="false"--}}
-{{--                />--}}
-{{--                @if($source === 'Purchase')--}}
-{{--                    <x-form-input--}}
-{{--                        name="purchase_amount"--}}
-{{--                        label="Purchase Amount"--}}
-{{--                        placeholder="Enter purchase amount"--}}
-{{--                        type="number"--}}
-{{--                        :required="false"--}}
-{{--                        :value="old('purchase_amount','')"--}}
-{{--                    />--}}
-{{--                    <x-form-input--}}
-{{--                        name="lot_cost"--}}
-{{--                        label="Lot Cost"--}}
-{{--                        placeholder="Enter lot cost"--}}
-{{--                        type="number"--}}
-{{--                        :required="false"--}}
-{{--                        :value="old('lot_cost','')"--}}
-{{--                    />--}}
-{{--                    <x-form-input--}}
-{{--                        name="supplier"--}}
-{{--                        label="Supplier"--}}
-{{--                        placeholder="Enter supplier"--}}
-{{--                        type="text"--}}
-{{--                        :required="false"--}}
-{{--                        :value="old('supplier','')"--}}
-{{--                    />--}}
-{{--                @endif--}}
+                <x-form-select-input
+                    wireModel="source"
+                    :options="$sources"
+                    name="source"
+                    label="Source"
+                    :required="true"
+                />
+                @dump($source)
+                @if($source === 'purchase')
+                    <x-form-input
+                        name="purchase_amount"
+                        label="Purchase Amount"
+                        placeholder="Enter purchase amount"
+                        type="number"
+                        :value="old('purchase_amount','')"
+                    />
+                    @dump($purchase_amount)
+                    <x-form-input
+                        name="lot_cost"
+                        label="Lot Cost"
+                        placeholder="Enter lot cost"
+                        type="number"
+                        :value="old('lot_cost','')"
+                    />
+                    @dump($lot_cost)
+                    <x-form-input
+                        name="supplier"
+                        label="Supplier"
+                        placeholder="Enter supplier"
+                        type="text"
+                        :value="old('supplier','')"
+                    />
+                    @dump($supplier)
+                @endif
 {{--                @if($source === 'Donation')--}}
 {{--                    <x-form-input--}}
 {{--                        name="donated_by"--}}
