@@ -270,25 +270,16 @@
                     :rows="4"
                 />
                 @dump($table_of_contents)
-{{--                <div class="sm:col-span-1">--}}
-{{--                    <label class="block text-sm font-medium leading-6 text-gray-900">Subject Headings</label>--}}
-{{--                    @foreach($subject_headings as $index => $subject)--}}
-{{--                        <div class="mt-2 flex gap-x-2">--}}
-{{--                            <input--}}
-{{--                                wire:model.live="subject_headings.{{ $index }}"--}}
-{{--                                type="text"--}}
-{{--                                placeholder="Enter subject heading"--}}
-{{--                                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"--}}
-{{--                                class="@error('$subject_headings.' . $index) ring-red-500 focus:ring-red-500 @enderror"--}}
-{{--                            >--}}
-{{--                            <button wire:click="removeSubjectHeadingField({{ $index }})" type="button" class="text-red-600">Remove</button>--}}
-{{--                        </div>--}}
-{{--                        @error('subject_headings.' . $index)--}}
-{{--                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>--}}
-{{--                        @enderror--}}
-{{--                    @endforeach--}}
-{{--                    <button wire:click="addSubjectHeadingField" type="button" class="mt-2 text-sm font-semibold text-indigo-600">Add Subject Heading</button>--}}
-{{--                </div>--}}
+                <<x-dynamic-input-list
+                    label="Subject headings"
+                    :items="$subject_headings"
+                    fieldName="subject_headings"
+                    placeholder="Enter subject heading"
+                    addMethod="addSubjectHeadingField"
+                    removeMethod="removeSubjectHeadingField"
+                    addButtonText="Add Subject Heading"
+                />
+                @dump($subject_headings)
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">

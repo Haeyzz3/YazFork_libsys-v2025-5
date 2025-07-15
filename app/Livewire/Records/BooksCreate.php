@@ -44,7 +44,7 @@ class BooksCreate extends Component
     public $accession_number = null;
     public $acquisition_status = "";
     public  $condition = "";
-    public  $subject_headings = null;
+    public  $subject_headings = [''];
 
     // books fields
     public $authors = [''];
@@ -163,41 +163,6 @@ class BooksCreate extends Component
 
     public function submit()
     {
-        dd([
-            // Records fields
-            'accession_number' => $this->accession_number,
-            'title' => $this->title,
-            'acquisition_status' => $this->acquisition_status,
-            'condition' => $this->condition,
-            'subject_headings' => $this->subject_headings,
-
-            // Books fields
-            'authors' => $this->authors,
-            'editors' => $this->editors,
-            'publication_year' => $this->publication_year,
-            'publisher' => $this->publisher,
-            'isbn' => $this->isbn,
-            'publication_place' => $this->publication_place,
-            'ddc_class_id' => $this->ddc_class_id,
-            'lc_class_id' => $this->lc_class_id,
-            'call_number' => $this->call_number,
-            'physical_location_id' => $this->physical_location_id,
-            'cover_type' => $this->cover_type,
-            'cover_image' => $this->cover_image,
-            'ics_number' => $this->ics_number,
-            'ics_date' => $this->ics_date,
-            'pr_number' => $this->pr_number,
-            'pr_date' => $this->pr_date,
-            'po_number' => $this->po_number,
-            'po_date' => $this->po_date,
-            'source' => $this->source,
-            'donated_by' => $this->donated_by,
-            'purchase_amount' => $this->purchase_amount,
-            'lot_cost' => $this->lot_cost,
-            'supplier' => $this->supplier,
-            'table_of_contents' => $this->table_of_contents,
-        ]);
-
         try {
 
             $this->validate();
