@@ -251,6 +251,13 @@
                     label="Acquisition Status"
                 />
                 @dump($acquisition_status)
+                <x-form-select-input
+                    wireModel="condition"
+                    :options="$conditions"
+                    name="condition"
+                    label="Condition"
+                />
+                @dump($condition)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>

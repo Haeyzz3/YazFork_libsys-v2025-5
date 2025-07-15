@@ -21,7 +21,6 @@ class BooksCreate extends Component
         'donation' => 'Donation',
         'purchase' => 'Purchase'
     ];
-
     public $cover_types = [
         'hard_cover' => 'Hardcover',
         'paper_back' => 'Paperback',
@@ -32,12 +31,19 @@ class BooksCreate extends Component
         'pending_review' => 'Pending Review',
         'processing' => 'Processing',
     ];
+    public $conditions = [
+        'excellent' => 'Available',
+        'good' => 'Good',
+        'fair' => 'Fair',
+        'poor' => 'Poor',
+        'damaged' => 'Damaged',
+    ];
 
     // records fields
     public $title = null;
     public $accession_number = null;
     public $acquisition_status = "";
-    public  $condition = null;
+    public  $condition = "";
     public  $subject_headings = null;
 
     // books fields
