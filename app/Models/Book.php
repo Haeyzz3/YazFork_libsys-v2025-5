@@ -13,8 +13,8 @@ class Book extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'additional_authors' => 'array', // saved as json in db
-        'subject_headings' => 'array', // saved as json in db
+        'authors' => 'array', // saved as json in db
+        'editors' => 'array', // saved as json in db
     ];
 
     public function record(): BelongsTo
