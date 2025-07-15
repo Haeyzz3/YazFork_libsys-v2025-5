@@ -143,22 +143,23 @@
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
                 <x-form-input
+                    modelModifier="live"
                     name="ics_number"
                     label="ICS Number"
                     placeholder="Enter ICS number"
-                    type="text"
+                    type="number"
                     :value="old('ics_number','')"
                 />
                 @dump($ics_number)
-{{--                @if($ics_number)--}}
-{{--                    <x-form-input--}}
-{{--                        name="ics_number_date"--}}
-{{--                        label="ICS Number Date"--}}
-{{--                        type="date"--}}
-{{--                        :required="false"--}}
-{{--                        :value="old('ics_number_date','')"--}}
-{{--                    />--}}
-{{--                @endif--}}
+                @if($ics_number)
+                    <x-form-input
+                        name="ics_date"
+                        label="ICS Number Date"
+                        type="date"
+                        :value="old('ics_date','')"
+                    />
+                    @dump($ics_date)
+                @endif
 {{--                <x-form-input--}}
 {{--                    name="pr_number"--}}
 {{--                    label="PR Number"--}}
