@@ -225,28 +225,32 @@
                         name="supplier"
                         label="Supplier"
                         placeholder="Enter supplier"
-                        type="text"
                         :value="old('supplier','')"
                     />
                     @dump($supplier)
                 @endif
-{{--                @if($source === 'Donation')--}}
-{{--                    <x-form-input--}}
-{{--                        name="donated_by"--}}
-{{--                        label="Donated By"--}}
-{{--                        placeholder="Enter donor"--}}
-{{--                        type="text"--}}
-{{--                        :required="false"--}}
-{{--                        :value="old('donated_by','')"--}}
-{{--                    />--}}
-{{--                @endif--}}
-{{--                <x-form-select-input--}}
-{{--                    name="acquisition_status"--}}
-{{--                    label="Acquisition Status"--}}
-{{--                    placeholder="Enter acquisition status"--}}
-{{--                    :options="$acquisition_statuses"--}}
-{{--                    :required="false"--}}
-{{--                />--}}
+                @if($source === 'donation')
+                    <x-form-input
+                        name="donated_by"
+                        label="Donated By"
+                        placeholder="Enter donor"
+                        :value="old('donated_by','')"
+                    />
+                    @dump($donated_by)
+                @endif
+                <x-form-select-input
+                    wireModel="cover_type"
+                    :options="$cover_types"
+                    name="cover_type"
+                    label="Cover Type"
+                />
+                <x-form-select-input
+                    wireModel="acquisition_status"
+                    :options="$acquisition_statuses"
+                    name="acquisition_status"
+                    label="Acquisition Status"
+                />
+                @dump($acquisition_status)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>

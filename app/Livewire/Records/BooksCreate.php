@@ -22,13 +22,21 @@ class BooksCreate extends Component
         'purchase' => 'Purchase'
     ];
 
-    public $cover_types = ['Hardcover', 'Paperback', 'Other'];
-    public $acquisition_statuses = ['sample', 'data'];
+    public $cover_types = [
+        'hard_cover' => 'Hardcover',
+        'paper_back' => 'Paperback',
+        'other' => 'other'
+    ];
+    public $acquisition_statuses = [
+        'available' => 'Available',
+        'pending_review' => 'Pending Review',
+        'processing' => 'Processing',
+    ];
 
     // records fields
     public $title = null;
     public $accession_number = null;
-    public $acquisition_status = null;
+    public $acquisition_status = "";
     public  $condition = null;
     public  $subject_headings = null;
 
@@ -55,7 +63,7 @@ class BooksCreate extends Component
     public $purchase_amount = null;
     public $lot_cost = null;
     public $supplier = null;
-//    public $donated_by = null;
+    public $donated_by = null;
 //    public $table_of_contents = null;
 
     public function mount()
@@ -99,7 +107,7 @@ class BooksCreate extends Component
             'purchase_amount' => 'nullable|numeric|min:0',
             'lot_cost' => 'nullable|numeric|min:0',
             'supplier' => 'nullable|string|max:255',
-//            'donated_by' => 'nullable|string|max:255',
+            'donated_by' => 'nullable|string|max:255',
 //            'table_of_contents' => 'nullable|string',
         ];
     }
