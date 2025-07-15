@@ -61,7 +61,63 @@ class DigitalCreate extends Component
     public $overview = '';
     public $subject_headings = [''];
 
+    public function rules()
+    {
+        return [
+            // Records fields
+            'title' => 'required|string|max:255',
+            'accession_number' => 'required|string|max:50|unique:records,accession_number',
+            'acquisition_status' => 'nullable|string|max:50',
+            'condition' => 'nullable|string|max:100',
+            'subject_headings.*' => 'string|max:100',
+
+            // Books fields
+            'authors.*' => 'string|max:100',
+            'editors.*' => 'string|max:100',
+            'publication_year' => 'nullable|integer|min:1000|max:' . now()->year,
+            'copyright_year' => 'nullable|integer|min:1000|max:' . now()->year,
+            'publisher' => 'nullable|string|max:255',
+            'language' => 'nullable|string|max:100',
+            'collection_type' => 'nullable|string|max:100',
+            'duration' => 'nullable|string|max:50',
+            'cover_image' => 'nullable|image|max:2048',
+            'source' => 'nullable|string|max:100',
+            'purchase_amount' => 'nullable|numeric|min:0',
+            'lot_cost' => 'nullable|numeric|min:0',
+            'supplier' => 'nullable|string|max:255',
+            'donated_by' => 'nullable|string|max:255',
+            'overview' => 'nullable|string',
+        ];
+    }
+
+    // Livewire lifecycle hook that is automatically triggered whenever a property (field) bound to the component is updated in the frontend (e.g., when a user types in an input field).
+    public function updated($propertyName) : void
+    {
+        $this->validateOnly($propertyName);
+        $this->resetValidation($propertyName);
+    }
+
     // create here
+    public function submit()
+    {
+        try {
+
+            $this->validate();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle database-specific errors
+            $message = app()->environment('production')
+                ? 'Failed to add multimedia. Please try again.'
+                : 'Failed to add multimedia: ' . $e->getMessage();
+            session()->flash('error', $message);
+        } catch (\Exception $e) {
+            // Handle any other unexpected errors
+            $message = app()->environment('production')
+                ? 'An unexpected error occurred. Please try again.'
+                : 'An unexpected error occurred: ' . $e->getMessage();
+            session()->flash('error', $message);
+        }
+    }
 
     public function addAuthorField(): void
     {

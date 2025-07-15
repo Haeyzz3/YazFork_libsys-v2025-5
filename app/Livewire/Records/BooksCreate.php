@@ -6,7 +6,6 @@ use App\Models\DdcClassification;
 use App\Models\LcClassification;
 use App\Models\PhysicalLocation;
 use App\Models\Record;
-use Database\Seeders\PhysicalLocationSeeder;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -118,10 +117,11 @@ class BooksCreate extends Component
         ];
     }
 
-//    // Livewire lifecycle hook that is automatically triggered whenever a property (field) bound to the component is updated in the frontend (e.g., when a user types in an input field).
+    // Livewire lifecycle hook that is automatically triggered whenever a property (field) bound to the component is updated in the frontend (e.g., when a user types in an input field).
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
+        $this->resetValidation($propertyName);
     }
 
     public function addAuthorField(): void
@@ -217,7 +217,8 @@ class BooksCreate extends Component
             ]);
 
             // Reset the file input after saving
-            $this->reset('cover_image');
+            $this->reset();
+            $this->resetValidation();
 
             session()->flash('success', 'Book added successfully!');
             return redirect()->route('books.index');
