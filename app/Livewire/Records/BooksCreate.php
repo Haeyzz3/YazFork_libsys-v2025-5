@@ -40,8 +40,8 @@ class BooksCreate extends Component
     ];
 
     // records fields
-    public $title = null;
-    public $accession_number = null;
+    public $title = '';
+    public $accession_number = '';
     public $acquisition_status = "";
     public  $condition = "";
     public  $subject_headings = [''];
@@ -49,28 +49,28 @@ class BooksCreate extends Component
     // books fields
     public $authors = [''];
     public $editors = [''];
-    public $publication_year = null;
-    public $publisher = null;
-    public $publication_place = null;
-    public $isbn = null;
-    public $call_number = null;
+    public $publication_year = '';
+    public $publisher = '';
+    public $publication_place = '';
+    public $isbn = '';
+    public $call_number = '';
     public $ddc_class_id = "";
     public $lc_class_id = "";
     public $physical_location_id = "";
     public $cover_type = "";
-    public $cover_image = null;
-    public $ics_number = null;
-    public $ics_date = null;
-    public $pr_number = null;
-    public $pr_date = null;
-    public $po_number = null;
-    public $po_date = null;
+    public $cover_image = '';
+    public $ics_number = '';
+    public $ics_date = '';
+    public $pr_number = '';
+    public $pr_date = '';
+    public $po_number = '';
+    public $po_date = '';
     public $source = "";
-    public $purchase_amount = null;
-    public $lot_cost = null;
-    public $supplier = null;
-    public $donated_by = null;
-    public $table_of_contents = null;
+    public $purchase_amount = '';
+    public $lot_cost = '';
+    public $supplier = '';
+    public $donated_by = '';
+    public $table_of_contents = '';
 
     public function mount()
     {
