@@ -10,22 +10,11 @@ class Thesis extends Model
 {
     use hasFactory;
 
-    protected $fillable = [
-        'researchers',
-        'academic_year',
-        'institution',
-        'college',
-        'adviser',
-        'panelist',
-        'degree_program',
-        'degree_level',
-        'format',
-        'number_of_pages',
-        'abstract_document',  // nullable
-        'full_text',         // nullable
-        'abstract_summary',  // nullable
-        'keywords',          // nullable
+    protected $casts = [
+        'researchers' => 'array',
     ];
+
+    protected $guarded = [];
 
     public function record(): BelongsTo
     {

@@ -63,7 +63,32 @@
                     required
                     :value="old('institution', '')"
                 />
+                <x-form-input
+                    name="college"
+                    label="College/department"
+                    placeholder="Enter college/department"
+                    type="text"
+                    required
+                    :value="old('college', '')"
+                />
+                <x-form-input
+                    name="degree_program"
+                    label="Degree program"
+                    placeholder="Enter Degree program"
+                    type="text"
+                    required
+                    :value="old('degree_program', '')"
+                />
+                <x-form-input
+                    name="degree_level"
+                    label="Degree level"
+                    placeholder="Enter Degree level"
+                    type="text"
+                    required
+                    :value="old('degree_level', '')"
+                />
             </div>
+
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>

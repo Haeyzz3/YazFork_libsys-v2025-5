@@ -5,6 +5,7 @@ namespace App\Livewire\Records;
 use App\Models\DdcClassification;
 use App\Models\LcClassification;
 use App\Models\PhysicalLocation;
+use App\Models\Record;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -113,12 +114,15 @@ class ThesisCreate extends Component
                 $abstract_pdf_path = $this->abstract->store('uploads/thesis_abstracts', 'public');
             }
 
-            dd([
+            $record = Record::create([
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
                 'acquisition_status' => $this->acquisition_status,
                 'condition' => $this->condition,
                 'subject_headings' => $this->subject_headings,
+            ]);
+
+            $record->thesis()->create([
                 'researchers' => $this->researchers,
                 'adviser' => $this->adviser,
                 'year' => $this->year,
