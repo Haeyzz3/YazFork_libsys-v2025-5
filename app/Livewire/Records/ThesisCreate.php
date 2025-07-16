@@ -32,6 +32,9 @@ class ThesisCreate extends Component
     public $year = '';
     public $month = '';
     public $institution = '';
+    public $college = '';
+    public $degree_program = '';
+    public $degree_level = '';
     public $call_number = '';
     public $ddc_class_id = '';
     public $lc_class_id = '';
@@ -65,6 +68,9 @@ class ThesisCreate extends Component
             'year' => 'nullable|integer|min:1000|max:' . now()->year,
             'month' => 'nullable|integer|min:1|max:12',
             'institution' => 'nullable|string|max:255',
+            'college' => 'nullable|string|max:255',
+            'degree_program' => 'nullable|string|max:255',
+            'degree_level' => 'nullable|string|max:255',
             'call_number' => 'nullable|string|max:50',
             'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
@@ -128,6 +134,9 @@ class ThesisCreate extends Component
                 'year' => $this->year,
                 'month' => $this->month,
                 'institution' => $this->institution,
+                'college' =>  $this->college,
+                'degree_program' => $this->degree_program,
+                'degree_level' => $this->degree_level,
                 'call_number' => $this->call_number,
                 'ddc_class_id' => $this->ddc_class_id,
                 'lc_class_id' => $this->lc_class_id,
