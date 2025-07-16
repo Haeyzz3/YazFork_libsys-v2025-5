@@ -162,7 +162,7 @@
                         <input
                             type="file"
                             id="pdf"
-                            name="pdf"
+                            name="abstract"
                             wire:model.blur="abstract"
                             accept=".pdf"
                             required
