@@ -18,11 +18,9 @@ class PeriodicalIndex extends Component
         $records = Record::with('periodical')
             ->whereHas('periodical')
             ->when($this->search, function ($query) {
-                $query->where('records.accession_number', 'like', '%' . $this->search . '&')
-                    ->orWhere('title', 'like', '%' .$this->search . '%')
-                    ->orWhere('ddc_classification', 'like', '%' . $this->search . '%')
-                    ->orWhereHas('digitalResource', function ($query) {
-                        $query->where('primary_author', 'like', '%' . $this->search . '%');
+                $query->where('records.title', 'like', '%' . $this->search . '&')
+                    ->orWhereHas('periodical', function ($query) {
+                        $query->where('authors', 'like', '%' . $this->search . '%');
                     });
             })
             ->orderByDesc('created_at')

@@ -118,7 +118,6 @@ class BooksCreate extends Component
     {
         $this->authors[] = '';
     }
-
     public function removeAuthorField($index): void
     {
         if (isset($this->authors[$index])) {
@@ -173,7 +172,6 @@ class BooksCreate extends Component
             ]);
 
             $record->book()->create([
-//                'authors' => array_filter($this->additional_authors, static fn($author) => !empty(trim($author))),
                 'authors' => $this->authors,
                 'editors' => $this->editors,
                 'publication_year' => $this->publication_year,
