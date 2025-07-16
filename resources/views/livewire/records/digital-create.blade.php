@@ -14,7 +14,6 @@
                     required
                     :value="old('accession_number', '')"
                 />
-                @dump($accession_number)
                 <x-form-input
                     name="title"
                     label="Title"
@@ -23,7 +22,6 @@
                     required
                     :value="old('title', '')"
                 />
-                @dump($title)
                 <x-dynamic-input-list
                     label="Author/authors"
                     :items="$authors"
@@ -33,7 +31,6 @@
                     removeMethod="removeAuthorField"
                     addButtonText="Add Author"
                 />
-                @dump($authors)
                 <x-dynamic-input-list
                     label="Editor/editors"
                     :items="$editors"
@@ -43,7 +40,6 @@
                     removeMethod="removeEditorField"
                     addButtonText="Add Editor"
                 />
-                @dump($editors)
                 <x-form-input
                     name="publication_year"
                     label="Year of publication"
@@ -52,7 +48,6 @@
                     required
                     :value="old('publication_year', '')"
                 />
-                @dump($publication_year)
                 <x-form-input
                     name="copyright_year"
                     label="Year of copyright"
@@ -61,7 +56,6 @@
                     required
                     :value="old('copyright_year', '')"
                 />
-                @dump($copyright_year)
                 <x-form-input
                     name="producer"
                     label="Producer"
@@ -70,14 +64,12 @@
                     required
                     :value="old('producer', '')"
                 />
-                @dump($producer)
                 <x-form-select-input
                     wireModel="language"
                     :options="$languages"
                     name="language"
                     label="Language"
                 />
-                @dump($language)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Technical Specifications</h2>
@@ -89,7 +81,6 @@
                     name="collection_type"
                     label="Collection Type"
                 />
-                @dump($collection_type)
                 <x-form-input
                     name="duration"
                     label="Duration"
@@ -97,13 +88,11 @@
                     type="text"
                     :value="old('duration','')"
                 />
-                @dump($duration)
                 <x-form-input-image
                     name="cover_image"
                     label="Profile Image"
                     wrapperClass="sm:col-span-1"
                 />
-                @dump($cover_image)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h2>
@@ -116,7 +105,6 @@
                     label="Source"
                     :required="true"
                 />
-                @dump($source)
                 @if($source === 'purchase')
                     <x-form-input
                         name="purchase_amount"
@@ -125,7 +113,6 @@
                         type="number"
                         :value="old('purchase_amount','')"
                     />
-                    @dump($purchase_amount)
                     <x-form-input
                         name="lot_cost"
                         label="Lot Cost"
@@ -133,14 +120,12 @@
                         type="number"
                         :value="old('lot_cost','')"
                     />
-                    @dump($lot_cost)
                     <x-form-input
                         name="supplier"
                         label="Supplier"
                         placeholder="Enter supplier"
                         :value="old('supplier','')"
                     />
-                    @dump($supplier)
                 @endif
                 @if($source === 'donation')
                     <x-form-input
@@ -149,7 +134,6 @@
                         placeholder="Enter donor"
                         :value="old('donated_by','')"
                     />
-                    @dump($donated_by)
                 @endif
                 <x-form-select-input
                     wireModel="acquisition_status"
@@ -157,14 +141,12 @@
                     name="acquisition_status"
                     label="Acquisition Status"
                 />
-                @dump($acquisition_status)
                 <x-form-select-input
                     wireModel="condition"
                     :options="$conditions"
                     name="condition"
                     label="Condition"
                 />
-                @dump($condition)
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
@@ -176,7 +158,6 @@
                     placeholder="Enter overview"
                     :rows="4"
                 />
-                @dump($overview)
                 <x-dynamic-input-list
                     label="Subject headings"
                     :items="$subject_headings"
@@ -186,7 +167,6 @@
                     removeMethod="removeSubjectHeadingField"
                     addButtonText="Add Subject Heading"
                 />
-                @dump($subject_headings)
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
