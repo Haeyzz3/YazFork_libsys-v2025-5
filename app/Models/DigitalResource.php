@@ -10,19 +10,11 @@ class DigitalResource extends Model
 {
     use hasFactory;
 
-    protected $fillable = [
-        'primary_author',
-        'publication_copyright_year',
-        'publisher_producer',
-        'additional_authors',
-        'editor_producer',
-        'collection_type',
-        'access_method',
-        'file_format',
-        'duration',
-        'resource_cover_thumbnail',
-        'system_requirements',
-        'summary_abstract',
+    protected $guarded = [];
+
+    protected $casts = [
+        'authors' =>  'array',
+        'editors' =>   'array',
     ];
 
     public function record(): BelongsTo

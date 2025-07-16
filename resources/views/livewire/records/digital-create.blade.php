@@ -63,14 +63,14 @@
                 />
                 @dump($copyright_year)
                 <x-form-input
-                    name="publisher"
-                    label="Publisher"
-                    placeholder="Enter publisher"
+                    name="producer"
+                    label="Producer"
+                    placeholder="Enter producer"
                     type="text"
                     required
-                    :value="old('publisher', '')"
+                    :value="old('producer', '')"
                 />
-                @dump($publisher)
+                @dump($producer)
                 <x-form-select-input
                     wireModel="language"
                     :options="$languages"

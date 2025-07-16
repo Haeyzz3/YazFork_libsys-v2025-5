@@ -30,8 +30,8 @@ return new class extends Migration
 
             $table->string('source')->nullable();
             $table->string('donated_by')->nullable();
-            $table->decimal('purchase_amount', 10, 2)->nullable();
-            $table->decimal('lot_cost', 10, 2)->nullable();
+            $table->string('purchase_amount', 10)->nullable();
+            $table->string('lot_cost', 10)->nullable();
             $table->string('supplier')->nullable();
 
             $table->text('overview')->nullable();

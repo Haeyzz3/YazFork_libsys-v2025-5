@@ -168,9 +168,8 @@ class BooksCreate extends Component
             $this->validate();
 
             $cover_image_path = null;
-
             if ($this->cover_image) {
-                $cover_image_path = $this->cover_image->store('uploads', 'public');
+                $cover_image_path = $this->cover_image->store('uploads/book_covers', 'public');
             }
 
             $record = Record::create([
@@ -220,7 +219,7 @@ class BooksCreate extends Component
             $this->reset();
             $this->resetValidation();
 
-            session()->flash('success', 'Book added successfully!');
+            session()->flash('success', 'Record added successfully!');
             return redirect()->route('books.index');
 
         } catch (\Illuminate\Database\QueryException $e) {
