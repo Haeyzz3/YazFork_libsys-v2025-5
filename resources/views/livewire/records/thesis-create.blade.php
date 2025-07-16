@@ -120,7 +120,14 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-                file upload ni diri sa abstract
+                <input
+                    type="file"
+                    id="pdf"
+                    name="pdf"
+                    wire:model="abstract"
+                    accept=".pdf"
+                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100"
+                >
                 <x-dynamic-input-list
                     label="Subject headings"
                     :items="$subject_headings"

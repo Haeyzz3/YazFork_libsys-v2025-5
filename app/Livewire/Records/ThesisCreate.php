@@ -35,6 +35,7 @@ class ThesisCreate extends Component
     public $ddc_class_id = '';
     public $lc_class_id = '';
     public $physical_location_id = '';
+    public $abstract;
 
     public function mount()
     {
@@ -67,6 +68,7 @@ class ThesisCreate extends Component
             'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
             'physical_location_id' => 'nullable|exists:physical_locations,id',
+            'abstract' => 'required|file|mimes:pdf|max:10240', // Example: max 10MB
         ];
     }
 
@@ -105,6 +107,24 @@ class ThesisCreate extends Component
         try {
 
             $this->validate();
+
+            dd([
+                'accession_number' => $this->accession_number,
+                'title' => $this->title,
+                'acquisition_status' => $this->acquisition_status,
+                'condition' => $this->condition,
+                'subject_headings' => $this->subject_headings,
+                'researchers' => $this->researchers,
+                'adviser' => $this->adviser,
+                'year' => $this->year,
+                'month' => $this->month,
+                'institution' => $this->institution,
+                'call_number' => $this->call_number,
+                'ddc_class_id' => $this->ddc_class_id,
+                'lc_class_id' => $this->lc_class_id,
+                'physical_location_id' => $this->physical_location_id,
+                'abstract' => $this->abstract,
+            ]);
 
             $this->reset();
             $this->resetValidation();
