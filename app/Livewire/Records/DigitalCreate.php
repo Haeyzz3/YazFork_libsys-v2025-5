@@ -53,8 +53,8 @@ class DigitalCreate extends Component
     public $duration = '';
     public $cover_image = '';
     public $source = '';
-    public $purchase_amount = 0;
-    public $lot_cost = 0;
+    public $purchase_amount = '';
+    public $lot_cost = '';
     public $supplier = '';
     public $donated_by = '';
     public $acquisition_status = '';
@@ -110,9 +110,6 @@ class DigitalCreate extends Component
                 $cover_image_path = $this->cover_image->store('uploads/multimedia_covers', 'public');
             }
 
-            $purchase_amount = 'PHP ' . number_format($this->purchase_amount, 2);
-            $lot_cost = 'PHP ' . number_format($this->lot_cost, 2);
-
             $record = Record::create([
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
@@ -134,8 +131,8 @@ class DigitalCreate extends Component
                 'duration' =>  $this->duration,
                 'cover_image' =>  $cover_image_path,
                 'source' =>  $this->source,
-                'purchase_amount' => $purchase_amount,
-                'lot_cost' => $lot_cost,
+                'purchase_amount' => $this->purchase_amount,
+                'lot_cost' => $this->lot_cost,
                 'supplier' =>  $this->supplier,
                 'donated_by' =>  $this->donated_by,
                 'overview' =>  $this->overview,
