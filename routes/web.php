@@ -63,7 +63,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::put('records/digital/{record}', [DigitalResourceController::class, 'update'])->name('digital.update');
     Route::delete('records/digital/{record}', [DigitalResourceController::class, 'destroy'])->name('digital.destroy');
     // periodicals
-    Route::get('records/periodicals', [PeriodicalController::class, 'index'])->name('periodicals.index');
+    Route::get('records/periodicals', \App\Livewire\Records\PeriodicalIndex::class)->name('periodicals.index');
     Route::get('records/periodicals/create', [PeriodicalController::class, 'create'])->name('periodicals.create');
     Route::post('records/periodicals/', [PeriodicalController::class, 'store'])->name('periodicals.store');
     Route::get('records/periodicals/{record}', [PeriodicalController::class, 'show'])->name('periodicals.show');

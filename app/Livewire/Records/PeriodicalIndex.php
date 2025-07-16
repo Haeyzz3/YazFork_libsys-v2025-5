@@ -6,7 +6,7 @@ use App\Models\Record;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class DigitalIndex extends Component
+class PeriodicalIndex extends Component
 {
     use WithPagination;
 
@@ -15,8 +15,8 @@ class DigitalIndex extends Component
 
     public function render()
     {
-        $records = Record::with('digitalResource')
-            ->whereHas('digitalResource')
+        $records = Record::with('periodical')
+            ->whereHas('periodical')
             ->when($this->search, function ($query) {
                 $query->where('records.accession_number', 'like', '%' . $this->search . '&')
                     ->orWhere('title', 'like', '%' .$this->search . '%')
@@ -28,8 +28,8 @@ class DigitalIndex extends Component
             ->orderByDesc('created_at')
             ->paginate($this->perPage);
 
-        return view('livewire.records.digital-index', [
+        return view('livewire.records.periodical-index', [
             'records' => $records,
-        ])->layout('components.layouts.records', ['headingTitle'=>'Manage Multimedia Collections']);
+        ])->layout('components.layouts.records', ['headingTitle' => 'Manage Periodicals/Magazines']);
     }
 }
