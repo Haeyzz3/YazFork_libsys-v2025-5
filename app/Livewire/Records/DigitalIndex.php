@@ -27,6 +27,7 @@ class DigitalIndex extends Component
             })
             ->orderByDesc('created_at')
             ->paginate($this->perPage);
+
         return view('livewire.records.digital-index', [
             'records' => $records,
         ])->layout('components.layouts.records', ['headingTitle'=>'Manage Multimedia Collections']);

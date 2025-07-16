@@ -6,10 +6,6 @@ use App\Http\Controllers\DigitalResourceController;
 use App\Http\Controllers\PatronController;
 use App\Http\Controllers\PeriodicalController;
 use App\Http\Controllers\ThesisController;
-use App\Livewire\Records\BooksCreate;
-use App\Livewire\Records\BooksIndex;
-use App\Livewire\Records\DigitalCreate;
-use App\Livewire\Records\DigitalIndex;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -48,23 +44,23 @@ Route::middleware(['auth', 'verified', 'permission:manage_patrons'])->group(func
 
 Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(function () {
     // books
-    Route::get('records/books', BooksIndex::class)->name('books.index');
-    Route::get('records/books/create', BooksCreate::class)->name('books.create');
+    Route::get('records/books', \App\Livewire\Records\BooksIndex::class)->name('books.index');
+    Route::get('records/books/create', \App\Livewire\Records\BooksCreate::class)->name('books.create');
     Route::get('records/books/{record}', [BookController::class, 'show'])->name('books.show');
     Route::get('records/books/{record}/edit', [BookController::class, 'edit'])->name('books.edit');
     Route::put('records/books/{record}', [BookController::class, 'update'])->name('books.update');
     Route::delete('records/books/{record}', [BookController::class, 'destroy'])->name('books.destroy');
     // e-collections
-    Route::get('records/digital', DigitalIndex::class)->name('digital.index');
-    Route::get('records/digital/create', DigitalCreate::class)->name('digital.create');
+    Route::get('records/digital', \App\Livewire\Records\DigitalIndex::class)->name('digital.index');
+    Route::get('records/digital/create', \App\Livewire\Records\DigitalCreate::class)->name('digital.create');
     Route::post('records/digital', [DigitalResourceController::class, 'store'])->name('digital.store');
     Route::get('records/digital/{record}', [DigitalResourceController::class, 'show'])->name('digital.show');
     Route::get('records/digital/{record}/edit', [DigitalResourceController::class, 'edit'])->name('digital.edit');
     Route::put('records/digital/{record}', [DigitalResourceController::class, 'update'])->name('digital.update');
     Route::delete('records/digital/{record}', [DigitalResourceController::class, 'destroy'])->name('digital.destroy');
     // periodicals
-    Route::get('records/periodicals', [PeriodicalController::class, 'index'])->name('periodicals.index');
-    Route::get('records/periodicals/create', [PeriodicalController::class, 'create'])->name('periodicals.create');
+    Route::get('records/periodicals', \App\Livewire\Records\PeriodicalIndex::class)->name('periodicals.index');
+    Route::get('records/periodicals/create', \App\Livewire\Records\PeriodicalCreate::class)->name('periodicals.create');
     Route::post('records/periodicals/', [PeriodicalController::class, 'store'])->name('periodicals.store');
     Route::get('records/periodicals/{record}', [PeriodicalController::class, 'show'])->name('periodicals.show');
     Route::get('records/periodicals/{record}/edit', [PeriodicalController::class, 'edit'])->name('periodicals.edit');

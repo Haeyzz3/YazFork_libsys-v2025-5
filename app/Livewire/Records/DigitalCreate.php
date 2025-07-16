@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Records;
 
+use App\Models\Record;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -32,7 +33,7 @@ class DigitalCreate extends Component
         'processing' => 'Processing',
     ];
     public $conditions = [
-        'excellent' => 'Available',
+        'excellent' => 'Excellent',
         'good' => 'Good',
         'fair' => 'Fair',
         'poor' => 'Poor',
@@ -46,7 +47,7 @@ class DigitalCreate extends Component
     public $editors = [''];
     public $publication_year = '';
     public $copyright_year = '';
-    public $publisher = '';
+    public $producer = '';
     public $language = '';
     public $collection_type = '';
     public $duration = '';
@@ -76,7 +77,7 @@ class DigitalCreate extends Component
             'editors.*' => 'string|max:100',
             'publication_year' => 'nullable|integer|min:1000|max:' . now()->year,
             'copyright_year' => 'nullable|integer|min:1000|max:' . now()->year,
-            'publisher' => 'nullable|string|max:255',
+            'producer' => 'nullable|string|max:255',
             'language' => 'nullable|string|max:100',
             'collection_type' => 'nullable|string|max:100',
             'duration' => 'nullable|string|max:50',
@@ -103,6 +104,45 @@ class DigitalCreate extends Component
         try {
 
             $this->validate();
+
+            $cover_image_path = null;
+            if ($this->cover_image) {
+                $cover_image_path = $this->cover_image->store('uploads/multimedia_covers', 'public');
+            }
+
+            $record = Record::create([
+                'accession_number' => $this->accession_number,
+                'title' => $this->title,
+                'acquisition_status' => $this->acquisition_status,
+                'condition' => $this->condition,
+                'subject_headings' => $this->subject_headings,
+
+                'added_by' => auth()->user()->id,
+            ]);
+
+            $record->digitalResource()->create([
+                'authors' =>  $this->authors,
+                'editors' =>  $this->editors,
+                'publication_year' =>  $this->publication_year,
+                'copyright_year' =>  $this->copyright_year,
+                'producer' =>  $this->producer,
+                'language' =>  $this->language,
+                'collection_type' =>  $this->collection_type,
+                'duration' =>  $this->duration,
+                'cover_image' =>  $cover_image_path,
+                'source' =>  $this->source,
+                'purchase_amount' => $this->purchase_amount,
+                'lot_cost' => $this->lot_cost,
+                'supplier' =>  $this->supplier,
+                'donated_by' =>  $this->donated_by,
+                'overview' =>  $this->overview,
+            ]);
+
+            $this->reset();
+            $this->resetValidation();
+
+            session()->flash('success', 'Record created successfully.');
+            return redirect()->route('digital.index');
 
         } catch (\Illuminate\Database\QueryException $e) {
             // Handle database-specific errors
@@ -167,6 +207,7 @@ class DigitalCreate extends Component
 
     public function render()
     {
-        return view('livewire.records.digital-create')->layout('components.layouts.records', ['headingTitle' => 'Add Multimedia']);
+        return view('livewire.records.digital-create')
+            ->layout('components.layouts.records', ['headingTitle' => 'Add Multimedia']);
     }
 }

@@ -17,7 +17,6 @@ return new class extends Migration
 
             $table->json('authors')->nullable();
             $table->json('editors')->nullable();
-            $table->string('month')->nullable();
             $table->year('publication_year')->nullable();
             $table->string('publication_month')->nullable();
             $table->string('publisher')->nullable();
@@ -26,18 +25,18 @@ return new class extends Migration
             $table->string('issn')->nullable()->unique();
             $table->string('series_title')->nullable();
 
+            $table->string('call_number')->nullable();
             $table->foreignId('ddc_class_id')->nullable()
                 ->constrained('ddc_classifications')->onDelete('set null');
             $table->foreignId('lc_class_id')->nullable()
                 ->constrained('lc_classifications')->onDelete('set null');
-            $table->string('call_number')->nullable();
 
             $table->string('cover_image')->nullable();
 
             $table->string('source')->nullable();
             $table->string('donated_by')->nullable();
-            $table->decimal('purchase_amount', 10, 2)->nullable();
-            $table->decimal('lot_cost', 10, 2)->nullable();
+            $table->string('purchase_amount', 10)->nullable();
+            $table->string('lot_cost', 10)->nullable();
             $table->string('supplier')->nullable();
 
             $table->timestamps();

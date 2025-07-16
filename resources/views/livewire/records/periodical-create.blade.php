@@ -7,14 +7,6 @@
             <h2 class="text-base font-semibold leading-7 text-gray-900">Basic Information</h2>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <x-form-input
-                    name="accession_number"
-                    label="Accession Number"
-                    placeholder="Enter accession number"
-                    type="text"
-                    required
-                    :value="old('accession_number', '')"
-                />
-                <x-form-input
                     name="title"
                     label="Title"
                     placeholder="Enter title"
@@ -49,45 +41,86 @@
                     :value="old('publication_year', '')"
                 />
                 <x-form-input
-                    name="copyright_year"
-                    label="Year of copyright"
-                    placeholder="Enter year of copyright"
-                    type="number"
-                    required
-                    :value="old('copyright_year', '')"
-                />
-                <x-form-input
-                    name="producer"
-                    label="Producer"
-                    placeholder="Enter producer"
+                    name="publication_month"
+                    label="Month of publication"
+                    placeholder="Enter month of publication"
                     type="text"
                     required
-                    :value="old('producer', '')"
+                    :value="old('publication_month', '')"
                 />
-                <x-form-select-input
-                    wireModel="language"
-                    :options="$languages"
-                    name="language"
-                    label="Language"
+                <x-form-input
+                    name="publisher"
+                    label="Publisher"
+                    placeholder="Enter publisher"
+                    type="text"
+                    required
+                    :value="old('publisher', '')"
+                />
+                <x-form-input
+                    name="volume_number"
+                    label="Volume number"
+                    placeholder="Enter volume number"
+                    type="text"
+                    required
+                    :value="old('volume_number', '')"
+                />
+                <x-form-input
+                    name="issue_number"
+                    label="Issue number"
+                    placeholder="Enter issue number"
+                    type="text"
+                    required
+                    :value="old('issue_number', '')"
+                />
+                <x-form-input
+                    name="issn"
+                    label="ISSN"
+                    placeholder="Enter issn"
+                    type="text"
+                    required
+                    :value="old('issn', '')"
+                />
+                <x-form-input
+                    name="series_title"
+                    label="Series title"
+                    placeholder="Enter series title"
+                    type="text"
+                    required
+                    :value="old('series_title', '')"
                 />
             </div>
             <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Technical Specifications</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-                <x-form-select-input
-                    wireModel="collection_type"
-                    :options="$collection_types"
-                    name="collection_type"
-                    label="Collection Type"
-                />
                 <x-form-input
-                    name="duration"
-                    label="Duration"
-                    placeholder="e.g 120 mins"
+                    name="call_number"
+                    label="Call Number"
+                    placeholder="Enter call number"
                     type="text"
-                    :value="old('duration','')"
+                    :value="old('call_number', '')"
                 />
+                @if(!$lc_class_id)
+                    <x-form-select-input
+                        wireModel="ddc_class_id"
+                        :options="$ddc_classifications"
+                        name="ddc_class_id"
+                        label="DDC Classification"
+                    />
+                @endif
+                @if(!$ddc_class_id)
+                    <x-form-select-input
+                        wireModel="lc_class_id"
+                        :options="$lc_classifications"
+                        name="lc_class_id"
+                        label="LC Classification"
+                    />
+                @endif
+            </div>
+            <div>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
+            </div>
+            <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 <x-form-input-image
                     name="cover_image"
                     label="Profile Image"
@@ -152,12 +185,6 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-                <x-form-text-area-input
-                    name="overview"
-                    label="Overview"
-                    placeholder="Enter overview"
-                    :rows="4"
-                />
                 <x-dynamic-input-list
                     label="Subject headings"
                     :items="$subject_headings"
@@ -173,7 +200,7 @@
             <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
             <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 <span wire:loading wire:target="submit">Saving...</span>
-                <span wire:loading.remove wire:target="submit">Add Multimedia</span>
+                <span wire:loading.remove wire:target="submit">Add Periodical/Magazine</span>
             </button>
         </div>
     </form>
