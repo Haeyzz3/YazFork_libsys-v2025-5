@@ -6,194 +6,121 @@
         <div class="space-y-8">
             <h2 class="text-base font-semibold leading-7 text-gray-900">Basic Information</h2>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-form-input--}}
-{{--                    name="title"--}}
-{{--                    label="Title"--}}
-{{--                    placeholder="Enter title"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-{{--                    :value="old('title', '')"--}}
-{{--                />--}}
-{{--                <x-dynamic-input-list--}}
-{{--                    label="Author/authors"--}}
-{{--                    :items="$authors"--}}
-{{--                    fieldName="authors"--}}
-{{--                    placeholder="Enter author"--}}
-{{--                    addMethod="addAuthorField"--}}
-{{--                    removeMethod="removeAuthorField"--}}
-{{--                    addButtonText="Add Author"--}}
-{{--                />--}}
-{{--                <x-dynamic-input-list--}}
-{{--                    label="Editor/editors"--}}
-{{--                    :items="$editors"--}}
-{{--                    fieldName="editors"--}}
-{{--                    placeholder="Enter editor"--}}
-{{--                    addMethod="addEditorField"--}}
-{{--                    removeMethod="removeEditorField"--}}
-{{--                    addButtonText="Add Editor"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="publication_year"--}}
-{{--                    label="Year of publication"--}}
-{{--                    placeholder="Enter year of publication"--}}
-{{--                    type="number"--}}
-{{--                    required--}}
-{{--                    :value="old('publication_year', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="publication_month"--}}
-{{--                    label="Month of publication"--}}
-{{--                    placeholder="Enter month of publication"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-{{--                    :value="old('publication_month', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="publisher"--}}
-{{--                    label="Publisher"--}}
-{{--                    placeholder="Enter publisher"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-{{--                    :value="old('publisher', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="volume_number"--}}
-{{--                    label="Volume number"--}}
-{{--                    placeholder="Enter volume number"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-{{--                    :value="old('volume_number', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="issue_number"--}}
-{{--                    label="Issue number"--}}
-{{--                    placeholder="Enter issue number"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-{{--                    :value="old('issue_number', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="issn"--}}
-{{--                    label="ISSN"--}}
-{{--                    placeholder="Enter issn"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-{{--                    :value="old('issn', '')"--}}
-{{--                />--}}
-{{--                <x-form-input--}}
-{{--                    name="series_title"--}}
-{{--                    label="Series title"--}}
-{{--                    placeholder="Enter series title"--}}
-{{--                    type="text"--}}
-{{--                    required--}}
-{{--                    :value="old('series_title', '')"--}}
-{{--                />--}}
+                <x-form-input
+                    name="accession_number"
+                    label="Accession Number"
+                    placeholder="Enter accession number"
+                    type="text"
+                    required
+                    :value="old('accession_number', '')"
+                />
+                <x-form-input
+                    name="title"
+                    label="Title"
+                    placeholder="Enter title"
+                    type="text"
+                    required
+                    :value="old('title', '')"
+                />
+                <x-dynamic-input-list
+                    label="Researcher/s"
+                    :items="$researchers"
+                    fieldName="researchers"
+                    placeholder="Enter researcher/s"
+                    addMethod="addResearcherField"
+                    removeMethod="removeResearcherField"
+                    addButtonText="Add Researcher"
+                />
+                <x-form-input
+                    name="adviser"
+                    label="Adviser"
+                    placeholder="Enter adviser"
+                    type="text"
+                    required
+                    :value="old('adviser', '')"
+                />
+                <x-form-input
+                    name="year"
+                    label="Year"
+                    placeholder="Enter year"
+                    type="number"
+                    required
+                    :value="old('year', '')"
+                />
+                <x-form-input
+                    name="month"
+                    label="Month"
+                    placeholder="Enter month"
+                    type="text"
+                    required
+                    :value="old('month', '')"
+                />
+                <x-form-input
+                    name="institution"
+                    label="Institution/school"
+                    placeholder="Enter institution/school"
+                    type="text"
+                    required
+                    :value="old('institution', '')"
+                />
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-form-input--}}
-{{--                    name="call_number"--}}
-{{--                    label="Call Number"--}}
-{{--                    placeholder="Enter call number"--}}
-{{--                    type="text"--}}
-{{--                    :value="old('call_number', '')"--}}
-{{--                />--}}
-{{--                @if(!$lc_class_id)--}}
-{{--                    <x-form-select-input--}}
-{{--                        wireModel="ddc_class_id"--}}
-{{--                        :options="$ddc_classifications"--}}
-{{--                        name="ddc_class_id"--}}
-{{--                        label="DDC Classification"--}}
-{{--                    />--}}
-{{--                @endif--}}
-{{--                @if(!$ddc_class_id)--}}
-{{--                    <x-form-select-input--}}
-{{--                        wireModel="lc_class_id"--}}
-{{--                        :options="$lc_classifications"--}}
-{{--                        name="lc_class_id"--}}
-{{--                        label="LC Classification"--}}
-{{--                    />--}}
-{{--                @endif--}}
-            </div>
-            <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
-            </div>
-            <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-form-input-image--}}
-{{--                    name="cover_image"--}}
-{{--                    label="Profile Image"--}}
-{{--                    wrapperClass="sm:col-span-1"--}}
-{{--                />--}}
+                <x-form-input
+                    name="call_number"
+                    label="Call Number"
+                    placeholder="Enter call number"
+                    type="text"
+                    :value="old('call_number', '')"
+                />
+                @if(!$lc_class_id)
+                    <x-form-select-input
+                        wireModel="ddc_class_id"
+                        :options="$ddc_classifications"
+                        name="ddc_class_id"
+                        label="DDC Classification"
+                    />
+                @endif
+                @if(!$ddc_class_id)
+                    <x-form-select-input
+                        wireModel="lc_class_id"
+                        :options="$lc_classifications"
+                        name="lc_class_id"
+                        label="LC Classification"
+                    />
+                @endif
+                <x-form-select-input
+                    wireModel="physical_location_id"
+                    :options="$physical_locations"
+                    name="physical_location_id"
+                    label="Physical Location"
+                    required
+                />
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Administrative Information</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
-{{--                <x-form-select-input--}}
-{{--                    wireModel="source"--}}
-{{--                    :options="$sources"--}}
-{{--                    name="source"--}}
-{{--                    label="Source"--}}
-{{--                    :required="true"--}}
-{{--                />--}}
-{{--                @if($source === 'purchase')--}}
-{{--                    <x-form-input--}}
-{{--                        name="purchase_amount"--}}
-{{--                        label="Purchase Amount"--}}
-{{--                        placeholder="Enter purchase amount"--}}
-{{--                        type="number"--}}
-{{--                        :value="old('purchase_amount','')"--}}
-{{--                    />--}}
-{{--                    <x-form-input--}}
-{{--                        name="lot_cost"--}}
-{{--                        label="Lot Cost"--}}
-{{--                        placeholder="Enter lot cost"--}}
-{{--                        type="number"--}}
-{{--                        :value="old('lot_cost','')"--}}
-{{--                    />--}}
-{{--                    <x-form-input--}}
-{{--                        name="supplier"--}}
-{{--                        label="Supplier"--}}
-{{--                        placeholder="Enter supplier"--}}
-{{--                        :value="old('supplier','')"--}}
-{{--                    />--}}
-{{--                @endif--}}
-{{--                @if($source === 'donation')--}}
-{{--                    <x-form-input--}}
-{{--                        name="donated_by"--}}
-{{--                        label="Donated By"--}}
-{{--                        placeholder="Enter donor"--}}
-{{--                        :value="old('donated_by','')"--}}
-{{--                    />--}}
-{{--                @endif--}}
-{{--                <x-form-select-input--}}
-{{--                    wireModel="acquisition_status"--}}
-{{--                    :options="$acquisition_statuses"--}}
-{{--                    name="acquisition_status"--}}
-{{--                    label="Acquisition Status"--}}
-{{--                />--}}
-{{--                <x-form-select-input--}}
-{{--                    wireModel="condition"--}}
-{{--                    :options="$conditions"--}}
-{{--                    name="condition"--}}
-{{--                    label="Condition"--}}
-{{--                />--}}
+                <x-form-select-input
+                    wireModel="acquisition_status"
+                    :options="$acquisition_statuses"
+                    name="acquisition_status"
+                    label="Acquisition Status"
+                />
+                <x-form-select-input
+                    wireModel="condition"
+                    :options="$conditions"
+                    name="condition"
+                    label="Condition"
+                />
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Content Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-{{--                <x-dynamic-input-list--}}
-{{--                    label="Subject headings"--}}
-{{--                    :items="$subject_headings"--}}
-{{--                    fieldName="subject_headings"--}}
-{{--                    placeholder="Enter subject heading"--}}
-{{--                    addMethod="addSubjectHeadingField"--}}
-{{--                    removeMethod="removeSubjectHeadingField"--}}
-{{--                    addButtonText="Add Subject Heading"--}}
-{{--                />--}}
+                file upload ni diri sa abstract
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
