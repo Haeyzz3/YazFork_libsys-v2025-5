@@ -121,6 +121,15 @@
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
                 file upload ni diri sa abstract
+                <x-dynamic-input-list
+                    label="Subject headings"
+                    :items="$subject_headings"
+                    fieldName="subject_headings"
+                    placeholder="Enter subject heading"
+                    addMethod="addSubjectHeadingField"
+                    removeMethod="removeSubjectHeadingField"
+                    addButtonText="Add Subject Heading"
+                />
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">

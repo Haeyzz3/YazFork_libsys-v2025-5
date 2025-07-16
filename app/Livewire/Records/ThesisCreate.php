@@ -20,6 +20,7 @@ class ThesisCreate extends Component
     public $acquisition_statuses = [];
     public $conditions = [];
 
+    public $accession_number = '';
     public $title = '';
     public $acquisition_status = '';
     public $condition = '';
@@ -44,6 +45,88 @@ class ThesisCreate extends Component
         $this->sources = DB::table('sources')->pluck('label', 'key')->toArray();
         $this->acquisition_statuses = DB::table('acquisition_statuses')->pluck('label', 'key')->toArray();
         $this->conditions = DB::table('conditions')->pluck('label', 'key')->toArray();
+    }
+
+    public function rules()
+    {
+        return [
+            // Records fields
+            'accession_number' => 'required|string|max:50',
+            'title' => 'required|string|max:255',
+            'acquisition_status' => 'nullable|string|max:50',
+            'condition' => 'nullable|string|max:100',
+            'subject_headings.*' => 'nullable|string|max:100',
+
+            // Thesis/dissertation-specific fields
+            'researchers.*' => 'required|string|max:100',
+            'adviser' => 'nullable|string|max:100',
+            'year' => 'nullable|integer|min:1000|max:' . now()->year,
+            'month' => 'nullable|integer|min:1|max:12',
+            'institution' => 'nullable|string|max:255',
+            'call_number' => 'nullable|string|max:50',
+            'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
+            'lc_class_id' => 'nullable|exists:lc_classifications,id',
+            'physical_location_id' => 'nullable|exists:physical_locations,id',
+        ];
+    }
+
+    public function updated($propertyName): void
+    {
+        $this->validateOnly($propertyName);
+        $this->resetValidation($propertyName);
+    }
+
+    public function addResearcherField(): void
+    {
+        $this->researchers[] = '';
+    }
+    public function removeResearcherField($index): void
+    {
+        if (isset($this->researchers[$index])) {
+            unset($this->researchers[$index]);
+            $this->researchers = array_values($this->researchers);
+        }
+    }
+
+    public function addSubjectHeadingField(): void
+    {
+        $this->subject_headings[] = '';
+    }
+    public function removeSubjectHeadingField($index): void
+    {
+        if (isset($this->subject_headings[$index])) {
+            unset($this->subject_headings[$index]);
+            $this->subject_headings = array_values($this->subject_headings);
+        }
+    }
+
+    public function submit()
+    {
+        try {
+
+            $this->validate();
+
+            $this->reset();
+            $this->resetValidation();
+
+            // create here
+
+            session()->flash('success', 'Record created successfully.');
+            return redirect()->route('thesis.index');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle database-specific errors
+            $message = app()->environment('production')
+                ? 'Failed to add record. Please try again.'
+                : 'Failed to add record: ' . $e->getMessage();
+            session()->flash('error', $message);
+        } catch (\Exception $e) {
+            // Handle any other unexpected errors
+            $message = app()->environment('production')
+                ? 'An unexpected error occurred. Please try again.'
+                : 'An unexpected error occurred: ' . $e->getMessage();
+            session()->flash('error', $message);
+        }
     }
 
     public function render()
