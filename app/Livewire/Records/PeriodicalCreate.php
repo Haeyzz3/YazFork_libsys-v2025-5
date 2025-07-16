@@ -121,7 +121,7 @@ class PeriodicalCreate extends Component
     }
     public function removeSubjectHeadingField($index): void
     {
-        if (isset($this->additional_authors[$index])) {
+        if (isset($this->subject_headings[$index])) {
             unset($this->subject_headings[$index]);
             $this->subject_headings = array_values($this->subject_headings);
         }

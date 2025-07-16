@@ -67,8 +67,8 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::put('records/periodicals/{record}', [PeriodicalController::class, 'update'])->name('periodicals.update');
     Route::delete('records/periodicals/{record}', [PeriodicalController::class, 'destroy'])->name('periodicals.destroy');
     // thesis
-    Route::get('records/thesis', [ThesisController::class, 'index'])->name('thesis.index');
-    Route::get('records/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
+    Route::get('records/thesis', \App\Livewire\Records\ThesisIndex::class)->name('thesis.index');
+    Route::get('records/thesis/create', \App\Livewire\Records\ThesisCreate::class)->name('thesis.create');
     Route::post('records/thesis', [ThesisController::class, 'store'])->name('thesis.store');
     Route::get('records/thesis/{record}', [ThesisController::class, 'show'])->name('thesis.show');
     Route::get('records/thesis/{record}/edit', [ThesisController::class, 'edit'])->name('thesis.edit');
