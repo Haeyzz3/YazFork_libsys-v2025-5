@@ -108,6 +108,11 @@ class ThesisCreate extends Component
 
             $this->validate();
 
+            $abstract_pdf_path = null;
+            if ($this->abstract) {
+                $abstract_pdf_path = $this->abstract->store('uploads/thesis_abstracts', 'public');
+            }
+
             dd([
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
@@ -123,7 +128,7 @@ class ThesisCreate extends Component
                 'ddc_class_id' => $this->ddc_class_id,
                 'lc_class_id' => $this->lc_class_id,
                 'physical_location_id' => $this->physical_location_id,
-                'abstract' => $this->abstract,
+                'abstract' => $abstract_pdf_path,
             ]);
 
             $this->reset();
