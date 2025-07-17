@@ -1,4 +1,7 @@
 <div>
+
+    <x-flash-messenger/>
+
     <div class="flex justify-between items-center w-full sm:w-auto">
         <!-- Search bar -->
         <div class="flex-1 sm:flex-none">
@@ -23,7 +26,7 @@
                 type="button"
                 class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-                Import Book
+                Import Books
             </button>
         </div>
     </div>
@@ -85,9 +88,13 @@
                 <input
                     type="file"
                     name="import_csv"
-                    wire:model.blur="import_csv"
+                    wire:model.live="import_csv"
                     accept=".csv"
+                    required
                 >
+                @error('import_csv')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mt-6 flex items-center justify-end gap-x-6">

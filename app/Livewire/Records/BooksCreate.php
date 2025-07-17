@@ -236,6 +236,7 @@ class BooksCreate extends Component
 
     public function render()
     {
-        return view('livewire.records.books-create')->layout('components.layouts.records', ['headingTitle' => 'Add Book']);
+        return view('livewire.records.books-create')
+            ->layout('components.layouts.records', ['headingTitle' => 'Add Book']);
     }
 }
