@@ -113,7 +113,7 @@ class BooksIndex extends Component
                         ];
 
                         // Validate required fields
-                        if (empty($book_data['title']) || empty($book_data['author'])) {
+                        if (empty($record_data['title']) || empty($book_data['authors'])) {
                             $failed_count++;
                             $errors[] = "Row " . ($row_index + 2) . ": Title and Author are required";
                             continue;
@@ -134,7 +134,7 @@ class BooksIndex extends Component
 
                         // Create the book record
                         $record = Record::create($record_data);
-                        $record->book()::create($book_data);
+                        $record->book()->create($book_data);
                         $imported_count++;
 
                     } catch (\Exception $e) {
@@ -153,8 +153,6 @@ class BooksIndex extends Component
                 if ($failed_count > 0) {
                     $success_message .= " {$failed_count} row(s) failed.";
                 }
-
-
 
                 if (!empty($errors)) {
                     session()->flash('import_errors', $errors);
