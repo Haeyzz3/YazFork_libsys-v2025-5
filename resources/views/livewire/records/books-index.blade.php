@@ -1,4 +1,7 @@
 <div>
+
+    <x-flash-messenger/>
+
     <div class="flex justify-between items-center w-full sm:w-auto">
         <!-- Search bar -->
         <div class="flex-1 sm:flex-none">
@@ -9,14 +12,23 @@
                 class="block w-full sm:w-74 rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
         </div>
-        <a href="{{ route('books.create') }}">
+        <div class="flex gap-2">
+            <a href="{{ route('books.create') }}">
+                <button
+                    type="button"
+                    class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                    Add book
+                </button>
+            </a>
             <button
+                wire:click="openModal"
                 type="button"
                 class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-                Add book
+                Import Books
             </button>
-        </a>
+        </div>
     </div>
 
     <div id="books-table" class="mt-8 flow-root">
@@ -62,4 +74,40 @@
     <div class="py-8">
         {{ $records->links() }}
     </div>
+
+    <x-modal>
+        hi I'm in the modal
+        <br>
+
+        diri mo mag import ug books
+        <br>
+        naay modal diri kay i orient sa tika na dapat csv then ang mga columns nimo is dapat ing-ani ug format
+        <form wire:submit.prevent="submit" enctype="multipart/form-data">
+
+            <div class="mt-2">
+                <input
+                    type="file"
+                    name="import_csv"
+                    wire:model.live="import_csv"
+                    accept=".csv"
+                    required
+                >
+                @error('import_csv')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                <button
+                    type="submit"
+                    class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                    <span wire:loading wire:target="submit">Importing...</span>
+                    <span wire:loading.remove wire:target="submit">Proceed Import</span>
+                </button>
+            </div>
+        </form>
+
+    </x-modal>
 </div>
