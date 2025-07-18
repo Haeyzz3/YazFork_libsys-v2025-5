@@ -37,4 +37,9 @@ class Record extends Model
     {
         return $this->hasOne(Thesis::class);
     }
+
+    public function remarks()
+    {
+        return $this->hasMany(Remark::class);
+    }
 }
