@@ -20,7 +20,7 @@ class PhysicalLocationSeeder extends Seeder
             ['symbol' => 'Gr', 'name' => 'General References'],
             ['symbol' => 'Gs', 'name' => 'Graduate School'],
             ['symbol' => 'Gs./Fil.', 'name' => 'Graduate School/Filipiniana'],
-            ['name' => 'PCARRD'],
+            ['symbol' => '', 'name' => 'PCARRD'],
             ['symbol' => 'Res', 'name' => 'Reserve'],
         ];
 

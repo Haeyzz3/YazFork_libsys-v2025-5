@@ -13,13 +13,17 @@ class CoverTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        CoverType::create([
+        $coverTypes = [
             ['key' => 'book_bind', 'name' => 'Book Bind'],
             ['key' => 'flip_chart', 'name' => 'Flip Chart'],
             ['key' => 'hard_book', 'name' => 'Hardback'],
             ['key' => 'hardbound', 'name' => 'Hardbound'],
-            ['key' => 'hardbound', 'name' => 'Journal'],
-            ['key' => 'hardbound', 'name' => 'Paperback'],
-        ]);
+            ['key' => 'journal', 'name' => 'Journal'], // Fixed duplicate key issue
+            ['key' => 'paperback', 'name' => 'Paperback'], // Fixed duplicate key issue
+        ];
+
+        foreach ($coverTypes as $coverType) {
+            CoverType::create($coverType);
+        }
     }
 }

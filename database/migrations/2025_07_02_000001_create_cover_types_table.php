@@ -17,13 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
-        // cover_types table
-        Schema::create('cover_types', function (Blueprint $table) {
-            $table->id();
-
-            $table->timestamps();
-        });
     }
 
     /**

@@ -14,12 +14,16 @@ class SourceSeeder extends Seeder
      */
     public function run(): void
     {
-        Source::create([
+        $sources = [
             ['key' => 'donation', 'name' => 'Donation'],
             ['key' => 'purchase', 'name' => 'Purchase'],
             ['key' => 'purchase_photocopy', 'name' => 'Purchased-Photocopy'],
             ['key' => 'replaced', 'name' => 'Replaced'],
             ['key' => 'transferred', 'name' => 'Transferred'],
-        ]);
+        ];
+
+        foreach ($sources as $source) {
+            Source::create($source);
+        }
     }
 }

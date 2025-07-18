@@ -69,7 +69,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('conditions');
         Schema::dropIfExists('acquisition_statuses');
-        Schema::dropIfExists('cover_types');
         Schema::dropIfExists('records');
     }
 };
