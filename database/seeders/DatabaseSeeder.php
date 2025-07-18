@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DdcClassificationSeeder::class);
         $this->call(LcClassificationSeeder::class);
         $this->call(PhysicalLocationSeeder::class);
+        $this->call(SourceSeeder::class);
+        $this->call(CoverTypeSeeder::class);
+
 //        $this->call(BookSeeder::class);
 //        $this->call(DigitalResourceSeeder::class);
 //        $this->call(PeriodicalSeeder::class);

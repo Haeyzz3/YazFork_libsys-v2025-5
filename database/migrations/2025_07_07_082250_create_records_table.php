@@ -12,32 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // sources table
-        Schema::create('sources', function (Blueprint $table) {
-            $table->id();
-            $table->string('key')->unique();
-            $table->string('label');
-            $table->timestamps();
-        });
-
-        DB::table('sources')->insert([
-            ['key' => 'donation', 'label' => 'Donation', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'purchase', 'label' => 'Purchase', 'created_at' => now(), 'updated_at' => now()],
-        ]);
-
-        // cover_types table
-        Schema::create('cover_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('key')->unique();
-            $table->string('label');
-            $table->timestamps();
-        });
-
-        DB::table('cover_types')->insert([
-            ['key' => 'hard_cover', 'label' => 'Hardcover', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'paper_back', 'label' => 'Paperback', 'created_at' => now(), 'updated_at' => now()],
-        ]);
-
         // acquisition_statuses table
         Schema::create('acquisition_statuses', function (Blueprint $table) {
             $table->id();
@@ -73,6 +47,7 @@ return new class extends Migration
 
             $table->string('accession_number')->unique()->nullable();
             $table->string('title');
+            $table->string('date_received');
             $table->enum('acquisition_status', ['available', 'pending_review', 'processing']);
             $table->enum('condition', ['excellent', 'good', 'fair', 'poor', 'damaged']);
             $table->json('subject_headings');
@@ -95,7 +70,6 @@ return new class extends Migration
         Schema::dropIfExists('conditions');
         Schema::dropIfExists('acquisition_statuses');
         Schema::dropIfExists('cover_types');
-        Schema::dropIfExists('sources');
         Schema::dropIfExists('records');
     }
 };
