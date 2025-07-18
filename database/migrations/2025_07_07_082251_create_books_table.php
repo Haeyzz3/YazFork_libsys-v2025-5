@@ -33,7 +33,8 @@ return new class extends Migration
             $table->foreignId('physical_location_id')->nullable()
                 ->constrained('physical_locations')->onDelete('set null');
 
-            $table->string('cover_type')->nullable();
+            $table->foreignId('cover_type_id')->nullable()
+                ->constrained('cover_types')->onDelete('set null');
             $table->string('cover_image')->nullable();
 
             $table->string('ics_number')->nullable();
@@ -43,7 +44,8 @@ return new class extends Migration
             $table->string('po_number')->nullable();
             $table->date('po_date')->nullable();
 
-            $table->string('source')->nullable();
+            $table->string('source_id')->nullable()
+                ->constrained('source')->onDelete('set null');
             $table->decimal('purchase_amount', 10, 2)->nullable();
             $table->decimal('lot_cost', 10, 2)->nullable();
             $table->string('supplier')->nullable();

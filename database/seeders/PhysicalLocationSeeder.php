@@ -22,6 +22,7 @@ class PhysicalLocationSeeder extends Seeder
             ['symbol' => 'Gs./Fil.', 'name' => 'Graduate School/Filipiniana'],
             ['symbol' => '', 'name' => 'PCARRD'],
             ['symbol' => 'Res', 'name' => 'Reserve'],
+            ['symbol' => '', 'name' => 'Vertical Files'],
         ];
 
         foreach ($locations as $location) {

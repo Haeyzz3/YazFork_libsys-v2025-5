@@ -12,20 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // acquisition_statuses table
-        Schema::create('acquisition_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('key')->unique();
-            $table->string('label');
-            $table->timestamps();
-        });
-
-        DB::table('acquisition_statuses')->insert([
-            ['key' => 'available', 'label' => 'Available', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'pending_review', 'label' => 'Pending Review', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'processing', 'label' => 'Processing', 'created_at' => now(), 'updated_at' => now()],
-        ]);
-
         // conditions table
         Schema::create('conditions', function (Blueprint $table) {
             $table->id();
@@ -47,13 +33,14 @@ return new class extends Migration
 
             $table->string('accession_number')->unique()->nullable();
             $table->string('title');
-            $table->string('date_received');
+            $table->date('date_received');
             $table->enum('acquisition_status', ['available', 'pending_review', 'processing']);
             $table->enum('condition', ['excellent', 'good', 'fair', 'poor', 'damaged']);
             $table->json('subject_headings');
+            $table->json('old_remarks')->nullable();
 
             $table->foreignId('added_by')->nullable()
-            ->constrained('users')
+                ->constrained('users')
                 ->onDelete('set null');
             $table->timestamps(); // created_at and updated_at
             $table->softDeletes(); // For soft delete functionality

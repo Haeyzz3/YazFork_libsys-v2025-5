@@ -2,7 +2,12 @@
 
 namespace App\Livewire\Records;
 
+use App\Models\AcquisitionStatus;
+use App\Models\CoverType;
+use App\Models\DdcClassification;
+use App\Models\PhysicalLocation;
 use App\Models\Record;
+use App\Models\Source;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -71,46 +76,66 @@ class BooksIndex extends Component
                             continue;
                         }
 
+                        // validating invalid purchase amount
+                        $purchaseAmount = $row[19] ?? null;
+                        $donated_by = null;
+                        $source = null;
+                        if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
+                            $donated_by = $purchaseAmount;
+                            $source = 'Donation';
+                        }
+
                         $record_data = [
-                            'accession_number' => $row[0] ?? null,
-                            'title' => $row[1] ?? null,
-                            'acquisition_status' => $row[2] ?? null,
-                            'condition' => $row[3] ?? null,
-                            'subject_headings' => $row[4] ?? null,
-                            'added_by' => $row[5] ?? null,
+                            'volume' => $row[0] ?? null,
+                            'accession_number' => $row[1] ?? null,
+                            'date_received' => $row[2] ?? null,
+                            'title' => $row[7] ?? null,
+                            'acquisition_status' => AcquisitionStatus::where('key', 'available')->first()->name,                            'condition' => $row[3] ?? null,
+                            'subject_headings' => $row[15] ?? null,
+//                            'added_by' => '',
                         ];
 
                         $book_data = [
-                            'authors' => $row[6] ?? null,
-                            'editors' => $row[7] ?? null,
-                            'publication_year' => $row[8] ?? null,
-                            'publisher' => $row[9] ?? null,
-                            'publication_place' => $row[10] ?? null,
-                            'isbn' => $row[11] ?? null,
+                            'authors' => $row[5] ?? null,
+                            'edition' => $row[6] ?? null,
+//                            'editors' => null,
+                            'publication_year' => $row[13] ?? null,
+                            'publisher' => $row[12] ?? null,
+                            'publication_place' => $row[11] ?? null,
+                            'isbn' => $row[14] ?? null,
 
-                            'call_number' => $row[12] ?? null,
-                            'ddc_class_id' => $row[13] ?? null,
-                            'lc_class_id' => $row[14] ?? null,
-                            'physical_location_id' => $row[15] ?? null,
+                            'call_number' => $row[4] ?? null,
 
-                            'cover_type' => $row[16] ?? null,
-                            'cover_image' => $row[17] ?? null,
+                            'ddc_class_id' => DdcClassification::where('name', ucwords(strtolower($row[9])))->firstOrCreate()->id,
+//                            'lc_class_id' => $row[14] ?? null,
+                            'location' => PhysicalLocation::where('name', ucwords(strtolower($row[10])))->firstOrCreate()->id,
 
-                            'ics_number' => $row[18] ?? null,
-                            'ics_date' => $row[19] ?? null,
-                            'pr_number' => $row[20] ?? null,
-                            'pr_date' => $row[21] ?? null,
-                            'po_number' => $row[22] ?? null,
-                            'po_date' => $row[23] ?? null,
+                            'cover_type' => CoverType::where('name', ucwords(strtolower($row[18])))->firstOrCreate()->id,
+                            'cover_image' => '/uploads/book_cover_images/' . $row[21] ?? null,
 
-                            'source' => $row[24] ?? null,
-                            'purchase_amount' => $row[25] ?? null,
-                            'lot_cost' => $row[26] ?? null,
-                            'supplier' => $row[27] ?? null,
-                            'donated_by' => $row[28] ?? null,
+//                            'ics_number' => $row[18] ?? null,
+//                            'ics_date' => $row[19] ?? null,
+//                            'pr_number' => $row[20] ?? null,
+//                            'pr_date' => $row[21] ?? null,
+//                            'po_number' => $row[22] ?? null,
+//                            'po_date' => $row[23] ?? null,
 
-                            'table_of_contents' => $row[29] ?? null,
+                            'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[17])))->firstOrCreate()->id,
+
+                            'purchased_amount' => $purchaseAmount,
+
+//                            'lot_cost' => $row[26] ?? null,
+                            'supplier' => $row[20] ?? null,
+                            'donated_by' => $donated_by,
+
+                            'table_of_contents' => $row[16] ?? null,
+
+                            'old_remarks' => $row[17] ?? null,
                         ];
+
+                        // reset after use
+                        $purchaseAmount = null;
+                        $donated_by = null;
 
                         // Validate required fields
                         if (empty($record_data['title']) || empty($book_data['authors'])) {
