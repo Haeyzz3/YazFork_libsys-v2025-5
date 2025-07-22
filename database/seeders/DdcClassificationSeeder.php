@@ -14,16 +14,17 @@ class DdcClassificationSeeder extends Seeder
     public function run()
     {
         $classifications = [
-            ['name' => 'Computer Science, Information & General Works', 'code' => '000'],
-            ['name' => 'Philosophy & Psychology', 'code' => '100'],
-            ['name' => 'Religion', 'code' => '200'],
-            ['name' => 'Social Sciences', 'code' => '300'],
-            ['name' => 'Language', 'code' => '400'],
-            ['name' => 'Pure Science', 'code' => '500'],
-            ['name' => 'Applied Science & Technology', 'code' => '600'],
-            ['name' => 'Arts & Recreation', 'code' => '700'],
-            ['name' => 'Literature', 'code' => '800'],
-            ['name' => 'History & Geography', 'code' => '900'],
+            ['name' => 'Applied Science', 'code' => '000'],
+            ['name' => 'Arts', 'code' => '100'],
+            ['name' => 'Fiction', 'code' => '200'],
+            ['name' => 'General Works', 'code' => '300'],
+            ['name' => 'History', 'code' => '400'],
+            ['name' => 'Language', 'code' => '500'],
+            ['name' => 'Literature', 'code' => '600'],
+            ['name' => 'Philosophy', 'code' => '700'],
+            ['name' => 'Pure Science', 'code' => '800'],
+            ['name' => 'Religion', 'code' => '900'],
+            ['name' => 'Social Science', 'code' => '901'],
         ];
 
         foreach ($classifications as $classification) {

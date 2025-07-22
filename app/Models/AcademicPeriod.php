@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class College extends Model
+class AcademicPeriod extends Model
 {
     protected $guarded = [];
 

@@ -15,10 +15,14 @@ class PhysicalLocationSeeder extends Seeder
     {
         $locations = [
             ['symbol' => 'Cir', 'name' => 'Circulation'],
-            ['symbol' => 'Res', 'name' => 'Reserved'],
-            ['symbol' => 'GS', 'name' => 'Graduate School'],
-            ['symbol' => 'Fil', 'name' => 'Filipinana'],
             ['symbol' => 'F', 'name' => 'Fiction'],
+            ['symbol' => 'Fil', 'name' => 'Filipiniana'],
+            ['symbol' => 'Gr', 'name' => 'General References'],
+            ['symbol' => 'Gs', 'name' => 'Graduate School'],
+            ['symbol' => 'Gs./Fil.', 'name' => 'Graduate School/Filipiniana'],
+            ['symbol' => 'pcarrd', 'name' => 'PCARRD'],
+            ['symbol' => 'Res', 'name' => 'Reserve'],
+            ['symbol' => 'vertical_files', 'name' => 'Vertical Files'],
         ];
 
         foreach ($locations as $location) {

@@ -2,7 +2,15 @@
 
 namespace App\Livewire\Records;
 
+use App\Models\AcademicPeriod;
+use App\Models\AcquisitionStatus;
+use App\Models\CoverType;
+use App\Models\DdcClassification;
+use App\Models\PhysicalLocation;
 use App\Models\Record;
+use App\Models\Source;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -36,7 +44,6 @@ class BooksIndex extends Component
     public function rules()
     {
         return [
-//            'import_csv' => 'date',
             'import_csv' => 'required|file|mimes:csv,txt|max:2048',
         ];
     }
@@ -71,63 +78,263 @@ class BooksIndex extends Component
                             continue;
                         }
 
+                        $date_received = null;
+                        if (!empty($row[2]) && is_string($row[2])) {
+                            try {
+                                $date_received = Carbon::createFromFormat('m/d/Y', trim($row[2]))->format('Y-m-d');
+                            } catch (\Exception $e) {
+                                $failed_count++;
+                                $errors[] = "Row " . ($row_index + 1) . ": Invalid date format in date_received: " . ($row[2] ?? 'empty');
+                                continue;
+                            }
+                        }
+
+                        $subject_headings = null;
+                        if (isset($row[13]) && !empty(trim($row[13]))) {
+                            $subject_headings = trim($row[13]);
+                        }
+
                         $record_data = [
-                            'accession_number' => $row[0] ?? null,
-                            'title' => $row[1] ?? null,
-                            'acquisition_status' => $row[2] ?? null,
-                            'condition' => $row[3] ?? null,
-                            'subject_headings' => $row[4] ?? null,
-                            'added_by' => $row[5] ?? null,
+                            'accession_number' => $row[1] ?? null,
+                            'date_received' => $date_received,
+                            'title' => $row[5] ?? null,
+                            'acquisition_status' => AcquisitionStatus::where('key', 'available')->first()->name,
+                            'imported_by' => Auth::user()->id,
+                            'subject_headings' => $subject_headings,
                         ];
+
+                        // validating invalid purchase amount
+                        $purchaseAmount = $row[17] ?? null;
+                        $donated_by = null;
+                        $source = null;
+                        if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
+                            $donated_by = $purchaseAmount;
+                            $source = 'Donation';
+                            $purchaseAmount = null;
+                        }
+
+                        $publication_year = $row[11] ?? null;
+                        if ($publication_year === '' || $publication_year === '-') {
+                            $publication_year = null;
+                        }
+
+                        // Handle ISBN (index 12)
+                        $isbn = null;
+                        if (isset($row[12]) && !empty(trim($row[12]))) {
+                            $isbn = trim($row[12]);
+                            if ($isbn === '-') {
+                                $isbn = null;
+                            }
+                        }
+
+                        $ddc_class_id = null;
+                        if (isset($row[7]) && !empty(trim($row[7]))) {
+                            $ddc_class_name = ucwords(strtolower(trim($row[7])));
+                            $ddc_class = DdcClassification::where('name', $ddc_class_name)->first();
+                            if ($ddc_class) {
+                                $ddc_class_id = $ddc_class->id;
+                            } else {
+                                $ddc_class_id = DdcClassification::create(['name' => $ddc_class_name])->id;
+                            }
+                        }
+
+                        $physical_location_id = null;
+                        if (isset($row[8]) && !empty(trim($row[8]))) {
+                            $physical_location_name = ucwords(strtolower(trim($row[8])));
+                            $physical_location = PhysicalLocation::where('name', $physical_location_name)->first();
+                            if ($physical_location) {
+                                $physical_location_id = $physical_location->id;
+                            } else {
+                                $physical_location_id = PhysicalLocation::create(['name' => $physical_location_name])->id;
+                            }
+                        }
+
+                        // Handle Cover Type (index 16)
+                        $cover_type_id = null;
+                        if (isset($row[16]) && !empty(trim($row[16]))) {
+                            $cover_type_name = trim($row[16]);
+                            $cover_type = CoverType::where('name', ucwords(strtolower($cover_type_name)))->first();
+                            if ($cover_type) {
+                                $cover_type_id = $cover_type->id;
+                            } else {
+                                $cover_type_id = CoverType::create([
+                                    'key' => strtolower($cover_type_name),
+                                    'name' => $cover_type_name
+                                ])->id;
+                            }
+                        }
+
+                        $cover_image = null;
+                        if (isset($row[19]) && !empty(trim($row[19]))) {
+                            $cover_image = trim($row[19]);
+                            if ($cover_image === '-') {
+                                $cover_image = null;
+                            }
+                        }
 
                         $book_data = [
-                            'authors' => $row[6] ?? null,
-                            'editors' => $row[7] ?? null,
-                            'publication_year' => $row[8] ?? null,
-                            'publisher' => $row[9] ?? null,
-                            'publication_place' => $row[10] ?? null,
-                            'isbn' => $row[11] ?? null,
+                            'volume' => $row[0] ?? null,
+                            'authors' => $row[4] ?? null,
+                            'edition' => $row[6] ?? null,
+                            'publication_year' => $publication_year,
+                            'publisher' => $row[10] ?? null,
+                            'publication_place' => $row[9] ?? null,
+                            'isbn' => $isbn,
 
-                            'call_number' => $row[12] ?? null,
-                            'ddc_class_id' => $row[13] ?? null,
-                            'lc_class_id' => $row[14] ?? null,
-                            'physical_location_id' => $row[15] ?? null,
+                            'call_number' => $row[3] ?? null,
 
-                            'cover_type' => $row[16] ?? null,
-                            'cover_image' => $row[17] ?? null,
+                            'ddc_class_id' => $ddc_class_id,
+                            'physical_location_id' => $physical_location_id,
 
-                            'ics_number' => $row[18] ?? null,
-                            'ics_date' => $row[19] ?? null,
-                            'pr_number' => $row[20] ?? null,
-                            'pr_date' => $row[21] ?? null,
-                            'po_number' => $row[22] ?? null,
-                            'po_date' => $row[23] ?? null,
+                            'cover_type_id' => $cover_type_id,
+                            'cover_image' => '/uploads/book_cover_images/' . $cover_image,
 
-                            'source' => $row[24] ?? null,
-                            'purchase_amount' => $row[25] ?? null,
-                            'lot_cost' => $row[26] ?? null,
-                            'supplier' => $row[27] ?? null,
-                            'donated_by' => $row[28] ?? null,
+                            'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[15])))->firstOrCreate()->id,
 
-                            'table_of_contents' => $row[29] ?? null,
+                            'purchase_amount' => $purchaseAmount,
+
+                            'supplier' => $row[18] ?? null,
+                            'donated_by' => $donated_by,
+
+                            'table_of_contents' => $row[14] ?? null,
                         ];
 
-                        // Validate required fields
-                        if (empty($record_data['title']) || empty($book_data['authors'])) {
-                            $failed_count++;
-                            $errors[] = "Row " . ($row_index + 2) . ": Title and Author are required";
-                            continue;
+                        $remark_data = [];
+
+                        if (isset($row[20]) && !empty(trim($row[20]))) {
+                            $content = trim($row[20]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
                         }
+                        if (isset($row[21]) && !empty(trim($row[21]))) {
+                            $content = trim($row[21]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2008-2009')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[22]) && !empty(trim($row[22]))) {
+                            $content = trim($row[22]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2009-2010')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[23]) && !empty(trim($row[23]))) {
+                            $content = trim($row[23]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2010-2011')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[24]) && !empty(trim($row[24]))) {
+                            $content = trim($row[24]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2011-2012')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[25]) && !empty(trim($row[25]))) {
+                            $content = trim($row[25]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2017-2018')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[26]) && !empty(trim($row[26]))) {
+                            $content = trim($row[26]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2018-2019')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[27]) && !empty(trim($row[27]))) {
+                            $content = trim($row[27]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2019-2020')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[28]) && !empty(trim($row[28]))) {
+                            $content = trim($row[28]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2020-2021')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[29]) && !empty(trim($row[29]))) {
+                            $content = trim($row[29]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2021-2022')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[30]) && !empty(trim($row[30]))) {
+                            $content = trim($row[30]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2022-2023')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[31]) && !empty(trim($row[31]))) {
+                            $content = trim($row[31]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                    ->where('semester', '1st Semester')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[32]) && !empty(trim($row[32]))) {
+                            $content = trim($row[32]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                    ->where('semester', '2nd Semester')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[33]) && !empty(trim($row[33]))) {
+                            $content = trim($row[33]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+
+                        // reset after use
+                        $purchaseAmount = null;
+                        $donated_by = null;
+                        $source = null;
+
+                        // Validate required fields
+//                        if (empty($record_data['title']) || empty($book_data['authors'])) {
+//                            $failed_count++;
+//                            $errors[] = "Row " . ($row_index + 1) . ": Title and Author are required";
+//                            continue;
+//                        }
 
                         // Clean and validate data
                         $record_data['title'] = trim($record_data['title']);
 
                         // Check for duplicate ISBN if provided
-                        if (!empty($book_data['isbn'])) {
-                            $existing_book = \App\Models\Book::where('isbn', $book_data['isbn'])->first();
+                        if (!empty($book_data['accession_number'])) {
+                            $existing_book = \App\Models\Record::where('accession_number', $book_data['accession_number'])->first();
                             if ($existing_book) {
                                 $failed_count++;
-                                $errors[] = "Row " . ($row_index + 2) . ": Book with ISBN {$book_data['isbn']} already exists";
+                                $errors[] = "Row " . ($row_index + 1) . ": Book with Accession Number {$book_data['isbn']} already exists";
                                 continue;
                             }
                         }
@@ -135,11 +342,16 @@ class BooksIndex extends Component
                         // Create the book record
                         $record = Record::create($record_data);
                         $record->book()->create($book_data);
+
+                        foreach ($remark_data as $remark) {
+                            $record->remarks()->create($remark);
+                        }
+
                         $imported_count++;
 
                     } catch (\Exception $e) {
                         $failed_count++;
-                        $errors[] = "Row " . ($row_index + 2) . ": " . $e->getMessage();
+                        $errors[] = "Row " . ($row_index + 1) . ": " . $e->getMessage();
                     }
                 }
 
