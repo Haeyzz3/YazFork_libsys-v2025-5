@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('publisher')->nullable();
             $table->string('publication_place')->nullable();
             $table->string('edition')->nullable();
-            $table->string('isbn')->nullable()->unique();
+            $table->string('isbn')->nullable();
 
             $table->string('call_number')->nullable();
             $table->foreignId('ddc_class_id')->nullable()

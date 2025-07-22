@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->string('accession_number')->unique()->nullable();
             $table->string('title');
-            $table->date('date_received');
+            $table->date('date_received')->nullable();
             $table->enum('acquisition_status', ['available', 'pending_review', 'processing']);
             $table->enum('condition', ['excellent', 'good', 'fair', 'poor', 'damaged']);
             $table->json('subject_headings')->nullable();

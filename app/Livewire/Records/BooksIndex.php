@@ -78,12 +78,24 @@ class BooksIndex extends Component
                             continue;
                         }
 
+                        $date_received = null;
+                        if (!empty($row[2]) && is_string($row[2])) {
+                            try {
+                                $date_received = Carbon::createFromFormat('m/d/Y', trim($row[2]))->format('Y-m-d');
+                            } catch (\Exception $e) {
+                                $failed_count++;
+                                $errors[] = "Row " . ($row_index + 2) . ": Invalid date format in date_received: " . ($row[2] ?? 'empty');
+                                continue;
+                            }
+                        }
+
                         $record_data = [
                             'accession_number' => $row[1] ?? null,
-                            'date_received' => Carbon::createFromFormat('m/d/Y', $row[2] ?? null)->format('Y-m-d'),
+                            'date_received' => $date_received,
                             'title' => $row[5] ?? null,
                             'acquisition_status' => AcquisitionStatus::where('key', 'available')->first()->name,
                             'imported_by' => Auth::user()->id,
+                            'subject_headings' => $row[13] ?? null,
                         ];
 
                         // validating invalid purchase amount
@@ -96,15 +108,24 @@ class BooksIndex extends Component
                             $purchaseAmount = null;
                         }
 
+                        $publication_year = $row[11] ?? null;
+                        if ($publication_year === '' || $publication_year === '-') {
+                            $publication_year = null;
+                        }
+
+                        $isbn = $row[12] ?? null;
+                        if ($isbn === '' || $isbn === '-') {
+                            $isbn = null;
+                        }
+
                         $book_data = [
                             'volume' => $row[0] ?? null,
                             'authors' => $row[4] ?? null,
                             'edition' => $row[6] ?? null,
-                            'publication_year' => $row[11] ?? null,
+                            'publication_year' => $publication_year,
                             'publisher' => $row[10] ?? null,
-                            // pa endorse sa ko
                             'publication_place' => $row[9] ?? null,
-                            'isbn' => $row[12] ?? null,
+                            'isbn' => $isbn,
 
                             'call_number' => $row[3] ?? null,
 
@@ -114,7 +135,6 @@ class BooksIndex extends Component
                             'cover_type_id' => CoverType::where('name', ucwords(strtolower($row[16])))
                                 ->firstOrCreate(['key' => strtolower($row[16]), 'name' => $row[16]])->id,
                             'cover_image' => '/uploads/book_cover_images/' . $row[19] ?? null,
-
 
                             'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[15])))->firstOrCreate()->id,
 
@@ -224,24 +244,22 @@ class BooksIndex extends Component
                         $donated_by = null;
                         $source = null;
 
-//                        dd($record_data, $book_data, $remark_data);
-
                         // Validate required fields
-                        if (empty($record_data['title']) || empty($book_data['authors'])) {
-                            $failed_count++;
-                            $errors[] = "Row " . ($row_index + 2) . ": Title and Author are required";
-                            continue;
-                        }
+//                        if (empty($record_data['title']) || empty($book_data['authors'])) {
+//                            $failed_count++;
+//                            $errors[] = "Row " . ($row_index + 2) . ": Title and Author are required";
+//                            continue;
+//                        }
 
                         // Clean and validate data
                         $record_data['title'] = trim($record_data['title']);
 
                         // Check for duplicate ISBN if provided
-                        if (!empty($book_data['isbn'])) {
-                            $existing_book = \App\Models\Book::where('isbn', $book_data['isbn'])->first();
+                        if (!empty($book_data['accession_number'])) {
+                            $existing_book = \App\Models\Record::where('accession_number', $book_data['accession_number'])->first();
                             if ($existing_book) {
                                 $failed_count++;
-                                $errors[] = "Row " . ($row_index + 2) . ": Book with ISBN {$book_data['isbn']} already exists";
+                                $errors[] = "Row " . ($row_index + 2) . ": Book with Accession Number {$book_data['isbn']} already exists";
                                 continue;
                             }
                         }
