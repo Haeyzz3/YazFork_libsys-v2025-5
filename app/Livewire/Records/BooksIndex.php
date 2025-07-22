@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Records;
 
+use App\Models\AcademicPeriod;
 use App\Models\AcquisitionStatus;
 use App\Models\CoverType;
 use App\Models\DdcClassification;
@@ -124,10 +125,102 @@ class BooksIndex extends Component
 
                         $remark_data = [];
 
-                        if ($row[17]) {
+                        if ($row[20]) {
                             $remark_data = [
-                                'academic_period_id' => 2007-2008,
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
+                                    -where('semester', 'Whole Year')->first()->id, // and semester is 'Whole Year'
                                 'content' => $row[18] ?? null,
+                            ];
+                        }
+
+                        if ($row[20]) {
+                            $remark_data = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
+                                    -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[20] ?? null,
+                            ];
+                        }
+                        if ($row[21]) {
+                            $remark_data = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2008-2009')
+                                    -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[21] ?? null,
+                            ];
+                        }
+                        if ($row[22]) {
+                            $remark_data = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2009-2010')
+                                    -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[22] ?? null,
+                            ];
+                        }
+                        if ($row[23]) {
+                            $remark_data = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2010-2011')
+                                    -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[23] ?? null,
+                            ];
+                        }
+                        if ($row[24]) {
+                            $remark_data = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2011-2012')
+                                    -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[24] ?? null,
+                            ];
+                        }
+                        if ($row[25]) {
+                            $remark_data = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2017-2018')
+                                    -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[25] ?? null,
+                            ];
+                        }
+                        if ($row[26]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2018-2019')
+                                    -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[26] ?? null,
+                            ];
+                        }
+                        if ($row[27]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2019-2020')
+                                -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[27] ?? null,
+                            ];
+                        }
+                        if ($row[28]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2020-2021')
+                                -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[28] ?? null,
+                            ];
+                        }
+                        if ($row[29]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2021-2022')
+                                -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[29] ?? null,
+                            ];
+                        }
+                        if ($row[30]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2022-2023')
+                                -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[30] ?? null,
+                            ];
+                        }
+                        if ($row[31]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                -where('semester', '1st Semester')->first()->id,
+                                'content' => $row[31] ?? null,
+                            ];
+                        }
+                        if ($row[32]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                -where('semester', '2nd Semester')->first()->id,
+                                'content' => $row[32] ?? null,
+                            ];
+                        }
+                        if ($row[33]) {
+                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                -where('semester', 'Whole Year')->first()->id,
+                                'content' => $row[33] ?? null,
                             ];
                         }
 
