@@ -9,6 +9,7 @@ use App\Models\DdcClassification;
 use App\Models\PhysicalLocation;
 use App\Models\Record;
 use App\Models\Source;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -78,9 +79,8 @@ class BooksIndex extends Component
                         }
 
                         $record_data = [
-                            'volume' => $row[0] ?? null,
                             'accession_number' => $row[1] ?? null,
-                            'date_received' => $row[2] ?? null,
+                            'date_received' => Carbon::createFromFormat('m/d/Y', $row[2] ?? null)->format('Y-m-d'),
                             'title' => $row[5] ?? null,
                             'acquisition_status' => AcquisitionStatus::where('key', 'available')->first()->name,
                             'imported_by' => Auth::user()->id,
@@ -93,9 +93,11 @@ class BooksIndex extends Component
                         if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
                             $donated_by = $purchaseAmount;
                             $source = 'Donation';
+                            $purchaseAmount = null;
                         }
 
                         $book_data = [
+                            'volume' => $row[0] ?? null,
                             'authors' => $row[4] ?? null,
                             'edition' => $row[6] ?? null,
                             'publication_year' => $row[11] ?? null,
@@ -107,15 +109,16 @@ class BooksIndex extends Component
                             'call_number' => $row[3] ?? null,
 
                             'ddc_class_id' => DdcClassification::where('name', ucwords(strtolower($row[7])))->firstOrCreate()->id,
-                            'location_id' => PhysicalLocation::where('name', ucwords(strtolower($row[8])))->firstOrCreate()->id,
+                            'physical_location_id' => PhysicalLocation::where('name', ucwords(strtolower($row[8])))->firstOrCreate()->id,
 
-                            'cover_type' => CoverType::where('name', ucwords(strtolower($row[16])))->firstOrCreate()->id,
+                            'cover_type_id' => CoverType::where('name', ucwords(strtolower($row[16])))
+                                ->firstOrCreate(['key' => strtolower($row[16]), 'name' => $row[16]])->id,
                             'cover_image' => '/uploads/book_cover_images/' . $row[19] ?? null,
 
 
                             'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[15])))->firstOrCreate()->id,
 
-                            'purchased_amount' => $purchaseAmount,
+                            'purchase_amount' => $purchaseAmount,
 
                             'supplier' => $row[18] ?? null,
                             'donated_by' => $donated_by,
@@ -246,7 +249,10 @@ class BooksIndex extends Component
                         // Create the book record
                         $record = Record::create($record_data);
                         $record->book()->create($book_data);
-                        $record->remarks()->create($remark_data);
+
+                        foreach ($remark_data as $remark) {
+                            $record->remarks()->create($remark);
+                        }
 
                         $imported_count++;
 

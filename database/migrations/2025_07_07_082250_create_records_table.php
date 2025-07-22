@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date_received');
             $table->enum('acquisition_status', ['available', 'pending_review', 'processing']);
             $table->enum('condition', ['excellent', 'good', 'fair', 'poor', 'damaged']);
-            $table->json('subject_headings');
+            $table->json('subject_headings')->nullable();
 
             $table->foreignId('added_by')->nullable()
                 ->constrained('users')

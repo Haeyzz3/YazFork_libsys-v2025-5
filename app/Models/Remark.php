@@ -8,4 +8,8 @@ class Remark extends Model
 {
     protected $guarded = [];
 
+    public function record(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Record::class);
+    }
 }
