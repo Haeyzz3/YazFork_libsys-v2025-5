@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PhysicalLocationSeeder::class);
         $this->call(SourceSeeder::class);
         $this->call(CoverTypeSeeder::class);
-        $this->call(Condition::class);
+        $this->call(ConditionSeeder::class);
         $this->call(RemarkSeeder::class);
         $this->call(AcademicPeriodSeeder::class);
 

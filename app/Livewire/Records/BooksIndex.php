@@ -132,7 +132,6 @@ class BooksIndex extends Component
                                 'content' => $row[18] ?? null,
                             ];
                         }
-
                         if ($row[20]) {
                             $remark_data = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
