@@ -10,9 +10,10 @@ class Role extends Model
 {
     public $table = 'roles';
 
-    public $fillable = [
-        'role_name',
-    ];
+//    public $fillable = [
+//        'role_name',
+//    ];
+    protected $guarded = [];
 
     public function users() : HasMany
     {

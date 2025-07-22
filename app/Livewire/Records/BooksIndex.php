@@ -77,15 +77,6 @@ class BooksIndex extends Component
                             continue;
                         }
 
-                        // validating invalid purchase amount
-                        $purchaseAmount = $row[17] ?? null;
-                        $donated_by = null;
-                        $source = null;
-                        if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
-                            $donated_by = $purchaseAmount;
-                            $source = 'Donation';
-                        }
-
                         $record_data = [
                             'volume' => $row[0] ?? null,
                             'accession_number' => $row[1] ?? null,
@@ -94,6 +85,15 @@ class BooksIndex extends Component
                             'acquisition_status' => AcquisitionStatus::where('key', 'available')->first()->name,
                             'imported_by' => Auth::user()->id,
                         ];
+
+                        // validating invalid purchase amount
+                        $purchaseAmount = $row[17] ?? null;
+                        $donated_by = null;
+                        $source = null;
+                        if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
+                            $donated_by = $purchaseAmount;
+                            $source = 'Donation';
+                        }
 
                         $book_data = [
                             'authors' => $row[4] ?? null,
@@ -107,7 +107,7 @@ class BooksIndex extends Component
                             'call_number' => $row[3] ?? null,
 
                             'ddc_class_id' => DdcClassification::where('name', ucwords(strtolower($row[7])))->firstOrCreate()->id,
-                            'location' => PhysicalLocation::where('name', ucwords(strtolower($row[8])))->firstOrCreate()->id,
+                            'location_id' => PhysicalLocation::where('name', ucwords(strtolower($row[8])))->firstOrCreate()->id,
 
                             'cover_type' => CoverType::where('name', ucwords(strtolower($row[16])))->firstOrCreate()->id,
                             'cover_image' => '/uploads/book_cover_images/' . $row[19] ?? null,
@@ -126,99 +126,92 @@ class BooksIndex extends Component
                         $remark_data = [];
 
                         if ($row[20]) {
-                            $remark_data = [
+                            $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
-                                    -where('semester', 'Whole Year')->first()->id, // and semester is 'Whole Year'
-                                'content' => $row[18] ?? null,
-                            ];
-                        }
-                        if ($row[20]) {
-                            $remark_data = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
-                                    -where('semester', 'Whole Year')->first()->id,
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[20] ?? null,
                             ];
                         }
                         if ($row[21]) {
-                            $remark_data = [
+                            $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2008-2009')
-                                    -where('semester', 'Whole Year')->first()->id,
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[21] ?? null,
                             ];
                         }
                         if ($row[22]) {
-                            $remark_data = [
+                            $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2009-2010')
-                                    -where('semester', 'Whole Year')->first()->id,
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[22] ?? null,
                             ];
                         }
                         if ($row[23]) {
-                            $remark_data = [
+                            $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2010-2011')
-                                    -where('semester', 'Whole Year')->first()->id,
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[23] ?? null,
                             ];
                         }
                         if ($row[24]) {
-                            $remark_data = [
+                            $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2011-2012')
-                                    -where('semester', 'Whole Year')->first()->id,
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[24] ?? null,
                             ];
                         }
                         if ($row[25]) {
-                            $remark_data = [
+                            $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2017-2018')
-                                    -where('semester', 'Whole Year')->first()->id,
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[25] ?? null,
                             ];
                         }
                         if ($row[26]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2018-2019')
-                                    -where('semester', 'Whole Year')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2018-2019')
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[26] ?? null,
                             ];
                         }
                         if ($row[27]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2019-2020')
-                                -where('semester', 'Whole Year')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2019-2020')
+                                ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[27] ?? null,
                             ];
                         }
                         if ($row[28]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2020-2021')
-                                -where('semester', 'Whole Year')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2020-2021')
+                                ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[28] ?? null,
                             ];
                         }
                         if ($row[29]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2021-2022')
-                                -where('semester', 'Whole Year')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2021-2022')
+                                ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[29] ?? null,
                             ];
                         }
                         if ($row[30]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2022-2023')
-                                -where('semester', 'Whole Year')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2022-2023')
+                                ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[30] ?? null,
                             ];
                         }
                         if ($row[31]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
-                                -where('semester', '1st Semester')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                ->where('semester', '1st Semester')->first()->id,
                                 'content' => $row[31] ?? null,
                             ];
                         }
                         if ($row[32]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
-                                -where('semester', '2nd Semester')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                ->where('semester', '2nd Semester')->first()->id,
                                 'content' => $row[32] ?? null,
                             ];
                         }
                         if ($row[33]) {
-                            $remark_data = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
-                                -where('semester', 'Whole Year')->first()->id,
+                            $remark_data[] = ['academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $row[33] ?? null,
                             ];
                         }
@@ -227,6 +220,8 @@ class BooksIndex extends Component
                         $purchaseAmount = null;
                         $donated_by = null;
                         $source = null;
+
+//                        dd($record_data, $book_data, $remark_data);
 
                         // Validate required fields
                         if (empty($record_data['title']) || empty($book_data['authors'])) {

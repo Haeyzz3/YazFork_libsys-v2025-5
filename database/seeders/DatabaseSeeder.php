@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AcquisitionStatus;
 use App\Models\Condition;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DdcClassificationSeeder::class);
         $this->call(LcClassificationSeeder::class);
         $this->call(PhysicalLocationSeeder::class);
+        $this->call(AcquisitionStatusSeeder::class);
         $this->call(SourceSeeder::class);
         $this->call(CoverTypeSeeder::class);
         $this->call(ConditionSeeder::class);

@@ -14,15 +14,15 @@ class AcquisitionStatusSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
-            ['key' => 'available', 'label' => 'Available'],
-            ['key' => 'pending_review', 'label' => 'Pending Review'],
-            ['key' => 'processing', 'label' => 'Processing'],
+            ['key' => 'available', 'name' => 'Available'],
+            ['key' => 'pending_review', 'name' => 'Pending Review'],
+            ['key' => 'processing', 'name' => 'Processing'],
         ];
 
         foreach ($statuses as $status) {
             AcquisitionStatus::create([
                 'key' => $status['key'],
-                'label' => $status['label'],
+                'name' => $status['name'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

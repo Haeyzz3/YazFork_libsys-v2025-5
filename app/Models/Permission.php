@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Permission extends Model
 {
+    protected $guarded = [];
+
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);

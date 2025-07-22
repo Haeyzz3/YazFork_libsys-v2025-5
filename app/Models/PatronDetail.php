@@ -9,15 +9,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PatronDetail extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'patron_type_id',
-        'student_id',
-        'library_id',
-        'program_id',
-        'major_id',
-        'office_id',
-        'address',
-    ];
+//    protected $fillable = [
+//        'patron_type_id',
+//        'student_id',
+//        'library_id',
+//        'program_id',
+//        'major_id',
+//        'office_id',
+//        'address',
+//    ];
+    protected $guarded = [];
 
     public function user() : BelongsTo
     {
