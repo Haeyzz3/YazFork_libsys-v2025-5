@@ -52,7 +52,6 @@ return new class extends Migration
             $table->string('donated_by')->nullable();
             $table->string('replaced_by')->nullable();
             $table->string('transferred_from')->nullable();
-            $table->json('old_remarks')->nullable();
 
             $table->text('table_of_contents')->nullable();
 

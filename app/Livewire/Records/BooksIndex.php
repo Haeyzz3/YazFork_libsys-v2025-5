@@ -8,6 +8,7 @@ use App\Models\DdcClassification;
 use App\Models\PhysicalLocation;
 use App\Models\Record;
 use App\Models\Source;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -41,7 +42,6 @@ class BooksIndex extends Component
     public function rules()
     {
         return [
-//            'import_csv' => 'date',
             'import_csv' => 'required|file|mimes:csv,txt|max:2048',
         ];
     }
@@ -77,7 +77,7 @@ class BooksIndex extends Component
                         }
 
                         // validating invalid purchase amount
-                        $purchaseAmount = $row[19] ?? null;
+                        $purchaseAmount = $row[17] ?? null;
                         $donated_by = null;
                         $source = null;
                         if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
@@ -89,53 +89,52 @@ class BooksIndex extends Component
                             'volume' => $row[0] ?? null,
                             'accession_number' => $row[1] ?? null,
                             'date_received' => $row[2] ?? null,
-                            'title' => $row[7] ?? null,
-                            'acquisition_status' => AcquisitionStatus::where('key', 'available')->first()->name,                            'condition' => $row[3] ?? null,
-                            'subject_headings' => $row[15] ?? null,
-//                            'added_by' => '',
+                            'title' => $row[5] ?? null,
+                            'acquisition_status' => AcquisitionStatus::where('key', 'available')->first()->name,
+                            'imported_by' => Auth::user()->id,
                         ];
 
                         $book_data = [
-                            'authors' => $row[5] ?? null,
+                            'authors' => $row[4] ?? null,
                             'edition' => $row[6] ?? null,
-//                            'editors' => null,
-                            'publication_year' => $row[13] ?? null,
-                            'publisher' => $row[12] ?? null,
-                            'publication_place' => $row[11] ?? null,
-                            'isbn' => $row[14] ?? null,
+                            'publication_year' => $row[11] ?? null,
+                            'publisher' => $row[10] ?? null,
+                            // pa endorse sa ko
+                            'publication_place' => $row[9] ?? null,
+                            'isbn' => $row[12] ?? null,
 
-                            'call_number' => $row[4] ?? null,
+                            'call_number' => $row[3] ?? null,
 
-                            'ddc_class_id' => DdcClassification::where('name', ucwords(strtolower($row[9])))->firstOrCreate()->id,
-//                            'lc_class_id' => $row[14] ?? null,
-                            'location' => PhysicalLocation::where('name', ucwords(strtolower($row[10])))->firstOrCreate()->id,
+                            'ddc_class_id' => DdcClassification::where('name', ucwords(strtolower($row[7])))->firstOrCreate()->id,
+                            'location' => PhysicalLocation::where('name', ucwords(strtolower($row[8])))->firstOrCreate()->id,
 
-                            'cover_type' => CoverType::where('name', ucwords(strtolower($row[18])))->firstOrCreate()->id,
-                            'cover_image' => '/uploads/book_cover_images/' . $row[21] ?? null,
+                            'cover_type' => CoverType::where('name', ucwords(strtolower($row[16])))->firstOrCreate()->id,
+                            'cover_image' => '/uploads/book_cover_images/' . $row[19] ?? null,
 
-//                            'ics_number' => $row[18] ?? null,
-//                            'ics_date' => $row[19] ?? null,
-//                            'pr_number' => $row[20] ?? null,
-//                            'pr_date' => $row[21] ?? null,
-//                            'po_number' => $row[22] ?? null,
-//                            'po_date' => $row[23] ?? null,
 
-                            'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[17])))->firstOrCreate()->id,
+                            'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[15])))->firstOrCreate()->id,
 
                             'purchased_amount' => $purchaseAmount,
 
-//                            'lot_cost' => $row[26] ?? null,
-                            'supplier' => $row[20] ?? null,
+                            'supplier' => $row[18] ?? null,
                             'donated_by' => $donated_by,
 
-                            'table_of_contents' => $row[16] ?? null,
-
-                            'old_remarks' => $row[17] ?? null,
+                            'table_of_contents' => $row[14] ?? null,
                         ];
+
+                        $remark_data = [];
+
+                        if ($row[17]) {
+                            $remark_data = [
+                                'academic_period_id' => 2007-2008,
+                                'content' => $row[18] ?? null,
+                            ];
+                        }
 
                         // reset after use
                         $purchaseAmount = null;
                         $donated_by = null;
+                        $source = null;
 
                         // Validate required fields
                         if (empty($record_data['title']) || empty($book_data['authors'])) {
@@ -160,6 +159,8 @@ class BooksIndex extends Component
                         // Create the book record
                         $record = Record::create($record_data);
                         $record->book()->create($book_data);
+                        $record->remarks()->create($remark_data);
+
                         $imported_count++;
 
                     } catch (\Exception $e) {

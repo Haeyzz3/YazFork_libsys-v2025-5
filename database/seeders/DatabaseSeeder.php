@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Condition;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Factories\ThesisFactory;
@@ -28,6 +29,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PhysicalLocationSeeder::class);
         $this->call(SourceSeeder::class);
         $this->call(CoverTypeSeeder::class);
+        $this->call(Condition::class);
+        $this->call(RemarkSeeder::class);
+        $this->call(AcademicPeriodSeeder::class);
 
 //        $this->call(BookSeeder::class);
 //        $this->call(DigitalResourceSeeder::class);

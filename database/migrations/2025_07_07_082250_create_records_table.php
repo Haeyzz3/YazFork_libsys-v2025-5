@@ -12,22 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // conditions table
-        Schema::create('conditions', function (Blueprint $table) {
-            $table->id();
-            $table->string('key')->unique();
-            $table->string('label');
-            $table->timestamps();
-        });
-
-        DB::table('conditions')->insert([
-            ['key' => 'excellent', 'label' => 'Excellent', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'good', 'label' => 'Good', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'fair', 'label' => 'Fair', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'poor', 'label' => 'Poor', 'created_at' => now(), 'updated_at' => now()],
-            ['key' => 'damaged', 'label' => 'Damaged', 'created_at' => now(), 'updated_at' => now()],
-        ]);
-
         Schema::create('records', function (Blueprint $table) {
             $table->id(); // Primary key, auto-generated
 
@@ -37,9 +21,11 @@ return new class extends Migration
             $table->enum('acquisition_status', ['available', 'pending_review', 'processing']);
             $table->enum('condition', ['excellent', 'good', 'fair', 'poor', 'damaged']);
             $table->json('subject_headings');
-            $table->json('old_remarks')->nullable();
 
             $table->foreignId('added_by')->nullable()
+                ->constrained('users')
+                ->onDelete('set null');
+            $table->foreignId('imported_by')->nullable()
                 ->constrained('users')
                 ->onDelete('set null');
             $table->timestamps(); // created_at and updated_at
@@ -54,8 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conditions');
-        Schema::dropIfExists('acquisition_statuses');
         Schema::dropIfExists('records');
     }
 };
