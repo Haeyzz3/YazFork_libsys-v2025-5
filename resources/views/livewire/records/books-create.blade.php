@@ -171,13 +171,14 @@
                     />
                 @endif
                 <x-form-select-input
-                    wireModel="source"
+                    wireModel="source_id"
                     :options="$sources"
-                    name="source"
+                    name="source_id"
                     label="Source"
                     :required="true"
                 />
-                @if($source === 'purchase')
+
+                @if((int)$source_id === \App\Models\Source::where('key', 'purchase')->first()->id)
                     <x-form-input
                         name="purchase_amount"
                         label="Purchase Amount"
@@ -199,7 +200,7 @@
                         :value="old('supplier','')"
                     />
                 @endif
-                @if($source === 'donation')
+                @if((int)$source_id === \App\Models\Source::where('key', 'donation')->first()->id)
                     <x-form-input
                         name="donated_by"
                         label="Donated By"
@@ -208,9 +209,9 @@
                     />
                 @endif
                 <x-form-select-input
-                    wireModel="cover_type"
+                    wireModel="cover_type_id"
                     :options="$cover_types"
-                    name="cover_type"
+                    name="cover_type_id"
                     label="Cover Type"
                 />
                 <x-form-select-input
