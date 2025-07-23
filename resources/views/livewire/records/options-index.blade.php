@@ -30,12 +30,29 @@
             @if ($activeTab === 'tab1')
                 <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
                     @forelse($ddc_classes as $ddc)
-                        <div class="bg-white shadow-sm rounded-lg p-4 border border-gray-200 hover:shadow-md transition-shadow">
-                            <h2 class="text-lg font-medium text-gray-900">{{ $ddc['name'] }}</h2>
-                            <p class="mt-2 text-sm text-gray-600">{{ $ddc['code'] }}</p>
+                        <div class="bg-white flex justify-between shadow-sm rounded-lg p-4 border border-gray-200
+                        hover:shadow-md transition-shadow">
+                            <div class="">
+                                <h2 class="text-lg font-medium text-gray-900">{{ $ddc['name'] }}</h2>
+                                <p class="mt-2 text-sm text-gray-600">{{ $ddc['code'] }}</p>
+                            </div>
+                            <div class="flex flex-col justify-between min-h-full text-gray-500">
+                                <!-- Edit Icon -->
+                                <a href="" class="hover:text-red-900">
+                                    <flux:icon name="pencil-square" variant="mini"/>
+                                </a>
+                                <!-- Delete Icon -->
+                                <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="hover:text-red-900">
+                                        <flux:icon name="trash" variant="mini"/>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     @empty
-                        No record to show
+                        <p>No record to show</p>
                     @endforelse
                 </div>
             @elseif ($activeTab === 'tab2')
