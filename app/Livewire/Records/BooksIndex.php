@@ -166,6 +166,21 @@ class BooksIndex extends Component
                             }
                         }
 
+//
+                        $source_id = null;
+                        if (isset($row[15]) && !empty(trim($row[15]))) {
+                            $source_name = trim($row[15]);
+                            $source_from_db = Source::where('name', ucwords(strtolower($row[15])))->first();
+                            if ($source_from_db) {
+                                $source_id = $source_from_db->id;
+                            } else {
+                                $source_id = Source::create([
+                                    'key' => strtolower($source_name),
+                                    'name' => $source_name
+                                ])->id;
+                            }
+                        }
+
 //                        $cover_image = null;
 //                        if (isset($row[19]) && !empty(trim($row[19]))) {
 //                            $cover_image = trim($row[19]);
@@ -191,7 +206,7 @@ class BooksIndex extends Component
                             'cover_type_id' => $cover_type_id,
 //                            'cover_image' => '/uploads/book_cover_images/' . $cover_image,
 
-                            'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[15])))->firstOrCreate()->id,
+                            'source_id' => $source ?? $source_id,
 
                             'purchase_amount' => $purchaseAmount,
 
@@ -201,6 +216,12 @@ class BooksIndex extends Component
                             'table_of_contents' => $row[14] ?? null,
                         ];
 
+                        // reset after use
+                        $purchaseAmount = null;
+                        $donated_by = null;
+                        $source = null;
+
+                        // initialize
                         $remark_data = [];
 
                         if (isset($row[19]) && !empty(trim($row[19]))) {
@@ -315,11 +336,6 @@ class BooksIndex extends Component
                                 'content' => $content,
                             ];
                         }
-
-                        // reset after use
-                        $purchaseAmount = null;
-                        $donated_by = null;
-                        $source = null;
 
                         // Clean and validate data
                         $record_data['title'] = trim($record_data['title']);
