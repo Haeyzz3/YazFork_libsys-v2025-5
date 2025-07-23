@@ -5993,14 +5993,9 @@
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "v3.15.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "c0667ea91f7185f1e074402c5788195e96bf8106"
-            },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/c0667ea91f7185f1e074402c5788195e96bf8106",
+                "url": "https://mirrors.cloud.tencent.com/repository/composer/barryvdh/laravel-debugbar/v3.15.4/barryvdh-laravel-debugbar-v3.15.4.zip",
                 "reference": "c0667ea91f7185f1e074402c5788195e96bf8106",
                 "shasum": ""
             },
@@ -6040,7 +6035,6 @@
                     "Barryvdh\\Debugbar\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -6063,16 +6057,6 @@
                 "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
                 "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.15.4"
             },
-            "funding": [
-                {
-                    "url": "https://fruitcake.nl",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/barryvdh",
-                    "type": "github"
-                }
-            ],
             "time": "2025-04-16T06:32:06+00:00"
         },
         {
