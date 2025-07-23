@@ -78,7 +78,6 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     // options
     Route::get('records/options', \App\Livewire\Records\OptionsIndex::class)->name('options.index');
 
-
 });
 
 Route::middleware(['auth'])->group(function () {
