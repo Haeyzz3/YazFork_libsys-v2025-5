@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Records;
 
+use App\Models\CoverType;
 use App\Models\DdcClassification;
 use App\Models\LcClassification;
 use App\Models\PhysicalLocation;
@@ -17,10 +18,7 @@ class BooksCreate extends Component
     public $ddc_classifications = [];
     public $lc_classifications = [];
     public $physical_locations = [];
-    public $cover_types = [
-        'hard_cover' => 'Hardcover',
-        'paper_back' => 'Paperback',
-    ];
+    public $cover_types = [];
     public $sources = [];
     public $acquisition_statuses = [];
     public $conditions = [];
@@ -43,17 +41,17 @@ class BooksCreate extends Component
     public $ddc_class_id = "";
     public $lc_class_id = "";
     public $physical_location_id = "";
-    public $cover_type = "";
+    public $cover_type_id = '';
     public $cover_image = '';
     public $ics_number = '';
-    public $ics_date = '';
+    public $ics_date = null;
     public $pr_number = '';
-    public $pr_date = '';
+    public $pr_date = null;
     public $po_number = '';
-    public $po_date = '';
-    public $source = "";
-    public $purchase_amount = '';
-    public $lot_cost = '';
+    public $po_date = null;
+    public $source_id = '';
+    public $purchase_amount = null;
+    public $lot_cost = null;
     public $supplier = '';
     public $donated_by = '';
     public $table_of_contents = '';
@@ -64,8 +62,9 @@ class BooksCreate extends Component
         $this->ddc_classifications = DdcClassification::pluck('name','id')->toArray();
         $this->lc_classifications = LcClassification::pluck('name','id')->toArray();
         $this->physical_locations = PhysicalLocation::pluck('name','id')->toArray();
-        $this->sources = DB::table('sources')->pluck('label', 'key')->toArray();
-        $this->acquisition_statuses = DB::table('acquisition_statuses')->pluck('label', 'key')->toArray();
+        $this->cover_types = CoverType::pluck('name','id')->toArray();
+        $this->sources = DB::table('sources')->pluck('name', 'id')->toArray();
+        $this->acquisition_statuses = DB::table('acquisition_statuses')->pluck('name', 'key')->toArray();
         $this->conditions = DB::table('conditions')->pluck('label', 'key')->toArray();
     }
 
@@ -90,7 +89,7 @@ class BooksCreate extends Component
             'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
             'physical_location_id' => 'nullable|exists:physical_locations,id',
-            'cover_type' => 'nullable|string|max:50',
+            'cover_type_id' => 'nullable|exists:cover_types,id',
             'cover_image' => 'nullable|image|max:2048', // adjust size if needed
             'ics_number' => 'nullable|string|max:50',
             'ics_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
@@ -98,7 +97,7 @@ class BooksCreate extends Component
             'pr_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
             'po_number' => 'nullable|string|max:50',
             'po_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
-            'source' => 'nullable|string|max:100',
+            'source_id' => 'nullable|exists:sources,id',
             'purchase_amount' => 'nullable|numeric|min:0',
             'lot_cost' => 'nullable|numeric|min:0',
             'supplier' => 'nullable|string|max:255',
@@ -168,6 +167,7 @@ class BooksCreate extends Component
                 'condition' => $this->condition,
                 'subject_headings' => $this->subject_headings,
 
+                'date_received' => now(),
                 'added_by' => auth()->user()->id,
             ]);
 
@@ -184,7 +184,7 @@ class BooksCreate extends Component
                 'lc_class_id' => $this->lc_class_id,
                 'physical_location_id' => $this->physical_location_id,
 
-                'cover_type' => $this->cover_type,
+                'cover_type_id' => $this->cover_type_id,
                 'cover_image' => $cover_image_path,
 
                 'ics_number' => $this->ics_number,
@@ -194,7 +194,7 @@ class BooksCreate extends Component
                 'po_number' => $this->po_number,
                 'po_date' => $this->po_date,
 
-                'source' => $this->source,
+                'source_id' => $this->source_id,
                 'purchase_amount' => $this->purchase_amount,
                 'lot_cost' => $this->lot_cost,
                 'supplier' => $this->supplier,

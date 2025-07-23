@@ -13,8 +13,18 @@
                 <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->title }}</dd>
             </div>
             <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Primary Author</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->primary_author ?? 'Not specified' }}</dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900">Author/Authors</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">
+                    @if (is_array($record->book->authors))
+                        {{ implode(', ', $record->book->authors) }}
+                    @else
+                        {{ $record->book->authors ?? 'Not specified' }}
+                    @endif
+                </dd>
+            </div>
+            <div class="px-4 py-3">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Editors</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->editor ?? 'Not specified' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Publication Year</dt>
@@ -26,34 +36,11 @@
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Place of Publication</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->place_of_publication }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->publication_place }}</dd>
             </div>
             <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">ISBN/ISSN</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->isbn_issn }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Language</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->language }}</dd>
-            </div>
-        </dl>
-
-        <div class="px-4 sm:px-0">
-            <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Authors & Contributors</h3>
-        </div>
-
-        <dl class="grid grid-cols-1 sm:grid-cols-3">
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Additional Authors</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->additional_authors ?? 'None' }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Editor</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->editor ?? 'Not specified' }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Series Title</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->series_title ?? 'Not part of a series' }}</dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900">ISBN</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->isbn }}</dd>
             </div>
         </dl>
 
@@ -64,19 +51,15 @@
         <dl class="grid grid-cols-1 sm:grid-cols-3">
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">DDC Classification</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->ddc_classification }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->ddcClassification->name }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Call Number</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->call_number }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->call_number }}</dd>
             </div>
             <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Physical Location</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->physical_location }}</dd>
-            </div>
-            <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Location Symbol</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->location_symbol }}</dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->physicalLocation->name }}</dd>
             </div>
         </dl>
 
@@ -91,12 +74,12 @@
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Cover Type</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->cover_type }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->coverType->name }}</dd>
             </div>
             <div class="px-4 py-3 flex items-center gap-x-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Book Cover</dt>
-                @if($record->book->book_cover_image)
-                    <img src="{{ asset('storage/' . $record->book->book_cover_image) }}"
+                @if($record->book->cover_image)
+                    <img src="{{ asset('storage/' . $record->book->cover_image) }}"
                          alt="Book cover"
                          class="h-16 w-12 object-cover rounded-md shadow-sm">
                 @else
@@ -115,16 +98,16 @@
 
         <dl class="grid grid-cols-1 sm:grid-cols-3">
             <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Date Acquired</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->date_acquired }}</dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900">Date Received</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->date_received }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Source</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->source }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->source->name }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Purchase Amount</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->purchase_amount ? '₱' . number_format($record->purchase_amount, 2) : 'Not specified' }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->purchase_amount ? '₱' . number_format($record->book->purchase_amount, 2) : 'Not specified' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Acquisition Status</dt>
@@ -137,30 +120,18 @@
             </div>
         </dl>
 
-        @if($record->book->table_of_contents || $record->book->summary_abstract)
-            <div class="mt-4 px-4 sm:px-0">
-                <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Information</h3>
-            </div>
+        <div class="mt-4 px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Information</h3>
+        </div>
 
-            <dl class="grid grid-cols-3">
-                @if($record->book->table_of_contents)
-                    <div class="px-4 py-3">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Table of Contents</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->table_of_contents }}</dd>
-                    </div>
-                @endif
-                @if($record->book->summary_abstract)
-                    <div class="px-4 py-3">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Summary/Abstract</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->summary_abstract }}</dd>
-                    </div>
-                @endif
-                    <div class="px-4 py-3">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Additional Notes</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->additional_notes ?? 'None' }}</dd>
-                    </div>
-            </dl>
-        @endif
+        <dl class="grid grid-cols-3">
+            @if($record->book->table_of_contents)
+                <div class="px-4 py-3">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Table of Contents</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->table_of_contents }}</dd>
+                </div>
+            @endif
+        </dl>
 
         <div class="mt-4 flex justify-end px-4">
             <a href="{{ route('books.edit', $record) }}">
