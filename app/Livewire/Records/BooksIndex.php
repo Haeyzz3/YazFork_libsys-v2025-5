@@ -73,8 +73,10 @@ class BooksIndex extends Component
 
                 foreach ($csv_data as $row_index => $row) {
                     try {
-                        // Skip empty rows
-                        if (empty(array_filter($row))) {
+                        // Trim all values in the row and check for emptiness
+                        $row = array_map('trim', $row); // Trim all values
+                        if (empty(array_filter($row, fn($value) => $value !== '' && $value !== null))) {
+                            \Log::warning('Skipping empty row ' . ($row_index + 1) . ':', $row);
                             continue;
                         }
 
@@ -319,13 +321,6 @@ class BooksIndex extends Component
                         $donated_by = null;
                         $source = null;
 
-                        // Validate required fields
-//                        if (empty($record_data['title']) || empty($book_data['authors'])) {
-//                            $failed_count++;
-//                            $errors[] = "Row " . ($row_index + 1) . ": Title and Author are required";
-//                            continue;
-//                        }
-
                         // Clean and validate data
                         $record_data['title'] = trim($record_data['title']);
 
@@ -339,15 +334,19 @@ class BooksIndex extends Component
                             }
                         }
 
-                        // Create the book record
-                        $record = Record::create($record_data);
-                        $record->book()->create($book_data);
+                        // Validate required fields
+                        if (!empty($record_data['title']) || !empty($book_data['accession_number'])) {
 
-                        foreach ($remark_data as $remark) {
-                            $record->remarks()->create($remark);
+                            // Create the book record
+                            $record = Record::create($record_data);
+                            $record->book()->create($book_data);
+
+                            foreach ($remark_data as $remark) {
+                                $record->remarks()->create($remark);
+                            }
+
+                            $imported_count++;
                         }
-
-                        $imported_count++;
 
                     } catch (\Exception $e) {
                         $failed_count++;
