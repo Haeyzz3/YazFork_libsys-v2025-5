@@ -15,11 +15,15 @@ class Book extends Model
     protected $casts = [
         'authors' => 'array', // saved as json in db
         'editors' => 'array', // saved as json in db
-        'old_remarks' => 'array', // saved as json in db
     ];
 
     public function record(): BelongsTo
     {
         return $this->belongsTo(Record::class);
+    }
+
+    public function ddcClassification()
+    {
+        return $this->belongsTo(DdcClassification::class, 'ddc_class_id');
     }
 }

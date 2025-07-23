@@ -417,18 +417,8 @@ class BooksIndex extends Component
 
     public function render()
     {
-        $records = Record::with('book')
+        $records = Record::with(['book.ddcClassification'])
             ->whereHas('book')
-            ->when($this->search, function ($query) {
-                $query->where('accession_number', 'like', '%' . $this->search . '%')
-                    ->orWhere('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('ddc_classification', 'like', '%' . $this->search . '%')
-                    ->orWhereHas('book', function ($query) {
-                        $query->where('author', 'like', '%' . $this->search . '%');
-                    })->orWhereHas('book', function ($query) {
-                        $query->where('publication_year', 'like', '%' . $this->search . '%');
-                    });
-            })
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
