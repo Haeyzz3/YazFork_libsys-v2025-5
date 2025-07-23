@@ -32,11 +32,11 @@ class BooksIndex extends Component
 
     // for modal
     public $isModalOpen = false;
-    public function openModal()
+    public function openModal(): void
     {
         $this->isModalOpen = true;
     }
-    public function closeModal()
+    public function closeModal(): void
     {
         $this->isModalOpen = false;
     }
@@ -44,7 +44,7 @@ class BooksIndex extends Component
     public function rules()
     {
         return [
-            'import_csv' => 'required|file|mimes:csv,txt|max:2048',
+            'import_csv' => 'required|file|mimes:csv,txt|max:20480',
         ];
     }
 
@@ -73,8 +73,10 @@ class BooksIndex extends Component
 
                 foreach ($csv_data as $row_index => $row) {
                     try {
-                        // Skip empty rows
-                        if (empty(array_filter($row))) {
+                        // Trim all values in the row and check for emptiness
+                        $row = array_map('trim', $row); // Trim all values
+                        if (empty(array_filter($row, fn($value) => $value !== '' && $value !== null))) {
+                            \Log::warning('Skipping empty row ' . ($row_index + 1) . ':', $row);
                             continue;
                         }
 
@@ -164,13 +166,28 @@ class BooksIndex extends Component
                             }
                         }
 
-                        $cover_image = null;
-                        if (isset($row[19]) && !empty(trim($row[19]))) {
-                            $cover_image = trim($row[19]);
-                            if ($cover_image === '-') {
-                                $cover_image = null;
+//
+                        $source_id = null;
+                        if (isset($row[15]) && !empty(trim($row[15]))) {
+                            $source_name = trim($row[15]);
+                            $source_from_db = Source::where('name', ucwords(strtolower($row[15])))->first();
+                            if ($source_from_db) {
+                                $source_id = $source_from_db->id;
+                            } else {
+                                $source_id = Source::create([
+                                    'key' => strtolower($source_name),
+                                    'name' => $source_name
+                                ])->id;
                             }
                         }
+
+//                        $cover_image = null;
+//                        if (isset($row[19]) && !empty(trim($row[19]))) {
+//                            $cover_image = trim($row[19]);
+//                            if ($cover_image === '-') {
+//                                $cover_image = null;
+//                            }
+//                        }
 
                         $book_data = [
                             'volume' => $row[0] ?? null,
@@ -187,9 +204,9 @@ class BooksIndex extends Component
                             'physical_location_id' => $physical_location_id,
 
                             'cover_type_id' => $cover_type_id,
-                            'cover_image' => '/uploads/book_cover_images/' . $cover_image,
+//                            'cover_image' => '/uploads/book_cover_images/' . $cover_image,
 
-                            'source_id' => $source ?? Source::where('name', ucwords(strtolower($row[15])))->firstOrCreate()->id,
+                            'source_id' => $source ?? $source_id,
 
                             'purchase_amount' => $purchaseAmount,
 
@@ -199,12 +216,26 @@ class BooksIndex extends Component
                             'table_of_contents' => $row[14] ?? null,
                         ];
 
+                        // reset after use
+                        $purchaseAmount = null;
+                        $donated_by = null;
+                        $source = null;
+
+                        // initialize
                         $remark_data = [];
 
+                        if (isset($row[19]) && !empty(trim($row[19]))) {
+                            $content = trim($row[19]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
+                                    ->where('semester', 'Whole Year')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
                         if (isset($row[20]) && !empty(trim($row[20]))) {
                             $content = trim($row[20]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2008-2009')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -212,7 +243,7 @@ class BooksIndex extends Component
                         if (isset($row[21]) && !empty(trim($row[21]))) {
                             $content = trim($row[21]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2008-2009')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2009-2010')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -220,7 +251,7 @@ class BooksIndex extends Component
                         if (isset($row[22]) && !empty(trim($row[22]))) {
                             $content = trim($row[22]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2009-2010')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2010-2011')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -228,7 +259,7 @@ class BooksIndex extends Component
                         if (isset($row[23]) && !empty(trim($row[23]))) {
                             $content = trim($row[23]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2010-2011')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2011-2012')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -236,7 +267,7 @@ class BooksIndex extends Component
                         if (isset($row[24]) && !empty(trim($row[24]))) {
                             $content = trim($row[24]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2011-2012')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2017-2018')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -244,7 +275,7 @@ class BooksIndex extends Component
                         if (isset($row[25]) && !empty(trim($row[25]))) {
                             $content = trim($row[25]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2017-2018')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2018-2019')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -252,7 +283,7 @@ class BooksIndex extends Component
                         if (isset($row[26]) && !empty(trim($row[26]))) {
                             $content = trim($row[26]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2018-2019')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2019-2020')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -260,7 +291,7 @@ class BooksIndex extends Component
                         if (isset($row[27]) && !empty(trim($row[27]))) {
                             $content = trim($row[27]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2019-2020')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2020-2021')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -268,7 +299,7 @@ class BooksIndex extends Component
                         if (isset($row[28]) && !empty(trim($row[28]))) {
                             $content = trim($row[28]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2020-2021')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2021-2022')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -276,7 +307,7 @@ class BooksIndex extends Component
                         if (isset($row[29]) && !empty(trim($row[29]))) {
                             $content = trim($row[29]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2021-2022')
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2022-2023')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -284,8 +315,8 @@ class BooksIndex extends Component
                         if (isset($row[30]) && !empty(trim($row[30]))) {
                             $content = trim($row[30]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2022-2023')
-                                    ->where('semester', 'Whole Year')->first()->id,
+                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                    ->where('semester', '1st Semester')->first()->id,
                                 'content' => $content,
                             ];
                         }
@@ -293,7 +324,7 @@ class BooksIndex extends Component
                             $content = trim($row[31]);
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
-                                    ->where('semester', '1st Semester')->first()->id,
+                                    ->where('semester', '2nd Semester')->first()->id,
                                 'content' => $content,
                             ];
                         }
@@ -301,30 +332,10 @@ class BooksIndex extends Component
                             $content = trim($row[32]);
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
-                                    ->where('semester', '2nd Semester')->first()->id,
-                                'content' => $content,
-                            ];
-                        }
-                        if (isset($row[33]) && !empty(trim($row[33]))) {
-                            $content = trim($row[33]);
-                            $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-
-                        // reset after use
-                        $purchaseAmount = null;
-                        $donated_by = null;
-                        $source = null;
-
-                        // Validate required fields
-//                        if (empty($record_data['title']) || empty($book_data['authors'])) {
-//                            $failed_count++;
-//                            $errors[] = "Row " . ($row_index + 1) . ": Title and Author are required";
-//                            continue;
-//                        }
 
                         // Clean and validate data
                         $record_data['title'] = trim($record_data['title']);
@@ -339,15 +350,19 @@ class BooksIndex extends Component
                             }
                         }
 
-                        // Create the book record
-                        $record = Record::create($record_data);
-                        $record->book()->create($book_data);
+                        // Validate required fields
+                        if (!empty($record_data['title']) || !empty($book_data['accession_number'])) {
 
-                        foreach ($remark_data as $remark) {
-                            $record->remarks()->create($remark);
+                            // Create the book record
+                            $record = Record::create($record_data);
+                            $record->book()->create($book_data);
+
+                            foreach ($remark_data as $remark) {
+                                $record->remarks()->create($remark);
+                            }
+
+                            $imported_count++;
                         }
-
-                        $imported_count++;
 
                     } catch (\Exception $e) {
                         $failed_count++;
@@ -402,18 +417,8 @@ class BooksIndex extends Component
 
     public function render()
     {
-        $records = Record::with('book')
+        $records = Record::with(['book.ddcClassification'])
             ->whereHas('book')
-            ->when($this->search, function ($query) {
-                $query->where('accession_number', 'like', '%' . $this->search . '%')
-                    ->orWhere('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('ddc_classification', 'like', '%' . $this->search . '%')
-                    ->orWhereHas('book', function ($query) {
-                        $query->where('author', 'like', '%' . $this->search . '%');
-                    })->orWhereHas('book', function ($query) {
-                        $query->where('publication_year', 'like', '%' . $this->search . '%');
-                    });
-            })
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 

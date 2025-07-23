@@ -51,10 +51,14 @@
                     @forelse($records as $record)
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $record->accession_number }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->title }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->ddc_classification ?? $record->lc_classification }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->author ?? 'Not specified' }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->publication_year ?? 'Not specified' }}</td>
+                            <td class="px-3 py-4 text-sm text-gray-600 max-w-md truncate">{{ $record->title }}</td>                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->ddcClassification->name ?? $record->lc_classification }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">
+                                @if (is_array($record->book->authors))
+                                    {{ implode(', ', $record->book->authors) }}
+                                @else
+                                    {{ $record->book->authors ?? 'Not specified' }}
+                                @endif
+                            </td>                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->publication_year ?? 'Not specified' }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                                 <a href="{{ route('books.show', $record) }}" class="text-indigo-600 hover:text-indigo-900">View all details</a>
                             </td>
@@ -83,7 +87,6 @@
         <br>
         naay modal diri kay i orient sa tika na dapat csv then ang mga columns nimo is dapat ing-ani ug format
         <form wire:submit.prevent="submit" enctype="multipart/form-data">
-
             <div class="mt-2">
                 <input
                     type="file"
@@ -93,21 +96,54 @@
                     required
                 >
                 @error('import_csv')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-
             <div class="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                 <button
                     type="submit"
-                    class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    @disabled(!$import_csv)
+                    @class([
+                        'block rounded-md px-3 py-2 text-center text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+                        'bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:outline-indigo-600' => $import_csv,
+                        'bg-gray-300 text-gray-500 cursor-not-allowed' => !$import_csv
+                    ])
                 >
                     <span wire:loading wire:target="submit">Importing...</span>
                     <span wire:loading.remove wire:target="submit">Proceed Import</span>
                 </button>
             </div>
         </form>
-
     </x-modal>
+
+    <!-- Loading Overlay -->
+    <div
+        wire:loading
+        wire:target="submit"
+        class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50"
+    >
+        <div class="flex flex-col items-center">
+            <svg
+                class="animate-spin h-10 w-10 text-indigo-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+            >
+                <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                ></circle>
+                <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+            </svg>
+            <span class="mt-2 text-white text-lg">Importing books, please wait...</span>
+        </div>
+    </div>
 </div>

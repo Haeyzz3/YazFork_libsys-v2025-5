@@ -12,14 +12,41 @@ class Book extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'ics_date',
+        'pr_date',
+        'po_date',
+    ];
+
     protected $casts = [
         'authors' => 'array', // saved as json in db
         'editors' => 'array', // saved as json in db
-        'old_remarks' => 'array', // saved as json in db
+        'purchase_amount' => 'decimal:2',
+        'lot_cost' => 'decimal:2',
     ];
 
     public function record(): BelongsTo
     {
         return $this->belongsTo(Record::class);
+    }
+
+    public function ddcClassification(): BelongsTo
+    {
+        return $this->belongsTo(DdcClassification::class, 'ddc_class_id');
+    }
+
+    public function physicalLocation(): BelongsTo
+    {
+        return $this->belongsTo(PhysicalLocation::class);
+    }
+
+    public function coverType(): BelongsTo
+    {
+        return $this->belongsTo(CoverType::class, 'cover_type_id');
+    }
+
+    public function source(): BelongsTo
+    {
+        return $this->belongsTo(Source::class);
     }
 }
