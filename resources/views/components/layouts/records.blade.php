@@ -48,8 +48,8 @@
                             </a>
 
                         </nav>
-                        <a href="#"
-                           class="group inline-flex gap-2 items-center border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 px-1 py-4 text-sm font-medium">
+                        <a href="{{ route('options.index') }}"
+                           class="group inline-flex gap-2 items-center border-b-2 {{ request()->routeIs(['options.*']) ? 'border-red-900 text-rose-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} px-1 py-4 text-sm font-medium">
                             <flux:icon name="adjustments-horizontal" />
                             <span>Options</span>
                         </a>
