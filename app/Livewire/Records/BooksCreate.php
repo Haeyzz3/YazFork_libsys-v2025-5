@@ -44,14 +44,14 @@ class BooksCreate extends Component
     public $cover_type_id = '';
     public $cover_image = '';
     public $ics_number = '';
-    public $ics_date = '';
+    public $ics_date = null;
     public $pr_number = '';
-    public $pr_date = '';
+    public $pr_date = null;
     public $po_number = '';
-    public $po_date = '';
+    public $po_date = null;
     public $source_id = '';
-    public $purchase_amount = '';
-    public $lot_cost = '';
+    public $purchase_amount = null;
+    public $lot_cost = null;
     public $supplier = '';
     public $donated_by = '';
     public $table_of_contents = '';
@@ -193,7 +193,7 @@ class BooksCreate extends Component
                 'po_number' => $this->po_number,
                 'po_date' => $this->po_date,
 
-                'source' => $this->source,
+                'source_id' => $this->source_id,
                 'purchase_amount' => $this->purchase_amount,
                 'lot_cost' => $this->lot_cost,
                 'supplier' => $this->supplier,

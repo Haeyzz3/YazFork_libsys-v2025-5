@@ -12,9 +12,17 @@ class Book extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'ics_date',
+        'pr_date',
+        'po_date',
+    ];
+
     protected $casts = [
         'authors' => 'array', // saved as json in db
         'editors' => 'array', // saved as json in db
+        'purchase_amount' => 'decimal:2',
+        'lot_cost' => 'decimal:2',
     ];
 
     public function record(): BelongsTo
