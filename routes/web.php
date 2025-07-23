@@ -75,6 +75,10 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::put('records/thesis/{record}/', [ThesisController::class, 'update'])->name('thesis.update');
     Route::delete('records/thesis/{record}/', [ThesisController::class, 'destroy'])->name('thesis.destroy');
 
+    // options
+    Route::get('records/options', \App\Livewire\Records\OptionsIndex::class)->name('options.index');
+
+
 });
 
 Route::middleware(['auth'])->group(function () {
