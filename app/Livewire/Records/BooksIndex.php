@@ -44,7 +44,7 @@ class BooksIndex extends Component
     public function rules()
     {
         return [
-            'import_csv' => 'required|file|mimes:csv,txt|max:2048',
+            'import_csv' => 'required|file|mimes:csv,txt|max:20480',
         ];
     }
 
