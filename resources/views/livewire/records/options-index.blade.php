@@ -7,13 +7,13 @@
                         wire:click="switchTab('tab1')"
                         class="group inline-flex gap-2 items-center border-b-2 {{ $activeTab === 'tab1' ? 'border-red-900 text-rose-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} px-1 pb-2 text-sm font-medium"
                     >
-                        <span>DDC Classifications</span>
+                        <span>DDC</span>
                     </button>
                     <button
                         wire:click="switchTab('tab2')"
                         class="group inline-flex gap-2 items-center border-b-2 {{ $activeTab === 'tab2' ? 'border-red-900 text-rose-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} px-1 pb-2 text-sm font-medium"
                     >
-                        <span>Tab 2</span>
+                        <span>Locations</span>
                     </button>
                     <button
                         wire:click="switchTab('tab3')"
@@ -28,8 +28,16 @@
         <!-- Tab Content -->
         <div class="py-4">
             @if ($activeTab === 'tab1')
-                <h2 class="text-base font-semibold leading-6 text-gray-900">Dewey Decimal System classes</h2>
-                <p class="mt-2 text-sm text-gray-700">This is the content for the first tab. You can add any HTML or Blade here.</p>
+                <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                    @forelse($ddc_classes as $ddc)
+                        <div class="bg-white shadow-sm rounded-lg p-4 border border-gray-200 hover:shadow-md transition-shadow">
+                            <h2 class="text-lg font-medium text-gray-900">{{ $ddc['name'] }}</h2>
+                            <p class="mt-2 text-sm text-gray-600">{{ $ddc['code'] }}</p>
+                        </div>
+                    @empty
+                        No record to show
+                    @endforelse
+                </div>
             @elseif ($activeTab === 'tab2')
                 <h2 class="text-base font-semibold leading-6 text-gray-900">Content for Tab 2</h2>
                 <p class="mt-2 text-sm text-gray-700">This is the content for the second tab. Customize as needed.</p>
