@@ -32,11 +32,11 @@ class BooksIndex extends Component
 
     // for modal
     public $isModalOpen = false;
-    public function openModal()
+    public function openModal(): void
     {
         $this->isModalOpen = true;
     }
-    public function closeModal()
+    public function closeModal(): void
     {
         $this->isModalOpen = false;
     }
