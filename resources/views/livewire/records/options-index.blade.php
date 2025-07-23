@@ -75,17 +75,23 @@
             <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full" x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
                 <div class="px-4 py-5 sm:p-6">
                     <h3 class="text-lg font-medium text-gray-900">Edit DDC</h3>
-                    <div class="mt-4">
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                            <input wire:model.blur="name" type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                            @error('name') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-4">
-                            <label for="code" class="block text-sm font-medium text-gray-700">Code</label>
-                            <input wire:model.blur="code" type="text" id="code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                            @error('code') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-                        </div>
+                    <div class="mt-4 grid gap-y-6">
+                        <x-form-input
+                            name="name"
+                            label="Name"
+                            placeholder="Enter name"
+                            type="text"
+                            required
+                            :value="old('name', '')"
+                        />
+                        <x-form-input
+                            name="code"
+                            label="Code"
+                            placeholder="Enter code"
+                            type="text"
+                            required
+                            :value="old('code', '')"
+                        />
                     </div>
                     <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
                         <button wire:click="save" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">

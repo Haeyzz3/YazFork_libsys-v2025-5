@@ -3,6 +3,7 @@
 namespace App\Livewire\Records;
 
 use App\Models\DdcClassification;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class OptionsIndex extends Component
@@ -28,7 +29,12 @@ class OptionsIndex extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:100|unique:ddc_classifications,code',
+            'code' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('ddc_classifications', 'code')->ignore($this->ddcId),
+            ],
         ];
     }
 
