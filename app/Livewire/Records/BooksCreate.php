@@ -167,6 +167,7 @@ class BooksCreate extends Component
                 'condition' => $this->condition,
                 'subject_headings' => $this->subject_headings,
 
+                'date_received' => now(),
                 'added_by' => auth()->user()->id,
             ]);
 

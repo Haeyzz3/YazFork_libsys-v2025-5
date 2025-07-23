@@ -78,8 +78,8 @@
             </div>
             <div class="px-4 py-3 flex items-center gap-x-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Book Cover</dt>
-                @if($record->book->book_cover_image)
-                    <img src="{{ asset('storage/' . $record->book->book_cover_image) }}"
+                @if($record->book->cover_image)
+                    <img src="{{ asset('storage/' . $record->book->cover_image) }}"
                          alt="Book cover"
                          class="h-16 w-12 object-cover rounded-md shadow-sm">
                 @else
@@ -98,16 +98,16 @@
 
         <dl class="grid grid-cols-1 sm:grid-cols-3">
             <div class="px-4 py-3">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Date Acquired</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->date_acquired }}</dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900">Date Received</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->date_received }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Source</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->source }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->source->name }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Purchase Amount</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->purchase_amount ? '₱' . number_format($record->purchase_amount, 2) : 'Not specified' }}</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->purchase_amount ? '₱' . number_format($record->book->purchase_amount, 2) : 'Not specified' }}</dd>
             </div>
             <div class="px-4 py-3">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Acquisition Status</dt>
@@ -120,30 +120,18 @@
             </div>
         </dl>
 
-        @if($record->book->table_of_contents || $record->book->summary_abstract)
-            <div class="mt-4 px-4 sm:px-0">
-                <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Information</h3>
-            </div>
+        <div class="mt-4 px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Additional Information</h3>
+        </div>
 
-            <dl class="grid grid-cols-3">
-                @if($record->book->table_of_contents)
-                    <div class="px-4 py-3">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Table of Contents</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->table_of_contents }}</dd>
-                    </div>
-                @endif
-                @if($record->book->summary_abstract)
-                    <div class="px-4 py-3">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Summary/Abstract</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->summary_abstract }}</dd>
-                    </div>
-                @endif
-                    <div class="px-4 py-3">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Additional Notes</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->additional_notes ?? 'None' }}</dd>
-                    </div>
-            </dl>
-        @endif
+        <dl class="grid grid-cols-3">
+            @if($record->book->table_of_contents)
+                <div class="px-4 py-3">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Table of Contents</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 whitespace-pre-line">{{ $record->book->table_of_contents }}</dd>
+                </div>
+            @endif
+        </dl>
 
         <div class="mt-4 flex justify-end px-4">
             <a href="{{ route('books.edit', $record) }}">

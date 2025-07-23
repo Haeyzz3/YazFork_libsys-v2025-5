@@ -44,4 +44,9 @@ class Book extends Model
     {
         return $this->belongsTo(CoverType::class, 'cover_type_id');
     }
+
+    public function source(): BelongsTo
+    {
+        return $this->belongsTo(Source::class);
+    }
 }
