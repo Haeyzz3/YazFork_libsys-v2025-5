@@ -10,7 +10,7 @@ class OptionsIndex extends Component
 {
     public $activeTab = 'tab1';
     public $ddc_classes = [];
-    public $showModal = false;
+    public $showEditModal = false;
     public $name;
     public $code;
     public $ddcId;
@@ -50,12 +50,12 @@ class OptionsIndex extends Component
         $this->ddcId = $id;
         $this->name = $ddc->name;
         $this->code = $ddc->code;
-        $this->showModal = true;
+        $this->showEditModal = true;
     }
 
-    public function closeModal()
+    public function closeEditModal()
     {
-        $this->showModal = false;
+        $this->showEditModal = false;
         $this->reset(['name', 'code', 'ddcId']);
     }
 

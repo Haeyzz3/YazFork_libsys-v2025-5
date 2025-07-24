@@ -68,7 +68,7 @@
     </div>
 
     <!-- Modal -->
-    <x-compact-modal>
+    <x-compact-modal entangle="showEditModal">
         <div class="px-4 py-5 sm:p-6">
             <h3 class="text-lg font-medium text-gray-900">Edit DDC</h3>
             <div class="mt-4 grid gap-y-6">
@@ -93,7 +93,7 @@
                 <button wire:click="save" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-accent text-base font-medium text-white hover:bg-accent-content focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
                     Save
                 </button>
-                <button wire:click="closeModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
+                <button wire:click="closeEditModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
                     Cancel
                 </button>
             </div>
