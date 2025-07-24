@@ -11,6 +11,7 @@ class OptionsIndex extends Component
     public $activeTab = 'tab1';
     public $ddc_classes = [];
     public $showEditModal = false;
+    public $showDeleteModal = false;
     public $name;
     public $code;
     public $ddcId;
@@ -59,7 +60,21 @@ class OptionsIndex extends Component
         $this->reset(['name', 'code', 'ddcId']);
     }
 
-    public function save()
+    public function openDeleteModal($id)
+    {
+        $ddc = DdcClassification::findOrFail($id);
+        $this->ddcId = $id;
+        $this->name = $ddc->name;
+        $this->showDeleteModal = true;
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->showDeleteModal = false;
+        $this->reset(['name', 'ddcId']);
+    }
+
+    public function saveDdc()
     {
         $this->validate();
 
@@ -74,7 +89,12 @@ class OptionsIndex extends Component
         $this->ddc_classes = DdcClassification::select('id', 'name', 'code')->get()->toArray();
         $this->reset(['name', 'code', 'ddcId']);
         session()->flash('success', 'DDC Classification saved successfully');
-        $this->closeModal();
+        $this->closeEditModal();
+    }
+
+    public function deleteDdc($id)
+    {
+
     }
 
     public function render()
