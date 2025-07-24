@@ -32,6 +32,12 @@
     <div class="py-4">
         @if ($activeTab === 'tab1')
             <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="bg-white flex gap-4 justify-center items-center shadow-sm rounded-lg p-4 border font-bold text-gray-700
+                 border-gray-200
+                    hover:shadow-md hover:border-accent-content transition-shadow transition-border">
+                    <div>Add DDC Class</div>
+                    <flux:icon name="plus" variant="mini"/>
+                </div>
                 @forelse($ddc_classes as $ddc)
                     <div class="bg-white flex justify-between shadow-sm rounded-lg p-4 border border-gray-200
                     hover:shadow-md hover:border-accent-content transition-shadow transition-border">
