@@ -9,14 +9,14 @@
                 type="text"
                 wire:model.live="search"
                 placeholder="acc no., title, ddc class, author, year"
-                class="block w-full sm:w-74 rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                class="block w-full sm:w-74 rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-900 sm:text-sm sm:leading-6"
             >
         </div>
         <div class="flex gap-2">
             <a href="{{ route('books.create') }}">
                 <button
                     type="button"
-                    class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    class="block rounded-md bg-red-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900"
                 >
                     Add book
                 </button>
@@ -24,7 +24,7 @@
             <button
                 wire:click="openModal"
                 type="button"
-                class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="block rounded-md bg-red-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900"
             >
                 Import Books
             </button>
@@ -62,7 +62,7 @@
                             </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $record->book->publication_year ?? 'Not specified' }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                                <a href="{{ route('books.show', $record) }}" class="text-indigo-600 hover:text-indigo-900">View all details</a>
+                                <a href="{{ route('books.show', $record) }}" class="text-red-900 hover:text-indigo-900">View all details</a>
                             </td>
                         </tr>
                     @empty
@@ -107,7 +107,7 @@
                     @disabled(!$import_csv)
                     @class([
                         'block rounded-md px-3 py-2 text-center text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
-                        'bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:outline-indigo-600' => $import_csv,
+                        'bg-red-900 text-white hover:bg-red-800 focus-visible:outline-red-900' => $import_csv,
                         'bg-gray-300 text-gray-500 cursor-not-allowed' => !$import_csv
                     ])
                 >
@@ -126,7 +126,7 @@
     >
         <div class="flex flex-col items-center">
             <svg
-                class="animate-spin h-10 w-10 text-indigo-600"
+                class="animate-spin h-10 w-10 text-red-900"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

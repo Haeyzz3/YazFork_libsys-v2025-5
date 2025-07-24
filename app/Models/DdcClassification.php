@@ -10,4 +10,6 @@ class DdcClassification extends Model
 
     protected $table = 'ddc_classifications';
 
+    protected $guarded = [];
+
 }
