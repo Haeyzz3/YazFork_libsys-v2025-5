@@ -70,24 +70,24 @@
     </div>
 
     <!-- Modal -->
-    <x-compact-modal entangle="showEditModal">
+    <x-compact-modal entangle="showEditDdcModal">
         <h3 class="text-lg font-medium text-gray-900">Edit DDC</h3>
         <div class="mt-4 grid gap-y-6">
             <x-form-input
-                name="name"
+                name="ddcName"
                 label="Name"
                 placeholder="Enter name"
                 type="text"
                 required
-                :value="old('name', '')"
+                :value="old('ddcName', '')"
             />
             <x-form-input
-                name="code"
+                name="ddcCode"
                 label="Code"
                 placeholder="Enter code"
                 type="text"
                 required
-                :value="old('code', '')"
+                :value="old('ddcCode', '')"
             />
         </div>
         <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">

@@ -65,7 +65,7 @@ class OptionsIndex extends Component
     {
         $this->validate();
 
-        DdcClassification::update(
+        DdcClassification::updateOrCreate(
             ['id' => $this->ddcId],
             [
                 'name' => $this->ddcName,
@@ -76,7 +76,7 @@ class OptionsIndex extends Component
         $this->ddc_classes = DdcClassification::select('id', 'name', 'code')->get()->toArray();
         $this->reset(['ddcName', 'ddcCode', 'ddcId']);
         session()->flash('success', 'DDC Classification saved successfully');
-        $this->closeEditModal();
+        $this->closeEditDdcModal();
     }
 
     public function openDeleteDdcModal($id)
