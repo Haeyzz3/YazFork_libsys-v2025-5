@@ -31,12 +31,12 @@
     <!-- Tab Content -->
     <div class="py-4">
         @if ($activeTab === 'tab1')
-            <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 @forelse($ddc_classes as $ddc)
                     <div class="bg-white flex justify-between shadow-sm rounded-lg p-4 border border-gray-200
                     hover:shadow-md transition-shadow">
                         <div class="">
-                            <h2 class="text-lg font-medium text-gray-900">{{ $ddc['name'] }}</h2>
+                            <h2 class="text-md font-medium text-gray-900">{{ $ddc['name'] }}</h2>
                             <p class="mt-2 text-sm text-gray-600">{{ $ddc['code'] }}</p>
                         </div>
                         <div class="flex flex-col justify-between min-h-full text-gray-500">
@@ -70,9 +70,9 @@
     <!-- Modal -->
     <div class="fixed inset-0 z-50 overflow-y-auto" x-data="{ open: @entangle('showModal') }" x-show="open" style="display: none;">
         <div class="flex items-center justify-center min-h-screen px-4">
-            <div class="fixed inset-0 bg-gray-500/75 transition-opacity" x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+            <div class="fixed inset-0 bg-gray-500/75 transition-opacity" x-show="open" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
 
-            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full" x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full" x-show="open" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
                 <div class="px-4 py-5 sm:p-6">
                     <h3 class="text-lg font-medium text-gray-900">Edit DDC</h3>
                     <div class="mt-4 grid gap-y-6">
