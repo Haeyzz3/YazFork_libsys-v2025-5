@@ -36,27 +36,6 @@ class OptionsIndex extends Component
         $this->activeTab = $tab;
     }
 
-    public function rules()
-    {
-        return [
-            'ddcName' => 'required|string|max:255',
-            'ddcCode' => [
-                'required',
-                'string',
-                'max:100',
-                Rule::unique('ddc_classifications', 'code')->ignore($this->ddcId),
-            ],
-            'locationName' => 'required|string|max:255',
-            'locationSymbol' => 'required|string|max:255',
-        ];
-    }
-
-    public function updated($propertyName): void
-    {
-        $this->validateOnly($propertyName);
-        $this->resetValidation($propertyName);
-    }
-
     public function openAddDdcModal()
     {
         $this->showAddDdcModal = true;
@@ -109,7 +88,15 @@ class OptionsIndex extends Component
 
     public function updateDdc()
     {
-        $this->validate();
+        $this->validate([
+            'ddcName' => 'required|string|max:255',
+            'ddcCode' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('ddc_classifications', 'code')->ignore($this->ddcId),
+            ],
+        ]);
 
         DdcClassification::updateOrCreate(
             ['id' => $this->ddcId],
@@ -159,7 +146,12 @@ class OptionsIndex extends Component
 
             $this->validate([
                 'locationName' => 'required|string|max:255',
-                'locationSymbol' => 'required|string|max:255',
+                'locationSymbol' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('ddc_classifications', 'symbol')->ignore($this->ddcId),
+                ],
             ]);
 
             PhysicalLocation::create([
@@ -201,6 +193,48 @@ class OptionsIndex extends Component
         $this->locationName = $location->name;
         $this->locationSymbol = $location->symbol;
         $this->showEditLocationModal = true;
+    }
+
+    public function updateLocation()
+    {
+        try {
+
+            $this->validate([
+                'locationName' => 'required|string|max:255',
+                'locationSymbol' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('physical_locations', 'symbol')->ignore($this->locationId),
+                ],
+            ]);
+
+            PhysicalLocation::updateOrCreate(
+                ['id' => $this->locationId],
+                [
+                    'name' => $this->locationName,
+                    'symbol' => $this->locationSymbol,
+                ]
+            );
+
+            $this->locations = PhysicalLocation::select('id', 'name', 'symbol')->get()->toArray();
+            $this->reset(['locationName', 'locationSymbol', 'locationId']);
+            session()->flash('success', 'Location updated successfully');
+            $this->closeEditLocationModal();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle database-specific errors
+            $message = app()->environment('production')
+                ? 'Failed to add record. Please try again.'
+                : 'Failed to add book: ' . $e->getMessage();
+            session()->flash('error', $message);
+        } catch (\Exception $e) {
+            // Handle any other unexpected errors
+            $message = app()->environment('production')
+                ? 'An unexpected error occurred. Please try again.'
+                : 'An unexpected error occurred: ' . $e->getMessage();
+            session()->flash('error', $message);
+        }
     }
 
     public function closeEditLocationModal()
