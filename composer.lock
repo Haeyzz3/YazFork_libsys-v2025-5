@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62b2c26ddc0a14f6430da71636d14ca7",
+    "content-hash": "957fc369544ed733f27dc2312c89eb5b",
     "packages": [
         {
             "name": "brick/math",
@@ -5993,9 +5993,14 @@
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "v3.15.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "c0667ea91f7185f1e074402c5788195e96bf8106"
+            },
             "dist": {
                 "type": "zip",
-                "url": "https://mirrors.cloud.tencent.com/repository/composer/barryvdh/laravel-debugbar/v3.15.4/barryvdh-laravel-debugbar-v3.15.4.zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/c0667ea91f7185f1e074402c5788195e96bf8106",
                 "reference": "c0667ea91f7185f1e074402c5788195e96bf8106",
                 "shasum": ""
             },
@@ -6142,12 +6147,12 @@
             },
             "funding": [
                 {
-                    "url": "https://github.com/sponsors/Slamdunk",
-                    "type": "github"
+                    "url": "https://fruitcake.nl",
+                    "type": "custom"
                 },
                 {
-                    "url": "https://paypal.me/filippotessarotto",
-                    "type": "paypal"
+                    "url": "https://github.com/barryvdh",
+                    "type": "github"
                 }
             ],
             "time": "2025-03-05T08:29:11+00:00"
