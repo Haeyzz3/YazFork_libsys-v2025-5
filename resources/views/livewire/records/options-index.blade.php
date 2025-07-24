@@ -81,9 +81,9 @@
                                 <flux:icon name="pencil-square" variant="mini"/>
                             </a>
                             <!-- Delete Icon -->
-{{--                            <a wire:click="openDeleteDdcModal({{ $location['id'] }})" class="hover:text-red-900">--}}
-{{--                                <flux:icon name="trash" variant="mini"/>--}}
-{{--                            </a>--}}
+                            <a wire:click="openDeleteLocationModal({{ $location['id'] }})" class="hover:text-red-900">
+                                <flux:icon name="trash" variant="mini"/>
+                            </a>
                         </div>
                     </div>
                 @empty
@@ -167,7 +167,7 @@
             <button wire:click="deleteDdc({{ $ddcId }})" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
                 Delete
             </button>
-            <button wire:click="closeDeleteModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
+            <button wire:click="closeDeleteDdcModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
                 Cancel
             </button>
         </div>
@@ -228,6 +228,21 @@
                 Save
             </button>
             <button wire:click="closeEditLocationModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
+                Cancel
+            </button>
+        </div>
+    </x-compact-modal>
+
+    <x-compact-modal entangle="showDeleteLocationModal">
+        <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg font-medium text-gray-900">Delete Location</h3>
+            <p class="mt-2 text-sm text-gray-600">Are you sure you want to delete <span class="font-bold">{{ $locationName }} location</span>? This action cannot be undone.</p>
+        </div>
+        <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
+            <button wire:click="deleteLocation({{ $locationId }})" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                Delete
+            </button>
+            <button wire:click="closeDeleteLocationModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
                 Cancel
             </button>
         </div>

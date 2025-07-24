@@ -120,19 +120,19 @@ class OptionsIndex extends Component
         $this->showDeleteDdcModal = true;
     }
 
-    public function closeDeleteDdcModal()
-    {
-        $this->showDeleteDdcModal = false;
-        $this->reset(['ddcName', 'ddcId']);
-    }
-
     public function deleteDdc($id)
     {
         $ddc = DdcClassification::findOrFail($id);
         $ddc->delete();
         $this->ddc_classes = DdcClassification::select('id', 'name', 'code')->get()->toArray();
         $this->closeDeleteDdcModal();
-        session()->flash('message', 'DDC Classification deleted successfully.');
+        session()->flash('success', 'DDC Classification deleted successfully.');
+    }
+
+    public function closeDeleteDdcModal()
+    {
+        $this->showDeleteDdcModal = false;
+        $this->reset(['ddcName', 'ddcId']);
     }
 
     public function openAddLocationModal()
@@ -150,7 +150,7 @@ class OptionsIndex extends Component
                     'required',
                     'string',
                     'max:255',
-                    Rule::unique('ddc_classifications', 'symbol')->ignore($this->ddcId),
+                    Rule::unique('physical_locations', 'symbol')->ignore($this->locationId),
                 ],
             ]);
 
@@ -241,6 +241,29 @@ class OptionsIndex extends Component
     {
         $this->showEditLocationModal = false;
         $this->reset(['locationName', 'locationSymbol', 'locationId']);
+    }
+
+    public function openDeleteLocationModal($id)
+    {
+        $location = PhysicalLocation::findOrFail($id);
+        $this->locationId = $id;
+        $this->locationName = $location->name;
+        $this->showDeleteLocationModal = true;
+    }
+
+    public function deleteLocation($id)
+    {
+        $location = PhysicalLocation::findOrFail($id);
+        $location->delete();
+        $this->locations = PhysicalLocation::select('id', 'name', 'symbol')->get()->toArray();
+        $this->closeDeleteLocationModal();
+        session()->flash('success', 'Location deleted successfully.');
+    }
+
+    public function closeDeleteLocationModal()
+    {
+        $this->showDeleteLocationModal = false;
+        $this->reset(['locationName', 'locationId']);
     }
 
     public function render()
