@@ -11,17 +11,19 @@ class OptionsIndex extends Component
 {
     public $activeTab = 'tab2';
     public $ddc_classes = [];
-    public $showAddDdcModal = false;
-    public $showEditDdcModal = false;
-    public $showDeleteDdcModal = false;
-    public $showAddLocationModal = false;
     public $ddcName;
     public $ddcCode;
     public $ddcId;
+    public $showAddDdcModal = false;
+    public $showEditDdcModal = false;
+    public $showDeleteDdcModal = false;
     public $locations = [];
     public $locationName;
     public $locationSymbol;
     public $locationId;
+    public $showAddLocationModal = false;
+    public $showEditLocationModal = false;
+    public $showDeleteLocationModal = false;
 
     public function mount()
     {
@@ -189,6 +191,21 @@ class OptionsIndex extends Component
     public function closeAddLocationModal()
     {
         $this->showAddLocationModal = false;
+        $this->reset(['locationName', 'locationSymbol']);
+    }
+
+    public function openEditLocationModal($id)
+    {
+        $location = PhysicalLocation::findOrFail($id);
+        $this->locationId = $id;
+        $this->locationName = $location->name;
+        $this->locationSymbol = $location->symbol;
+        $this->showEditLocationModal = true;
+    }
+
+    public function closeEditLocationModal()
+    {
+        $this->showEditLocationModal = false;
         $this->reset(['locationName', 'locationSymbol', 'locationId']);
     }
 
