@@ -50,31 +50,31 @@ class OptionsIndex extends Component
     {
         $ddc = DdcClassification::findOrFail($id);
         $this->ddcId = $id;
-        $this->name = $ddc->name;
-        $this->code = $ddc->code;
+        $this->ddcName = $ddc->name;
+        $this->ddcCode = $ddc->code;
         $this->showEditDdcModal = true;
     }
 
     public function closeEditDdcModal()
     {
         $this->showEditDdcModal = false;
-        $this->reset(['name', 'code', 'ddcId']);
+        $this->reset(['ddcName', 'ddcCode', 'ddcId']);
     }
 
-    public function saveDdc()
+    public function updateDdc()
     {
         $this->validate();
 
-        DdcClassification::updateOrCreate(
+        DdcClassification::update(
             ['id' => $this->ddcId],
             [
-                'name' => $this->name,
-                'code' => $this->code,
+                'name' => $this->ddcName,
+                'code' => $this->ddcCode,
             ]
         );
 
         $this->ddc_classes = DdcClassification::select('id', 'name', 'code')->get()->toArray();
-        $this->reset(['name', 'code', 'ddcId']);
+        $this->reset(['ddcName', 'ddcCode', 'ddcId']);
         session()->flash('success', 'DDC Classification saved successfully');
         $this->closeEditModal();
     }
@@ -83,24 +83,50 @@ class OptionsIndex extends Component
     {
         $ddc = DdcClassification::findOrFail($id);
         $this->ddcId = $id;
-        $this->name = $ddc->name;
+        $this->ddcName = $ddc->name;
         $this->showDeleteDdcModal = true;
     }
 
     public function closeDeleteDdcModal()
     {
         $this->showDeleteDdcModal = false;
-        $this->reset(['name', 'ddcId']);
+        $this->reset(['ddcName', 'ddcId']);
     }
 
     public function deleteDdc($id)
     {
-
+        $ddc = DdcClassification::findOrFail($id);
+        $ddc->delete();
+        $this->ddc_classes = DdcClassification::select('id', 'name', 'code')->get()->toArray();
+        $this->closeDeleteDdcModal();
+        session()->flash('message', 'DDC Classification deleted successfully.');
     }
 
     public function openAddDdcModal()
     {
         $this->showAddDdcModal = true;
+    }
+
+    public function saveDdc()
+    {
+        $this->validate();
+
+        DdcClassification::create([
+                'name' => $this->ddcName,
+                'code' => $this->ddcCode,
+            ]
+        );
+
+        $this->ddc_classes = DdcClassification::select('id', 'name', 'code')->get()->toArray();
+        $this->reset(['ddcName', 'ddcCode']);
+        session()->flash('success', 'DDC Classification added successfully');
+        $this->closeAddModal();
+    }
+
+    public function closeAddModal()
+    {
+        $this->showAddDdcModal = false;
+        $this->reset(['ddcName', 'ddcCode']);
     }
 
     public function render()
