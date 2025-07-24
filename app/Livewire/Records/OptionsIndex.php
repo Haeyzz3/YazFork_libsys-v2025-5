@@ -10,10 +10,11 @@ class OptionsIndex extends Component
 {
     public $activeTab = 'tab1';
     public $ddc_classes = [];
-    public $showEditModal = false;
-    public $showDeleteModal = false;
-    public $name;
-    public $code;
+    public $showEditDdcModal = false;
+    public $showDeleteDdcModal = false;
+    public $showAddDdcModal = false;
+    public $ddcName;
+    public $ddcCode;
     public $ddcId;
 
     public function mount()
@@ -29,8 +30,8 @@ class OptionsIndex extends Component
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'code' => [
+            'ddcName' => 'required|string|max:255',
+            'ddcCode' => [
                 'required',
                 'string',
                 'max:100',
@@ -45,33 +46,19 @@ class OptionsIndex extends Component
         $this->resetValidation($propertyName);
     }
 
-    public function openEditModal($id)
+    public function openEditDdcModal($id)
     {
         $ddc = DdcClassification::findOrFail($id);
         $this->ddcId = $id;
         $this->name = $ddc->name;
         $this->code = $ddc->code;
-        $this->showEditModal = true;
+        $this->showEditDdcModal = true;
     }
 
-    public function closeEditModal()
+    public function closeEditDdcModal()
     {
-        $this->showEditModal = false;
+        $this->showEditDdcModal = false;
         $this->reset(['name', 'code', 'ddcId']);
-    }
-
-    public function openDeleteModal($id)
-    {
-        $ddc = DdcClassification::findOrFail($id);
-        $this->ddcId = $id;
-        $this->name = $ddc->name;
-        $this->showDeleteModal = true;
-    }
-
-    public function closeDeleteModal()
-    {
-        $this->showDeleteModal = false;
-        $this->reset(['name', 'ddcId']);
     }
 
     public function saveDdc()
@@ -92,9 +79,28 @@ class OptionsIndex extends Component
         $this->closeEditModal();
     }
 
+    public function openDeleteDdcModal($id)
+    {
+        $ddc = DdcClassification::findOrFail($id);
+        $this->ddcId = $id;
+        $this->name = $ddc->name;
+        $this->showDeleteDdcModal = true;
+    }
+
+    public function closeDeleteDdcModal()
+    {
+        $this->showDeleteDdcModal = false;
+        $this->reset(['name', 'ddcId']);
+    }
+
     public function deleteDdc($id)
     {
 
+    }
+
+    public function openAddDdcModal()
+    {
+        $this->showAddDdcModal = true;
     }
 
     public function render()

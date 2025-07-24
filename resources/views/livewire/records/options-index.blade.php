@@ -32,7 +32,7 @@
     <div class="py-4">
         @if ($activeTab === 'tab1')
             <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="bg-white flex gap-4 justify-center items-center shadow-sm rounded-lg p-4 border font-bold text-gray-700
+                <div wire:click="openAddDdcModal()" class="bg-white flex gap-4 justify-center items-center shadow-sm rounded-lg p-4 border font-bold text-gray-700
                  border-gray-200
                     hover:shadow-md hover:border-accent-content transition-shadow transition-border">
                     <div>Add DDC Class</div>
@@ -100,10 +100,10 @@
         </div>
     </x-compact-modal>
 
-    <x-compact-modal entangle="showDeleteModal">
+    <x-compact-modal entangle="showDeleteDdcModal">
         <div class="px-4 py-5 sm:p-6">
             <h3 class="text-lg font-medium text-gray-900">Delete DDC</h3>
-            <p class="mt-2 text-sm text-gray-600">Are you sure you want to delete <span class="font-bold">{{ $name }} classification</span>? This action cannot be undone.</p>
+            <p class="mt-2 text-sm text-gray-600">Are you sure you want to delete <span class="font-bold">{{ $ddcName }} classification</span>? This action cannot be undone.</p>
         </div>
         <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
             <button wire:click="delete" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
@@ -113,5 +113,9 @@
                 Cancel
             </button>
         </div>
+    </x-compact-modal>
+
+    <x-compact-modal entangle="showAddDdcModal">
+        add here
     </x-compact-modal>
 </div>
