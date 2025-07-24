@@ -68,27 +68,27 @@
                     <div>Add Location</div>
                     <flux:icon name="plus" variant="mini"/>
                 </div>
-{{--                @forelse($ddc_classes as $ddc)--}}
-{{--                    <div class="bg-white flex justify-between shadow-sm rounded-lg p-4 border border-gray-200--}}
-{{--                    hover:shadow-md hover:border-accent-content transition-shadow transition-border">--}}
-{{--                        <div class="">--}}
-{{--                            <h2 class="text-md font-medium text-gray-900">{{ $ddc['name'] }}</h2>--}}
-{{--                            <p class="mt-2 text-sm text-gray-600">{{ $ddc['code'] }}</p>--}}
-{{--                        </div>--}}
-{{--                        <div class="flex flex-col justify-between min-h-full text-gray-500">--}}
-{{--                            <!-- Edit Icon -->--}}
-{{--                            <a wire:click="openEditDdcModal({{ $ddc['id'] }})" class="hover:text-red-900">--}}
-{{--                                <flux:icon name="pencil-square" variant="mini"/>--}}
-{{--                            </a>--}}
-{{--                            <!-- Delete Icon -->--}}
-{{--                            <a wire:click="openDeleteDdcModal({{ $ddc['id'] }})" class="hover:text-red-900">--}}
+                @forelse($locations as $location)
+                    <div class="bg-white flex justify-between shadow-sm rounded-lg p-4 border border-gray-200
+                    hover:shadow-md hover:border-accent-content transition-shadow transition-border">
+                        <div class="">
+                            <h2 class="text-md font-medium text-gray-900">{{ $location['name'] }}</h2>
+                            <p class="mt-2 text-sm text-gray-600">{{ $location['symbol'] }}</p>
+                        </div>
+                        <div class="flex flex-col justify-between min-h-full text-gray-500">
+                            <!-- Edit Icon -->
+                            <a wire:click="openEditLocationModal({{ $location['id'] }})" class="hover:text-red-900">
+                                <flux:icon name="pencil-square" variant="mini"/>
+                            </a>
+                            <!-- Delete Icon -->
+{{--                            <a wire:click="openDeleteDdcModal({{ $location['id'] }})" class="hover:text-red-900">--}}
 {{--                                <flux:icon name="trash" variant="mini"/>--}}
 {{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @empty--}}
-{{--                    <p>No record to show</p>--}}
-{{--                @endforelse--}}
+                        </div>
+                    </div>
+                @empty
+                    <p>No record to show</p>
+                @endforelse
             </div>
         @elseif ($activeTab === 'tab3')
             <h2 class="text-base font-semibold leading-6 text-gray-900">Content for Tab 3</h2>
