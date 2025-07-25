@@ -72,6 +72,20 @@
                     required
                     :value="old('isbn', '')"
                 />
+                <x-form-input
+                    name="volume"
+                    label="Volume"
+                    placeholder="Enter Volume"
+                    type="text"
+                    :value="old('volume', '')"
+                />
+                <x-form-input
+                    name="edition"
+                    label="Edition"
+                    placeholder="Enter Edition"
+                    type="text"
+                    :value="old('edition', '')"
+                />
             </div>
             <div>
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Classification and Location</h2>
@@ -112,6 +126,12 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Physical Description</h2>
             </div>
             <div class="grid max-w-6xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
+                <x-form-select-input
+                    wireModel="cover_type_id"
+                    :options="$cover_types"
+                    name="cover_type_id"
+                    label="Cover Type"
+                />
                 <x-form-input-image
                     name="cover_image"
                     label="Profile Image"
@@ -208,12 +228,22 @@
                         :value="old('donated_by','')"
                     />
                 @endif
-                <x-form-select-input
-                    wireModel="cover_type_id"
-                    :options="$cover_types"
-                    name="cover_type_id"
-                    label="Cover Type"
-                />
+                @if((int)$source_id === \App\Models\Source::where('key', 'transferred')->first()->id)
+                    <x-form-input
+                        name="transferred_from"
+                        label="Transferred from"
+                        placeholder="Enter name"
+                        :value="old('transferred_from','')"
+                    />
+                @endif
+                @if((int)$source_id === \App\Models\Source::where('key', 'replaced')->first()->id)
+                    <x-form-input
+                        name="replaced_by"
+                        label="Replaced by"
+                        placeholder="Enter name"
+                        :value="old('replaced_by','')"
+                    />
+                @endif
                 <x-form-select-input
                     wireModel="acquisition_status"
                     :options="$acquisition_statuses"
