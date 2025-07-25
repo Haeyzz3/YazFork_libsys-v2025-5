@@ -25,6 +25,8 @@ class BooksIndex extends Component
     public $perPage = 10; // Adjust as needed
     public $import_csv;
 
+    public $imported_count = 0;
+
     public function updatingSearch(): void
     {
         $this->resetPage(); // Reset pagination when search changes
@@ -67,7 +69,6 @@ class BooksIndex extends Component
                 // Remove header row if it exists
                 $headers = array_shift($csv_data);
 
-                $imported_count = 0;
                 $failed_count = 0;
                 $errors = [];
 
@@ -147,7 +148,10 @@ class BooksIndex extends Component
                             if ($physical_location) {
                                 $physical_location_id = $physical_location->id;
                             } else {
-                                $physical_location_id = PhysicalLocation::create(['name' => $physical_location_name])->id;
+                                $physical_location_id = PhysicalLocation::create([
+                                    'name' => $physical_location_name,
+                                    'symbol' => strlen($physical_location_name) >= 3 ? substr($physical_location_name, 0, 3) : $physical_location_name
+                                ])->id;
                             }
                         }
 
