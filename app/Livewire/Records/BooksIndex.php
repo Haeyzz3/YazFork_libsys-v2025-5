@@ -82,6 +82,7 @@ class BooksIndex extends Component
                             continue;
                         }
 
+                        // handle this, 01-06-93, here
                         $date_received = null;
                         if (!empty($row[2]) && is_string($row[2])) {
                             try {
@@ -89,8 +90,8 @@ class BooksIndex extends Component
                                 $date_received = Carbon::createFromFormat('m/d/Y', trim($row[2]))->format('Y-m-d');
                             } catch (\Exception $e) {
                                 $failed_count++;
-                                Log::info('Processing row', ['row_index' => $row_index + 1, 'data' => $row]);
                                 $errors[] = "Row " . ($row_index + 1) . ": Invalid date format in date_received: " . $row[2];
+                                Log::info('Processing row', ['row_index' => $row_index + 1, 'data' => $row]);
                                 continue;
                             }
                         }
@@ -159,7 +160,10 @@ class BooksIndex extends Component
                             if ($ddc_class) {
                                 $ddc_class_id = $ddc_class->id;
                             } else {
-                                $ddc_class_id = DdcClassification::create(['name' => $ddc_class_name])->id;
+                                $ddc_class_id = DdcClassification::create([
+                                    'name' => $ddc_class_name,
+                                    'code' => strlen($ddc_class_name) >= 3 ? substr($ddc_class_name, 0, 3) : $ddc_class_name
+                                ])->id;
                             }
                         }
 
