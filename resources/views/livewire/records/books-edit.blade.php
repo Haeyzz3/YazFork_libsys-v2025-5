@@ -274,13 +274,24 @@
                 />
             </div>
         </div>
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-            <button type="submit" class="rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-content focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
-                <span wire:loading wire:target="submit">Saving...</span>
-                <span wire:loading.remove wire:target="submit">Add Book</span>
-            </button>
+        <div class="mt-6 py-8 flex items-center justify-between">
+            <button type="submit" form="delete-form" class="text-sm font-semibold leading-6 text-red-900">Delete</button>
+            <div class="flex gap-x-6">
+                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                <button type="submit" class="rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-content focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                    <span wire:loading wire:target="submit">Saving...</span>
+                    <span wire:loading.remove wire:target="submit">Update Book</span>
+                </button>
+            </div>
         </div>
+    </form>
+
+    @php
+        $record = $record_editing
+    @endphp
+    <form id="delete-form" action="{{ route('books.destroy', $record) }}" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
     </form>
 </div>
 
