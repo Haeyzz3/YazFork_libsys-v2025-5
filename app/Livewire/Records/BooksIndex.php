@@ -47,7 +47,7 @@ class BooksIndex extends Component
     public function rules()
     {
         return [
-            'import_csv' => 'required|file|mimes:csv,txt|max:20480',
+            'import_csv' => 'required|file|mimes:csv,txt|max:1024',
         ];
     }
 
@@ -109,14 +109,19 @@ class BooksIndex extends Component
                             'subject_headings' => $subject_headings,
                         ];
 
-                        // validating invalid purchase amount
-                        $purchaseAmount = $row[17] ?? null;
-                        $donated_by = null;
-                        $source = null;
-                        if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
-                            $donated_by = $purchaseAmount;
-                            $source = 'Donation';
-                            $purchaseAmount = null;
+                        $volume = null;
+                        if (isset($row[0]) && !empty(trim($row[0]))) {
+                            $volume = trim($row[0]);
+                        }
+
+                        $authors = [];
+                        if (isset($row[4]) && !empty(trim($row[4]))) {
+                            $authors = array_map('trim', explode(',', trim($row[4])));
+                        }
+
+                        $edition = null;
+                        if (isset($row[6]) && !empty(trim($row[6]))) {
+                            $edition = trim($row[6]);
                         }
 
                         $publication_year = $row[11] ?? null;
@@ -124,13 +129,27 @@ class BooksIndex extends Component
                             $publication_year = null;
                         }
 
-                        // Handle ISBN (index 12)
+                        $publisher = null;
+                        if (isset($row[10]) && !empty(trim($row[10]))) {
+                            $publisher = trim($row[10]);
+                        }
+
+                        $publication_place = null;
+                        if (isset($row[9]) && !empty(trim($row[9]))) {
+                            $publication_place = trim($row[9]);
+                        }
+
                         $isbn = null;
                         if (isset($row[12]) && !empty(trim($row[12]))) {
                             $isbn = trim($row[12]);
                             if ($isbn === '-') {
                                 $isbn = null;
                             }
+                        }
+
+                        $call_number = null;
+                        if (isset($row[3]) && !empty(trim($row[3]))) {
+                            $call_number = trim($row[3]);
                         }
 
                         $ddc_class_id = null;
@@ -158,7 +177,6 @@ class BooksIndex extends Component
                             }
                         }
 
-                        // Handle Cover Type (index 16)
                         $cover_type_id = null;
                         if (isset($row[16]) && !empty(trim($row[16]))) {
                             $cover_type_name = trim($row[16]);
@@ -173,7 +191,14 @@ class BooksIndex extends Component
                             }
                         }
 
-//
+                        $cover_image = null;
+                        if (isset($row[19]) && !empty(trim($row[19]))) {
+                            $cover_image = trim($row[19]);
+                            if ($cover_image === '-') {
+                                $cover_image = null;
+                            }
+                        }
+
                         $source_id = null;
                         if (isset($row[15]) && !empty(trim($row[15]))) {
                             $source_name = trim($row[15]);
@@ -188,25 +213,48 @@ class BooksIndex extends Component
                             }
                         }
 
-                        $cover_image = null;
-                        if (isset($row[19]) && !empty(trim($row[19]))) {
-                            $cover_image = trim($row[19]);
-                            if ($cover_image === '-') {
-                                $cover_image = null;
-                            }
+                        $source = null;
+                        $donated_by = null;
+                        $purchaseAmount = $row[17] ?? null;
+                        if (!is_numeric($purchaseAmount) || $purchaseAmount < 0) {
+                            $donated_by = $purchaseAmount;
+                            $source = 'Donation';
+                            $purchaseAmount = null;
+                        }
+
+                        $supplier = null;
+                        if (isset($row[18]) && !empty(trim($row[18]))) {
+                            $supplier = trim($row[18]);
+                        }
+
+
+                        $table_of_contents = null;
+                        if (isset($row[14]) && !empty(trim($row[14]))) {
+                            $raw_content = trim($row[14]);
+
+                            // Step 1: Clean the content
+                            // Replace double dashes with a single space or dash
+                            $cleaned_content = str_replace('--', ' - ', $raw_content);
+
+                            // Step 2: Remove excessive whitespace and normalize
+                            $cleaned_content = preg_replace('/\s+/', ' ', trim($cleaned_content));
+
+                            // Step 3: Optional - Split into array for structured storage (e.g., JSON)
+                            $toc_array = explode(' - ', $cleaned_content);
+                            $table_of_contents = json_encode($toc_array); // Store as JSON for flexibility
+                            // OR keep as string: $table_of_contents = $cleaned_content;
                         }
 
                         $book_data = [
-                            'volume' => $row[0] ?? null,
-                            'authors' => $row[4] ?? null,
-                            'edition' => $row[6] ?? null,
+                            'volume' => $volume,
+                            'authors' => $authors,
+                            'edition' => $edition,
                             'publication_year' => $publication_year,
-                            'publisher' => $row[10] ?? null,
-                            'publication_place' => $row[9] ?? null,
+                            'publisher' => $publisher,
+                            'publication_place' => $publication_place,
                             'isbn' => $isbn,
 
-                            'call_number' => $row[3] ?? null,
-
+                            'call_number' => $call_number,
                             'ddc_class_id' => $ddc_class_id,
                             'physical_location_id' => $physical_location_id,
 
@@ -214,13 +262,11 @@ class BooksIndex extends Component
                             'cover_image' => '/uploads/book_cover_images/' . $cover_image,
 
                             'source_id' => $source ?? $source_id,
-
                             'purchase_amount' => $purchaseAmount,
-
-                            'supplier' => $row[18] ?? null,
+                            'supplier' => $supplier,
                             'donated_by' => $donated_by,
 
-                            'table_of_contents' => $row[14] ?? null,
+                            'table_of_contents' => $table_of_contents,
                         ];
 
                         // reset after use
