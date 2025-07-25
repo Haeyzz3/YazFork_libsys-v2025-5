@@ -124,7 +124,7 @@
     <div
         wire:loading
         wire:target="submit"
-        class="fixed inset-0 bg-gray-800/75 flex items-center justify-center z-45"
+        class="fixed inset-0 bg-gray-800/75 backdrop-blur-sm flex items-center justify-center z-45"
     >
         <div class="flex flex-col items-center justify-center min-h-screen">
             <svg
