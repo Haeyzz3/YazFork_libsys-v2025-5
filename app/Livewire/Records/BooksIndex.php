@@ -417,9 +417,27 @@ class BooksIndex extends Component
 
     public function render()
     {
-        $records = Record::with(['book.ddcClassification'])
-            ->whereHas('book')
-            ->orderBy('created_at', 'desc')
+        $query = Record::with(['book.ddcClassification'])
+            ->whereHas('book');
+
+        // Apply search filter if search term is provided
+        if (!empty($this->search)) {
+            $query->where(function ($q) {
+                $q->where('accession_number', 'like', '%' . $this->search . '%')
+                    ->orWhereHas('book', function ($bookQuery) {
+                        $bookQuery->where('title', 'like', '%' . $this->search . '%')
+                            ->orWhere('authors', 'like', '%' . $this->search . '%')
+                            ->orWhere('publication_year', 'like', '%' . $this->search . '%')
+                            ->orWhereHas('ddcClassification', function ($ddcQuery) {
+                                $ddcQuery->where('name', 'like', '%' . $this->search . '%');
+                            });
+                    })
+//                    ->orWhere('lc_classification', 'like', '%' . $this->search . '%')
+                ;
+            });
+        }
+
+        $records = $query->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
         return view('livewire.records.books-index', [
