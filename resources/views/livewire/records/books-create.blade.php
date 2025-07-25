@@ -153,7 +153,7 @@
                 @if($ics_number)
                     <x-form-input
                         name="ics_date"
-                        label="ICS Number Date"
+                        label="ICS Date"
                         type="date"
                         :value="old('ics_date','')"
                     />
@@ -280,7 +280,7 @@
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <button type="submit" class="rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-content focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
                 <span wire:loading wire:target="submit">Saving...</span>
                 <span wire:loading.remove wire:target="submit">Add Book</span>
             </button>

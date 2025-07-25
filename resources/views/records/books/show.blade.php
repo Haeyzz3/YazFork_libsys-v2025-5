@@ -31,10 +31,16 @@
                 </div>
             @endif
 
-            @if($record->book->editor)
+            @if($record->book->editors)
                 <div class="px-4 py-3">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Editors</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700">{{ $record->book->editor ?? 'Not specified' }}</dd>
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Editor/Editors</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700">
+                        @if (is_array($record->book->editors))
+                            {{ implode(', ', $record->book->editors) }}
+                        @else
+                            {{ $record->book->editors ?? 'Not specified' }}
+                        @endif
+                    </dd>
                 </div>
             @endif
 
