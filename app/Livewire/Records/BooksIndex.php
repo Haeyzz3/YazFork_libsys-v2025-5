@@ -82,7 +82,6 @@ class BooksIndex extends Component
                             continue;
                         }
 
-                        // handle this, 01-06-93, here
                         $date_received = null;
                         if (!empty($row[2]) && is_string($row[2])) {
                             try {
@@ -424,6 +423,7 @@ class BooksIndex extends Component
                     } catch (\Exception $e) {
                         $failed_count++;
                         $errors[] = "Row " . ($row_index + 1) . ": " . $e->getMessage();
+                        Log::info('Processing row', ['row_index' => $row_index + 1, 'data' => $row]);
                     }
                 }
 
