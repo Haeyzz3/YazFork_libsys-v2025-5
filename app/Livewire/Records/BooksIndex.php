@@ -86,7 +86,7 @@ class BooksIndex extends Component
                         if (!empty($row[2]) && is_string($row[2])) {
                             try {
                                 // log the row here:
-                                $date_received = Carbon::createFromFormat('m/d/Y', trim($row[2]))->format('Y-m-d');
+                                $date_received = Carbon::createFromFormat('m/d/Y', $row[2])->format('Y-m-d');
                             } catch (\Exception $e) {
                                 $failed_count++;
                                 $errors[] = "Row " . ($row_index + 1) . ": Invalid date format in date_received: " . $row[2];
@@ -96,8 +96,8 @@ class BooksIndex extends Component
                         }
 
                         $subject_headings = null;
-                        if (isset($row[13]) && !empty(trim($row[13]))) {
-                            $subject_headings = trim($row[13]);
+                        if (!empty($row[13])) {
+                            $subject_headings = $row[13];
                         }
 
                         $record_data = [
@@ -110,18 +110,18 @@ class BooksIndex extends Component
                         ];
 
                         $volume = null;
-                        if (isset($row[0]) && !empty(trim($row[0]))) {
-                            $volume = trim($row[0]);
+                        if (!empty($row[0])) {
+                            $volume = $row[0];
                         }
 
                         $authors = [];
-                        if (isset($row[4]) && !empty(trim($row[4]))) {
-                            $authors = array_map('trim', explode(',', trim($row[4])));
+                        if (!empty($row[4])) {
+                            $authors = array_map('trim', explode(',', $row[4]));
                         }
 
                         $edition = null;
-                        if (isset($row[6]) && !empty(trim($row[6]))) {
-                            $edition = trim($row[6]);
+                        if (!empty($row[6])) {
+                            $edition = $row[6];
                         }
 
                         $publication_year = $row[11] ?? null;
@@ -130,31 +130,31 @@ class BooksIndex extends Component
                         }
 
                         $publisher = null;
-                        if (isset($row[10]) && !empty(trim($row[10]))) {
-                            $publisher = trim($row[10]);
+                        if (!empty($row[10])) {
+                            $publisher = $row[10];
                         }
 
                         $publication_place = null;
-                        if (isset($row[9]) && !empty(trim($row[9]))) {
-                            $publication_place = trim($row[9]);
+                        if (!empty($row[9])) {
+                            $publication_place = $row[9];
                         }
 
                         $isbn = null;
-                        if (isset($row[12]) && !empty(trim($row[12]))) {
-                            $isbn = trim($row[12]);
+                        if (!empty($row[12])) {
+                            $isbn = $row[12];
                             if ($isbn === '-') {
                                 $isbn = null;
                             }
                         }
 
                         $call_number = null;
-                        if (isset($row[3]) && !empty(trim($row[3]))) {
-                            $call_number = trim($row[3]);
+                        if (!empty($row[3])) {
+                            $call_number = $row[3];
                         }
 
                         $ddc_class_id = null;
-                        if (isset($row[7]) && !empty(trim($row[7]))) {
-                            $ddc_class_name = ucwords(strtolower(trim($row[7])));
+                        if (!empty($row[7])) {
+                            $ddc_class_name = ucwords(strtolower($row[7]));
                             $ddc_class = DdcClassification::where('name', $ddc_class_name)->first();
                             if ($ddc_class) {
                                 $ddc_class_id = $ddc_class->id;
@@ -167,8 +167,8 @@ class BooksIndex extends Component
                         }
 
                         $physical_location_id = null;
-                        if (isset($row[8]) && !empty(trim($row[8]))) {
-                            $physical_location_name = ucwords(strtolower(trim($row[8])));
+                        if (!empty($row[8])) {
+                            $physical_location_name = ucwords(strtolower($row[8]));
                             $physical_location = PhysicalLocation::where('name', $physical_location_name)->first();
                             if ($physical_location) {
                                 $physical_location_id = $physical_location->id;
@@ -181,8 +181,8 @@ class BooksIndex extends Component
                         }
 
                         $cover_type_id = null;
-                        if (isset($row[16]) && !empty(trim($row[16]))) {
-                            $cover_type_name = trim($row[16]);
+                        if (!empty($row[16])) {
+                            $cover_type_name = $row[16];
                             $cover_type = CoverType::where('name', ucwords(strtolower($cover_type_name)))->first();
                             if ($cover_type) {
                                 $cover_type_id = $cover_type->id;
@@ -195,16 +195,16 @@ class BooksIndex extends Component
                         }
 
                         $cover_image = null;
-                        if (isset($row[19]) && !empty(trim($row[19]))) {
-                            $cover_image = trim($row[19]);
+                        if (!empty($row[19])) {
+                            $cover_image = $row[19];
                             if ($cover_image === '-') {
                                 $cover_image = null;
                             }
                         }
 
                         $source_id = null;
-                        if (isset($row[15]) && !empty(trim($row[15]))) {
-                            $source_name = trim($row[15]);
+                        if (!empty($row[15])) {
+                            $source_name = $row[15];
                             $source_from_db = Source::where('name', ucwords(strtolower($row[15])))->first();
                             if ($source_from_db) {
                                 $source_id = $source_from_db->id;
@@ -226,21 +226,20 @@ class BooksIndex extends Component
                         }
 
                         $supplier = null;
-                        if (isset($row[18]) && !empty(trim($row[18]))) {
-                            $supplier = trim($row[18]);
+                        if (!empty($row[18])) {
+                            $supplier = $row[18];
                         }
 
-
                         $table_of_contents = null;
-                        if (isset($row[14]) && !empty(trim($row[14]))) {
-                            $raw_content = trim($row[14]);
+                        if (isset($row[14]) && !empty($row[14])) {
+                            $raw_content = $row[14];
 
                             // Step 1: Clean the content
                             // Replace double dashes with a single space or dash
                             $cleaned_content = str_replace('--', ' - ', $raw_content);
 
                             // Step 2: Remove excessive whitespace and normalize
-                            $cleaned_content = preg_replace('/\s+/', ' ', trim($cleaned_content));
+                            $cleaned_content = preg_replace('/\s+/', ' ', $cleaned_content);
 
                             // Step 3: Optional - Split into array for structured storage (e.g., JSON)
                             $toc_array = explode(' - ', $cleaned_content);
@@ -280,112 +279,112 @@ class BooksIndex extends Component
                         // initialize
                         $remark_data = [];
 
-                        if (isset($row[20]) && !empty(trim($row[20]))) {
-                            $content = trim($row[20]);
+                        if (!empty($row[20])) {
+                            $content = $row[20];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2007-2008')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[21]) && !empty(trim($row[21]))) {
-                            $content = trim($row[21]);
+                        if (!empty($row[21])) {
+                            $content = $row[21];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2008-2009')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[22]) && !empty(trim($row[22]))) {
-                            $content = trim($row[22]);
+                        if (!empty($row[22])) {
+                            $content = $row[22];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2009-2010')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[23]) && !empty(trim($row[23]))) {
-                            $content = trim($row[23]);
+                        if (!empty($row[23])) {
+                            $content = $row[23];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2010-2011')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[24]) && !empty(trim($row[24]))) {
-                            $content = trim($row[24]);
+                        if (!empty($row[24])) {
+                            $content = $row[24];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2011-2012')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[25]) && !empty(trim($row[25]))) {
-                            $content = trim($row[25]);
+                        if (!empty($row[25])) {
+                            $content = $row[25];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2017-2018')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[26]) && !empty(trim($row[26]))) {
-                            $content = trim($row[26]);
+                        if (!empty($row[26])) {
+                            $content = $row[26];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2018-2019')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[27]) && !empty(trim($row[27]))) {
-                            $content = trim($row[27]);
+                        if (!empty($row[27])) {
+                            $content = $row[27];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2019-2020')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[28]) && !empty(trim($row[28]))) {
-                            $content = trim($row[28]);
+                        if (!empty($row[28])) {
+                            $content = $row[28];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2020-2021')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[29]) && !empty(trim($row[29]))) {
-                            $content = trim($row[29]);
+                        if (!empty($row[29])) {
+                            $content = $row[29];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2021-2022')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[30]) && !empty(trim($row[30]))) {
-                            $content = trim($row[30]);
+                        if (!empty($row[30])) {
+                            $content = $row[30];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2022-2023')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[31]) && !empty(trim($row[31]))) {
-                            $content = trim($row[31]);
+                        if (!empty($row[31])) {
+                            $content = $row[31];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2023-2024')
                                     ->where('semester', '1st Semester')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[32]) && !empty(trim($row[32]))) {
-                            $content = trim($row[32]);
+                        if (!empty($row[32])) {
+                            $content = $row[32];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2023-2024')
                                     ->where('semester', '2nd Semester')->first()->id,
                                 'content' => $content,
                             ];
                         }
-                        if (isset($row[33]) && !empty(trim($row[33]))) {
-                            $content = trim($row[33]);
+                        if (!empty($row[33])) {
+                            $content = $row[33];
                             $remark_data[] = [
                                 'academic_period_id' => AcademicPeriod::where('academic_year', '2023-2024')
                                     ->where('semester', 'Whole Year')->first()->id,
