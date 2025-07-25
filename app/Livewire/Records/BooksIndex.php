@@ -11,6 +11,7 @@ use App\Models\Record;
 use App\Models\Source;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -84,10 +85,12 @@ class BooksIndex extends Component
                         $date_received = null;
                         if (!empty($row[2]) && is_string($row[2])) {
                             try {
+                                // log the row here:
                                 $date_received = Carbon::createFromFormat('m/d/Y', trim($row[2]))->format('Y-m-d');
                             } catch (\Exception $e) {
                                 $failed_count++;
-                                $errors[] = "Row " . ($row_index + 1) . ": Invalid date format in date_received: " . ($row[2] ?? 'empty');
+                                Log::info('Processing row', ['row_index' => $row_index + 1, 'data' => $row]);
+                                $errors[] = "Row " . ($row_index + 1) . ": Invalid date format in date_received: " . $row[2];
                                 continue;
                             }
                         }
@@ -365,7 +368,7 @@ class BooksIndex extends Component
                                 $record->remarks()->create($remark);
                             }
 
-                            $imported_count++;
+                            $this->imported_count++;
                         }
 
                     } catch (\Exception $e) {
@@ -380,7 +383,7 @@ class BooksIndex extends Component
                 }
 
                 // Prepare success/error messages
-                $success_message = "Import completed! {$imported_count} book(s) imported successfully.";
+                $success_message = "Import completed! {$this->imported_count} book(s) imported successfully.";
                 if ($failed_count > 0) {
                     $success_message .= " {$failed_count} row(s) failed.";
                 }
