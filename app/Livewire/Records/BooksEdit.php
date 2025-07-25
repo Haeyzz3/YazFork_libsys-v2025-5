@@ -19,6 +19,7 @@ class BooksEdit extends Component
     use WithFileUploads;
 
     public $record_editing;
+    public $showDeleteModal = false;
 
     public $ddc_classifications = [];
     public $lc_classifications = [];
@@ -291,6 +292,25 @@ class BooksEdit extends Component
         $sizes = ['Bytes', 'KB', 'MB', 'GB'];
         $i = floor(log($bytes) / log($k));
         return round(($bytes / pow($k, $i)), 2) . ' ' . $sizes[$i];
+    }
+
+    public function openDeleteModal()
+    {
+        $this->showDeleteModal = true;
+    }
+
+    public function deleteRecord()
+    {
+        $this->record_editing->delete();
+        $this->reset();
+        $this->resetValidation();
+        session()->flash('success', 'Record deleted successfully!');
+        return redirect()->route('books.index');
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->showDeleteModal = false;
     }
 
     public function render()

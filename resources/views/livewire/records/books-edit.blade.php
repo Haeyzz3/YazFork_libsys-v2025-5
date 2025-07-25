@@ -275,7 +275,14 @@
             </div>
         </div>
         <div class="mt-6 py-8 flex items-center justify-between">
-            <button type="submit" form="delete-form" class="text-sm font-semibold leading-6 text-red-900">Delete</button>
+            <a
+                wire:click="openDeleteModal()"
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200"
+                aria-label="Delete item"
+            >
+                Delete
+                <flux:icon name="trash" variant="mini" />
+            </a>
             <div class="flex gap-x-6">
                 <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                 <button type="submit" class="rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-content focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
@@ -286,13 +293,20 @@
         </div>
     </form>
 
-    @php
-        $record = $record_editing
-    @endphp
-    <form id="delete-form" action="{{ route('books.destroy', $record) }}" method="POST" style="display: none;">
-        @csrf
-        @method('DELETE')
-    </form>
+    <x-compact-modal entangle="showDeleteModal">
+        <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg font-medium text-gray-600">Delete DDC</h3>
+            <p class="mt-2 text-sm text-gray-600">Are you sure you want to delete <span class="font-bold">{{ $title }}  </span>? This action cannot be undone.</p>
+        </div>
+        <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
+            <button wire:click="deleteRecord()" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                Delete
+            </button>
+            <button wire:click="closeDeleteModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
+                Cancel
+            </button>
+        </div>
+    </x-compact-modal>
 </div>
 
 
