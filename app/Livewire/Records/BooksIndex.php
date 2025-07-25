@@ -181,13 +181,13 @@ class BooksIndex extends Component
                             }
                         }
 
-//                        $cover_image = null;
-//                        if (isset($row[19]) && !empty(trim($row[19]))) {
-//                            $cover_image = trim($row[19]);
-//                            if ($cover_image === '-') {
-//                                $cover_image = null;
-//                            }
-//                        }
+                        $cover_image = null;
+                        if (isset($row[19]) && !empty(trim($row[19]))) {
+                            $cover_image = trim($row[19]);
+                            if ($cover_image === '-') {
+                                $cover_image = null;
+                            }
+                        }
 
                         $book_data = [
                             'volume' => $row[0] ?? null,
@@ -204,7 +204,7 @@ class BooksIndex extends Component
                             'physical_location_id' => $physical_location_id,
 
                             'cover_type_id' => $cover_type_id,
-//                            'cover_image' => '/uploads/book_cover_images/' . $cover_image,
+                            'cover_image' => '/uploads/book_cover_images/' . $cover_image,
 
                             'source_id' => $source ?? $source_id,
 
@@ -224,18 +224,10 @@ class BooksIndex extends Component
                         // initialize
                         $remark_data = [];
 
-                        if (isset($row[19]) && !empty(trim($row[19]))) {
-                            $content = trim($row[19]);
-                            $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2007-2008')
-                                    ->where('semester', 'Whole Year')->first()->id,
-                                'content' => $content,
-                            ];
-                        }
                         if (isset($row[20]) && !empty(trim($row[20]))) {
                             $content = trim($row[20]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2008-2009')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2007-2008')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -243,7 +235,7 @@ class BooksIndex extends Component
                         if (isset($row[21]) && !empty(trim($row[21]))) {
                             $content = trim($row[21]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2009-2010')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2008-2009')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -251,7 +243,7 @@ class BooksIndex extends Component
                         if (isset($row[22]) && !empty(trim($row[22]))) {
                             $content = trim($row[22]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2010-2011')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2009-2010')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -259,7 +251,7 @@ class BooksIndex extends Component
                         if (isset($row[23]) && !empty(trim($row[23]))) {
                             $content = trim($row[23]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2011-2012')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2010-2011')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -267,7 +259,7 @@ class BooksIndex extends Component
                         if (isset($row[24]) && !empty(trim($row[24]))) {
                             $content = trim($row[24]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2017-2018')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2011-2012')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -275,7 +267,7 @@ class BooksIndex extends Component
                         if (isset($row[25]) && !empty(trim($row[25]))) {
                             $content = trim($row[25]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2018-2019')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2017-2018')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -283,7 +275,7 @@ class BooksIndex extends Component
                         if (isset($row[26]) && !empty(trim($row[26]))) {
                             $content = trim($row[26]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2019-2020')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2018-2019')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -291,7 +283,7 @@ class BooksIndex extends Component
                         if (isset($row[27]) && !empty(trim($row[27]))) {
                             $content = trim($row[27]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2020-2021')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2019-2020')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -299,7 +291,7 @@ class BooksIndex extends Component
                         if (isset($row[28]) && !empty(trim($row[28]))) {
                             $content = trim($row[28]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2021-2022')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2020-2021')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -307,7 +299,7 @@ class BooksIndex extends Component
                         if (isset($row[29]) && !empty(trim($row[29]))) {
                             $content = trim($row[29]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2022-2023')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2021-2022')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
@@ -315,23 +307,31 @@ class BooksIndex extends Component
                         if (isset($row[30]) && !empty(trim($row[30]))) {
                             $content = trim($row[30]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
-                                    ->where('semester', '1st Semester')->first()->id,
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2022-2023')
+                                    ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
                         }
                         if (isset($row[31]) && !empty(trim($row[31]))) {
                             $content = trim($row[31]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
-                                    ->where('semester', '2nd Semester')->first()->id,
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2023-2024')
+                                    ->where('semester', '1st Semester')->first()->id,
                                 'content' => $content,
                             ];
                         }
                         if (isset($row[32]) && !empty(trim($row[32]))) {
                             $content = trim($row[32]);
                             $remark_data[] = [
-                                'academic_period_id' => AcademicPeriod::where('academic_year','2023-2024')
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2023-2024')
+                                    ->where('semester', '2nd Semester')->first()->id,
+                                'content' => $content,
+                            ];
+                        }
+                        if (isset($row[33]) && !empty(trim($row[33]))) {
+                            $content = trim($row[33]);
+                            $remark_data[] = [
+                                'academic_period_id' => AcademicPeriod::where('academic_year', '2023-2024')
                                     ->where('semester', 'Whole Year')->first()->id,
                                 'content' => $content,
                             ];
