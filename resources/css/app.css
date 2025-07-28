@@ -77,19 +77,12 @@ select:focus[data-flux-control] {
     display: none !important;
 }
 
-
-
-
-
-
 /* livewireLibrary Styles */
 
 .bg-hero {
     @apply bg-cover bg-no-repeat bg-center;
-    background-image: url('../images/usepBG.svg');
+    background-image: url('../images/backgrounds/usepBG.svg');
 }
-
-
 
 .search-dropdown {
     display: none;
