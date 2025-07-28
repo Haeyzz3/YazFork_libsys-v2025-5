@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DigitalResourceController;
+use App\Http\Controllers\GuestLibraryController;
 use App\Http\Controllers\PatronController;
 use App\Http\Controllers\PeriodicalController;
 use App\Http\Controllers\ThesisController;
@@ -15,9 +16,7 @@ Route::get('test', [DigitalResourceController::class, 'create']);
 Route::get('books/create/old', [BookController::class, 'create']);
 Route::get('digital/create/old', [DigitalResourceController::class, 'create']);
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [GuestLibraryController::class, 'index'])->name('guest.dashboard');
 
 Route::view('dashboard', 'dashboard')->name('dashboard')
     ->middleware(['auth', 'permission:manage_admins', 'permission:manage_patrons']);

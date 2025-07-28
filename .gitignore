@@ -22,7 +22,6 @@ yarn-error.log
 /.vscode
 /.zed
 
-vite.config.js
 
 # IDE
 .idea/

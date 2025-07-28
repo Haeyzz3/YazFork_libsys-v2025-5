@@ -1,3 +1,5 @@
+@props(['book'])
+
 <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition">
     <img class="w-full h-48 object-cover" src="{{ $book->cover_url }}" alt="Book cover">
     <div class="p-4">

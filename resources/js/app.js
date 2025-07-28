@@ -3,3 +3,7 @@
 // window.Alpine = Alpine
 //
 // Alpine.start()
+
+import.meta.glob([
+    '../images/**'
+]);
