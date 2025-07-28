@@ -21,3 +21,14 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+
+# IDE
+.idea/
+
+# Composer & npm
+composer.lock
+package-lock.json
+yarn.lock
+
+.log

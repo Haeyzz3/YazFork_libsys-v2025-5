@@ -3,8 +3,13 @@
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
 @source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
 @source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@tailwind utilities;
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -26,6 +31,9 @@
     --color-accent: var(--color-red-900);
     --color-accent-content: var(--color-rose-800);
     --color-accent-foreground: var(--color-white);
+
+    --color-usepmaroon: #800000;
+    --color-usepgold: #FFD700;
 }
 
 @layer theme {
@@ -67,4 +75,38 @@ select:focus[data-flux-control] {
 
 [x-cloak] {
     display: none !important;
+}
+
+
+
+
+
+
+/* livewireLibrary Styles */
+
+.bg-hero {
+    @apply bg-cover bg-no-repeat bg-center;
+    background-image: url('../images/usepBG.svg');
+}
+
+
+
+.search-dropdown {
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 50;
+}
+
+.search-container:hover .search-dropdown,
+.search-container:focus-within .search-dropdown {
+    display: block;
+}
+
+.dropdown-item {
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(128, 128, 128, 0.2);
 }
