@@ -8,7 +8,7 @@ class GuestLibraryController extends Controller
 {
     public function index()
     {
-        $books = [
+        $records = [
             (object)[
                 'title' => 'The Great Gatsby',
                 'author' => 'F. Scott Fitzgerald',
@@ -60,6 +60,8 @@ class GuestLibraryController extends Controller
             ],
         ];
 
-        return view('guest.dashboard', compact('books'));
+        return view('guest.dashboard', [
+            'records' => $records
+        ]);
     }
 }

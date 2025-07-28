@@ -32,4 +32,5 @@
 {{--            <x-book-card :book="$book" />--}}
 {{--        @endforeach--}}
 {{--    </div >--}}
+
 @endsection
