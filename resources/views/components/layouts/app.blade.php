@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <flux:main>
+    <flux:main class="bg-white">
         {{ $slot }}
     </flux:main>
 </x-layouts.app.sidebar>

@@ -4,12 +4,13 @@ namespace App\Livewire\Records;
 
 use App\Models\DdcClassification;
 use App\Models\PhysicalLocation;
+use App\Models\Source;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class OptionsIndex extends Component
 {
-    public $activeTab = 'tab2';
+    public $activeTab = 'tab3';
     public $ddc_classes = [];
     public $ddcName;
     public $ddcCode;
@@ -24,11 +25,18 @@ class OptionsIndex extends Component
     public $showAddLocationModal = false;
     public $showEditLocationModal = false;
     public $showDeleteLocationModal = false;
+    public $sources = [];
+    public $sourceName;
+    public $sourceId;
+    public $showAddSourceModal = false;
+    public $showEditSourceModal = false;
+    public $showDeleteSourceModal = false;
 
     public function mount()
     {
         $this->ddc_classes = DdcClassification::select('id', 'name', 'code')->get()->toArray();
         $this->locations = PhysicalLocation::select('id', 'name', 'symbol')->get()->toArray();
+        $this->sources = Source::select('id', 'name')->get()->toArray();
     }
 
     public function switchTab($tab)
@@ -169,7 +177,7 @@ class OptionsIndex extends Component
                 // Handle database-specific errors
             $message = app()->environment('production')
             ? 'Failed to add record. Please try again.'
-            : 'Failed to add book: ' . $e->getMessage();
+            : 'Failed to add record: ' . $e->getMessage();
             session()->flash('error', $message);
         } catch (\Exception $e) {
             // Handle any other unexpected errors
@@ -264,6 +272,123 @@ class OptionsIndex extends Component
     {
         $this->showDeleteLocationModal = false;
         $this->reset(['locationName', 'locationId']);
+    }
+
+    public function openAddSourceModal()
+    {
+        $this->showAddSourceModal = true;
+    }
+
+    public function saveSource()
+    {
+        try {
+
+            $this->validate([
+                'sourceName' => 'required|string|max:255',
+            ]);
+
+            Source::create([
+                'name' => $this->sourceName,
+                'key' => strtolower(str_replace(' ', '_', $this->sourceName))
+            ]);
+
+            $this->sources = Source::select('id', 'name')->get()->toArray();
+            $this->reset(['sourceName']);
+            session()->flash('success', 'Source added successfully');
+            $this->closeAddSourceModal();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle database-specific errors
+            $message = app()->environment('production')
+                ? 'Failed to add record. Please try again.'
+                : 'Failed to add record: ' . $e->getMessage();
+            session()->flash('error', $message);
+        } catch (\Exception $e) {
+            // Handle any other unexpected errors
+            $message = app()->environment('production')
+                ? 'An unexpected error occurred. Please try again.'
+                : 'An unexpected error occurred: ' . $e->getMessage();
+            session()->flash('error', $message);
+        }
+    }
+
+    public function closeAddSourceModal()
+    {
+        $this->showAddSourceModal = false;
+        $this->reset(['sourceName']);
+    }
+
+    public function openEditSourceModal($id)
+    {
+        $source = Source::findOrFail($id);
+        $this->sourceId = $id;
+        $this->sourceName = $source->name;
+        $this->showEditSourceModal = true;
+    }
+
+    public function updateSource()
+    {
+        try {
+
+            $this->validate([
+                'sourceName' => 'required|string|max:255',
+            ]);
+
+            Source::updateOrCreate(
+                ['id' => $this->sourceId],
+                [
+                    'name' => $this->sourceName,
+                    'key' => strtolower(str_replace(' ', '_', $this->sourceName))
+                ]
+            );
+
+            $this->sources = Source::select('id', 'name')->get()->toArray();
+            $this->reset(['sourceName', 'sourceId']);
+            session()->flash('success', 'Source updated successfully');
+            $this->closeEditSourceModal();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle database-specific errors
+            $message = app()->environment('production')
+                ? 'Failed to add record. Please try again.'
+                : 'Failed to add book: ' . $e->getMessage();
+            session()->flash('error', $message);
+        } catch (\Exception $e) {
+            // Handle any other unexpected errors
+            $message = app()->environment('production')
+                ? 'An unexpected error occurred. Please try again.'
+                : 'An unexpected error occurred: ' . $e->getMessage();
+            session()->flash('error', $message);
+        }
+    }
+
+    public function closeEditSourceModal()
+    {
+        $this->showEditSourceModal = false;
+        $this->reset(['sourceName', 'sourceId']);
+    }
+
+    public function openDeleteSourceModal($id)
+    {
+        $source = Source::findOrFail($id);
+        $this->sourceId = $id;
+        $this->sourceName = $source->name;
+        $this->showDeleteSourceModal = true;
+    }
+
+    public function deleteSource($id)
+    {
+        $source = Source::findOrFail($id);
+        $source->delete();
+        $this->sources = Source::select('id', 'name')->get()->toArray();
+        $this->closeDeleteSourceModal();
+        session()->flash('success', 'Source deleted successfully');
+    }
+
+    public function closeDeleteSourceModal()
+    {
+        $this->showDeleteSourceModal = false;
+        $this->reset(['sourceName', 'sourceId']);
     }
 
     public function render()
