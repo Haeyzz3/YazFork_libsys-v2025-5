@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/books', \App\Livewire\Records\BooksIndex::class)->name('books.index');
     Route::get('records/books/create', \App\Livewire\Records\BooksCreate::class)->name('books.create');
     Route::get('records/books/{record}', [BookController::class, 'show'])->name('books.show');
-    Route::get('records/books/{record}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::get('records/books/{record}/edit', \App\Livewire\Records\BooksEdit::class)->name('books.edit');
     Route::put('records/books/{record}', [BookController::class, 'update'])->name('books.update');
     Route::delete('records/books/{record}', [BookController::class, 'destroy'])->name('books.destroy');
     // e-collections

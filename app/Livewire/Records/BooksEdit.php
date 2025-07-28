@@ -8,12 +8,18 @@ use App\Models\LcClassification;
 use App\Models\PhysicalLocation;
 use App\Models\Record;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class BooksCreate extends Component
+class BooksEdit extends Component
 {
+
     use WithFileUploads;
+
+    public $record_editing;
+    public $showDeleteModal = false;
 
     public $ddc_classifications = [];
     public $lc_classifications = [];
@@ -26,7 +32,7 @@ class BooksCreate extends Component
     // records fields
     public $title = '';
     public $accession_number = '';
-    public $acquisition_status = "";
+    public $acquisition_status = '';
     public  $condition = "";
     public  $subject_headings = [''];
 
@@ -61,9 +67,43 @@ class BooksCreate extends Component
 
     public $table_of_contents = '';
 
-    public function mount()
+    public function mount(Record $record)
     {
-        // Fetch DDC classifications from the database
+        $this->record_editing = $record;
+        $this->accession_number = $record->accession_number;
+        $this->title = $record->title;
+        $this->authors = $record->book->authors;
+        $this->editors = $record->book->editors;
+        $this->publication_year = $record->book->publication_year;
+        $this->publisher = $record->book->publisher;
+        $this->publication_place = $record->book->publication_place;
+        $this->isbn = $record->book->isbn;
+        $this->volume = $record->book->volume;
+        $this->edition = $record->book->edition;
+        $this->call_number = $record->book->call_number;
+        $this->ddc_class_id = $record->book->ddc_classification_id;
+        $this->lc_class_id = $record->book->lc_classification_id;
+        $this->physical_location_id = $record->book->physical_location_id;
+        $this->cover_type_id = $record->book->cover_type_id;
+//        $this->cover_image = $record->book->cover_image;
+        $this->ics_number = $record->book->ics_number;
+        $this->ics_date = $record->book->ics_date;
+        $this->pr_number = $record->book->pr_number;
+        $this->pr_date = $record->book->pr_date;
+        $this->po_number = $record->book->po_number;
+        $this->po_date = $record->book->po_date;
+        $this->source_id = $record->book->source_id;
+        $this->purchase_amount = $record->book->purchase_amount;
+        $this->lot_cost = $record->book->lot_cost;
+        $this->supplier = $record->book->supplier;
+        $this->donated_by = $record->book->donated_by;
+        $this->replaced_by = $record->book->replaced_by;
+        $this->acquisition_status = $record->acquisition_status;
+        $this->condition = $record->condition;
+        $this->transferred_from = $record->book->transferred_from;
+        $this->table_of_contents = $record->book->table_of_contents;
+        $this->subject_headings = $record->subject_headings;
+
         $this->ddc_classifications = DdcClassification::pluck('name','id')->toArray();
         $this->lc_classifications = LcClassification::pluck('name','id')->toArray();
         $this->physical_locations = PhysicalLocation::pluck('name','id')->toArray();
@@ -78,7 +118,12 @@ class BooksCreate extends Component
         return [
             // Records fields
             'title' => 'required|string|max:255',
-            'accession_number' => 'required|string|max:50|unique:records,accession_number',
+            'accession_number' => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('records', 'accession_number')->ignore($this->record_editing->id)
+            ],
             'acquisition_status' => 'nullable|string|max:50',
             'condition' => 'nullable|string|max:100',
             'subject_headings.*' => 'string|max:100',
@@ -89,7 +134,12 @@ class BooksCreate extends Component
             'editors.*' => 'string|max:100',
             'publication_year' => 'nullable|integer|min:1000|max:' . now()->year,
             'publisher' => 'nullable|string|max:255',
-            'isbn' => 'nullable|string|max:20|unique:books,isbn',
+            'isbn' => [
+                'nullable',
+                'string',
+                'max:20',
+                Rule::unique('books', 'isbn')->ignore($this->record_editing->id)
+            ],
             'publication_place' => 'nullable|string|max:255',
             'edition' => 'nullable|string|max:100',
             'call_number' => 'nullable|string|max:50',
@@ -97,7 +147,7 @@ class BooksCreate extends Component
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
             'physical_location_id' => 'nullable|exists:physical_locations,id',
             'cover_type_id' => 'nullable|exists:cover_types,id',
-            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
+//            'cover_image' => 'nullable|image|max:2048', // adjust size if needed
             'ics_number' => 'nullable|string|max:50',
             'ics_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today',
             'pr_number' => 'nullable|string|max:50',
@@ -115,7 +165,6 @@ class BooksCreate extends Component
         ];
     }
 
-    // Livewire lifecycle hook that is automatically triggered whenever a property (field) bound to the component is updated in the frontend (e.g., when a user types in an input field).
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
@@ -126,6 +175,7 @@ class BooksCreate extends Component
     {
         $this->authors[] = '';
     }
+
     public function removeAuthorField($index): void
     {
         if (isset($this->authors[$index])) {
@@ -161,26 +211,29 @@ class BooksCreate extends Component
     public function submit()
     {
         try {
-
             $this->validate();
 
-            $cover_image_path = null;
-            if ($this->cover_image) {
-                $cover_image_path = $this->cover_image->store('uploads/book_covers', 'public');
-            }
+            $record = Record::findOrFail($this->record_editing->id);
 
-            $record = Record::create([
+//            $cover_image_path = $record->book->cover_image;
+//            if ($this->cover_image) {
+//                // Delete old cover image if it exists
+//                if ($cover_image_path) {
+//                    Storage::disk('public')->delete($cover_image_path);
+//                }
+//                $cover_image_path = $this->cover_image->store('uploads/book_covers', 'public');
+//            }
+
+            $record->update([
                 'accession_number' => $this->accession_number,
                 'title' => $this->title,
                 'acquisition_status' => $this->acquisition_status,
                 'condition' => $this->condition,
                 'subject_headings' => $this->subject_headings,
-
-                'date_received' => now(),
-                'added_by' => auth()->user()->id,
+                'updated_by' => auth()->user()->id,
             ]);
 
-            $record->book()->create([
+            $record->book()->update([
                 'authors' => $this->authors,
                 'editors' => $this->editors,
                 'publication_year' => $this->publication_year,
@@ -189,22 +242,18 @@ class BooksCreate extends Component
                 'edition' => $this->edition,
                 'isbn' => $this->isbn,
                 'volume' => $this->volume,
-
                 'call_number' => $this->call_number,
                 'ddc_class_id' => $this->ddc_class_id,
                 'lc_class_id' => $this->lc_class_id,
                 'physical_location_id' => $this->physical_location_id,
-
                 'cover_type_id' => $this->cover_type_id,
-                'cover_image' => $cover_image_path,
-
+//                'cover_image' => $cover_image_path,
                 'ics_number' => $this->ics_number,
                 'ics_date' => $this->ics_date,
                 'pr_number' => $this->pr_number,
                 'pr_date' => $this->pr_date,
                 'po_number' => $this->po_number,
                 'po_date' => $this->po_date,
-
                 'source_id' => $this->source_id,
                 'purchase_amount' => $this->purchase_amount,
                 'lot_cost' => $this->lot_cost,
@@ -212,7 +261,6 @@ class BooksCreate extends Component
                 'donated_by' => $this->donated_by,
                 'replaced_by' => $this->replaced_by,
                 'transferred_from' => $this->transferred_from,
-
                 'table_of_contents' => $this->table_of_contents,
             ]);
 
@@ -220,14 +268,13 @@ class BooksCreate extends Component
             $this->reset();
             $this->resetValidation();
 
-            session()->flash('success', 'Record added successfully!');
-            return redirect()->route('books.index');
-
+            session()->flash('success', 'Record updated successfully!');
+            return redirect()->route('books.show', $record);
         } catch (\Illuminate\Database\QueryException $e) {
             // Handle database-specific errors
             $message = app()->environment('production')
-                ? 'Failed to add book. Please try again.'
-                : 'Failed to add book: ' . $e->getMessage();
+                ? 'Failed to update book. Please try again.'
+                : 'Failed to update book: ' . $e->getMessage();
             session()->flash('error', $message);
         } catch (\Exception $e) {
             // Handle any other unexpected errors
@@ -247,9 +294,28 @@ class BooksCreate extends Component
         return round(($bytes / pow($k, $i)), 2) . ' ' . $sizes[$i];
     }
 
+    public function openDeleteModal()
+    {
+        $this->showDeleteModal = true;
+    }
+
+    public function deleteRecord()
+    {
+        $this->record_editing->delete();
+        $this->reset();
+        $this->resetValidation();
+        session()->flash('success', 'Record deleted successfully!');
+        return redirect()->route('books.index');
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->showDeleteModal = false;
+    }
+
     public function render()
     {
-        return view('livewire.records.books-create')
-            ->layout('components.layouts.records', ['headingTitle' => 'Add Book']);
+        return view('livewire.records.books-edit')
+            ->layout('components.layouts.records', ['headingTitle' => 'Edit Book']);
     }
 }
