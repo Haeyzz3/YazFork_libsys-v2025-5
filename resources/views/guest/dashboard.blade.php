@@ -5,8 +5,7 @@
 <livewire:guest-header />
 
 @section('content')
-    <section class="relative min-h-[45vh] overflow-hidden flex flex-col items-center justify-center mb-8 bg-hero">
-        {{-- This overlay darkens the background image, but stays behind content --}}
+    <section class="relative min-h-[45vh] flex flex-col items-center justify-center mb-8 bg-hero">
         <div class="absolute inset-0 bg-black/50"></div>
 
         <div class="relative z-10 text-center text-white">
@@ -16,6 +15,15 @@
 
         <x-search-bar-dropdown />
     </section>
+
+    <!-- Collection Cards -->
+    @livewire('collection-cards')
+
+    <!-- Books Section -->
+    @livewire('book-collection')
+
+    <!-- Card Modal -->
+    @livewire('book-modal')
 
 
 {{--    <h1 class="text-2xl font-bold mb-4" >Browse Books</h1 >--}}
