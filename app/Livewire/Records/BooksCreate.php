@@ -36,7 +36,9 @@ class BooksCreate extends Component
     public $publication_year = '';
     public $publisher = '';
     public $publication_place = '';
+    public $edition = '';
     public $isbn = '';
+    public $volume = '';
     public $call_number = '';
     public $ddc_class_id = "";
     public $lc_class_id = "";
@@ -54,6 +56,9 @@ class BooksCreate extends Component
     public $lot_cost = null;
     public $supplier = '';
     public $donated_by = '';
+    public $replaced_by = '';
+    public $transferred_from = '';
+
     public $table_of_contents = '';
 
     public function mount()
@@ -79,12 +84,14 @@ class BooksCreate extends Component
             'subject_headings.*' => 'string|max:100',
 
             // Books fields
+            'volume' => 'nullable|string|max:100',
             'authors.*' => 'string|max:100',
             'editors.*' => 'string|max:100',
             'publication_year' => 'nullable|integer|min:1000|max:' . now()->year,
             'publisher' => 'nullable|string|max:255',
             'isbn' => 'nullable|string|max:20|unique:books,isbn',
             'publication_place' => 'nullable|string|max:255',
+            'edition' => 'nullable|string|max:100',
             'call_number' => 'nullable|string|max:50',
             'ddc_class_id' => 'nullable|exists:ddc_classifications,id',
             'lc_class_id' => 'nullable|exists:lc_classifications,id',
@@ -102,6 +109,8 @@ class BooksCreate extends Component
             'lot_cost' => 'nullable|numeric|min:0',
             'supplier' => 'nullable|string|max:255',
             'donated_by' => 'nullable|string|max:255',
+            'replaced_by' => 'nullable|string|max:255',
+            'transferred_from' => 'nullable|string|max:255',
             'table_of_contents' => 'nullable|string',
         ];
     }
@@ -177,7 +186,9 @@ class BooksCreate extends Component
                 'publication_year' => $this->publication_year,
                 'publisher' => $this->publisher,
                 'publication_place' => $this->publication_place,
+                'edition' => $this->edition,
                 'isbn' => $this->isbn,
+                'volume' => $this->volume,
 
                 'call_number' => $this->call_number,
                 'ddc_class_id' => $this->ddc_class_id,
@@ -199,6 +210,8 @@ class BooksCreate extends Component
                 'lot_cost' => $this->lot_cost,
                 'supplier' => $this->supplier,
                 'donated_by' => $this->donated_by,
+                'replaced_by' => $this->replaced_by,
+                'transferred_from' => $this->transferred_from,
 
                 'table_of_contents' => $this->table_of_contents,
             ]);

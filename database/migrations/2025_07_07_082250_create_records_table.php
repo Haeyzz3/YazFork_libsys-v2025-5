@@ -25,6 +25,9 @@ return new class extends Migration
             $table->foreignId('added_by')->nullable()
                 ->constrained('users')
                 ->onDelete('set null');
+            $table->foreignId('updated_by')->nullable()
+                ->constrained('users')
+                ->onDelete('set null');
             $table->foreignId('imported_by')->nullable()
                 ->constrained('users')
                 ->onDelete('set null');

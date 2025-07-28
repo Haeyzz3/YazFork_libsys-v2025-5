@@ -35,6 +35,11 @@ class Book extends Model
         return $this->belongsTo(DdcClassification::class, 'ddc_class_id');
     }
 
+    public function lcClassification(): BelongsTo
+    {
+        return $this->belongsTo(LcClassification::class, 'lc_class_id');
+    }
+
     public function physicalLocation(): BelongsTo
     {
         return $this->belongsTo(PhysicalLocation::class);
