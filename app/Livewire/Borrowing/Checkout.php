@@ -12,6 +12,7 @@ class Checkout extends Component
     public $selectedBook = null;
     public $search = '';
     public $search_ac = null;
+    public $showScanModal = false;
 
     public function render()
     {
@@ -42,6 +43,11 @@ class Checkout extends Component
             session()->flash('error', 'Book not found');
             $this->clearSelection();
         }
+    }
+
+    public function scanAcc(): void
+    {
+        $this->showScanModal = true;
     }
 
     public function selectBook($bookId)

@@ -34,20 +34,26 @@
                     <!-- Accession Number -->
                     <div class="mb-6">
                         <label for="search_ac" class="block text-sm font-medium text-gray-700 mb-2">Book Accession Number</label>
-                        <div class="grid grid-cols-3 gap-2">
+                        <div class="grid grid-cols-6 gap-2">
                             <input
                                 type="text"
                                 id="search_ac"
                                 wire:model.blur="search_ac"
-                                class="col-span-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
+                                class="col-span-3 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
                                 placeholder="Enter accession number"
                             >
                             <button
                                 wire:click="findAcc"
-                                class="col-span-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200"
+                                class="col-span-2 flex items-center justify-center gap-2 px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200"
                             >
                                 <flux:icon name="magnifying-glass"></flux:icon>
                                 <span>Find Book</span>
+                            </button>
+                            <button
+                                wire:click="scanAcc"
+                                class="col-span-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200"
+                            >
+                                <flux:icon name="qr-code"></flux:icon>
                             </button>
                         </div>
                     </div>
@@ -203,4 +209,8 @@
             <span class="mt-2 text-white text-lg">Processing checkout, please wait...</span>
         </div>
     </div>
+
+    <x-compact-modal entangle="showScanModal">
+        hi
+    </x-compact-modal>
 </div>

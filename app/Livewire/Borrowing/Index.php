@@ -71,7 +71,7 @@ class Index extends Component
                 stripos($borrowing['borrower']['name'], $this->search) !== false;
         })->values();
 
-        return view('livewire.borrowing.index', [
+        return view('livewire.borrowing.borrow-index', [
             'borrowings' => $filteredBorrowings,
         ]);
     }
