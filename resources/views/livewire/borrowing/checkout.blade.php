@@ -1,4 +1,7 @@
 <div>
+
+    <x-flash-messenger/>
+
     <!-- Header -->
     <div class="relative bg-gradient-to-r from-red-900 via-red-700 to-green-700 text-center py-6 mb-4 rounded-lg shadow-lg">
         <h1 class="text-xl font-bold text-white tracking-tight">Borrow a Book</h1>
@@ -6,117 +9,128 @@
 
     <!-- Checkout Form -->
     <div class="w-full max-w-7xl mx-auto">
-        <div class="flex-1 flex justify-center items-center px-4 py-8">
-            <div class="flex flex-col lg:flex-row gap-8 max-w-6xl w-full">
-                <!-- Main Form -->
-                <div class="flex-1 max-w-2xl">
-                    <div class="bg-white rounded-xl shadow-2xl p-8">
-                        <!-- Borrow Type -->
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Borrow Type</label>
-                            <div class="flex space-x-4">
-                                <label class="flex items-center">
-                                    <input type="radio" name="borrowType" value="inside" class="mr-2" checked>
-                                    <span class="text-sm">Inside Library</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="borrowType" value="outside" class="mr-2">
-                                    <span class="text-sm">Take Home</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- Accession Number -->
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Book Accession Number</label>
-                            <div class="flex gap-2">
-                                <button class="px-6 py-3 w-full flex gap-4 justify-center bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
-                                    <flux:icon name="qr-code"></flux:icon>
-                                    <span>Scan to Find Book</span>
-                                </button>
-                            </div>
-                        </div>
 
-                        <!-- Book Search -->
-                        <div class="mb-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Or Search Books</label>
-                                <input
-                                    type="text"
-                                    wire:model.live="search"
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
-                                    placeholder="Search by accession, title or author..."
-                                >
-                                <div class="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
-                                    @if ($records->isEmpty())
-                                        <p class="text-gray-500">No books found.</p>
-                                    @else
-                                        <ul class="">
-                                            @foreach ($records as $record)
-                                                <li
-                                                    wire:click="selectBook({{ $record->id }})"
-                                                    class="p-4 bg-white hover:bg-gray-100 hover:cursor-pointer border-b border-gray-200"
-                                                >
-                                                    <h3 class="text-md font-semibold">{{ $record->title }}</h3>
-                                                    <div class="flex justify-between">
-                                                        <p class="text-sm text-gray-600">Accession number: {{ $record->accession_number }}</p>
-                                                        <p class="text-sm text-gray-600">Authors: {{ implode(', ', $record->book->authors) }}</p>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </div>
-                            </div>
+        <div class="flex justify-center py-4">
+            <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Main Form -->
+                <div class=" border border-gray-200 rounded-xl shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">Borrow a Book</h2>
+
+                    <!-- Borrow Type -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Borrow Type, ibalhin ni sa borrow book modal</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="borrowType" value="inside" class="text-red-800 focus:ring-red-800" checked>
+                                <span class="text-sm text-gray-600">Inside Library</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="borrowType" value="outside" class="text-red-800 focus:ring-red-800">
+                                <span class="text-sm text-gray-600">Take Home</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Accession Number -->
+                    <div class="mb-6">
+                        <label for="search_ac" class="block text-sm font-medium text-gray-700 mb-2">Book Accession Number</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <input
+                                type="text"
+                                id="search_ac"
+                                wire:model.blur="search_ac"
+                                class="col-span-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
+                                placeholder="Enter accession number"
+                            >
+                            <button
+                                wire:click="findAcc"
+                                class="col-span-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200"
+                            >
+                                <flux:icon name="magnifying-glass"></flux:icon>
+                                <span>Find Book</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Book Search -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Or Search Books</label>
+                        <input
+                            type="text"
+                            wire:model.live="search"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
+                            placeholder="Search by, title, or author..."
+                        >
+                        <div class="mt-2 bg-white border border-gray-200 rounded-lg max-h-48 overflow-y-auto">
+                            @if ($records->isEmpty())
+                                <p class="p-4 text-gray-500 text-sm">No books found.</p>
+                            @else
+                                <ul>
+                                    @foreach ($records as $record)
+                                        <li
+                                            wire:click="selectBook({{ $record->id }})"
+                                            class="p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                                        >
+                                            <h3 class="text-md font-semibold text-gray-800">{{ $record->title }}</h3>
+                                            <div class="flex justify-between text-sm text-gray-600">
+                                                <p>Accession: {{ $record->accession_number }}</p>
+                                                <p>Authors: {{ implode(', ', $record->book->authors) }}</p>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
 
                 <!-- Book Details -->
-                <div class="flex-1 max-w-2xl">
-                    <div class="bg-white rounded-xl shadow-2xl p-8">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold text-red-800">Book Details</h2>
-                            <button wire:click="clearSelection" class="text-gray-500 hover:text-gray-700">
-                                <i class="ti ti-x text-xl"></i>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800">Book Details</h2>
+                        <button wire:click="clearSelection" class="flex gap-2 text-gray-500 hover:text-gray-700">
+                            <flux:icon name="backspace"></flux:icon>
+                            Clear
+                        </button>
+                    </div>
+
+                    @if ($selectedBook)
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="flex justify-center">
+                                <div class="w-full max-w-xs h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                                    <i class="ti ti-book text-gray-400 text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700">Title:</label>
+                                    <p class="text-gray-900">{{ $selectedBook['title'] }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700">Author:</label>
+                                    <p class="text-gray-900">{{ implode(', ', $selectedBook['authors']) }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700">Accession Number:</label>
+                                    <p class="text-gray-900">{{ $selectedBook['accession_number'] }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700">Status:</label>
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                                {{ $selectedBook['status'] ?? 'Available' }}
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex justify-end">
+                            <button class="flex items-center gap-2 px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
+                                <i class="ti ti-book-2"></i>
+                                Borrow Book
                             </button>
                         </div>
-                        @if ($selectedBook)
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <div class="w-full max-w-xs mx-auto h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                                        <i class="ti ti-book text-gray-400 text-4xl"></i>
-                                    </div>
-                                </div>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="font-semibold text-gray-700">Title:</label>
-                                        <p class="text-gray-900">{{ $selectedBook['title'] }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="font-semibold text-gray-700">Author:</label>
-                                        <p class="text-gray-900">{{ implode(', ', $selectedBook['authors']) }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="font-semibold text-gray-700">Accession Number:</label>
-                                        <p class="text-gray-900">{{ $selectedBook['accession_number'] }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="font-semibold text-gray-700">Status:</label>
-                                        <span class="inline-block px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
-                            {{ $selectedBook['status'] ?? 'Available' }}
-                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-8 flex justify-end">
-                                <button class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
-                                    <i class="ti ti-book-2 mr-2"></i>Borrow Book
-                                </button>
-                            </div>
-                        @else
-                            <p class="text-gray-500">Select a book to view details.</p>
-                        @endif
-                    </div>
+                    @else
+                        <p class="text-gray-500 text-sm">Select a book to view details.</p>
+                    @endif
                 </div>
             </div>
         </div>

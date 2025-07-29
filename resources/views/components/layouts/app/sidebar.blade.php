@@ -42,9 +42,12 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Circulation')" class="grid" expandable
                                     :expanded="request()->routeIs(['borrowing', 'borrowing.*'])">
-                    <flux:navlist.item icon="arrows-right-left" href="{{ route('borrowing.index') }}"
-                                       :current="request()->routeIs(['borrowing', 'borrowing.*'])"
-                                       wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
+                    <flux:navlist.item icon="list-bullet" href="{{ route('borrowing.index') }}"
+                                       :current="request()->routeIs(['borrowing.index'])"
+                                       wire:navigate>{{ __('Borrowed Items') }}</flux:navlist.item>
+                    <flux:navlist.item icon="arrows-right-left" href="{{ route('borrowing.checkout') }}"
+                                       :current="request()->routeIs(['borrowing.checkout'])"
+                                       wire:navigate>{{ __('Borrow/Return') }}</flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" href="#" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>

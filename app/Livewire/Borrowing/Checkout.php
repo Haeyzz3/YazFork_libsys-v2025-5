@@ -11,14 +11,14 @@ class Checkout extends Component
     use WithPagination;
     public $selectedBook = null;
     public $search = '';
+    public $search_ac = null;
 
     public function render()
     {
-        $query = Record::with(['book', 'digitalResource'])
+        $query = Record::with('book')
             ->whereHas('book', function ($q) {
                 $q->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('authors', 'like', '%' . $this->search . '%')
-                    ->orWhere('accession_number', 'like', '%' . $this->search . '%');
+                    ->orWhere('authors', 'like', '%' . $this->search . '%');
             });
 
         // If you need the actual results:
@@ -27,6 +27,21 @@ class Checkout extends Component
         return view('livewire.borrowing.checkout', [
             'records' =>  $records,
         ]);
+    }
+
+    public function findAcc()
+    {
+        $ac_query = Record::with('book')
+            ->whereHas('book', function ($query) {
+                $query->where('accession_number', '=', $this->search_ac);
+            })->first(); // Fetch the first record or null if none exists
+
+        if ($ac_query) {
+            $this->selectBook($ac_query->id);
+        } else {
+            session()->flash('error', 'Book not found');
+            $this->clearSelection();
+        }
     }
 
     public function selectBook($bookId)
@@ -44,7 +59,7 @@ class Checkout extends Component
         }
     }
 
-    public function clearSelection()
+    public function clearSelection(): void
     {
         $this->selectedBook = null;
     }

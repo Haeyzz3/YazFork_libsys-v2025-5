@@ -6,18 +6,6 @@
     </div>
 
     <div class="w-full max-w-7xl mx-auto">
-        <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
-            <a href="{{ route('borrowing.checkout') }}">
-                <button
-                    type="button"
-                    class="relative inline-flex items-center rounded-full bg-green-700 px-8 py-3 text-base font-semibold text-white shadow-md hover:bg-green-600 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 transition-all duration-200 ease-in-out transform"
-                    aria-label="Check in a book"
-                >
-                    <span class="relative z-10">Borrow/Return</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-green-800 opacity-50 rounded-full"></div>
-                </button>
-            </a>
-        </div>
         <div class="mt-6 flex justify-start">
             <div class="flex items-center gap-3 sm:flex-none">
                 <input
