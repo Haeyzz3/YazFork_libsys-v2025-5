@@ -10,20 +10,10 @@
             <a href="{{ route('borrowing.checkout') }}">
                 <button
                     type="button"
-                    class="relative inline-flex items-center rounded-full bg-red-900 px-8 py-3 text-base font-semibold text-white shadow-md hover:bg-red-800 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900 transition-all duration-200 ease-in-out transform"
-                    aria-label="Check out a book"
-                >
-                    <span class="relative z-10">Check-Out</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-red-700 to-red-900 opacity-50 rounded-full"></div>
-                </button>
-            </a>
-            <a href="">
-                <button
-                    type="button"
                     class="relative inline-flex items-center rounded-full bg-green-700 px-8 py-3 text-base font-semibold text-white shadow-md hover:bg-green-600 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 transition-all duration-200 ease-in-out transform"
                     aria-label="Check in a book"
                 >
-                    <span class="relative z-10">Check-In</span>
+                    <span class="relative z-10">Borrow/Return</span>
                     <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-green-800 opacity-50 rounded-full"></div>
                 </button>
             </a>

@@ -1,7 +1,7 @@
 <div>
     <!-- Header -->
     <div class="relative bg-gradient-to-r from-red-900 via-red-700 to-green-700 text-center py-6 mb-4 rounded-lg shadow-lg">
-        <h1 class="text-xl font-bold text-white tracking-tight">Check-Out a Book</h1>
+        <h1 class="text-xl font-bold text-white tracking-tight">Borrow a Book</h1>
     </div>
 
     <!-- Checkout Form -->
@@ -12,14 +12,6 @@
                 <!-- Main Form -->
                 <div class="flex-1 max-w-2xl">
                     <div class="bg-white rounded-xl shadow-2xl p-8">
-                        <div class="text-center mb-8">
-                            <div class="bg-yellow-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="ti ti-book text-red-800 text-2xl"></i>
-                            </div>
-                            <h1 class="text-3xl font-bold text-red-800 mb-2">Library Borrowing System</h1>
-                            <p class="text-gray-600">Scan or search for books to borrow or return</p>
-                        </div>
-
                         <!-- Borrow Type -->
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Borrow Type</label>
@@ -33,14 +25,7 @@
                                     <span class="text-sm">Take Home</span>
                                 </label>
                             </div>
-                            <div class="mt-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                                <p class="text-sm text-yellow-800">
-                                    <i class="ti ti-alert-triangle mr-1"></i>
-                                    Books borrowed outside have a 7-day return period with penalties for late returns.
-                                </p>
-                            </div>
                         </div>
-
                         <!-- Accession Number -->
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Book Accession Number</label>
@@ -49,7 +34,7 @@
                                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
                                        placeholder="Enter or scan accession number">
                                 <button class="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200">
-                                    <i class="ti ti-qrcode"></i>
+                                    <flux:icon name="qr-code"></flux:icon>
                                 </button>
                                 <button class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
                                     Find Book
@@ -59,27 +44,33 @@
 
                         <!-- Book Search -->
                         <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Or Search Books</label>
-                            <input type="text"
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
-                                   placeholder="Search by title or author...">
-
-                            <!-- Sample Search Results -->
-                            <div class="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
-                                <div class="p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100">
-                                    <p class="font-semibold text-gray-900">Sample Book Title</p>
-                                    <p class="text-sm text-gray-600">Sample Author</p>
-                                    <p class="text-xs text-gray-500">Accession: ACC001</p>
-                                </div>
-                                <div class="p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100">
-                                    <p class="font-semibold text-gray-900">Another Book Title</p>
-                                    <p class="text-sm text-gray-600">Another Author</p>
-                                    <p class="text-xs text-gray-500">Accession: ACC002</p>
-                                </div>
-                                <div class="p-3 hover:bg-gray-50 cursor-pointer">
-                                    <p class="font-semibold text-gray-900">Third Book Example</p>
-                                    <p class="text-sm text-gray-600">Third Author</p>
-                                    <p class="text-xs text-gray-500">Accession: ACC003</p>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Or Search Books</label>
+                                <input
+                                    type="text"
+                                    wire:model.live="search"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
+                                    placeholder="Search by title or author..."
+                                >
+                                <div class="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                                    @if ($records->isEmpty())
+                                        <p class="text-gray-500">No books found.</p>
+                                    @else
+                                        <ul class="">
+                                            @foreach ($records as $record)
+                                                <li
+                                                    wire:click="selectBook({{ $record->id }})"
+                                                    class="p-4 bg-white hover:bg-gray-100 hover:cursor-pointer border-b border-gray-200"
+                                                >
+                                                    <h3 class="text-md font-semibold">{{ $record->title }}</h3>
+                                                    <div class="flex justify-between">
+                                                        <p class="text-sm text-gray-600">Authors: {{ implode(', ', $record->book->authors) }}</p>
+                                                        <p class="text-sm text-gray-600">Accession number: {{ $record->accession_number }}</p>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -91,40 +82,46 @@
                     <div class="bg-white rounded-xl shadow-2xl p-8">
                         <div class="flex justify-between items-center mb-6">
                             <h2 class="text-2xl font-bold text-red-800">Book Details</h2>
-                            <button class="text-gray-500 hover:text-gray-700">
+                            <button wire:click="clearSelection" class="text-gray-500 hover:text-gray-700">
                                 <i class="ti ti-x text-xl"></i>
                             </button>
                         </div>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <div class="w-full max-w-xs mx-auto h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                                    <i class="ti ti-book text-gray-400 text-4xl"></i>
+                        @if ($selectedBook)
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <div class="w-full max-w-xs mx-auto h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+                                        <i class="ti ti-book text-gray-400 text-4xl"></i>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="font-semibold text-gray-700">Title:</label>
+                                        <p class="text-gray-900">{{ $selectedBook['title'] }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold text-gray-700">Author:</label>
+                                        <p class="text-gray-900">{{ implode(', ', $selectedBook['authors']) }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold text-gray-700">Accession Number:</label>
+                                        <p class="text-gray-900">{{ $selectedBook['accession_number'] }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold text-gray-700">Status:</label>
+                                        <span class="inline-block px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                            {{ $selectedBook['status'] ?? 'Available' }}
+                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="font-semibold text-gray-700">Title:</label>
-                                    <p class="text-gray-900">Introduction to Computer Science</p>
-                                </div>
-                                <div>
-                                    <label class="font-semibold text-gray-700">Author:</label>
-                                    <p class="text-gray-900">Dr. Maria Santos</p>
-                                </div>
-                                <div>
-                                    <label class="font-semibold text-gray-700">Accession Number:</label>
-                                    <p class="text-gray-900">CS2024001</p>
-                                </div>
-                                <div>
-                                    <label class="font-semibold text-gray-700">Status:</label>
-                                    <span class="inline-block px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">Available</span>
-                                </div>
+                            <div class="mt-8 flex justify-end">
+                                <button class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
+                                    <i class="ti ti-book-2 mr-2"></i>Borrow Book
+                                </button>
                             </div>
-                        </div>
-                        <div class="mt-8 flex justify-end">
-                            <button class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
-                                <i class="ti ti-book-2 mr-2"></i>Borrow Book
-                            </button>
-                        </div>
+                        @else
+                            <p class="text-gray-500">Select a book to view details.</p>
+                        @endif
                     </div>
                 </div>
             </div>
