@@ -211,6 +211,89 @@
     </div>
 
     <x-compact-modal entangle="showScanModal">
-        hi
+        <div class="p-6">
+            <!-- Video Feed -->
+            <div class="relative w-full max-w-md mx-auto">
+                <video id="videoFeed" class="w-full rounded-lg" autoplay></video>
+                <canvas id="canvas" class="hidden"></canvas>
+            </div>
+
+            <!-- QR Code Scanning Instructions -->
+            <div class="mt-4 text-center">
+                <h3 class="text-lg font-semibold text-gray-800">Scan QR Code</h3>
+                <p class="mt-2 text-sm text-gray-600">
+                    Position the QR code within the camera frame to scan it. Ensure good lighting and a steady hand for best results.
+                </p>
+            </div>
+
+            <!-- Scanned Result -->
+            <div class="mt-4">
+                <p class="text-sm text-gray-600">Result: <span id="qrResult" class="font-medium">{{ $qrCodeResult ?? 'No QR code detected' }}</span></p>
+            </div>
+        </div>
     </x-compact-modal>
 </div>
+
+<!-- JavaScript for QR Code Scanning -->
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script>
+    document.addEventListener('livewire:initialized', function () {
+        const video = document.getElementById('videoFeed');
+        const canvasElement = document.getElementById('canvas');
+        const canvas = canvasElement.getContext('2d');
+        let stream = null;
+
+        function startCamera() {
+            console.log('hi');
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (mediaStream) {
+                    stream = mediaStream;
+                    video.srcObject = stream;
+                    video.oncanplay = function () {
+                        video.play();
+                        scanQRCode();
+                    };
+                })
+                .catch(function (err) {
+                    console.error("Camera access error: ", err);
+                    document.getElementById('qrResult').textContent = 'Camera access denied. Please allow camera access and try again.';
+                });
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+        }
+
+        function scanQRCode() {
+            if (!video.srcObject) return;
+
+            canvasElement.width = video.videoWidth;
+            canvasElement.height = video.videoHeight;
+            canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+            const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+            const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+            if (code) {
+                document.getElementById('qrResult').textContent = code.data;
+                @this.set('qrCodeResult', code.data);
+                stopCamera();
+            } else {
+                requestAnimationFrame(scanQRCode);
+            }
+        }
+
+        Livewire.first().$watch('showScanModal', function (value) {
+            if (value) {
+                startCamera();
+            } else {
+                stopCamera();
+            }
+        });
+
+        // Cleanup on component destroy
+        window.addEventListener('beforeunload', stopCamera);
+    });
+</script>
