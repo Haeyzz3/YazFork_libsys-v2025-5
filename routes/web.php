@@ -74,7 +74,6 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     Route::get('records/options', \App\Livewire\Records\OptionsIndex::class)->name('options.index');
 
     // circulation
-    Route::view('borrowing','borrowing.index' )->name('borrowing.index');
     Route::get('borrowing', \App\Livewire\Borrowing\Index::class)->name('borrowing.index');
 
 

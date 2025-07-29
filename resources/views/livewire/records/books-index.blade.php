@@ -3,7 +3,6 @@
     <x-flash-messenger/>
 
     <div class="flex justify-between items-center w-full sm:w-auto">
-        <!-- Search bar -->
         <div class="flex items-center gap-3 sm:flex-none">
             <input
                 type="text"

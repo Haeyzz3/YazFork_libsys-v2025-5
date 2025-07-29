@@ -1,35 +1,47 @@
 <div>
     <x-flash-messenger/>
 
-    <div class="flex justify-between items-center w-full sm:w-auto">
-        <!-- Search bar -->
-        <div class="flex items-center gap-3 sm:flex-none">
-            <input
-                type="text"
-                wire:model.live="search"
-                placeholder="Search by borrower, book title, or accession no."
-                class="block w-full sm:w-80 rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 transition duration-150 ease-in-out sm:text-sm sm:leading-6"
-                aria-label="Search borrowing records"
-            >
-            <flux:icon name="magnifying-glass" class="text-gray-500 hover:text-red-700 transition duration-150" />
+    <!-- Header with modern gradient and shadow -->
+    <div class="relative bg-gradient-to-r from-red-900 via-red-700 to-green-700 text-center py-6 mb-4 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold text-white tracking-tight sm:text-3xl">Borrowing Management</h1>
+        <p class="mt-1 text-xs text-gray-200 opacity-80">Streamlined library checkout and tracking system</p>
+        <div class="absolute inset-0 bg-black opacity-10 rounded-lg"></div>
+    </div>
+
+    <div class="w-full max-w-7xl mx-auto">
+        <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="">
+                <button
+                    type="button"
+                    class="relative inline-flex items-center rounded-full bg-red-900 px-8 py-3 text-base font-semibold text-white shadow-md hover:bg-red-800 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900 transition-all duration-200 ease-in-out transform"
+                    aria-label="Check out a book"
+                >
+                    <span class="relative z-10">Check-Out</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-red-700 to-red-900 opacity-50 rounded-full"></div>
+                </button>
+            </a>
+            <a href="">
+                <button
+                    type="button"
+                    class="relative inline-flex items-center rounded-full bg-green-700 px-8 py-3 text-base font-semibold text-white shadow-md hover:bg-green-600 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 transition-all duration-200 ease-in-out transform"
+                    aria-label="Check in a book"
+                >
+                    <span class="relative z-10">Check-In</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-green-800 opacity-50 rounded-full"></div>
+                </button>
+            </a>
         </div>
-        <div class="flex gap-2">
-            <a href="">
-                <button
-                    type="button"
-                    class="block rounded-md bg-red-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900"
+        <div class="mt-6 flex justify-start">
+            <div class="relative flex items-center gap-3 w-full sm:w-auto">
+                <input
+                    type="text"
+                    wire:model.live="search"
+                    placeholder="Search by acc no., title, DDC class, author, or year"
+                    class="block w-full sm:w-96 rounded-full border-0 py-3 px-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 transition-all duration-200 ease-in-out bg-white/90 backdrop-blur-sm sm:text-sm sm:leading-6"
+                    aria-label="Search library catalog"
                 >
-                    Check-Out
-                </button>
-            </a>
-            <a href="">
-                <button
-                    type="button"
-                    class="block rounded-md bg-red-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900"
-                >
-                    Check-In
-                </button>
-            </a>
+                <flux:icon name="magnifying-glass" class="absolute right-3 text-gray-500 hover:text-red-700 transition duration-200" />
+            </div>
         </div>
     </div>
 
@@ -52,7 +64,7 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
                     @forelse($borrowings as $borrowing)
-                        <tr>
+                        <tr class="hover:bg-gray-50 transition duration-150">
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $borrowing['accession_number'] }}</td>
                             <td class="px-3 py-4 text-sm text-gray-600 max-w-md truncate">{{ $borrowing['book']['title'] }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['borrower']['name'] }}</td>
@@ -60,7 +72,7 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['due_date'] }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['status'] }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                                <a href="#" class="text-red-900 hover:text-indigo-900">View details</a>
+                                <a href="#" class="text-red-900 hover:text-red-700 transition duration-150">View details</a>
                             </td>
                         </tr>
                     @empty
