@@ -40,7 +40,7 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Circulation')" class="grid">
-                    <flux:navlist.item icon="arrows-right-left" href="#" wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
+                    <flux:navlist.item icon="arrows-right-left" href="{{ route('borrowing.index') }}" wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" href="#" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
