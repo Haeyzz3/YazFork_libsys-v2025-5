@@ -6,33 +6,129 @@
 
     <!-- Checkout Form -->
     <div class="w-full max-w-7xl mx-auto">
-        <div class="mt-6 flex flex-col gap-4">
-            <div class="relative flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                <input
-                    type="text"
-                    placeholder="Enter Accession No. or Book Title"
-                    class="block w-full sm:w-96 rounded-full border-0 py-3 px-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 transition-all duration-200 ease-in-out bg-white/90 backdrop-blur-sm sm:text-sm sm:leading-6"
-                    aria-label="Book accession number or title"
-                >
-                <flux:icon name="magnifying-glass" class="absolute right-3 top-3 text-gray-500 hover:text-red-700 transition duration-200" />
+
+        <div class="flex-1 flex justify-center items-center px-4 py-8">
+            <div class="flex flex-col lg:flex-row gap-8 max-w-6xl w-full">
+                <!-- Main Form -->
+                <div class="flex-1 max-w-2xl">
+                    <div class="bg-white rounded-xl shadow-2xl p-8">
+                        <div class="text-center mb-8">
+                            <div class="bg-yellow-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="ti ti-book text-red-800 text-2xl"></i>
+                            </div>
+                            <h1 class="text-3xl font-bold text-red-800 mb-2">Library Borrowing System</h1>
+                            <p class="text-gray-600">Scan or search for books to borrow or return</p>
+                        </div>
+
+                        <!-- Borrow Type -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Borrow Type</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="borrowType" value="inside" class="mr-2" checked>
+                                    <span class="text-sm">Inside Library</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="borrowType" value="outside" class="mr-2">
+                                    <span class="text-sm">Take Home</span>
+                                </label>
+                            </div>
+                            <div class="mt-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <p class="text-sm text-yellow-800">
+                                    <i class="ti ti-alert-triangle mr-1"></i>
+                                    Books borrowed outside have a 7-day return period with penalties for late returns.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Accession Number -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Book Accession Number</label>
+                            <div class="flex gap-2">
+                                <input type="text"
+                                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
+                                       placeholder="Enter or scan accession number">
+                                <button class="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200">
+                                    <i class="ti ti-qrcode"></i>
+                                </button>
+                                <button class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
+                                    Find Book
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Book Search -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Or Search Books</label>
+                            <input type="text"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
+                                   placeholder="Search by title or author...">
+
+                            <!-- Sample Search Results -->
+                            <div class="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                                <div class="p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100">
+                                    <p class="font-semibold text-gray-900">Sample Book Title</p>
+                                    <p class="text-sm text-gray-600">Sample Author</p>
+                                    <p class="text-xs text-gray-500">Accession: ACC001</p>
+                                </div>
+                                <div class="p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100">
+                                    <p class="font-semibold text-gray-900">Another Book Title</p>
+                                    <p class="text-sm text-gray-600">Another Author</p>
+                                    <p class="text-xs text-gray-500">Accession: ACC002</p>
+                                </div>
+                                <div class="p-3 hover:bg-gray-50 cursor-pointer">
+                                    <p class="font-semibold text-gray-900">Third Book Example</p>
+                                    <p class="text-sm text-gray-600">Third Author</p>
+                                    <p class="text-xs text-gray-500">Accession: ACC003</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Details -->
+                <div class="flex-1 max-w-2xl">
+                    <div class="bg-white rounded-xl shadow-2xl p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-red-800">Book Details</h2>
+                            <button class="text-gray-500 hover:text-gray-700">
+                                <i class="ti ti-x text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <div class="w-full max-w-xs mx-auto h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+                                    <i class="ti ti-book text-gray-400 text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="font-semibold text-gray-700">Title:</label>
+                                    <p class="text-gray-900">Introduction to Computer Science</p>
+                                </div>
+                                <div>
+                                    <label class="font-semibold text-gray-700">Author:</label>
+                                    <p class="text-gray-900">Dr. Maria Santos</p>
+                                </div>
+                                <div>
+                                    <label class="font-semibold text-gray-700">Accession Number:</label>
+                                    <p class="text-gray-900">CS2024001</p>
+                                </div>
+                                <div>
+                                    <label class="font-semibold text-gray-700">Status:</label>
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">Available</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-end">
+                            <button class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
+                                <i class="ti ti-book-2 mr-2"></i>Borrow Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="relative flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                <input
-                    type="text"
-                    placeholder="Enter Borrower Name or ID"
-                    class="block w-full sm:w-96 rounded-full border-0 py-3 px-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 transition-all duration-200 ease-in-out bg-white/90 backdrop-blur-sm sm:text-sm sm:leading-6"
-                    aria-label="Borrower name or ID"
-                >
-                <flux:icon name="magnifying-glass" class="absolute right-3 top-3 text-gray-500 hover:text-red-700 transition duration-200" />
-            </div>
-            <button
-                type="button"
-                class="relative inline-flex items-center rounded-full bg-red-900 px-8 py-3 text-base font-semibold text-white shadow-md hover:bg-red-800 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900 transition-all duration-200 ease-in-out transform"
-                aria-label="Submit checkout"
-            >
-                <span class="relative z-10">Submit Checkout</span>
-                <div class="absolute inset-0 bg-gradient-to-r from-red-700 to-red-900 opacity-50 rounded-full"></div>
-            </button>
+
         </div>
 
         <!-- Recent Checkouts Table -->

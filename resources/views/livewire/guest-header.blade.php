@@ -19,6 +19,13 @@
         <!-- Far Right - Login Button -->
         @if (Route::has('login'))
             <nav class="flex items-center justify-end gap-4" >
+                <a
+                    href="#"
+                    class="px-4 py-2 border border-usepmaroon text-usepmaroon rounded-md hover:bg-usepmaroon/10 transition flex items-center shadow-sm hover:shadow-md hover:bg-usepmaroon/20"
+                >
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    <span class="hidden md:inline">Scan to Borrow</span>
+                </a>
                 @auth
                     <a
                         href="{{ route('dashboard') }}"
