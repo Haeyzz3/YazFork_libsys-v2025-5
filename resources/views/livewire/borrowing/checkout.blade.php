@@ -213,13 +213,13 @@
     <x-compact-modal entangle="showScanModal">
         <div class="p-6">
             <!-- Video Feed -->
-            <div class="relative w-full max-w-md mx-auto">
+            <div class="relative w-full max-w-md mx-auto" x-data="{ videoVisible: false }" x-init="setTimeout(() => videoVisible = true, 100)" x-show="videoVisible" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
                 <video id="videoFeed" class="w-full rounded-lg" autoplay></video>
                 <canvas id="canvas" class="hidden"></canvas>
             </div>
 
             <!-- QR Code Scanning Instructions -->
-            <div class="mt-4 text-center">
+            <div class="mt-4 text-center" x-data="{ textVisible: false }" x-init="setTimeout(() => textVisible = true, 300)" x-show="textVisible" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 -translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
                 <h3 class="text-lg font-semibold text-gray-800">Scan QR Code</h3>
                 <p class="mt-2 text-sm text-gray-600">
                     Position the QR code within the camera frame to scan it. Ensure good lighting and a steady hand for best results.
@@ -227,7 +227,7 @@
             </div>
 
             <!-- Scanned Result -->
-            <div class="mt-4">
+            <div class="mt-4" x-data="{ resultVisible: false }" x-init="setTimeout(() => resultVisible = true, 500)" x-show="resultVisible" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 -¡ª¡¿ translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
                 <p class="text-sm text-gray-600">Result: <span id="qrResult" class="font-medium">{{ $qrCodeResult ?? 'No QR code detected' }}</span></p>
             </div>
         </div>
@@ -251,7 +251,7 @@
                     video.srcObject = stream;
                     video.oncanplay = function () {
                         video.play();
-                        scanQRCode();
+                        // scanQRCode();
                     };
                 })
                 .catch(function (err) {
