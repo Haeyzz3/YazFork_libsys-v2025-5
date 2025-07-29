@@ -14,7 +14,7 @@
             <flux:navlist.item icon="home" class="mt-4" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('User Management')" class="grid" expandable>
+                <flux:navlist.group :heading="__('User Management')" class="grid" expandable :expanded="request()->routeIs(['admins', 'admins.*', 'patrons', 'patrons.*'])">
                     @can('manage-admins')
                         <flux:navlist.item icon="crown" :href="route('admins.index')" :current="request()->routeIs(['admins', 'admins.*'])" wire:navigate>{{ __('Admins') }}</flux:navlist.item>
                     @endcan

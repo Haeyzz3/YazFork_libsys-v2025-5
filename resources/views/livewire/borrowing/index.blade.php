@@ -1,16 +1,13 @@
 <div>
     <x-flash-messenger/>
 
-    <!-- Header with modern gradient and shadow -->
     <div class="relative bg-gradient-to-r from-red-900 via-red-700 to-green-700 text-center py-6 mb-4 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold text-white tracking-tight sm:text-3xl">Borrowing Management</h1>
-        <p class="mt-1 text-xs text-gray-200 opacity-80">Streamlined library checkout and tracking system</p>
-        <div class="absolute inset-0 bg-black opacity-10 rounded-lg"></div>
+        <h1 class="text-xl font-bold text-white tracking-tight">Borrowing Management</h1>
     </div>
 
     <div class="w-full max-w-7xl mx-auto">
         <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
-            <a href="">
+            <a href="{{ route('borrowing.checkout') }}">
                 <button
                     type="button"
                     class="relative inline-flex items-center rounded-full bg-red-900 px-8 py-3 text-base font-semibold text-white shadow-md hover:bg-red-800 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-900 transition-all duration-200 ease-in-out transform"
@@ -32,20 +29,20 @@
             </a>
         </div>
         <div class="mt-6 flex justify-start">
-            <div class="relative flex items-center gap-3 w-full sm:w-auto">
+            <div class="flex items-center gap-3 sm:flex-none">
                 <input
                     type="text"
                     wire:model.live="search"
                     placeholder="Search by acc no., title, DDC class, author, or year"
-                    class="block w-full sm:w-96 rounded-full border-0 py-3 px-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 transition-all duration-200 ease-in-out bg-white/90 backdrop-blur-sm sm:text-sm sm:leading-6"
+                    class="block w-full sm:w-80 rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 transition duration-150 ease-in-out sm:text-sm sm:leading-6"
                     aria-label="Search library catalog"
                 >
-                <flux:icon name="magnifying-glass" class="absolute right-3 text-gray-500 hover:text-red-700 transition duration-200" />
+                <flux:icon name="magnifying-glass" class="text-gray-500 hover:text-red-700 transition duration-150" />
             </div>
         </div>
     </div>
 
-    <div id="borrowing-table" class="mt-8 flow-root">
+    <div id="borrowing-table" class="mt-8 px-8 flow-root">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle">
                 <table class="min-w-full divide-y divide-gray-300">

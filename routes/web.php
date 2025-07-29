@@ -75,7 +75,7 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
 
     // circulation
     Route::get('borrowing', \App\Livewire\Borrowing\Index::class)->name('borrowing.index');
-
+    Route::get('borrowing/checkout', \App\Livewire\Borrowing\Checkout::class)->name('borrowing.checkout');
 
 });
 
