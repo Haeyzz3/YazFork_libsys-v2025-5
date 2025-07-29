@@ -6,7 +6,6 @@
 
     <!-- Checkout Form -->
     <div class="w-full max-w-7xl mx-auto">
-
         <div class="flex-1 flex justify-center items-center px-4 py-8">
             <div class="flex flex-col lg:flex-row gap-8 max-w-6xl w-full">
                 <!-- Main Form -->
@@ -30,14 +29,9 @@
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Book Accession Number</label>
                             <div class="flex gap-2">
-                                <input type="text"
-                                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
-                                       placeholder="Enter or scan accession number">
-                                <button class="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200">
+                                <button class="px-6 py-3 w-full flex gap-4 justify-center bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
                                     <flux:icon name="qr-code"></flux:icon>
-                                </button>
-                                <button class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
-                                    Find Book
+                                    <span>Scan to Find Book</span>
                                 </button>
                             </div>
                         </div>
@@ -50,7 +44,7 @@
                                     type="text"
                                     wire:model.live="search"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-800 focus:border-transparent"
-                                    placeholder="Search by title or author..."
+                                    placeholder="Search by accession, title or author..."
                                 >
                                 <div class="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
                                     @if ($records->isEmpty())
@@ -64,8 +58,8 @@
                                                 >
                                                     <h3 class="text-md font-semibold">{{ $record->title }}</h3>
                                                     <div class="flex justify-between">
-                                                        <p class="text-sm text-gray-600">Authors: {{ implode(', ', $record->book->authors) }}</p>
                                                         <p class="text-sm text-gray-600">Accession number: {{ $record->accession_number }}</p>
+                                                        <p class="text-sm text-gray-600">Authors: {{ implode(', ', $record->book->authors) }}</p>
                                                     </div>
                                                 </li>
                                             @endforeach
@@ -125,7 +119,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Recent Checkouts Table -->
