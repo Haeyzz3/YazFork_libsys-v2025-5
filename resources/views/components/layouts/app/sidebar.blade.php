@@ -28,7 +28,8 @@
             </flux:navlist>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Catalog')" class="grid" expandable :expanded="false">
+                <flux:navlist.group :heading="__('Catalog')" class="grid" expandable :expanded="request()->routeIs(['records' ,'books.*', 'digital.*', 'periodicals.*',
+                                        'thesis.*', 'options.*'])">
                     <flux:navlist.item icon="book-open" :href="route('books.index')"
                                        :current="request()->routeIs(['records' ,'books.*', 'digital.*', 'periodicals.*',
                                         'thesis.*', 'options.*'])"
@@ -39,7 +40,8 @@
             </flux:navlist>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Circulation')" class="grid" expandable :expanded="false">
+                <flux:navlist.group :heading="__('Circulation')" class="grid" expandable
+                                    :expanded="request()->routeIs(['borrowing', 'borrowing.*'])">
                     <flux:navlist.item icon="arrows-right-left" href="{{ route('borrowing.index') }}"
                                        :current="request()->routeIs(['borrowing', 'borrowing.*'])"
                                        wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
