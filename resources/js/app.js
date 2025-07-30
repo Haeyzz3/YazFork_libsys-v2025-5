@@ -4,9 +4,12 @@
 //
 // Alpine.start()
 
+
 import.meta.glob([
     '../images/**'
 ]);
+
+import jsQR from "jsqr";
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize counters

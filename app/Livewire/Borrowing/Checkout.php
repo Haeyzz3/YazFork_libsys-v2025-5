@@ -85,7 +85,10 @@ class Checkout extends Component
                 'authors' => $record->book->authors,
                 'accession_number' => $record->accession_number,
                 'status' => $record->condition ?? 'Available', // Adjust based on your model
-                'cover_image' => $record->book->cover_image ?? asset('storage/uploads/book_cover_images/sample5.png'),
+                'cover_image' => empty($record->book->cover_image) ||
+                $record->book->cover_image === '/uploads/book_cover_images/'
+                    ? asset('storage/uploads/book_cover_images/sample5.png')
+                    : asset('storage/' . ltrim($record->book->cover_image, '/')),
             ];
         }
     }

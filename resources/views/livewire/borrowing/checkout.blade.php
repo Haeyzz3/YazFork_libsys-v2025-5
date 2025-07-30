@@ -116,8 +116,10 @@
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="flex justify-center">
                                 <div class="w-full max-w-xs h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                                    @if ($selectedBook['cover_image'] && \Illuminate\Support\Facades\Storage::exists('public/' . ltrim($selectedBook['cover_image'], '/')))
-                                        <img src="{{ asset('storage/' . ltrim($selectedBook['cover_image'], '/')) }}" alt="Cover of {{ $selectedBook['title'] ?? 'Book' }}" class="w-full h-full object-cover rounded-lg">
+                                    @if ($selectedBook['cover_image'])
+                                        <img src="{{ $selectedBook['cover_image'] }}" alt="Book Cover" class="h-full object-contain">
+                                    @else
+                                        <span>No cover available</span>
                                     @endif
                                 </div>
                             </div>
@@ -241,8 +243,10 @@
 
 <!-- JavaScript for QR Code Scanning -->
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
 <script>
     document.addEventListener('livewire:initialized', function () {
+
         const video = document.getElementById('videoFeed');
         const canvasElement = document.getElementById('canvas');
         const canvas = canvasElement.getContext('2d');
