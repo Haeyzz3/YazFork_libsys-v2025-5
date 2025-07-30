@@ -14,7 +14,7 @@
             <flux:navlist.item icon="home" class="mt-4" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('User Management')" class="grid">
+                <flux:navlist.group :heading="__('User Management')" class="grid" expandable :expanded="request()->routeIs(['admins', 'admins.*', 'patrons', 'patrons.*'])">
                     @can('manage-admins')
                         <flux:navlist.item icon="crown" :href="route('admins.index')" :current="request()->routeIs(['admins', 'admins.*'])" wire:navigate>{{ __('Admins') }}</flux:navlist.item>
                     @endcan
@@ -28,7 +28,8 @@
             </flux:navlist>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Catalog')" class="grid">
+                <flux:navlist.group :heading="__('Catalog')" class="grid" expandable :expanded="request()->routeIs(['records' ,'books.*', 'digital.*', 'periodicals.*',
+                                        'thesis.*', 'options.*'])">
                     <flux:navlist.item icon="book-open" :href="route('books.index')"
                                        :current="request()->routeIs(['records' ,'books.*', 'digital.*', 'periodicals.*',
                                         'thesis.*', 'options.*'])"
@@ -39,8 +40,14 @@
             </flux:navlist>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Circulation')" class="grid">
-                    <flux:navlist.item icon="arrows-right-left" href="#" wire:navigate>{{ __('Borrowing') }}</flux:navlist.item>
+                <flux:navlist.group :heading="__('Circulation')" class="grid" expandable
+                                    :expanded="request()->routeIs(['borrowing', 'borrowing.*'])">
+                    <flux:navlist.item icon="list-bullet" href="{{ route('borrowing.index') }}"
+                                       :current="request()->routeIs(['borrowing.index'])"
+                                       wire:navigate>{{ __('Borrowed Items') }}</flux:navlist.item>
+                    <flux:navlist.item icon="arrows-right-left" href="{{ route('borrowing.checkout') }}"
+                                       :current="request()->routeIs(['borrowing.checkout'])"
+                                       wire:navigate>{{ __('Borrow/Return') }}</flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" href="#" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>

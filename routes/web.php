@@ -74,6 +74,10 @@ Route::middleware(['auth', 'verified', 'permission:manage_records'])->group(func
     // options
     Route::get('records/options', \App\Livewire\Records\OptionsIndex::class)->name('options.index');
 
+    // circulation
+    Route::get('borrowing', \App\Livewire\Borrowing\BorrowIndex::class)->name('borrowing.index');
+    Route::get('borrowing/checkout', \App\Livewire\Borrowing\Checkout::class)->name('borrowing.checkout');
+
 });
 
 Route::middleware(['auth'])->group(function () {

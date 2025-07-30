@@ -15,7 +15,6 @@
             Usep Library
         </a >
 
-
         <!-- Far Right - Login Button -->
         @if (Route::has('login'))
             <nav class="flex items-center justify-end gap-4" >
