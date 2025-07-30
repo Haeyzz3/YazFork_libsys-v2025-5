@@ -13,6 +13,8 @@ class Checkout extends Component
     public $search = '';
     public $search_ac = null;
     public $showScanModal = false;
+    public $showBorrowModal = false;
+    public $borrowType = 'inside';
 
     public function render()
     {
@@ -50,6 +52,18 @@ class Checkout extends Component
         $this->showScanModal = true;
     }
 
+    public function borrowBook(): void
+    {
+        if ($this->borrowType == 'inside') {
+
+
+
+            session()->flash('success', 'The book has been borrowed inside');
+        } else {
+            $this->showBorrowModal = true;
+        }
+    }
+
     public function selectBook($bookId)
     {
         $record = Record::with('book')->find($bookId);
@@ -60,7 +74,7 @@ class Checkout extends Component
                 'authors' => $record->book->authors,
                 'accession_number' => $record->accession_number,
                 'status' => $record->condition ?? 'Available', // Adjust based on your model
-                'cover_image' => $record->cover_image,
+                'cover_image' => $record->book->cover_image ?? asset('storage/uploads/book_cover_images/sample5.png'),
             ];
         }
     }

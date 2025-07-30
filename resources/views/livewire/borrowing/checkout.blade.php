@@ -18,19 +18,31 @@
 
                     <!-- Borrow Type -->
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Borrow Type, ibalhin ni sa borrow book modal</label>
+                        <label class="block text-sm font-medium text-gray-900 mb-2">Borrow Type</label>
                         <div class="flex gap-4">
-                            <label class="flex items-center space-x-2">
-                                <input type="radio" name="borrowType" value="inside" class="text-red-800 focus:ring-red-800" checked>
-                                <span class="text-sm text-gray-600">Inside Library</span>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="borrowType"
+                                    value="inside"
+                                    wire:model="borrowType"
+                                    class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300 rounded-full transition duration-200"
+                                    checked
+                                >
+                                <span class="text-sm text-gray-700 font-medium">Inside Library</span>
                             </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="radio" name="borrowType" value="outside" class="text-red-800 focus:ring-red-800">
-                                <span class="text-sm text-gray-600">Take Home</span>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="borrowType"
+                                    value="outside"
+                                    wire:model="borrowType"
+                                    class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300 rounded-full transition duration-200"
+                                >
+                                <span class="text-sm text-gray-700 font-medium">Take Home</span>
                             </label>
                         </div>
                     </div>
-
                     <!-- Accession Number -->
                     <div class="mb-6">
                         <label for="search_ac" class="block text-sm font-medium text-gray-700 mb-2">Book Accession Number</label>
@@ -104,7 +116,9 @@
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="flex justify-center">
                                 <div class="w-full max-w-xs h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                                    <i class="ti ti-book text-gray-400 text-4xl"></i>
+                                    @if ($selectedBook['cover_image'] && \Illuminate\Support\Facades\Storage::exists('public/' . ltrim($selectedBook['cover_image'], '/')))
+                                        <img src="{{ asset('storage/' . ltrim($selectedBook['cover_image'], '/')) }}" alt="Cover of {{ $selectedBook['title'] ?? 'Book' }}" class="w-full h-full object-cover rounded-lg">
+                                    @endif
                                 </div>
                             </div>
                             <div class="space-y-4">
@@ -129,7 +143,7 @@
                             </div>
                         </div>
                         <div class="mt-6 flex justify-end">
-                            <button class="flex items-center gap-2 px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
+                            <button wire:click="borrowBook" class="flex items-center gap-2 px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition duration-200">
                                 <i class="ti ti-book-2"></i>
                                 Borrow Book
                             </button>
@@ -231,6 +245,10 @@
                 <p class="text-sm text-gray-600">Result: <span id="qrResult" class="font-medium">{{ $qrCodeResult ?? 'No QR code detected' }}</span></p>
             </div>
         </div>
+    </x-compact-modal>
+
+    <x-compact-modal entangle="showBorrowModal">
+        hi
     </x-compact-modal>
 </div>
 
