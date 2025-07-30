@@ -244,14 +244,13 @@
         let stream = null;
 
         function startCamera() {
-            console.log('hi');
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (mediaStream) {
                     stream = mediaStream;
                     video.srcObject = stream;
                     video.oncanplay = function () {
                         video.play();
-                        // scanQRCode();
+                        scanQRCode();
                     };
                 })
                 .catch(function (err) {
@@ -277,9 +276,14 @@
             const code = jsQR(imageData.data, imageData.width, imageData.height);
 
             if (code) {
-                document.getElementById('qrResult').textContent = code.data;
-                @this.set('qrCodeResult', code.data);
+                // Update the input field with the scanned QR code data
+                document.getElementById('search_ac').value = code.data;
+                // Update the Livewire model
+                @this.set('search_ac', code.data);
+                // Optionally update the qrResult element if still needed
                 stopCamera();
+                // close the modal here
+                @this.set('showScanModal', false);
             } else {
                 requestAnimationFrame(scanQRCode);
             }
