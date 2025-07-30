@@ -41,6 +41,9 @@
         <div class="flex items-center justify-end">
             <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
         </div>
+        <div class="flex items-center justify-end">
+            <flux:button type="button" href="{{ route('guest.dashboard') }}" class="w-full">{{ __('Go Back as Guest') }}</flux:button>
+        </div>
     </form>
 
     @if (Route::has('register'))
