@@ -60,7 +60,7 @@
 }
 
 [data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+    @apply !mb-0 !leading-tight;
 }
 
 input:focus[data-flux-control],
@@ -81,7 +81,7 @@ select:focus[data-flux-control] {
 
 .bg-hero {
     @apply bg-cover bg-no-repeat bg-center;
-    background-image: url('../images/backgrounds/usepBG.svg');
+    background-image: url('../images/usepBG.svg');
 }
 
 .search-dropdown {

@@ -13,6 +13,7 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GuestLibraryController::class, 'index'])->name('guest.dashboard');
+// Route::get('records/books', \App\Livewire\Records\BooksIndex::class)->name('books.index');
 
 Route::view('dashboard', 'dashboard')->name('dashboard')
     ->middleware(['auth', 'permission:manage_admins', 'permission:manage_patrons']);
