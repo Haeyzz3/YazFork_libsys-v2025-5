@@ -154,45 +154,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Recent Checkouts Table -->
-        <div id="recent-checkouts" class="mt-8 px-8 flow-root">
-            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-2 align-middle">
-                    <table class="min-w-full divide-y divide-gray-300">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">Accession No.</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Book Title</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Borrower</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Checkout Date</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Due Date</th>
-                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
-                                <span class="sr-only">View</span>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200 bg-white">
-                        <!-- Example Data -->
-                        <tr class="hover:bg-gray-50 transition duration-150">
-                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">A12345</td>
-                            <td class="px-3 py-4 text-sm text-gray-600 max-w-md truncate">Sample Book Title</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">John Doe</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">2025-07-29</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">2025-08-12</td>
-                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                                <a href="#" class="text-red-900 hover:text-red-700 transition duration-150">View details</a>
-                            </td>
-                        </tr>
-                        <!-- Placeholder for Empty State -->
-                        <tr>
-                            <td colspan="6" class="py-4 text-center text-sm text-gray-600">No recent checkouts found.</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Loading Overlay -->

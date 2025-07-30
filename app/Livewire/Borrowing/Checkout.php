@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Borrowing;
 
+use App\Models\Borrowing;
 use App\Models\Record;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,7 +11,7 @@ class Checkout extends Component
 {
     use WithPagination;
     public $selectedBook = null;
-    public $search = '';
+    public $search = null;
     public $search_ac = null;
     public $showScanModal = false;
     public $showBorrowModal = false;
@@ -54,10 +55,16 @@ class Checkout extends Component
 
     public function borrowBook(): void
     {
-        if ($this->borrowType == 'inside') {
+        if ($this->borrowType === 'inside') {
 
+            Borrowing::create([
+                'user_id' => auth()->user()->id,
+                'record_id' => $this->selectedBook['id'],
+                'borrowed_at' => now(),
+                'due_at' => now()->addDays(3),
+            ]);
 
-
+            $this->clearSelection();
             session()->flash('success', 'The book has been borrowed inside');
         } else {
             $this->showBorrowModal = true;
@@ -70,6 +77,7 @@ class Checkout extends Component
 
         if ($record) {
             $this->selectedBook = [
+                'id' => $record->id,
                 'title' => $record->title,
                 'authors' => $record->book->authors,
                 'accession_number' => $record->accession_number,
@@ -82,5 +90,8 @@ class Checkout extends Component
     public function clearSelection(): void
     {
         $this->selectedBook = null;
+        $this->search_ac = null;
+        $this->borrowType = 'inside';
+        $this->search = null;
     }
 }

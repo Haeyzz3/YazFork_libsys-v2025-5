@@ -40,12 +40,12 @@
                     <tbody class="divide-y divide-gray-200 bg-white">
                     @forelse($borrowings as $borrowing)
                         <tr class="hover:bg-gray-50 transition duration-150">
-                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $borrowing['accession_number'] }}</td>
-                            <td class="px-3 py-4 text-sm text-gray-600 max-w-md truncate">{{ $borrowing['book']['title'] }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['borrower']['name'] }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['borrow_date'] }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['due_date'] }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['status'] }}</td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ $borrowing->record->accession_number }}</td>
+                            <td class="px-3 py-4 text-sm text-gray-600 max-w-md truncate">{{ $borrowing->record->title }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing->user->first_name }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing->borrowed_at }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing->due_at }}</td>
+{{--                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-600">{{ $borrowing['status'] }}</td>--}}
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                                 <a href="#" class="text-red-900 hover:text-red-700 transition duration-150">View details</a>
                             </td>
