@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Record;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,6 +15,19 @@ class BookCollection extends Component
     public $showModal = false;
 
     protected $listeners = ['closeBookModal' => 'closeModal'];
+
+    private function getBookImage($coverImage)
+    {
+        // Check if cover_image exists in database AND the file actually exists
+        if ($coverImage && Storage::disk('public')->exists($coverImage)) {
+            $imagePath = $coverImage[0] === '/' ? $coverImage : '/' . $coverImage;
+            return asset('storage' . $imagePath);
+        }
+
+        // Fallback to placeholder if no image or file doesn't exist
+        return asset('storage/uploads/book_cover_images/sample5.png');
+    }
+
 
     public function showBookDetails($recordId)
     {
@@ -27,9 +41,7 @@ class BookCollection extends Component
                 'id' => $record->id,
                 'title' => $record->title ?? 'No Title',
                 'author' => $authorText,
-                'image' => $record->book->cover_image
-                    ? asset('storage' . $record->book->cover_image)
-                    : asset('storage/uploads/book_cover_images/sample5.png'),
+                'image' => $this->getBookImage($record->book->cover_image),
                 'status' => 'available',
                 'publication_year' => $record->book->publication_year,
                 'description' => $record->book->description ?? 'No description available.',
@@ -66,9 +78,7 @@ class BookCollection extends Component
                 'id' => $record->id, // Use the actual record ID
                 'title' => $record->title ?? 'No Title',
                 'author' => $authorText,
-                'image' => $record->book->cover_image
-                    ? asset('storage' . $record->book->cover_image)
-                    : asset('storage/uploads/book_cover_images/sample5.png'),
+                'image' => $this->getBookImage($record->book->cover_image),
                 'status' => 'available',
                 'publication_year' => $record->book->publication_year,
             ];
