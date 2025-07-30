@@ -33,7 +33,7 @@ class Checkout extends Component
         ]);
     }
 
-    public function findAcc()
+    public function findAcc(): void
     {
         $ac_query = Record::with('book')
             ->whereHas('book', function ($query) {
@@ -66,8 +66,11 @@ class Checkout extends Component
 
             $this->clearSelection();
             session()->flash('success', 'The book has been borrowed inside');
-        } else {
+
+        } else if ($this->borrowType === 'outside') {
+
             $this->showBorrowModal = true;
+
         }
     }
 

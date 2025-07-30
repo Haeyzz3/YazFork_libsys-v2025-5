@@ -209,7 +209,33 @@
     </x-compact-modal>
 
     <x-compact-modal entangle="showBorrowModal">
-        hi
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-usepmaroon">Enter Student ID</h3>
+                <button id="close-student-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 rounded-lg mb-4">
+                <p class="text-yellow-900 font-semibold text-base leading-relaxed">
+                    You can scan your ID card (RFID/barcode) or enter your Student ID manually.
+                </p>
+            </div>
+            <div class="mb-4">
+                <input type="text" id="student-id" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-usepmaroon focus:border-usepmaroon" placeholder="e.g. 2023-12345 or 202312345">
+            </div>
+            <div id="student-info" class="hidden bg-gray-50 p-4 rounded-lg mb-4">
+                <div class="flex flex-col items-center text-center">
+                    <div class="profile-pic mb-3" id="student-pic"></div>
+                    <h4 class="font-medium text-gray-800" id="student-name"></h4>
+                    <p class="text-sm text-gray-600" id="student-course"></p>
+                    <p class="text-xs text-gray-500" id="student-id-display"></p>
+                </div>
+            </div>
+            <button id="confirm-borrow" class="w-full bg-usepmaroon hover:bg-usepmaroon/90 text-white py-2 px-4 rounded-lg font-medium transition-all">
+                Confirm Borrow
+            </button>
+        </div>
     </x-compact-modal>
 </div>
 
@@ -255,14 +281,18 @@
             const code = jsQR(imageData.data, imageData.width, imageData.height);
 
             if (code) {
-                // Update the input field with the scanned QR code data
+                // Update the input field
                 document.getElementById('search_ac').value = code.data;
-                // Update the Livewire model
-                @this.set('search_ac', code.data);
-                // Optionally update the qrResult element if still needed
+                // Update Livewire model and close modal
+                @this.set('search_ac', code.data).then(() => {
+                    @this.set('showScanModal', false).then(() => {
+                        // Call findAcc and handle potential errors
+                        @this.call('findAcc').catch(error => {
+                            console.error('Error calling findAcc:', error);
+                        });
+                    });
+                });
                 stopCamera();
-                // close the modal here
-                @this.set('showScanModal', false);
             } else {
                 requestAnimationFrame(scanQRCode);
             }
