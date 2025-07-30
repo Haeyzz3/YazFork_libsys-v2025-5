@@ -2,109 +2,82 @@
 
 namespace App\Livewire;
 
+use App\Models\Record;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class BookCollection extends Component
 {
     use WithPagination;
 
-    public function getBooksProperty()
+    public $selectedBook = null;
+    public $showModal = false;
+
+    protected $listeners = ['closeBookModal' => 'closeModal'];
+
+    public function showBookDetails($recordId)
     {
-        $books = [
-            [
-                'title' => 'Introduction to Algorithms',
-                'author' => 'Thomas H. Cormen',
-                'image' => 'https://placehold.co/300x400?text=Sample Image Ni Siya',
-                'status' => 'available',
-                'edition' => '2020 Edition',
-                'description' => 'A comprehensive introduction to algorithms and data structures with focus on making them practical and efficient.'
-            ],
-            [
-                'title' => 'Clean Code',
-                'author' => 'Robert C. Martin',
-                'image' => 'https://m.media-amazon.com/images/I/81s6DUyQCZL._AC_UF1000,1000_QL80_.jpg',
-                'status' => 'checked-out',
-                'edition' => '2008 Edition',
-                'description' => 'Handbook of agile software craftsmanship that teaches you how to write clean, maintainable code.'
-            ],
-            [
-                'title' => 'Design Patterns',
-                'author' => 'Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides',
-                'image' => 'https://m.media-amazon.com/images/I/61yB0UFlM3L._AC_UF1000,1000_QL80_.jpg',
-                'status' => 'available',
-                'edition' => '1994 Edition',
-                'description' => 'Catalog of simple and succinct solutions to commonly occurring design problems.'
-            ],
-            [
-                'title' => 'The Pragmatic Programmer',
-                'author' => 'Andrew Hunt, David Thomas',
-                'image' => 'https://m.media-amazon.com/images/I/81vpsIs58WL._AC_UF1000,1000_QL80_.jpg',
-                'status' => 'reserved',
-                'edition' => '2019 Edition',
-                'description' => 'Your journey to mastery with practical advice on all aspects of programming.'
-            ],
-            [
-                'title' => 'Structure and Interpretation of Computer Programs',
-                'author' => 'Harold Abelson, Gerald Jay Sussman',
-                'image' => 'https://placehold.co/300x400?text=Sample Image Ni Siya',
-                'status' => 'available',
-                'edition' => '1996 Edition',
-                'description' => 'Classic textbook that teaches fundamental principles of computer programming.'
-            ],
-            [
-                'title' => 'The Pragmatic Programmer',
-                'author' => 'Andrew Hunt, David Thomas',
-                'image' => 'https://m.media-amazon.com/images/I/81vpsIs58WL._AC_UF1000,1000_QL80_.jpg',
-                'status' => 'reserved',
-                'edition' => '2019 Edition',
-                'description' => 'Your journey to mastery with practical advice on all aspects of programming.'
-            ],
-            [
-                'title' => 'Structure and Interpretation of Computer Programs',
-                'author' => 'Harold Abelson, Gerald Jay Sussman',
-                'image' => 'https://placehold.co/300x400?text=Sample Image Ni Siya',
-                'status' => 'available',
-                'edition' => '1996 Edition',
-                'description' => 'Classic textbook that teaches fundamental principles of computer programming.'
-            ],
-            [
-                'title' => 'Clean Code',
-                'author' => 'Robert C. Martin',
-                'image' => 'https://m.media-amazon.com/images/I/81s6DUyQCZL._AC_UF1000,1000_QL80_.jpg',
-                'status' => 'checked-out',
-                'edition' => '2008 Edition',
-                'description' => 'Handbook of agile software craftsmanship that teaches you how to write clean, maintainable code.'
-            ],
-            // Add more books as needed
-        ];
+        $record = Record::with('book')->find($recordId);
 
-        $perPage = 10;
-        $page = $this->page ?? 1;
-        $items = array_slice($books, ($page - 1) * $perPage, $perPage);
+        if ($record && $record->book) {
+            $authors = $record->book->authors;
+            $authorText = is_array($authors) ? implode(', ', $authors) : $authors;
 
-        return new LengthAwarePaginator(
-            $items,
-            count($books),
-            $perPage,
-            $page,
-            ['path' => request()->url()]
-        );
+            $this->selectedBook = [
+                'id' => $record->id,
+                'title' => $record->title ?? 'No Title',
+                'author' => $authorText,
+                'image' => $record->book->cover_image
+                    ? asset('storage' . $record->book->cover_image)
+                    : asset('storage/uploads/book_cover_images/sample5.png'),
+                'status' => 'available',
+                'publication_year' => $record->book->publication_year,
+                'description' => $record->book->description ?? 'No description available.',
+                'isbn' => $record->book->isbn ?? 'N/A',
+                'pages' => $record->book->pages ?? 'N/A',
+                'publisher' => $record->book->publisher ?? 'Unknown Publisher',
+            ];
+
+            $this->showModal = true;
+        }
     }
 
-    public function showBookDetails($bookIndex)
+    public function closeModal()
     {
-        $books = $this->books->items();
-        if (isset($books[$bookIndex])) {
-            $this->dispatch('showBookModal', book: $books[$bookIndex]);
-        }
+        $this->showModal = false;
+        $this->selectedBook = null;
+    }
+
+    public function getBooksProperty()
+    {
+        return Record::with('book')
+            ->whereHas('book')
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(10);
     }
 
     public function render()
     {
+        $paginated = $this->books->getCollection()->transform(function ($record) {
+            $authors = $record->book->authors ?? 'Unknown Author';
+            $authorText = is_array($authors) ? implode(', ', $authors) : $authors;
+
+            return [
+                'id' => $record->id, // Use the actual record ID
+                'title' => $record->title ?? 'No Title',
+                'author' => $authorText,
+                'image' => $record->book->cover_image
+                    ? asset('storage' . $record->book->cover_image)
+                    : asset('storage/uploads/book_cover_images/sample5.png'),
+                'status' => 'available',
+                'publication_year' => $record->book->publication_year,
+            ];
+        });
+
+        $books = $this->books->setCollection($paginated);
+
         return view('livewire.book-collection', [
-            'books' => $this->books,
+            'books' => $books,
         ]);
     }
 }

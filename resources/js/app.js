@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize search functionality
     initSearch();
 
-    // Initialize book cards
-    initBookCards();
-
     // Initialize card modal
     initCardModal();
 });
@@ -173,18 +170,3 @@ function closeCardModal() {
         document.body.style.overflow = '';
     }
 }
-
-// Book Cards
-function initBookCards() {
-    document.querySelectorAll('.book-card').forEach(card => {
-        card.addEventListener('click', function() {
-            // In a real app, this would open a modal with full book details
-            console.log('Book clicked - would show details modal');
-        });
-    });
-}
-
-// Livewire Events
-window.addEventListener('show-card-modal', (event) => {
-    showCardModal(event.detail.title, event.detail.description, event.detail.icon, event.detail.count);
-});
