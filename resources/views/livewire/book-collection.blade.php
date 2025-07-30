@@ -1,4 +1,4 @@
-<section class="py-16 bg-white">
+<section class="py-16 bg-white" id="book-collection-section">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center text-usepmaroon mb-12">Book Collection</h2>
 
@@ -38,8 +38,10 @@
             @endforeach
         </div>
 
-        <div class="flex justify-center mt-12">
-            {{ $books->links() }}
+        <div class="flex justify-center mt-12" id="pagination-container">
+            <div class="custom-pagination space-x-2">
+                {{ $books->links() }}
+            </div>
         </div>
     </div>
 
@@ -114,4 +116,35 @@
             </div>
         </div>
     @endif
+
+    <style>
+        /* Custom pagination styling for better spacing */
+        .custom-pagination nav > div {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .custom-pagination nav span,
+        .custom-pagination nav a {
+            margin: 0 1rem !important;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.hook('morph.updated', ({ el, component }) => {
+                // Check if pagination was updated
+                if (el.querySelector('#pagination-container')) {
+                    // Scroll to the Book Collection section
+                    const bookSection = document.getElementById('book-collection-section');
+                    if (bookSection) {
+                        bookSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 </section>

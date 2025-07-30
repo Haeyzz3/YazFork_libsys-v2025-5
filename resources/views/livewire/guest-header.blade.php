@@ -4,7 +4,7 @@
         <!-- Far Left - Usep Logo -->
         <a
 {{--            href="{{ url('/student-logger') }}"--}}
-            href="#"
+            href="{{ route('guest.dashboard') }}"
             class="text-2xl font-bold text-usepmaroon hover:text-usepmaroon/80 transition flex items-center hover:bg-usepmaroon/10 px-4 py-2 rounded-md border border-transparent hover:border-usepmaroon/30"
         >
             <img
