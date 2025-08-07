@@ -12,9 +12,31 @@
                     <span x-show="!hovered">{{ $collection['title'] }}</span>
                     <span x-show="hovered">{{ $collection['hoverTitle'] ?? $collection['title'] }}</span>
                 </h3>
-                <div class="text-3xl font-bold text-usepgold mb-2 count-animation" data-target="{{ $collection['count'] }}">{{ $collection['count'] }}</div>
+                <div class="text-3xl font-bold text-usepgold mb-2 count-animation">
+                    <span class="count" data-target="{{ str_replace(',', '', $collection['count']) }}">1</span>
+                </div>
                 <p class="text-gray-600 text-center">{{ $collection['description'] }}</p>
             </div>
         @endforeach
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.count').forEach(function(el) {
+            const target = +el.getAttribute('data-target');
+            let count = 1;
+            const increment = Math.ceil(target / 100);
+            const updateCount = () => {
+                count += increment;
+                if (count >= target) {
+                    el.textContent = target.toLocaleString();
+                } else {
+                    el.textContent = count.toLocaleString();
+                    requestAnimationFrame(updateCount);
+                }
+            };
+            updateCount();
+        });
+    });
+</script>

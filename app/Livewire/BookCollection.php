@@ -42,7 +42,7 @@ class BookCollection extends Component
                 'title' => $record->title ?? 'No Title',
                 'author' => $authorText,
                 'image' => $this->getBookImage($record->book->cover_image),
-                'status' => 'available',
+                'status' => $record->acquisition_status ?? 'N/A',
                 'publication_year' => $record->book->publication_year,
                 'description' => $record->book->description ?? 'No description available.',
                 'isbn' => $record->book->isbn ?? 'N/A',

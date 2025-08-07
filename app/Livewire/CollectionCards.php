@@ -9,7 +9,7 @@ class CollectionCards extends Component
     public $collections = [
         [
             'title' => 'Browse Collection',
-            'hoverTitle' => 'Start Browsing',
+            'hoverTitle' => 'Browse Collection',
             'description' => 'Explore our extensive collection of books, journals, and resources.',
             'icon' => 'fas fa-book-open',
             'count' => '25,689',
@@ -18,7 +18,7 @@ class CollectionCards extends Component
         ],
         [
             'title' => 'New Arrivals',
-            'hoverTitle' => 'See What\'s New',
+            'hoverTitle' => 'New Arrivals',
             'description' => 'Discover our latest additions to the library collection.',
             'icon' => 'fas fa-star',
             'count' => '1,245',
@@ -27,7 +27,7 @@ class CollectionCards extends Component
         ],
         [
             'title' => 'Top Picks',
-            'hoverTitle' => 'Most Popular',
+            'hoverTitle' => 'Top Picks',
             'description' => 'Most popular books among students and faculty.',
             'icon' => 'fas fa-thumbs-up',
             'count' => '892',
